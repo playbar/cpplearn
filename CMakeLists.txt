@@ -25,6 +25,11 @@ set(SOURCE_READELF readelf/arm.h readelf/bfd.h
                     readelf/ReadELF.cpp readelf/section.cpp)
 add_executable(readelf ${SOURCE_READELF})
 
+
+set(SOURCE_PARSESO src/usingtest.cpp)
+add_executable(UsingTest ${SOURCE_PARSESO})
+
+
 # UnityConfig
 set(UnityFile  unity/UnityConfigFile.cpp unity/UnityConfigFile.h unity/UnityConfig.cpp)
 add_executable(UnityConfig ${UnityFile})

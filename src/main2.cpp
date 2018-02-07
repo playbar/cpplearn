@@ -1,6 +1,6 @@
 #include <iostream>
 #include "CTest.h"
-#include "windows.h"
+//#include "windows.h"
 #include <sys/types.h>
 #include <unistd.h>
 
@@ -25,7 +25,7 @@ void* thread_function (void* args)
     char thread_log_filename[256];
     FILE* thread_log;
     pid_t pid = getpid();
-    sprintf (thread_log_filename, "d:/thread-%d.log", (int)getpid());
+    sprintf (thread_log_filename, "/tmp/thread-%d.log", (int)getpid());
     thread_log = fopen (thread_log_filename, "w");
     pthread_setspecific (thread_log_key, thread_log);
     write_to_thread_log ("Thread starting.");

@@ -27,7 +27,7 @@ public:
     }
 };
 
-int main()
+int main_1()
 {
     Base b; Derived d;
     b.menfcn();

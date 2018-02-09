@@ -5,7 +5,7 @@ SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -fpermissive -fvisibility=hidden -Wal
 
 set(CMAKE_CXX_STANDARD 11)
 
-set(SOURCE_FILES src/main.cpp src/CTest.cpp src/CTest.h parseso/ParseSo.cpp)
+set(SOURCE_FILES src/main.cpp src/CTest.cpp src/CTest.h parseso/ParseSo.cpp src/nth_element.cpp)
 add_executable(CLionTest ${SOURCE_FILES})
 
 MESSAGE("make files")
@@ -26,7 +26,7 @@ set(SOURCE_READELF readelf/arm.h readelf/bfd.h
 add_executable(readelf ${SOURCE_READELF})
 
 
-set(SOURCE_PARSESO src/usingtest.cpp)
+set(SOURCE_PARSESO src/usingtest.cpp src/nth_element.cpp)
 add_executable(UsingTest ${SOURCE_PARSESO})
 
 

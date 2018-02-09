@@ -6,6 +6,8 @@
 #include <condition_variable>
 #include <string>
 
+using namespace condition_variable_;
+
 // Blog: http://blog.csdn.net/fengbingchun/article/details/73695596
 
 namespace condition_variable_ {
@@ -19,7 +21,8 @@ bool ready = false;
 static void print_id(int id)
 {
 	std::unique_lock<std::mutex> lck(mtx);
-	while (!ready) cv.wait(lck);
+	while (!ready)
+		cv.wait(lck);
 	// ...
 	std::cout << "thread " << id << '\n';
 }
@@ -176,7 +179,8 @@ bool ready5 = false;
 
 static void print_id5(int id) {
 	std::unique_lock<std::mutex> lck(mtx5);
-	while (!ready5) cv5.wait(lck);
+	while (!ready5)
+		cv5.wait(lck);
 	// ...
 	std::cout << "thread " << id << '\n';
 }
@@ -215,7 +219,9 @@ static void worker_thread()
 {
 	// Wait until main() sends data
 	std::unique_lock<std::mutex> lk(m);
-	cv6.wait(lk, []{return ready6; });
+	cv6.wait(lk, []{
+		return ready6;
+	});
 
 	// after the wait, we own the lock.
 	std::cout << "Worker thread is processing data\n";
@@ -247,7 +253,9 @@ int test_condition_variable_2()
 	// wait for the worker
 	{
 		std::unique_lock<std::mutex> lk(m);
-		cv6.wait(lk, []{return processed; });
+		cv6.wait(lk, []{
+			return processed;
+		});
 	}
 	std::cout << "Back in main(), data = " << data << '\n';
 
@@ -257,3 +265,9 @@ int test_condition_variable_2()
 }
 
 } // namespace condition_variable_
+
+int main()
+{
+	test_condition_variable_2();
+	return 0;
+}

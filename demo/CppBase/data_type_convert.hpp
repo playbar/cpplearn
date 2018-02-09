@@ -1,0 +1,6 @@
+#ifndef FBC_MESSY_TEST_DATA_TYPE_CONVERT_HPP_
+#define FBC_MESSY_TEST_DATA_TYPE_CONVERT_HPP_
+
+int test_data_type_convert();
+
+#endif // FBC_MESSY_TEST_DATA_TYPE_CONVERT_HPP_

@@ -5,7 +5,7 @@ SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -fpermissive -fvisibility=hidden -Wal
 
 set(CMAKE_CXX_STANDARD 11)
 
-set(SOURCE_FILES src/main.cpp src/CTest.cpp src/CTest.h parseso/ParseSo.cpp src/nth_element.cpp)
+set(SOURCE_FILES src/main.cpp src/CTest.cpp src/CTest.h parseso/ParseSo.cpp src/nth_element.cpp src/threadtest.cpp)
 add_executable(CLionTest ${SOURCE_FILES})
 
 MESSAGE("make files")
@@ -28,6 +28,10 @@ add_executable(readelf ${SOURCE_READELF})
 
 set(SOURCE_PARSESO src/usingtest.cpp src/nth_element.cpp)
 add_executable(UsingTest ${SOURCE_PARSESO})
+
+
+set(SOURCE_PARSESO demo/CppBase/thread2.cpp)
+add_executable(CppBase ${SOURCE_PARSESO})
 
 
 # UnityConfig

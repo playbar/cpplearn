@@ -217,3 +217,8 @@ int test_weak_ptr5()
 
 	return 0;
 }
+
+int main()
+{
+	test_weak_ptr2();
+}

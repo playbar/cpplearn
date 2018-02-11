@@ -30,8 +30,12 @@ set(SOURCE_PARSESO src/usingtest.cpp src/nth_element.cpp)
 add_executable(UsingTest ${SOURCE_PARSESO})
 
 
-set(SOURCE_PARSESO demo/CppBase/condition_variable.cpp)
+set(SOURCE_PARSESO demo/CppBase/weak_ptr.cpp)
 add_executable(CppBase ${SOURCE_PARSESO})
+
+
+set(SOURCE_PARSESO  demo/DesignPatterns/Memento2.cpp)
+add_executable(DesignPatterns ${SOURCE_PARSESO})
 
 
 # UnityConfig

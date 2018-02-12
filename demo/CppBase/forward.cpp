@@ -39,6 +39,21 @@ std::unique_ptr<T> make_unique(U&&... u)
 	return std::unique_ptr<T>(new T(std::forward<U>(u)...));
 }
 
+template<class _Tp>
+struct __unique_if
+{
+	typedef std::unique_ptr<_Tp> __unique_single;
+};
+
+template<class _Tp, class... _Args>
+//inline _LIBCPP_INLINE_VISIBILITY
+typename __unique_if<_Tp>::__unique_single
+make_unique_1(_Args&&... __args)
+{
+	return std::unique_ptr<_Tp>(new _Tp(std::forward<_Args>(__args)...));
+}
+
+
 int test_forward1()
 {
 	auto p1 = make_unique1<A>(2); // rvalue
@@ -47,6 +62,7 @@ int test_forward1()
 
 	std::cout << "B\n";
 	auto t = make_unique<B>(2, i, 3);
+	auto b = make_unique<B, int, int, int>;
 
 	return 0;
 }
@@ -90,8 +106,8 @@ struct some_struct{
 
 int test_forward3()
 {
-	/* remember the reference collapsing rules(ÒýÓÃÕÛµþ¹æÔò):
-	Ç°Õß´ú±í½ÓÊÜÀàÐÍ£¬ºóÕß´ú±í½øÈëÀàÐÍ£¬=>±íÊ¾ÒýÓÃÕÛµþÖ®ºóµÄÀàÐÍ£¬¼´×îºó±»ÍÆµ¼¾ö¶ÏµÄÀàÐÍ
+	/* remember the reference collapsing rules(å¼•ç”¨æŠ˜å è§„åˆ™):
+	å‰è€…ä»£è¡¨æŽ¥å—ç±»åž‹ï¼ŒåŽè€…ä»£è¡¨è¿›å…¥ç±»åž‹ï¼Œ=>è¡¨ç¤ºå¼•ç”¨æŠ˜å ä¹‹åŽçš„ç±»åž‹ï¼Œå³æœ€åŽè¢«æŽ¨å¯¼å†³æ–­çš„ç±»åž‹
 	TR   R
 
 	T&   &->T&   // lvalue reference to cv TR -> lvalue reference to T
@@ -154,5 +170,11 @@ int test_forward4()
 	invoke(successor, 10, s);
 	std::cout << s << std::endl;
 
+	return 0;
+}
+
+int main()
+{
+	test_forward1();
 	return 0;
 }

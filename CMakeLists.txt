@@ -30,7 +30,7 @@ set(SOURCE_PARSESO src/usingtest.cpp src/nth_element.cpp)
 add_executable(UsingTest ${SOURCE_PARSESO})
 
 
-set(SOURCE_PARSESO demo/CppBase/thread3.cpp)
+set(SOURCE_PARSESO demo/CppBase/functional.cpp)
 add_executable(CppBase ${SOURCE_PARSESO})
 
 

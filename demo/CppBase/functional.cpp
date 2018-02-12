@@ -21,6 +21,21 @@ struct MyPair {
 	double multiply() { return a*b; }
 };
 
+
+class MyTest
+{
+public:
+	MyTest(double x, double y){mx = x; my =y;};
+	double division(double x, double y){
+		return x / y;
+	}
+
+private:
+	double multiply(){ return  mx * my;}
+	double mx;
+	double my;
+};
+
 int test_functional_bind()
 {
 	using namespace std::placeholders;    // adds visibility of _1, _2, _3,...
@@ -46,6 +61,10 @@ int test_functional_bind()
 
 	auto bound_member_data = std::bind(&MyPair::a, ten_two); // returns ten_two.a
 	std::cout << bound_member_data() << '\n';                // 10
+
+	MyTest tdata(10, 2);
+	auto bind_mem_fn = std::bind(&MyTest::division, _1, _2, _3);
+	std::cout << bind_mem_fn(tdata, 20, 4);
 
 	return 0;
 }
@@ -451,4 +470,14 @@ int test_functional_is_placeholder()
 	return 0;
 }
 
+
+
 } // namespace functional_
+
+using namespace functional_;
+
+int main()
+{
+	test_functional_bind();
+	return 0;
+}

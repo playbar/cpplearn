@@ -8,7 +8,7 @@ void* run1(void* para)
 {
 	std::cout << "start new thread!" << std::endl;
 
-	//sleep(5);//suspend 5 s£¬ÔÚÕýÊ½µÄ´úÂëÖÐ£¬Ò»°ã²»ÒªÓÃsleepº¯Êý
+	//sleep(5);//suspend 5 sï¼Œåœ¨æ­£å¼çš„ä»£ç ä¸­ï¼Œä¸€èˆ¬ä¸è¦ç”¨sleepå‡½æ•°
 	int* iptr = (int*)((void**)para)[0];
 	float* fptr = (float*)((void**)para)[1];
 	char* str = (char*)((void**)para)[2];
@@ -29,10 +29,10 @@ int test_create_thread()
 
 	pthread_create(&pid, NULL, run1, para);
 
-	// ÐÂÏß³Ì´´½¨Ö®ºóÖ÷Ïß³ÌÈçºÎÔËÐÐ----Ö÷Ïß³Ì°´Ë³Ðò¼ÌÐøÖ´ÐÐÏÂÒ»ÐÐ³ÌÐò
+	// æ–°çº¿ç¨‹åˆ›å»ºä¹‹åŽä¸»çº¿ç¨‹å¦‚ä½•è¿è¡Œ----ä¸»çº¿ç¨‹æŒ‰é¡ºåºç»§ç»­æ‰§è¡Œä¸‹ä¸€è¡Œç¨‹åº
 	std::cout << "main thread!" << std::endl;
 
-	// ÐÂÏß³Ì½áÊøÊ±ÈçºÎ´¦Àí----ÐÂÏß³ÌÏÈÍ£Ö¹£¬È»ºó×÷ÎªÆäÇåÀí¹ý³ÌµÄÒ»²¿·Ö£¬µÈ´ýÓëÁíÒ»¸öÏß³ÌºÏ²¢»ò¡°Á¬½Ó¡±
+	// æ–°çº¿ç¨‹ç»“æŸæ—¶å¦‚ä½•å¤„ç†----æ–°çº¿ç¨‹å…ˆåœæ­¢ï¼Œç„¶åŽä½œä¸ºå…¶æ¸…ç†è¿‡ç¨‹çš„ä¸€éƒ¨åˆ†ï¼Œç­‰å¾…ä¸Žå¦ä¸€ä¸ªçº¿ç¨‹åˆå¹¶æˆ–â€œè¿žæŽ¥â€
 	pthread_join(pid, NULL);
 
 	return 0;
@@ -152,10 +152,10 @@ void* decrement_counter2(void* argv)
 
 	pthread_mutex_lock(&counter_lock2);
 	while (counter2 == 0)
-		pthread_cond_wait(&counter_nonzero2, &counter_lock2); //½øÈë×èÈû(wait)£¬µÈ´ý¼¤»î(signal)
+		pthread_cond_wait(&counter_nonzero2, &counter_lock2); //è¿›å…¥é˜»å¡ž(wait)ï¼Œç­‰å¾…æ¿€æ´»(signal)
 
 	std::cout << "counter--(decrement, before): " << counter2 << std::endl;
-	counter2--; //µÈ´ýsignal¼¤»îºóÔÙÖ´ÐÐ
+	counter2--; //ç­‰å¾…signalæ¿€æ´»åŽå†æ‰§è¡Œ
 	std::cout << "counter--(decrement, after): " << counter2 << std::endl;
 	pthread_mutex_unlock(&counter_lock2);
 
@@ -168,7 +168,7 @@ void* increment_counter2(void* argv)
 
 	pthread_mutex_lock(&counter_lock2);
 	if (counter2 == 0)
-		pthread_cond_signal(&counter_nonzero2); //¼¤»î(signal)×èÈû(wait)µÄÏß³Ì(ÏÈÖ´ÐÐÍêsignalÏß³Ì£¬È»ºóÔÙÖ´ÐÐwaitÏß³Ì)  
+		pthread_cond_signal(&counter_nonzero2); //æ¿€æ´»(signal)é˜»å¡ž(wait)çš„çº¿ç¨‹(å…ˆæ‰§è¡Œå®Œsignalçº¿ç¨‹ï¼Œç„¶åŽå†æ‰§è¡Œwaitçº¿ç¨‹)  
 
 	std::cout << "counter++(increment, before): " << counter2 << std::endl;
 	counter2++;
@@ -217,17 +217,17 @@ void* decrement_increment_counter3(void* argv)
 	pthread_mutex_lock(&counter_lock3_1);
 	std::cout << "counter(decrement): " << counter3 << std::endl;
 	while (counter3 == 1)
-		pthread_cond_wait(&counter_nonzero3_1, &counter_lock3_1); //½øÈë×èÈû(wait)£¬µÈ´ý¼¤»î(signal)
+		pthread_cond_wait(&counter_nonzero3_1, &counter_lock3_1); //è¿›å…¥é˜»å¡ž(wait)ï¼Œç­‰å¾…æ¿€æ´»(signal)
 
 	std::cout << "counter--(decrement, before): " << counter3 << std::endl;
-	counter3--; //µÈ´ýsignal¼¤»îºóÔÙÖ´ÐÐ  
+	counter3--; //ç­‰å¾…signalæ¿€æ´»åŽå†æ‰§è¡Œ  
 	std::cout << "counter--(decrement, after): " << counter3 << std::endl;
 	pthread_mutex_unlock(&counter_lock3_1);
 
 	pthread_mutex_lock(&counter_lock3_2);
 	std::cout << "counter(increment): " << counter3 << std::endl;
 	if (counter3 == 0)
-		pthread_cond_signal(&counter_nonzero3_2); //¼¤»î(signal)×èÈû(wait)µÄÏß³Ì(ÏÈÖ´ÐÐÍêsignalÏß³Ì£¬È»ºóÔÙÖ´ÐÐwaitÏß³Ì)  
+		pthread_cond_signal(&counter_nonzero3_2); //æ¿€æ´»(signal)é˜»å¡ž(wait)çš„çº¿ç¨‹(å…ˆæ‰§è¡Œå®Œsignalçº¿ç¨‹ï¼Œç„¶åŽå†æ‰§è¡Œwaitçº¿ç¨‹)  
 
 	std::cout << "counter++(increment, before): " << counter3 << std::endl;
 	counter3++;

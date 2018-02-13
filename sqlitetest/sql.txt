@@ -1,0 +1,2 @@
+sqlite> create table user ( id integer primary key autoincrement,  name varchar(64),   age integer );  
+sqlite> .quit  

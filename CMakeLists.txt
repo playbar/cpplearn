@@ -38,6 +38,12 @@ set(SOURCE_PARSESO  demo/DesignPatterns/Memento2.cpp)
 add_executable(DesignPatterns ${SOURCE_PARSESO})
 
 
+set(SOURCE_PARSESO  sqlitetest/sqlite3.c sqlitetest/sqlitetest.cpp)
+add_executable(sqlitetest ${SOURCE_PARSESO})
+
+set(SOURCE_PARSESO  sqlitetest/sqlite3.c sqlitetest/shell.c)
+add_executable(sqlite3 ${SOURCE_PARSESO})
+
 # UnityConfig
 set(UnityFile  unity/UnityConfigFile.cpp unity/UnityConfigFile.h unity/UnityConfig.cpp)
 add_executable(UnityConfig ${UnityFile})

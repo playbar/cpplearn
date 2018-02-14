@@ -48,6 +48,9 @@ add_executable(sqlite3 ${SOURCE_PARSESO})
 set(SOURCE_PARSESO  dl/dnn.cpp)
 add_executable(dltest ${SOURCE_PARSESO})
 
+set(SOURCE_PARSESO  cnn/cnn.cpp cnn/mat.cpp cnn/minst.cpp cnn/main.cpp)
+add_executable(cnntest ${SOURCE_PARSESO})
+
 # UnityConfig
 set(UnityFile  unity/UnityConfigFile.cpp unity/UnityConfigFile.h unity/UnityConfig.cpp)
 add_executable(UnityConfig ${UnityFile})

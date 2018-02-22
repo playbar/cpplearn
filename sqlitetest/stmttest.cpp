@@ -53,7 +53,7 @@ int main(int argc, char* argv[])
     }else{
         fprintf(stdout, "Table created successfully\n");
     }
-
+// 1. 直接执行sql 语句，速度慢
     sql = "insert into healthinfo (sid, name, ishealth)" \
            "values (201601001, 'xiaowang', 'yes');" \
            "insert into healthinfo (sid, name, ishealth)" \
@@ -73,13 +73,14 @@ int main(int argc, char* argv[])
     }else{
         fprintf(stdout, "Table insert data successfully\n");
     }
-
+//// 2. 显示开启事务，中速
     char* strname = "xiaoyang";
     //char strname[256] = {'x','i','a','o','y','a','n','g'};
     char sql2[256] = {'0'};
     /* 不推荐使用这种方式 */
     sprintf(sql2, "insert into healthinfo (sid, name, ishealth) values (201601006, '%s', 'yes');", strname);
     /* 插入数据 */
+    sqlite3_exec(db, "begin", 0, 0, 0);
     rc = sqlite3_exec(db, sql2, NULL, NULL, &zErrMsg);
     if( rc != SQLITE_OK ){
         fprintf(stderr, "SQL error: %s\n", zErrMsg);
@@ -88,13 +89,21 @@ int main(int argc, char* argv[])
         fprintf(stdout, "Table insert data successfully\n");
     }
 
-    /***********  存数据和取数据的第二种方法***********/
+    sqlite3_exec(db, "commit", 0, 0, 0);
 
+
+    //3. 高速——写同步(synchronous)
+    sqlite3_exec(db,"PRAGMA synchronous = OFF; ",0,0,0);
+
+
+/***********  存数据和取数据的第二种方法***********/
+    // 4. 极速——执行准备
     sql = "insert into healthinfo (sid, name, ishealth)" \
            "values (:sid, :name, :ishealth);";   /* 注: ":sid" 为命名参数 也可以用? 号*/
 
     sqlite3_stmt *stmt;
     /* 准备一个语句对象 */
+    sqlite3_exec(db, "begin", 0, 0, 0);
     sqlite3_prepare_v2(db, sql, strlen(sql), &stmt, NULL);
     /* 语句对象绑定的参数个数也就是上面sql语句values括号中的参数 */
     printf("max_parameter_count = %d\n", sqlite3_bind_parameter_count(stmt));
@@ -125,6 +134,9 @@ int main(int argc, char* argv[])
 
     /* 销毁prepare 创建的语句对象 */
     sqlite3_finalize(stmt);
+    sqlite3_exec(db, "commit", 0, 0, 0);
+
+    //////
 
     /* 取数据 */
     //sql = "select * from healthinfo;";

@@ -2,6 +2,7 @@
 #include <iostream>
 #include <map>
 #include <string>
+using namespace std;
 
 // Blog: http://blog.csdn.net/fengbingchun/article/details/52074286
 
@@ -260,5 +261,50 @@ int test_map5()
 	if (mapOfWords.find("mars") == mapOfWords.end())
 		std::cout << "word 'mars' not found" << std::endl;
 
+	return 0;
+}
+
+//使用时map的key需要定义operator<
+struct person
+{
+	std::string name;
+	int age;
+
+	person(std::string name, int age)
+	{
+		this->name =  name;
+		this->age = age;
+	}
+
+	bool operator < (const person& p) const
+	{
+		return this->age < p.age;
+	}
+};
+
+int test_map6()
+{
+	map<person,int> m;
+	person p1("Tom1",20);
+	person p2("Tom2",22);
+	person p3("Tom3",22);
+	person p4("Tom4",23);
+	person p5("Tom5",24);
+	m.insert(make_pair(p3, 100));
+	m.insert(make_pair(p4, 100));
+	m.insert(make_pair(p5, 100));
+	m.insert(make_pair(p1, 100));
+	m.insert(make_pair(p2, 100));
+
+	for(map<person, int>::iterator iter = m.begin(); iter != m.end(); iter++)
+	{
+		cout<<iter->first.name<<"\t"<<iter->first.age<<"\t"<<iter->second<<endl;
+	}
+	return 0;
+}
+
+int main()
+{
+	test_map6();
 	return 0;
 }

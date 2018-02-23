@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <unordered_map>
+using namespace std;
 
 // Blog: http://blog.csdn.net/fengbingchun/article/details/52235026
 
@@ -211,5 +212,110 @@ int test_unordered_map3()
 		std::cout << itr->first << "  " << itr->second << std::endl;
 	}
 
+	return 0;
+}
+
+//unordered_map需要定义hash_value函数并且重载operator==。但是很多系统内置的数据类型都自带这些，
+//只是用STL提供的基本类型int, char, long等和stringz作为key，value,STL提供了哈希函数和比较函数。
+// 但是用自己定义的类时，需要自己定义哈希函数和比较函数
+//hash函数
+//template <typename T>
+//class hash
+//{
+//public:
+//	size_t operator()(const T& o) const { return 0; }
+//};
+//
+////compare函数
+//template <typename T>
+//class equal_to
+//{
+//public:
+//	bool operator()(const T& a, const T& b) const { return a == b; }
+//};
+
+//////////////
+
+
+//学号
+class Number
+{
+	string str;
+public:
+	Number() { }
+	Number(string s) { str = s; }
+
+	const string& get() const
+	{
+		return str;
+	}
+};
+
+//姓名
+class Name
+{
+	string str;
+public:
+	Name() {}
+	Name(string s) { str = s; }
+
+	const string& get() const
+	{
+		return str;
+	}
+};
+
+
+//哈希函数对象实现
+// 必须为const
+class MyHash
+{
+public:
+
+	size_t operator()(const Number& num) const
+	{
+		hash<string> sh;        //使用STL中hash<string>
+		return sh(num.get());
+	}
+};
+
+//实现equal_to对象
+//必须为const
+class MyEqualTo {
+public:
+
+	bool operator()(const Number& n1, const Number& n2) const
+	{
+		return n1.get() == n2.get();
+	}
+};
+
+
+int test_unordered_map4()
+{
+	unordered_map<Number, Name, MyHash, MyEqualTo> map;
+	map.emplace(Number("1000"), Name("A"));
+	map.emplace(Number("1001"), Name("G"));
+	map.emplace(Number("1002"), Name("E"));
+	map.emplace(Number("1003"), Name("D"));
+
+
+	unordered_map<Number, Name, MyHash, MyEqualTo>::iterator iter;
+	Number num("1001");
+	iter = map.find(num);
+
+	if (iter != map.end())
+		cout << "Number: " << iter->first.get() << "," << "Name： " << iter->second.get() << endl;
+
+	else
+		cout << "Not found!" << endl;
+
+
+	return 0;
+}
+
+int main()
+{
+	test_unordered_map4();
 	return 0;
 }

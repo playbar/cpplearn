@@ -6,5 +6,6 @@ int test_map2();
 int test_map3();
 int test_map4();
 int test_map5();
+int test_map6();
 
 #endif // FBC_MESSY_TEST_MAP_HPP_

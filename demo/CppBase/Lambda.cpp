@@ -7,22 +7,46 @@
 
 // Blog: http://blog.csdn.net/fengbingchun/article/details/52653313
 
+/*
+[]		Capture nothing (or, a scorched earth strategy?)
+[&]		Capture any referenced variable by reference
+[=]		Capture any referenced variable by making a copy
+[=, &foo]	Capture any referenced variable by making a copy, but capture variable foo by reference
+[bar]		Capture bar by making a copy; don't copy anything else
+[this]		Capture the this pointer of the enclosing class
+
+1).[]不捕获任何变量。
+2).[&]捕获外部作用域中所有变量，并作为引用在函数体中使用（按引用捕获）。
+3).[=]捕获外部作用域中所有变量，并作为副本在函数体中使用(按值捕获)。
+4).[=,&foo]按值捕获外部作用域中所有变量，并按引用捕获foo变量。
+5).[bar]按值捕获bar变量，同时不捕获其他变量。
+6).[this]捕获当前类中的this指针，让lambda表达式拥有和当前类成员函数同样的访问权限。
+如果已经使用了&或者=，就默认添加此选项。捕获this的目的是可以在lamda中使用当前类的成员函数和成员变量。
+
+ lambda表达式的语法归纳如下：
+[ caputrue ] ( params ) opt -> ret { body; };
+1).capture是捕获列表；
+2).params是参数表；(选填)
+3).opt是函数选项；可以填mutable,exception,attribute（选填）
+mutable说明lambda表达式体内的代码可以修改被捕获的变量，并且可以访问被捕获的对象的non-const方法。
+exception说明lambda表达式是否抛出异常以及何种异常。
+attribute用来声明属性。
+4).ret是返回值类型。(选填)
+5).body是函数体。
+*/
+
 ///////////////////////////////////////////////////
 // reference: http://en.cppreference.com/w/cpp/language/lambda
 int test_lambda1()
 {
-	/*
-	[]		Capture nothing (or, a scorched earth strategy?)
-	[&]		Capture any referenced variable by reference
-	[=]		Capture any referenced variable by making a copy
-	[=, &foo]	Capture any referenced variable by making a copy, but capture variable foo by reference
-	[bar]		Capture bar by making a copy; don't copy anything else
-	[this]		Capture the this pointer of the enclosing class
-	*/
+
 	int a = 1, b = 1, c = 1;
 
-	auto m1 = [a, &b, &c]() mutable {
-		auto m2 = [a, b, &c]() mutable {
+	auto m1 = [a, &b, &c]() mutable
+    {
+        std::cout << a << b << c << '\n';
+		auto m2 = [a, b, &c]() mutable
+        {
 			std::cout << a << b << c << '\n';
 			a = 4; b = 4; c = 4;
 		};
@@ -32,7 +56,8 @@ int test_lambda1()
 
 	a = 2; b = 2; c = 2;
 
-	m1();                             // calls m2() and prints 123
+	m1();// calls m2() and prints 123
+
 	std::cout << a << b << c << '\n'; // prints 234
 
 	return 0;
@@ -70,11 +95,14 @@ int test_lambda3()
 	// and implicitly captures the variable m by reference:
 	int m = 0;
 	int n = 0;
-	[&, n](int a) mutable { m = ++n + a; }(4);
+	[&, n](int a) mutable {
+		m = ++n + a;
+		std::cout << m << ", " << n << std::endl;
+	}(4);
 
 	// Because the variable n is captured by value, its value remains 0 after the call to the lambda expression.
 	// The mutable specification allows n to be modified within the lambda.
-	std::cout << m << std::endl << n << std::endl;
+	std::cout << m << ", " << n << std::endl;
 
 	return 0;
 }
@@ -196,6 +224,7 @@ int test_lambda6()
 	Foo_lambda f;
 	auto fn = [f]() { std::cout << "lambda" << std::endl; };
 	std::cout << "Quitting." << std::endl;
+	fn();
 	return 0;
 }
 
@@ -230,4 +259,89 @@ int test_lambda7()
 	}
 
 	return 0;
+}
+
+class A
+{
+public:
+    int i_ = 0;
+
+    void func(int x,int y)
+    {
+//        auto x1 = [] { return i_; };                             //error,没有捕获外部变量
+        auto x2 = [=] { return i_ + x + y; };               //OK
+        auto x3 = [&] { return i_ + x + y; };               //OK
+        auto x4 = [this] { return i_; };                        //OK
+//        auto x5 = [this] { return i_ + x + y; };            //error,没有捕获x,y
+        auto x6 = [this, x, y] { return i_ + x + y; };    //OK
+        auto x7 = [this] { return i_++; };                   //OK
+    };
+
+
+};
+
+void testCode()
+{
+    int a=0 , b=1;
+//    auto f1 = [] { return a; };                        //error,没有捕获外部变量
+    auto f2 = [&] { return a++; };                      //OK
+    auto f3 = [=] { return a; };                         //OK
+//    auto f4 = [=] {return a++; };                     //error,a是以复制方式捕获的，无法修改
+//    auto f5 = [a] { return a+b; };                     //error,没有捕获变量b
+    auto f6 = [a, &b] { return a + (b++); };      //OK
+    auto f7 = [=, &b] { return a + (b++); };     //OK
+}
+
+void testCode1()
+{
+    int a = 0;
+    auto f = [=] { return a; };
+    a+=1;
+    std::cout << f() << std::endl;       //输出0
+
+    a = 0;
+    auto ff = [&a] { return a; };
+    a+=1;
+    std::cout << ff() <<std::endl;       //输出1
+}
+
+void testCode2()
+{
+    int a = 0;
+//    auto f1 = [=] { return a++; };                       //error
+    auto f2 = [=] () mutable { return a++; };       //OK
+
+    typedef void(*Ptr)(int*);
+
+    Ptr p = [](int* p) { delete p; };              //OK
+//    Ptr p1 = [&] (int* p) { delete p; };         //error
+}
+
+void testCode3()
+{
+    std::vector<int> coll = { 1, 2, 3, 4, 5, 6 };
+    int even_count = 0;
+    for_each(coll.begin(), coll.end(), [&even_count](int val){
+        if(!(val & 1)){
+            ++ even_count;
+        }
+    });
+    std::cout << "The number of even is " << even_count << std::endl;
+
+    int count = std::count_if( coll.begin(), coll.end(), [](int x){ return x > 10; });
+
+    count = std::count_if( coll.begin(), coll.end(), [](int x){ return x < 10; });
+
+    count = std::count_if( coll.begin(), coll.end(), [](int x){ return x > 5 && x<10; });
+
+
+    std::cout << "The number of count is " << count << std::endl;
+
+    return;
+}
+
+
+int main()
+{
+	test_lambda7();
 }

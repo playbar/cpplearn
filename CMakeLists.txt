@@ -10,6 +10,8 @@ add_executable(CLionTest ${SOURCE_FILES})
 
 MESSAGE("make files")
 
+message(${CMAKE_CXX_COMPILER_ID})
+
 
 set(SOURCE_FILES1 src/main2.cpp src/CTest.cpp )
 add_executable(CLionTest2 ${SOURCE_FILES1})
@@ -54,5 +56,13 @@ add_executable(cnntest ${SOURCE_PARSESO})
 # UnityConfig
 set(UnityFile  unity/UnityConfigFile.cpp unity/UnityConfigFile.h unity/UnityConfig.cpp)
 add_executable(UnityConfig ${UnityFile})
+
+
+# json
+set(SOURCE_PARSESO  json/pretty.cpp)
+add_executable(jsontest ${SOURCE_PARSESO})
+target_include_directories(jsontest PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/json
+        )
 
 #target_link_libraries()

@@ -5,6 +5,7 @@
 #include <iostream>
 #include "unique_resource.hpp"
 
+class mytest;
 
 // some dummy resource functions
 using handle_t = int;
@@ -22,10 +23,43 @@ decltype(auto) make_unique_handle(handle_t i) {
             GenHandle(i), &ReleaseHandle);
 }
 
+class RenderBuffer {
+public:
+    mytest* context;
+    void operator()(int) const
+    {
+        std::cout<< context << std::endl;
+    }
+
+    RenderBuffer(mytest *ptest)
+    {
+        context = ptest;
+    }
+
+    RenderBuffer(const RenderBuffer &rb)
+    {
+        context = rb.context;
+    }
+
+    RenderBuffer& operator=(const RenderBuffer &rb)
+    {
+        context = rb.context;
+    }
+
+    ~RenderBuffer()
+    {
+        std::cout << "RenderBuffer desstruct" << std::endl;
+    }
+
+};
+
 class mytest{
 public:
-    mytest()
+    using UniqueProgram = std_experimental::unique_resource<int, RenderBuffer>;
+    mytest():mhandle{12,  {this} }
     {
+//        RenderBuffer buffer(this);
+//        mhandle = std_experimental::make_unique_resource(12,  buffer);
         std::cout << "mytest construct" << std::endl;
     }
     ~mytest()
@@ -35,20 +69,28 @@ public:
 
     decltype(auto) testunique()
     {
-        auto hanle = std_experimental::make_unique_resource(12,  &ReleaseHandle);
+//        RenderBuffer buffer = {this};
+        UniqueProgram hanle{12,  {this}};
         return hanle;
     }
+
+private:
+    std_experimental::unique_resource<int, RenderBuffer> mhandle;
 };
 
 int main() {
+    {
+        mytest test;
+//        test.testunique();
+    }
     auto handle1 = make_unique_handle(1);
     {
         auto handle2 = make_unique_handle(2);
         std::cout << handle2.get() << std::endl; // raw handle access by get()
         // here, handle2 is released.
-        mytest test;
-        test.testunique();
+
     }
+
     auto handle3 = make_unique_handle(3);
     handle3.reset(); // release handle explicitly
     {

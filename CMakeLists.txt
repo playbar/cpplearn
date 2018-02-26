@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.6)
 project(cpplearn)
 
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -fpermissive -fvisibility=hidden -Wall -std=c++11" )
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -fpermissive -fvisibility=hidden -Wall -std=c++14" )
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 14)
 
 set(SOURCE_FILES src/main.cpp src/CTest.cpp src/CTest.h parseso/ParseSo.cpp src/nth_element.cpp src/threadtest.cpp)
 add_executable(CLionTest ${SOURCE_FILES})
@@ -32,7 +32,7 @@ set(SOURCE_PARSESO src/usingtest.cpp src/nth_element.cpp)
 add_executable(UsingTest ${SOURCE_PARSESO})
 
 
-set(SOURCE_PARSESO demo/CppBase/Lambda.cpp)
+set(SOURCE_PARSESO demo/CppBase/stdget.cpp)
 add_executable(CppBase ${SOURCE_PARSESO})
 
 
@@ -64,5 +64,9 @@ add_executable(jsontest ${SOURCE_PARSESO})
 target_include_directories(jsontest PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/json
         )
+
+#unique_resource
+set(unique_resource_file unique_resource/test1.cpp)
+add_executable(unique_resourcetest ${unique_resource_file})
 
 #target_link_libraries()

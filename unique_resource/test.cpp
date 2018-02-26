@@ -5,13 +5,14 @@
 #include <memory>
 #include <cassert>
 
-#include "../unique_resource.hpp"
+#include "unique_resource.hpp"
 
 void test_semantics() {
   std::ostringstream out{};
   {
-    auto res = std_experimental::make_unique_resource(
-        1, [&out](auto i) { out << "cleaned " << i; });
+    auto res = std_experimental::make_unique_resource(1, [&out](auto i) {
+                out << "cleaned " << i;
+            });
   }
   assert("cleaned 1" == out.str());
 }

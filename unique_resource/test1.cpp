@@ -5,6 +5,7 @@
 #include <iostream>
 #include "unique_resource.hpp"
 
+
 // some dummy resource functions
 using handle_t = int;
 decltype(auto) GenHandle(handle_t i)
@@ -20,12 +21,33 @@ decltype(auto) make_unique_handle(handle_t i) {
     return std_experimental::make_unique_resource(
             GenHandle(i), &ReleaseHandle);
 }
+
+class mytest{
+public:
+    mytest()
+    {
+        std::cout << "mytest construct" << std::endl;
+    }
+    ~mytest()
+    {
+        std::cout << "mytest desstruct" << std::endl;
+    }
+
+    decltype(auto) testunique()
+    {
+        auto hanle = std_experimental::make_unique_resource(12,  &ReleaseHandle);
+        return hanle;
+    }
+};
+
 int main() {
     auto handle1 = make_unique_handle(1);
     {
         auto handle2 = make_unique_handle(2);
         std::cout << handle2.get() << std::endl; // raw handle access by get()
         // here, handle2 is released.
+        mytest test;
+        test.testunique();
     }
     auto handle3 = make_unique_handle(3);
     handle3.reset(); // release handle explicitly

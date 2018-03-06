@@ -2,7 +2,8 @@
 #include <iostream>
 
 // Blog: http://blog.csdn.net/fengbingchun/article/details/52318564
-
+//C++11的关键字final有两个用途：(1)、禁止虚函数被重写；(2)、禁止基类被继承。
+//在派生类中，可以同时使用overried和final。
 /////////////////////////////////////////////////
 // reference: http://en.cppreference.com/w/cpp/language/final
 struct Base {
@@ -32,3 +33,8 @@ struct B_ : A_ {
 
 // struct C_ : B_ { void func()const; }; //error, B::func is final
 
+int main()
+{
+
+	return 0;
+}

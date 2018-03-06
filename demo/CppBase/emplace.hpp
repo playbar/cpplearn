@@ -10,5 +10,7 @@ int test_emplace_4();
 
 } // namespace emplace_
 
+int test_emplace_5();
+
 #endif // FBC_CPPBASE_EMPLACE_HPP_
 

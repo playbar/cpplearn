@@ -36,14 +36,16 @@ public:
         context = ptest;
     }
 
-    RenderBuffer(const RenderBuffer &rb)
+    RenderBuffer(const RenderBuffer &rb) : context(0)
     {
-        context = rb.context;
+        operator=(rb);
+//        context = rb.context;
     }
 
     RenderBuffer& operator=(const RenderBuffer &rb)
     {
         context = rb.context;
+        return *this;
     }
 
     ~RenderBuffer()
@@ -79,6 +81,17 @@ private:
 };
 
 int main() {
+    union {
+        int i;
+        char x[2];
+        char m[4];
+    } data;
+
+    data.x[0] = 10;
+    data.x[1] = 1;
+    printf("%d", data.i);
+
+
     {
         mytest test;
 //        test.testunique();

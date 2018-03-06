@@ -7,4 +7,6 @@ int test_string_cctype();
 int test_string_func();
 int test_string_ifstream_to_string();
 
+void test_strcat();
+
 #endif // FBC_MESSY_TEST_STRING_HPP_

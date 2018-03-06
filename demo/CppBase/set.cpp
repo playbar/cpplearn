@@ -21,7 +21,7 @@ struct classcomp {
 
 int test_set_cplusplus()
 {
-{ // set:¹¹Ôìº¯Êı
+{ // set:æ„é€ å‡½æ•°
 	std::set<int> first;                           // empty set of ints
 
 	int myints[] = { 10, 20, 30, 40, 50 };
@@ -37,7 +37,7 @@ int test_set_cplusplus()
 	std::set<int, bool(*)(int, int)> sixth(fn_pt);  // function pointer as Compare
 }
 
-{ // begin/end:·µ»ØÖ¸ÏòµÚÒ»¸öÔªËØµÄµü´ú/·µ»ØÖ¸Ïò×îºóÒ»¸öÔªËØÖ®ºóµÄµü´úÆ÷£¬²»ÊÇ×îºóÒ»¸öÔªËØ
+{ // begin/end:è¿”å›æŒ‡å‘ç¬¬ä¸€ä¸ªå…ƒç´ çš„è¿­ä»£/è¿”å›æŒ‡å‘æœ€åä¸€ä¸ªå…ƒç´ ä¹‹åçš„è¿­ä»£å™¨ï¼Œä¸æ˜¯æœ€åä¸€ä¸ªå…ƒç´ 
 	int myints[] = { 75, 23, 65, 42, 13 };
 	std::set<int> myset(myints, myints + 5);
 
@@ -48,7 +48,7 @@ int test_set_cplusplus()
 	std::cout << '\n';
 }
 
-{ // clear:Çå³ıËùÓĞÔªËØ
+{ // clear:æ¸…é™¤æ‰€æœ‰å…ƒç´ 
 	std::set<int> myset;
 
 	myset.insert(100);
@@ -70,7 +70,7 @@ int test_set_cplusplus()
 	std::cout << '\n';
 }
 
-{ // count:ÅĞ¶ÏÄ³Ò»¸ö¹Ø¼ü×ÖÊÇ·ñÔÚsetÄÚ£¬·µ»Ø0»òÕß1
+{ // count:åˆ¤æ–­æŸä¸€ä¸ªå…³é”®å­—æ˜¯å¦åœ¨setå†…ï¼Œè¿”å›0æˆ–è€…1
 	std::set<int> myset;
 
 	// set some initial values:
@@ -108,7 +108,7 @@ int test_set_cplusplus()
 	std::cout << '\n';
 }
 
-{ // emplace(c++11):Èç¹ûĞÂÔªËØµÄÖµÊÇÎ¨Ò»µÄ£¬½«²åÈë¸ÃÔªËØ
+{ // emplace(c++11):å¦‚æœæ–°å…ƒç´ çš„å€¼æ˜¯å”¯ä¸€çš„ï¼Œå°†æ’å…¥è¯¥å…ƒç´ 
 	std::set<std::string> myset;
 
 	myset.emplace("foo");
@@ -133,7 +133,7 @@ int test_set_cplusplus()
 	std::cout << '\n';
 }
 
-{ // empty:Èç¹û¼¯ºÏÎª¿Õ£¬·µ»Øtrue
+{ // empty:å¦‚æœé›†åˆä¸ºç©ºï¼Œè¿”å›true
 	std::set<int> myset;
 
 	myset.insert(20);
@@ -148,7 +148,7 @@ int test_set_cplusplus()
 	std::cout << '\n';
 }
 
-{ // equal_range:·µ»Ø¼¯ºÏÖĞÓë¸ø¶¨ÖµÏàµÈµÄÉÏÏÂÏŞµÄÁ½¸öµü´úÆ÷
+{ // equal_range:è¿”å›é›†åˆä¸­ä¸ç»™å®šå€¼ç›¸ç­‰çš„ä¸Šä¸‹é™çš„ä¸¤ä¸ªè¿­ä»£å™¨
 	std::set<int> myset;
 
 	for (int i = 1; i <= 5; i++) myset.insert(i * 10);   // myset: 10 20 30 40 50
@@ -160,7 +160,7 @@ int test_set_cplusplus()
 	std::cout << "the upper bound points to: " << *ret.second << '\n';
 }
 
-{ // erase:É¾³ı¼¯ºÏÖĞµÄÔªËØ
+{ // erase:åˆ é™¤é›†åˆä¸­çš„å…ƒç´ 
 	std::set<int> myset;
 	std::set<int>::iterator it;
 
@@ -183,7 +183,7 @@ int test_set_cplusplus()
 	std::cout << '\n';
 }
 
-{ // find:·µ»ØÒ»¸öÖ¸Ïò±»²éÕÒµ½ÔªËØµÄµü´úÆ÷£¬Èç¹ûÃ»ÕÒµ½Ôò·µ»Øend()
+{ // find:è¿”å›ä¸€ä¸ªæŒ‡å‘è¢«æŸ¥æ‰¾åˆ°å…ƒç´ çš„è¿­ä»£å™¨ï¼Œå¦‚æœæ²¡æ‰¾åˆ°åˆ™è¿”å›end()
 	std::set<int> myset;
 	std::set<int>::iterator it;
 
@@ -200,7 +200,7 @@ int test_set_cplusplus()
 	std::cout << '\n';
 }
 
-{ // get_allocator:·µ»Ø¼¯ºÏsetµÄ·ÖÅäÆ÷
+{ // get_allocator:è¿”å›é›†åˆsetçš„åˆ†é…å™¨
 	std::set<int> myset;
 	int * p;
 	unsigned int i;
@@ -218,7 +218,7 @@ int test_set_cplusplus()
 	myset.get_allocator().deallocate(p, 5);
 }
 
-{ // insert:ÔÚ¼¯ºÏÖĞ²åÈëÔªËØ
+{ // insert:åœ¨é›†åˆä¸­æ’å…¥å…ƒç´ 
 	std::set<int> myset;
 	std::set<int>::iterator it;
 	std::pair<std::set<int>::iterator, bool> ret;
@@ -262,7 +262,7 @@ int test_set_cplusplus()
 	std::cout << '\n';
 }
 
-{ // lower_bond:·µ»ØÖ¸Ïò´óÓÚ£¨»òµÈÓÚ£©Ä³ÖµµÄµÚÒ»¸öÔªËØµÄµü´úÆ÷
+{ // lower_bond:è¿”å›æŒ‡å‘å¤§äºï¼ˆæˆ–ç­‰äºï¼‰æŸå€¼çš„ç¬¬ä¸€ä¸ªå…ƒç´ çš„è¿­ä»£å™¨
 	std::set<int> myset;
 	std::set<int>::iterator itlow, itup;
 
@@ -279,7 +279,7 @@ int test_set_cplusplus()
 	std::cout << '\n';
 }
 
-{ // max_size:·µ»Ø¼¯ºÏÄÜÈİÄÉµÄÔªËØµÄ×î´óÏŞÖµ
+{ // max_size:è¿”å›é›†åˆèƒ½å®¹çº³çš„å…ƒç´ çš„æœ€å¤§é™å€¼
 	int i;
 	std::set<int> myset;
 
@@ -302,7 +302,7 @@ int test_set_cplusplus()
 	std::cout << "Size of second: " << int(second.size()) << '\n';
 }
 
-{ // rbegin/rend:·µ»ØÖ¸Ïò¼¯ºÏÖĞ×îºóÒ»¸öÔªËØµÄ·´Ïòµü´úÆ÷/·µ»ØÖ¸Ïò¼¯ºÏÖĞµÚÒ»¸öÔªËØµÄ·´Ïòµü´úÆ÷
+{ // rbegin/rend:è¿”å›æŒ‡å‘é›†åˆä¸­æœ€åä¸€ä¸ªå…ƒç´ çš„åå‘è¿­ä»£å™¨/è¿”å›æŒ‡èš£î‡¯ç°æ¢°è°æ¡“é²ˆî€ªæ°å§†èªè™»î¿îŒ•ï¿½
 	int myints[] = { 21, 64, 17, 78, 49 };
 	std::set<int> myset(myints, myints + 5);
 
@@ -315,7 +315,7 @@ int test_set_cplusplus()
 	std::cout << '\n';
 }
 
-{ // size:¼¯ºÏÖĞÔªËØµÄÊıÄ¿
+{ // size:é›†åˆä¸­å…ƒç´ çš„æ•°ç›®
 	std::set<int> myints;
 	std::cout << "0. size: " << myints.size() << '\n';
 
@@ -329,7 +329,7 @@ int test_set_cplusplus()
 	std::cout << "3. size: " << myints.size() << '\n';
 }
 
-{ // swap:½»»»Á½¸ö¼¯ºÏ±äÁ¿
+{ // swap:äº¤æ¢ä¸¤ä¸ªé›†åˆå˜é‡
 	int myints[] = { 12, 75, 10, 32, 20, 25 };
 	std::set<int> first(myints, myints + 3);     // 10,12,75
 	std::set<int> second(myints + 3, myints + 6);  // 20,25,32
@@ -347,7 +347,7 @@ int test_set_cplusplus()
 	std::cout << '\n';
 }
 
-{ // upper_bound:·µ»Ø´óÓÚÄ³¸öÖµÔªËØµÄµü´úÆ÷
+{ // upper_bound:è¿”å›å¤§äºæŸä¸ªå€¼å…ƒç´ çš„è¿­ä»£å™¨
 	std::set<int> myset;
 	std::set<int>::iterator itlow, itup;
 

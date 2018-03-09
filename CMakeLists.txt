@@ -13,7 +13,7 @@ MESSAGE("make files")
 message(${CMAKE_CXX_COMPILER_ID})
 
 
-set(SOURCE_FILES1 src/main2.cpp src/CTest.cpp )
+set(SOURCE_FILES1 thread/main2.cpp src/CTest.cpp )
 add_executable(CLionTest2 ${SOURCE_FILES1})
 
 set(SOURCE_PARSESO parseso/ParseSo.cpp parseso/elf.h)
@@ -68,5 +68,9 @@ target_include_directories(jsontest PRIVATE
 #unique_resource
 set(unique_resource_file unique_resource/test1.cpp)
 add_executable(unique_resourcetest ${unique_resource_file})
+
+#thread test
+set(thread_test_file thread/main.cpp)
+add_executable(thread_test ${thread_test_file})
 
 #target_link_libraries()

@@ -1,5 +1,5 @@
 #include <iostream>
-#include "CTest.h"
+#include "../src/CTest.h"
 //#include "windows.h"
 #include <sys/types.h>
 #include <unistd.h>

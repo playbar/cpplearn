@@ -80,7 +80,23 @@ private:
     std_experimental::unique_resource<int, RenderBuffer> mhandle;
 };
 
+struct Test1
+{
+    char name[8];
+};
+
 int main() {
+
+    Test1 t1;
+    memcpy(t1.name, "12345678", 4);
+    Test1 t2;
+    int size = sizeof( Test1);
+    memcpy(&t2, &t1, size);
+
+    memcpy(t2.name, "5678", 4);
+    std::cout<<t1.name << std::endl;
+
+
     union {
         int i;
         char x[2];

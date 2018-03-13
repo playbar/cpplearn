@@ -60,6 +60,9 @@ typedef A C;
 
 int test_2()
 {
+    A aa;
+    B bb;
+    C cc;
     std::cout << std::boolalpha;
     std::cout << "is_same:" << std::endl;
     std::cout << "int, const int: " << std::is_same<int, const int>::value << std::endl;//false
@@ -68,6 +71,7 @@ int test_2()
     std::cout << "int, integer_type: " << std::is_same<int, integer_type>::value << std::endl;//true
     std::cout << "A, B: " << std::is_same<A,B>::value << std::endl;//false
     std::cout << "A, C: " << std::is_same<A,C>::value << std::endl;//true
+//    std::cout << "aa, bb: " << std::is_same<aa, bb>::value << std::endl;
     std::cout << "signed char, std::int8_t: " << std::is_same<signed char,std::int8_t>::value << std::endl;//true
     return 0;
 }

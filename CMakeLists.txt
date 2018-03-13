@@ -28,8 +28,8 @@ set(SOURCE_READELF readelf/arm.h readelf/bfd.h
 add_executable(readelf ${SOURCE_READELF})
 
 
-set(SOURCE_PARSESO src/usingtest.cpp src/nth_element.cpp)
-add_executable(UsingTest ${SOURCE_PARSESO})
+set(SOURCE_PARSESO src/nth_element.cpp)
+add_executable(nth_element ${SOURCE_PARSESO})
 
 
 set(SOURCE_PARSESO demo/CppBase/using.cpp)

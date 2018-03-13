@@ -32,7 +32,7 @@ set(SOURCE_PARSESO src/usingtest.cpp src/nth_element.cpp)
 add_executable(UsingTest ${SOURCE_PARSESO})
 
 
-set(SOURCE_PARSESO demo/CppBase/enable_shared_from_this.cpp)
+set(SOURCE_PARSESO demo/CppBase/is_same.cpp)
 add_executable(CppBase ${SOURCE_PARSESO})
 
 

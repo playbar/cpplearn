@@ -32,7 +32,7 @@ set(SOURCE_PARSESO src/nth_element.cpp)
 add_executable(nth_element ${SOURCE_PARSESO})
 
 
-set(SOURCE_PARSESO demo/CppBase/using.cpp)
+set(SOURCE_PARSESO demo/CppBase/integral_constant.cpp)
 add_executable(CppBase ${SOURCE_PARSESO})
 
 

@@ -10,9 +10,9 @@ void test_template1()
 	int a = 3, b = 7;
 	float x = 3.0, y = 7.0;
 	//Calling template function
-	std::cout << maximum<int>(a, b) << std::endl; //Êä³ö 7
-	std::cout << maximum(a, b) << std::endl; //×Ô¶¯²¹³äÀàÐÍÉùÃ÷,Êä³ö 7
-	std::cout << maximum<double>(x, y) << std::endl; //Êä³ö 7
+	std::cout << maximum<int>(a, b) << std::endl; //è¾“å‡º 7
+	std::cout << maximum(a, b) << std::endl; //è‡ªåŠ¨è¡¥å……ç±»åž‹å£°æ˜Ž,è¾“å‡º 7
+	std::cout << maximum<double>(x, y) << std::endl; //è¾“å‡º 7
 }
 
 void test_template2()
@@ -85,3 +85,95 @@ void test_template7()
 	a.f();
 }
 
+////////////////
+
+void Printf(const char *s)
+{
+	while (*s)
+	{
+		if (*s == '%'&&*++s != '%')
+		{
+			throw ("invalid formatstring: missing arguments");
+		}
+		std::cout << *s++;
+	}
+}
+
+
+template<typename T,typename...Args>
+void Printf(const char * s, T value, Args... args)
+{
+	while (*s)
+	{
+		if (*s=='%'&&*++s!='%')
+		{
+			std::cout << value;
+			return Printf(++s, args...);
+		}
+		std::cout << *s++;
+	}
+
+	throw ("extraarguments provided to Printf");
+
+}
+
+///////////////
+double Sum(int count, ...)
+{
+	va_list ap;
+	double sum = 0;
+
+	va_start(ap, count);
+
+	for (int i = 0; i < count; ++i)
+	{
+		double arg = va_arg(ap, double);
+		sum += arg;
+	}
+
+	va_end(ap);
+
+	return sum;
+}
+
+double Sum2()
+{
+	return 0;
+}
+
+template<typename T1, typename... T2> double Sum2(T1 p, T2... arg)
+{
+	double ret = p + Sum2(arg...);
+	return ret;
+}
+
+
+
+
+template<typename... A> class BMW{};
+
+template<typename Head, typename... Tail>
+class BMW<Head, Tail...> : public BMW<Tail...>
+{
+public:
+	BMW()
+	{
+		printf("type: %s\n", typeid(Head).name());
+	}
+
+	Head head;
+};
+
+template<> class BMW<>{};
+BMW<int, char, float> car;
+
+int main()
+{
+	double ret1 = Sum(4, 1.0, 2.0, 3.0, 4.0);
+	double ret2 = Sum2(1.0, 2.0, 3.0, 4.0);
+
+	Printf<std::string>("hello %s\n", std::string("world"));
+	return 0;
+}
+
+///////////////

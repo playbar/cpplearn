@@ -1,6 +1,5 @@
 #include <iostream>
 #include "CTest.h"
-#include "windows.h"
 #include <sys/types.h>
 #include <unistd.h>
 #include <map>
@@ -26,11 +25,26 @@ void testmap()
     return;
 }
 
+void testStr()
+{
+    char line[] = "selinuxfs /sys/fs/selinux selinuxfs rw,relatime 0 0";
+    if (strstr(line, "selinuxfs")) {
+        strtok(line, " ");
+        char* selinux_dir = strtok(NULL, " ");
+        char* selinux_path = strcat(selinux_dir, "/enforce");
+        FILE* fp_selinux = fopen(selinux_path, "w");
+        char* buf = "0"; // set selinux to permissive
+        printf("fp_selinux:%0x", fp_selinux);
+        fwrite(buf, strlen(buf), 1, fp_selinux);
+        fclose(fp_selinux);
+    }
+    return;
+}
 
 int main() {
     testmap();
+    testStr();
     CTest a;
-    MessageBox(NULL, "hello", "caption", MB_OK);
     std::cout << "Hello, World!" << std::endl;
     pid_t pid = getpid();
     depth_1();

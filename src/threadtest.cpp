@@ -2,7 +2,6 @@
 // Created by hou guoli on 2018/2/9.
 //
 
-#include "condition_variable.hpp"
 #include <iostream>
 #include <chrono>
 #include <thread>

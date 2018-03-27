@@ -3,7 +3,6 @@
  * formerly known as "elf_abi.h".
  */
 
-#include <windows.h>
 #ifndef _SYS_EXEC_ELF_H_
 #define _SYS_EXEC_ELF_H_
 

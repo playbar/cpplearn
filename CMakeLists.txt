@@ -5,7 +5,7 @@ SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -fpermissive -fvisibility=hidden -Wal
 
 set(CMAKE_CXX_STANDARD 14)
 
-set(SOURCE_FILES src/main.cpp src/CTest.cpp src/CTest.h parseso/ParseSo.cpp src/nth_element.cpp src/threadtest.cpp)
+set(SOURCE_FILES src/main.cpp src/CTest.cpp )
 add_executable(CLionTest ${SOURCE_FILES})
 
 MESSAGE("make files")
@@ -32,7 +32,7 @@ set(SOURCE_PARSESO src/nth_element.cpp)
 add_executable(nth_element ${SOURCE_PARSESO})
 
 
-set(SOURCE_PARSESO demo/CppBase/template.cpp demo/CppBase/template_impl.cpp)
+set(SOURCE_PARSESO demo/CppBase/forward.cpp)
 add_executable(CppBase ${SOURCE_PARSESO})
 
 
@@ -72,5 +72,10 @@ add_executable(unique_resourcetest ${unique_resource_file})
 #thread test
 set(thread_test_file thread/main.cpp)
 add_executable(thread_test ${thread_test_file})
+
+
+#template test
+set(template_test_file template/template_1.cpp)
+add_executable(template_test ${template_test_file})
 
 #target_link_libraries()

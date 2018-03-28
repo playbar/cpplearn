@@ -8,7 +8,18 @@
  * This software is provided "as is" without express or implied
  * warranty, and with no claim as to its suitability for any purpose.
  */
+#include <iostream>
+
 class MemType {
+public:
+    MemType()
+    {
+        printf("Fun:%s, Line:%d", __FUNCTION__, __LINE__ );
+    }
+    ~MemType()
+    {
+        printf("Fun:%s, Line:%d", __FUNCTION__, __LINE__ );
+    }
 };
 
 #include "refmem2.hpp"

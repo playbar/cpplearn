@@ -12,7 +12,15 @@
 
 class Something {
   public:
+    Something()
+    {
+        printf("Fun:%s, Line:%d", __FUNCTION__, __LINE__ );
+    }
+    ~Something(){
+        printf("Fun:%s, Line:%d", __FUNCTION__, __LINE__ );
+    }
     void perform() const {
+        printf("Fun:%s, Line:%d", __FUNCTION__, __LINE__ );
     }
 };
 

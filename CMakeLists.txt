@@ -75,7 +75,13 @@ add_executable(thread_test ${thread_test_file})
 
 
 #template test
-set(template_test_file template/test/9_1.cpp)
+set(template_test_file template/test/7.cpp)
 add_executable(template_test ${template_test_file})
+
+
+#variant test
+set(variant_test_file variant/test/hashable_test.cpp)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/variant/include)
+add_executable(variant_test ${variant_test_file})
 
 #target_link_libraries()

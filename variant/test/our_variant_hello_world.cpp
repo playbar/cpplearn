@@ -7,9 +7,16 @@ struct check
     template <typename T>
     void operator()(T const& val) const
     {
-        if (val != 0) throw std::runtime_error("invalid");
+        if (val != 0)
+            throw std::runtime_error("invalid");
     }
 };
+
+template <typename T>
+void checkFun(T const& val)
+{
+    if (val != 0) throw std::runtime_error("invalid");
+}
 
 int main()
 {

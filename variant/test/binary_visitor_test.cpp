@@ -119,9 +119,9 @@ int main()
     vec.push_back(std::string("3.14159"));
     vec.emplace_back(3.14159);
 
-    //auto itr = std::find_if(vec.begin(), vec.end(), [&v0](variant_type const& val) {
-    //        return util::apply_visitor(test::javascript_equal_visitor(), v0, val);
-    //    });
+//    auto itr = std::find_if(vec.begin(), vec.end(), [&v0](variant_type const& val) {
+//            return util::apply_visitor(test::javascript_equal_visitor(), v0, val);
+//        });
 
     auto itr = std::find_if(vec.begin(), vec.end(), test::javascript_equal<variant_type>(v2));
 

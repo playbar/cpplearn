@@ -32,7 +32,7 @@ set(SOURCE_PARSESO src/nth_element.cpp)
 add_executable(nth_element ${SOURCE_PARSESO})
 
 
-set(SOURCE_PARSESO demo/CppBase/forward.cpp)
+set(SOURCE_PARSESO demo/CppBase/fstream.cpp)
 add_executable(CppBase ${SOURCE_PARSESO})
 
 
@@ -80,7 +80,7 @@ add_executable(template_test ${template_test_file})
 
 
 #variant test
-set(variant_test_file variant/test/hashable_test.cpp)
+set(variant_test_file variant/test/our_variant_hello_world.cpp)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/variant/include)
 add_executable(variant_test ${variant_test_file})
 

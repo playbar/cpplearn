@@ -89,4 +89,9 @@ set(crypto_aes_src crypto/aes/main.c crypto/aes/aes.c)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/crypto/aes)
 add_executable(crypto_aes ${crypto_aes_src})
 
+#crypto-aes_1
+set(crypto_aes_1_src crypto/aes_1/test.c crypto/aes_1/aes.c)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/crypto/aes_1)
+add_executable(crypto_aes_1 ${crypto_aes_1_src})
+
 #target_link_libraries()

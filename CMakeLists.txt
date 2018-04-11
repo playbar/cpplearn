@@ -84,4 +84,9 @@ set(variant_test_file variant/test/our_variant_hello_world.cpp)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/variant/include)
 add_executable(variant_test ${variant_test_file})
 
+#crypto-aes
+set(crypto_aes_src crypto/aes/main.c crypto/aes/aes.c)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/crypto/aes)
+add_executable(crypto_aes ${crypto_aes_src})
+
 #target_link_libraries()

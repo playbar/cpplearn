@@ -9,11 +9,11 @@ __STL_BEGIN_NAMESPACE
 #pragma set woff 1174
 #pragma set woff 1375
 #endif
-//setÄÚ²¿ÔªËØÄ¬ÈÏÊ¹ÓÃµİÔöÅÅĞòless
-//ÓÃ»§¿É×ÔĞĞÖÆ¶¨±È½ÏÀàĞÍ
-//ÄÚ²¿Î¬»¤µÄÊı¾İ½á¹¹ÊÇºìºÚÊ÷, ¾ßÓĞ·Ç³£ÓÅĞãµÄ×î»µÇé¿öµÄÊ±¼ä¸´ÔÓ¶È  
-//×¢Òâ: set¼üÖµºÍÊµÖµÊÇÏàÍ¬µÄ,setÄÚ²»ÔÊĞíÖØ¸´ÔªËØµÄ´æÔÚ, Èç¹û²åÈëÖØ¸´ÔªËØ,Ôò»áºöÂÔ²åÈë²Ù×÷ 
-//ÇÒ²»ÄÜÍ¨¹ıµü´úÆ÷ĞŞ¸ÄsetµÄÔªËØÖµ,Æäµü´úÆ÷ÀàĞÍÊÇ¶¨ÒåÎªRB-TreeµÄconst_iterator
+//setå†…éƒ¨å…ƒç´ é»˜è®¤ä½¿ç”¨é€’å¢æ’åºless
+//ç”¨æˆ·å¯è‡ªè¡Œåˆ¶å®šæ¯”è¾ƒç±»å‹
+//å†…éƒ¨ç»´æŠ¤çš„æ•°æ®ç»“æ„æ˜¯çº¢é»‘æ ‘, å…·æœ‰éå¸¸ä¼˜ç§€çš„æœ€åæƒ…å†µçš„æ—¶é—´å¤æ‚åº¦  
+//æ³¨æ„: seté”®å€¼å’Œå®å€¼æ˜¯ç›¸åŒçš„,setå†…ä¸å…è®¸é‡å¤å…ƒç´ çš„å­˜åœ¨, å¦‚æœæ’å…¥é‡å¤å…ƒç´ ,åˆ™ä¼šå¿½ç•¥æ’å…¥æ“ä½œ 
+//ä¸”ä¸èƒ½é€šè¿‡è¿­ä»£å™¨ä¿®æ”¹setçš„å…ƒç´ å€¼,å…¶è¿­ä»£å™¨ç±»å‹æ˜¯å®šä¹‰ä¸ºRB-Treeçš„const_iterator
 
 // Forward declarations of operators < and ==, needed for friend declaration.
 
@@ -39,14 +39,14 @@ class set {
 
 public:
   // typedefs:
- //ÔÚsetÖĞkey¾ÍÊÇvalue, valueÍ¬Ê±Ò²ÊÇkey 
+ //åœ¨setä¸­keyå°±æ˜¯value, valueåŒæ—¶ä¹Ÿæ˜¯key 
   typedef _Key     key_type;
   typedef _Key     value_type;
-  //×¢Òâ£ºÒÔÏÂkey_compareºÍvalue_compareÊ¹ÓÃÏàÍ¬µÄ±È½Ïº¯Êı 
+  //æ³¨æ„ï¼šä»¥ä¸‹key_compareå’Œvalue_compareä½¿ç”¨ç›¸åŒçš„æ¯”è¾ƒå‡½æ•° 
   typedef _Compare key_compare;
   typedef _Compare value_compare;
 private:
-	//setµÄµ×²ã»úÖÆÊÇ²ÉÓÃRB-TreeÊı¾İ½á¹¹£¬ÔÚ<stl_tree.h>ÊµÏÖ
+	//setçš„åº•å±‚æœºåˆ¶æ˜¯é‡‡ç”¨RB-Treeæ•°æ®ç»“æ„ï¼Œåœ¨<stl_tree.h>å®ç°
   typedef _Rb_tree<key_type, value_type, 
                   _Identity<value_type>, key_compare, _Alloc> _Rep_type;
   _Rep_type _M_t;  // red-black tree representing set
@@ -55,8 +55,8 @@ public:
   typedef typename _Rep_type::const_pointer const_pointer;
   typedef typename _Rep_type::const_reference reference;
   typedef typename _Rep_type::const_reference const_reference;
-  //setµÄµü´úÆ÷iterator ¶¨ÒåÎªRB-TreeµÄconst_iterator£¬²»ÔÊĞíÓÃ»§Í¨¹ıµü´úÆ÷ĞŞ¸ÄsetµÄÔªËØÖµ  
-  //ÒòÎªsetµÄÔªËØÓĞÒ»¶¨´ÎĞò°²ÅÅ£¬ĞŞ¸ÄÆäÖµ»áÆÆ»µÅÅĞò¹æÔò 
+  //setçš„è¿­ä»£å™¨iterator å®šä¹‰ä¸ºRB-Treeçš„const_iteratorï¼Œä¸å…è®¸ç”¨æˆ·é€šè¿‡è¿­ä»£å™¨ä¿®æ”¹setçš„å…ƒç´ å€¼  
+  //å› ä¸ºsetçš„å…ƒç´ æœ‰ä¸€å®šæ¬¡åºå®‰æ’ï¼Œä¿®æ”¹å…¶å€¼ä¼šç ´åæ’åºè§„åˆ™ 
   typedef typename _Rep_type::const_iterator iterator;
   typedef typename _Rep_type::const_iterator const_iterator;
   typedef typename _Rep_type::const_reverse_iterator reverse_iterator;
@@ -67,9 +67,9 @@ public:
 
   // allocation/deallocation
 
- // setÖ»ÄÜÊ¹ÓÃRB-treeµÄinsert-unique(),²»ÄÜÊ¹ÓÃinsert-equal() 
-  //µ±Òª²åÈë¼üÖµºÍÒÑ¾­´æÔÚµÄ¼üÖµÏàÍ¬Ê±£¬¾Í»á±»ºöÂÔ 
-  /*¹¹Ôìº¯ÊıÔ­ĞÍ
+ // setåªèƒ½ä½¿ç”¨RB-treeçš„insert-unique(),ä¸èƒ½ä½¿ç”¨insert-equal() 
+  //å½“è¦æ’å…¥é”®å€¼å’Œå·²ç»å­˜åœ¨çš„é”®å€¼ç›¸åŒæ—¶ï¼Œå°±ä¼šè¢«å¿½ç•¥ 
+  /*æ„é€ å‡½æ•°åŸå‹
 	set();
 	explicit set (const key_compare& comp = key_compare(),
               const allocator_type& alloc = allocator_type());
@@ -118,43 +118,43 @@ public:
   set(const set<_Key,_Compare,_Alloc>& __x) : _M_t(__x._M_t) {}
   set<_Key,_Compare,_Alloc>& operator=(const set<_Key, _Compare, _Alloc>& __x)
   { 
-    _M_t = __x._M_t;//µ÷ÓÃÁËµ×²ãºìºÚÊ÷µÄoperator=²Ù×÷º¯Êı
+    _M_t = __x._M_t;//è°ƒç”¨äº†åº•å±‚çº¢é»‘æ ‘çš„operator=æ“ä½œå‡½æ•°
     return *this;
   }
 
-  //ÒÔÏÂËùÓĞµÄset²Ù×÷ĞĞÎª£¬RB-tree¶¼ÒÑÌá¹©£¬ËùÒÔsetÖ»Òªµ÷ÓÃ¼´¿É 
+  //ä»¥ä¸‹æ‰€æœ‰çš„setæ“ä½œè¡Œä¸ºï¼ŒRB-treeéƒ½å·²æä¾›ï¼Œæ‰€ä»¥setåªè¦è°ƒç”¨å³å¯ 
   // accessors:
 
-   //·µ»ØÓÃÓÚkey±È½ÏµÄº¯Êı,µ÷ÓÃRB-TreeµÄkey_comp()
+   //è¿”å›ç”¨äºkeyæ¯”è¾ƒçš„å‡½æ•°,è°ƒç”¨RB-Treeçš„key_comp()
   key_compare key_comp() const { return _M_t.key_comp(); }
-  //ÓÉÓÚsetµÄĞÔÖÊ, valueºÍkeyÊ¹ÓÃÍ¬Ò»¸ö±È½Ïº¯Êı
+  //ç”±äºsetçš„æ€§è´¨, valueå’Œkeyä½¿ç”¨åŒä¸€ä¸ªæ¯”è¾ƒå‡½æ•°
   value_compare value_comp() const { return _M_t.key_comp(); }
-  //»ñÈ¡·ÖÅäÆ÷ÀàĞÍ
+  //è·å–åˆ†é…å™¨ç±»å‹
   allocator_type get_allocator() const { return _M_t.get_allocator(); }
 
-  //ÒÔÏÂÊÇÒ»Ğ©setµÄ»ù±¾µü´úÆ÷ËùÖ¸Î»ÖÃ
+  //ä»¥ä¸‹æ˜¯ä¸€äº›setçš„åŸºæœ¬è¿­ä»£å™¨æ‰€æŒ‡ä½ç½®
   iterator begin() const { return _M_t.begin(); }
   iterator end() const { return _M_t.end(); }
   reverse_iterator rbegin() const { return _M_t.rbegin(); } 
   reverse_iterator rend() const { return _M_t.rend(); }
-  //ÒÔÏÂµÄº¯Êı¶¼ÊÇµ÷ÓÃÁËRB-TreeµÄÊµÏÖ,set²»±Ø×Ô¼º¶¨Òå
+  //ä»¥ä¸‹çš„å‡½æ•°éƒ½æ˜¯è°ƒç”¨äº†RB-Treeçš„å®ç°,setä¸å¿…è‡ªå·±å®šä¹‰
   bool empty() const { return _M_t.empty(); }
   size_type size() const { return _M_t.size(); }
   size_type max_size() const { return _M_t.max_size(); }
-  //ÕâÀïµ÷ÓÃµÄswap()º¯ÊıÊÇ×¨ÊôÓÚRB-TreeµÄswap()£¬²¢²»ÊÇSTLµÄswap()Ëã·¨
+  //è¿™é‡Œè°ƒç”¨çš„swap()å‡½æ•°æ˜¯ä¸“å±äºRB-Treeçš„swap()ï¼Œå¹¶ä¸æ˜¯STLçš„swap()ç®—æ³•
   void swap(set<_Key,_Compare,_Alloc>& __x) { _M_t.swap(__x._M_t); }
 
   // insert/erase
 
-  // ¸ù¾İ·µ»ØÖµµÄÇé¿ö£¬ÅĞ¶ÏÊÇ·ñ²åÈë¸ÃÔªËØ
-  //pair.secondÎªtrueÔò±íÊ¾ÒÑ²åÈë¸ÃÔªËØ  
-  //ÎªfalseÔò±íÊ¾setÖĞÒÑ´æÔÚÓë´ı²åÈëÏàÍ¬µÄÔªËØ, ²»»áÖØ¸´²åÈë  
+  // æ ¹æ®è¿”å›å€¼çš„æƒ…å†µï¼Œåˆ¤æ–­æ˜¯å¦æ’å…¥è¯¥å…ƒç´ 
+  //pair.secondä¸ºtrueåˆ™è¡¨ç¤ºå·²æ’å…¥è¯¥å…ƒç´   
+  //ä¸ºfalseåˆ™è¡¨ç¤ºsetä¸­å·²å­˜åœ¨ä¸å¾…æ’å…¥ç›¸åŒçš„å…ƒç´ , ä¸ä¼šé‡å¤æ’å…¥  
   pair<iterator,bool> insert(const value_type& __x) { 
     pair<typename _Rep_type::iterator, bool> __p = _M_t.insert_unique(__x); 
     return pair<iterator, bool>(__p.first, __p.second);
   }
-  //ÔÚÖ¸¶¨Î»ÖÃ²åÈëÔªËØ£¬µ«ÊÇ»áÏÈ±éÀú¸Ã¼¯ºÏ,ÅĞ¶ÏÊÇ·ñ´æÔÚÏàÍ¬ÔªËØ
-  //Èô²»´æÔÚ²ÅÔÚÖ¸¶¨Î»ÖÃ²åÈë¸ÃÔªËØ
+  //åœ¨æŒ‡å®šä½ç½®æ’å…¥å…ƒç´ ï¼Œä½†æ˜¯ä¼šå…ˆéå†è¯¥é›†åˆ,åˆ¤æ–­æ˜¯å¦å­˜åœ¨ç›¸åŒå…ƒç´ 
+  //è‹¥ä¸å­˜åœ¨æ‰åœ¨æŒ‡å®šä½ç½®æ’å…¥è¯¥å…ƒç´ 
   iterator insert(iterator __position, const value_type& __x) {
     typedef typename _Rep_type::iterator _Rep_iterator;
     return _M_t.insert_unique((_Rep_iterator&)__position, __x);
@@ -172,36 +172,36 @@ public:
     _M_t.insert_unique(__first, __last);
   }
 #endif /* __STL_MEMBER_TEMPLATES */
-  //²Á³ıÖ¸¶¨Î»ÖÃµÄÔªËØ
+  //æ“¦é™¤æŒ‡å®šä½ç½®çš„å…ƒç´ 
   void erase(iterator __position) { 
     typedef typename _Rep_type::iterator _Rep_iterator;
     _M_t.erase((_Rep_iterator&)__position); 
   }
-  //²Á³ıÔªËØÖµÎªxµÄ½Úµã
+  //æ“¦é™¤å…ƒç´ å€¼ä¸ºxçš„èŠ‚ç‚¹
   size_type erase(const key_type& __x) { 
     return _M_t.erase(__x); 
   }
-  //²Á³ıÖ¸¶¨Çø¼äµÄ½Úµã
+  //æ“¦é™¤æŒ‡å®šåŒºé—´çš„èŠ‚ç‚¹
   void erase(iterator __first, iterator __last) { 
     typedef typename _Rep_type::iterator _Rep_iterator;
     _M_t.erase((_Rep_iterator&)__first, (_Rep_iterator&)__last); 
   }
-  //Çå³ıset
+  //æ¸…é™¤set
   void clear() { _M_t.clear(); }
 
   // set operations:
 
-  //²éÕÒÔªËØÖµÎªxµÄ½Úµã
+  //æŸ¥æ‰¾å…ƒç´ å€¼ä¸ºxçš„èŠ‚ç‚¹
   iterator find(const key_type& __x) const { return _M_t.find(__x); }
-  //·µ»ØÖ¸¶¨ÔªËØµÄ¸öÊı
+  //è¿”å›æŒ‡å®šå…ƒç´ çš„ä¸ªæ•°
   size_type count(const key_type& __x) const {
     return _M_t.find(__x) == _M_t.end() ? 0 : 1;
   }
-  //·µ»Ø²»Ğ¡ÓÚµ±Ç°ÔªËØµÄµÚÒ»¸ö¿É²åÈëµÄÎ»ÖÃ 
+  //è¿”å›ä¸å°äºå½“å‰å…ƒç´ çš„ç¬¬ä¸€ä¸ªå¯æ’å…¥çš„ä½ç½® 
   iterator lower_bound(const key_type& __x) const {
     return _M_t.lower_bound(__x);
   }
-  // ·µ»Ø´óÓÚµ±Ç°ÔªËØµÄµÚÒ»¸ö¿É²åÈëµÄÎ»ÖÃ 
+  // è¿”å›å¤§äºå½“å‰å…ƒç´ çš„ç¬¬ä¸€ä¸ªå¯æ’å…¥çš„ä½ç½® 
   iterator upper_bound(const key_type& __x) const {
     return _M_t.upper_bound(__x); 
   }

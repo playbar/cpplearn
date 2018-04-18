@@ -44,29 +44,29 @@ __STL_BEGIN_NAMESPACE
 // Internal names
 
 template <class _T1, class _T2>
-//²ÎÊı½ÓÊÜÒ»¸öÖ¸ÕëºÍÒ»¸ö³õÖµ
+//å‚æ•°æ¥å—ä¸€ä¸ªæŒ‡é’ˆå’Œä¸€ä¸ªåˆå€¼
 inline void _Construct(_T1* __p, const _T2& __value) {
-  new ((void*) __p) _T1(__value);/*ÕâÀïÊÇplacement new;µ÷ÓÃ¹¹Ôìº¯ÊıT1::T1(value)
-								 *½«³õÖµÉè¶¨µ½Ö¸ÕëËùÖ¸µÄ¿Õ¼äÉÏ
+  new ((void*) __p) _T1(__value);/*è¿™é‡Œæ˜¯placement new;è°ƒç”¨æ„é€ å‡½æ•°T1::T1(value)
+								 *å°†åˆå€¼è®¾å®šåˆ°æŒ‡é’ˆæ‰€æŒ‡çš„ç©ºé—´ä¸Š
 								 */
 }
 
 template <class _T1>
-//ÕâÀïÖ»½ÓÊÜÖ¸Õë
+//è¿™é‡Œåªæ¥å—æŒ‡é’ˆ
 inline void _Construct(_T1* __p) {
-  new ((void*) __p) _T1();//ÕâÀïÊÇplacement new;µ÷ÓÃÄ¬ÈÏ¹¹Ôìº¯ÊıT1::T1()
+  new ((void*) __p) _T1();//è¿™é‡Œæ˜¯placement new;è°ƒç”¨é»˜è®¤æ„é€ å‡½æ•°T1::T1()
 }
 
 template <class _Tp>
-inline void _Destroy(_Tp* __pointer) {//µÚÒ»¸ö°æ±¾£º½ÓÊÜÒ»¸öÖ¸Õë
-  __pointer->~_Tp();//µ÷ÓÃ¶ÔÏóÎö¹¹º¯Êı£¬Îö¹¹Ö¸ÕëËùÖ¸¶ÔÏó
+inline void _Destroy(_Tp* __pointer) {//ç¬¬ä¸€ä¸ªç‰ˆæœ¬ï¼šæ¥å—ä¸€ä¸ªæŒ‡é’ˆ
+  __pointer->~_Tp();//è°ƒç”¨å¯¹è±¡ææ„å‡½æ•°ï¼Œææ„æŒ‡é’ˆæ‰€æŒ‡å¯¹è±¡
 }
 
 
 template <class _ForwardIterator>
-/*µÚ¶ş¸ö°æ±¾£º½ÓÊÜÁ½¸öµü´úÆ÷firstºÍlast£¬×Ôµü´úÆ÷first¿ªÊ¼µ½µü´úÆ÷last½áÊø£¬Îö¹¹Ã¿¸öÔªËØ¶ÔÏó
-*ÎªÇó×î´óĞ§ÂÊ£¬Ê×ÏÈÒÔ__VALUE_TYPE()İÍÈ¡³öµü´úÆ÷firstµÄvalue_type
-*ÔÙÀûÓÃ__type_traitsÅĞ¶Ï¸ÃĞÍ±ğÊÇ·ñtrivial destructor*/
+/*ç¬¬äºŒä¸ªç‰ˆæœ¬ï¼šæ¥å—ä¸¤ä¸ªè¿­ä»£å™¨firstå’Œlastï¼Œè‡ªè¿­ä»£å™¨firstå¼€å§‹åˆ°è¿­ä»£å™¨lastç»“æŸï¼Œææ„æ¯ä¸ªå…ƒç´ å¯¹è±¡
+*ä¸ºæ±‚æœ€å¤§æ•ˆç‡ï¼Œé¦–å…ˆä»¥__VALUE_TYPE()èƒå–å‡ºè¿­ä»£å™¨firstçš„value_type
+*å†åˆ©ç”¨__type_traitsåˆ¤æ–­è¯¥å‹åˆ«æ˜¯å¦trivial destructor*/
 inline void _Destroy(_ForwardIterator __first, _ForwardIterator __last) {
   __destroy(__first, __last, __VALUE_TYPE(__first));
 }
@@ -74,26 +74,26 @@ inline void _Destroy(_ForwardIterator __first, _ForwardIterator __last) {
 template <class _ForwardIterator, class _Tp>
 inline void 
 __destroy(_ForwardIterator __first, _ForwardIterator __last, _Tp*)
-{//ÀûÓÃ__type_traitsÅĞ¶ÏÔªËØµÄÊıÖµĞÍ±ğÊÇ·ñÓĞtrivial destructor
+{//åˆ©ç”¨__type_traitsåˆ¤æ–­å…ƒç´ çš„æ•°å€¼å‹åˆ«æ˜¯å¦æœ‰trivial destructor
   typedef typename __type_traits<_Tp>::has_trivial_destructor
           _Trivial_destructor;
   __destroy_aux(__first, __last, _Trivial_destructor());
 }
 
 template <class _ForwardIterator> 
-/*ÈôÔªËØĞÍ±ğÊÇÓĞtrivial destructor£¬¾ÍÅÉËÍµ½¸Ãº¯Êı
+/*è‹¥å…ƒç´ å‹åˆ«æ˜¯æœ‰trivial destructorï¼Œå°±æ´¾é€åˆ°è¯¥å‡½æ•°
 */
 inline void __destroy_aux(_ForwardIterator, _ForwardIterator, __true_type) {}
 
 template <class _ForwardIterator>
 void
 __destroy_aux(_ForwardIterator __first, _ForwardIterator __last, __false_type)
-{//ÈôÔªËØĞÍ±ğ²»¾ßÓĞtrivial destructor£¬¾ÍÅÉËÍµ½¸Ãº¯Êı
+{//è‹¥å…ƒç´ å‹åˆ«ä¸å…·æœ‰trivial destructorï¼Œå°±æ´¾é€åˆ°è¯¥å‡½æ•°
   for ( ; __first != __last; ++__first)
-    destroy(&*__first);//ÕâÀï×îÖÕ»¹ÊÇµ÷ÓÃÁËÖ¸Õë°æµÄÎö¹¹º¯Êı,Îö¹¹Ã¿¸öÔªËØ¶ÔÏó
+    destroy(&*__first);//è¿™é‡Œæœ€ç»ˆè¿˜æ˜¯è°ƒç”¨äº†æŒ‡é’ˆç‰ˆçš„ææ„å‡½æ•°,ææ„æ¯ä¸ªå…ƒç´ å¯¹è±¡
 }
 
-//ÒÔÏÂÊÇµÚ¶ş°æÎö¹¹º¯ÊıÕë¶ÔÄÚÖÃÀàĞÍµÄÌØ»¯°æ
+//ä»¥ä¸‹æ˜¯ç¬¬äºŒç‰ˆææ„å‡½æ•°é’ˆå¯¹å†…ç½®ç±»å‹çš„ç‰¹åŒ–ç‰ˆ
 inline void _Destroy(char*, char*) {}
 inline void _Destroy(int*, int*) {}
 inline void _Destroy(long*, long*) {}
@@ -116,12 +116,12 @@ inline void construct(_T1* __p) {
   _Construct(__p);
 }
 
-template <class _Tp>//²ÎÊıÎªÖ¸Õë°æµÄÎö¹¹º¯Êı
+template <class _Tp>//å‚æ•°ä¸ºæŒ‡é’ˆç‰ˆçš„ææ„å‡½æ•°
 inline void destroy(_Tp* __pointer) {
   _Destroy(__pointer);
 }
 
-template <class _ForwardIterator>//²ÎÊıÎªµü´úÆ÷°æµÄÎö¹¹º¯Êı
+template <class _ForwardIterator>//å‚æ•°ä¸ºè¿­ä»£å™¨ç‰ˆçš„ææ„å‡½æ•°
 inline void destroy(_ForwardIterator __first, _ForwardIterator __last) {
   _Destroy(__first, __last);
 }

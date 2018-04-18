@@ -1,30 +1,30 @@
 
 // min_element and max_element, with and without an explicitly supplied
 // comparison function.
-//·µ»ØĞòÁĞ[first,last)ÖĞ×î´óÔªËØµÄÎ»ÖÃ
+//è¿”å›åºåˆ—[first,last)ä¸­æœ€å¤§å…ƒç´ çš„ä½ç½®
 /*
-default (1):°æ±¾Ò»	
+default (1):ç‰ˆæœ¬ä¸€	
 	template <class ForwardIterator>
 	ForwardIterator max_element (ForwardIterator first, ForwardIterator last);
-custom (2):°æ±¾¶ş	
+custom (2):ç‰ˆæœ¬äºŒ	
 	template <class ForwardIterator, class Compare>
 	ForwardIterator max_element (ForwardIterator first, ForwardIterator last,
                                Compare comp);
 */
-//°æ±¾Ò»£º
+//ç‰ˆæœ¬ä¸€ï¼š
 template <class _ForwardIter>
 _ForwardIter max_element(_ForwardIter __first, _ForwardIter __last) {
   __STL_REQUIRES(_ForwardIter, _ForwardIterator);
   __STL_REQUIRES(typename iterator_traits<_ForwardIter>::value_type,
                  _LessThanComparable);
-  if (__first == __last) return __first;//ÈôÎª¿Õ£¬Ö±½Ó·µ»Ø
-  _ForwardIter __result = __first;//Èô²»Îª¿Õ£¬´ÓµÚÒ»¸öÔªËØ¿ªÊ¼£¬¼´°ÑµÚÒ»¸öÔªËØÔİÊ±±£´æÎª×î´óÖµ
-  while (++__first != __last) //°´Ë³Ğò²éÕÒ×î´óÖµ
-    if (*__result < *__first)//ÈôÓĞ¸ü´óµÄÖµ
-      __result = __first;//Ôò¸üĞÂ×î´óÖµÎ»ÖÃ
-  return __result;//·µ»Ø×î´óÖµÎ»ÖÃ
+  if (__first == __last) return __first;//è‹¥ä¸ºç©ºï¼Œç›´æ¥è¿”å›
+  _ForwardIter __result = __first;//è‹¥ä¸ä¸ºç©ºï¼Œä»ç¬¬ä¸€ä¸ªå…ƒç´ å¼€å§‹ï¼Œå³æŠŠç¬¬ä¸€ä¸ªå…ƒç´ æš‚æ—¶ä¿å­˜ä¸ºæœ€å¤§å€¼
+  while (++__first != __last) //æŒ‰é¡ºåºæŸ¥æ‰¾æœ€å¤§å€¼
+    if (*__result < *__first)//è‹¥æœ‰æ›´å¤§çš„å€¼
+      __result = __first;//åˆ™æ›´æ–°æœ€å¤§å€¼ä½ç½®
+  return __result;//è¿”å›æœ€å¤§å€¼ä½ç½®
 }
-//°æ±¾¶ş
+//ç‰ˆæœ¬äºŒ
 template <class _ForwardIter, class _Compare>
 _ForwardIter max_element(_ForwardIter __first, _ForwardIter __last,
 			 _Compare __comp) {
@@ -38,30 +38,30 @@ _ForwardIter max_element(_ForwardIter __first, _ForwardIter __last,
     if (__comp(*__result, *__first)) __result = __first;
   return __result;
 }
-//·µ»ØĞòÁĞ[first,last)ÖĞ×îĞ¡ÔªËØµÄÎ»ÖÃ
+//è¿”å›åºåˆ—[first,last)ä¸­æœ€å°å…ƒç´ çš„ä½ç½®
 /*
-default (1):°æ±¾Ò»	
+default (1):ç‰ˆæœ¬ä¸€	
 	template <class ForwardIterator>
 	ForwardIterator min_element (ForwardIterator first, ForwardIterator last);
-custom (2):°æ±¾¶ş	
+custom (2):ç‰ˆæœ¬äºŒ	
 	template <class ForwardIterator, class Compare>
 	ForwardIterator min_element (ForwardIterator first, ForwardIterator last,
                                Compare comp);
 */
-//°æ±¾Ò»£º
+//ç‰ˆæœ¬ä¸€ï¼š
 template <class _ForwardIter>
 _ForwardIter min_element(_ForwardIter __first, _ForwardIter __last) {
   __STL_REQUIRES(_ForwardIter, _ForwardIterator);
   __STL_REQUIRES(typename iterator_traits<_ForwardIter>::value_type,
                  _LessThanComparable);
-  if (__first == __last) return __first;//ÈôÎª¿Õ£¬Ö±½Ó·µ»Ø
-  _ForwardIter __result = __first;//Èô²»Îª¿Õ£¬´ÓµÚÒ»¸öÔªËØ¿ªÊ¼£¬¼´°ÑµÚÒ»¸öÔªËØÔİÊ±±£´æÎª×îĞ¡Öµ
-  while (++__first != __last) //°´Ë³Ğò²éÕÒ×îĞ¡Öµ
-    if (*__first < *__result)//Èô´æÔÚ¸üĞ¡µÄÖµ
-      __result = __first;//Ôò¸üĞÂ×îĞ¡ÖµÎ»ÖÃ
-  return __result;//·µ»Ø×îĞ¡ÖµÎ»ÖÃ
+  if (__first == __last) return __first;//è‹¥ä¸ºç©ºï¼Œç›´æ¥è¿”å›
+  _ForwardIter __result = __first;//è‹¥ä¸ä¸ºç©ºï¼Œä»ç¬¬ä¸€ä¸ªå…ƒç´ å¼€å§‹ï¼Œå³æŠŠç¬¬ä¸€ä¸ªå…ƒç´ æš‚æ—¶ä¿å­˜ä¸ºæœ€å°å€¼
+  while (++__first != __last) //æŒ‰é¡ºåºæŸ¥æ‰¾æœ€å°å€¼
+    if (*__first < *__result)//è‹¥å­˜åœ¨æ›´å°çš„å€¼
+      __result = __first;//åˆ™æ›´æ–°æœ€å°å€¼ä½ç½®
+  return __result;//è¿”å›æœ€å°å€¼ä½ç½®
 }
-//°æ±¾¶ş
+//ç‰ˆæœ¬äºŒ
 template <class _ForwardIter, class _Compare>
 _ForwardIter min_element(_ForwardIter __first, _ForwardIter __last,
 			 _Compare __comp) {
@@ -76,7 +76,7 @@ _ForwardIter min_element(_ForwardIter __first, _ForwardIter __last,
       __result = __first;
   return __result;
 }
-//max_elementºÍmin_elementº¯Êı¾ÙÀı
+//max_elementå’Œmin_elementå‡½æ•°ä¸¾ä¾‹
 /*
 	#include <iostream>     // std::cout
 	#include <algorithm>    // std::min_element, std::max_element

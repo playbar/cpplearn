@@ -1,5 +1,5 @@
 /*tihs program is in the file of stl_alloc.h from line 288 to 375 */
-//µÚ¶ş¼¶ÅäÖÃÆ÷__default_alloc_template
+//ç¬¬äºŒçº§é…ç½®å™¨__default_alloc_template
 template <bool threads, int inst>
 class __default_alloc_template {
 
@@ -7,16 +7,16 @@ private:
   // Really we should use static const int x = N
   // instead of enum { x = N }, but few compilers accept the former.
 #if ! (defined(__SUNPRO_CC) || defined(__GNUC__))
-    enum {_ALIGN = 8};//Ğ¡¶îÇø¿éµÄÉÏµ÷±ß½ç
-    enum {_MAX_BYTES = 128};//Ğ¡¶îÇø¿éµÄ×î´óÄÚ´æ
-    enum {_NFREELISTS = 16}; // _MAX_BYTES/_ALIGN;×ÔÓÉÁ´±í¸öÊı
+    enum {_ALIGN = 8};//å°é¢åŒºå—çš„ä¸Šè°ƒè¾¹ç•Œ
+    enum {_MAX_BYTES = 128};//å°é¢åŒºå—çš„æœ€å¤§å†…å­˜
+    enum {_NFREELISTS = 16}; // _MAX_BYTES/_ALIGN;è‡ªç”±é“¾è¡¨ä¸ªæ•°
 # endif
   static size_t
-  _S_round_up(size_t __bytes) //º¯Êı¹¦ÄÜ£ºµ÷ÕûÄÚ´æ´óĞ¡Îª8µÄ±¶Êı
+  _S_round_up(size_t __bytes) //å‡½æ•°åŠŸèƒ½ï¼šè°ƒæ•´å†…å­˜å¤§å°ä¸º8çš„å€æ•°
     { return (((__bytes) + (size_t) _ALIGN-1) & ~((size_t) _ALIGN - 1)); }
 
 __PRIVATE:
-  union _Obj {//×ÔÓÉÁ´±í½ÚµãÊôĞÔ
+  union _Obj {//è‡ªç”±é“¾è¡¨èŠ‚ç‚¹å±æ€§
         union _Obj* _M_free_list_link;
         char _M_client_data[1];    /* The client sees this.        */
   };
@@ -27,20 +27,20 @@ private:
 # else
     static _Obj* __STL_VOLATILE _S_free_list[_NFREELISTS]; 
 # endif
-  static  size_t _S_freelist_index(size_t __bytes) {//º¯Êı¹¦ÄÜ£º¼ÆËãËùÉêÇëÇø¿éÄÚ´æÔÚ×ÔÓÉÁ´±íÖĞ¶ÔÓ¦µÄºÅÊı,´Ó0¿ªÊ¼
+  static  size_t _S_freelist_index(size_t __bytes) {//å‡½æ•°åŠŸèƒ½ï¼šè®¡ç®—æ‰€ç”³è¯·åŒºå—å†…å­˜åœ¨è‡ªç”±é“¾è¡¨ä¸­å¯¹åº”çš„å·æ•°,ä»0å¼€å§‹
         return (((__bytes) + (size_t)_ALIGN-1)/(size_t)_ALIGN - 1);
   }
 
   // Returns an object of size __n, and optionally adds to size __n free list.
-  static void* _S_refill(size_t __n);//Ìî³ä¿Õ¼ä,°Ñ´óĞ¡ÎªnµÄÄÚ´æ¿Õ¼ä¼Óµ½×ÔÓÉÁ´±í
+  static void* _S_refill(size_t __n);//å¡«å……ç©ºé—´,æŠŠå¤§å°ä¸ºnçš„å†…å­˜ç©ºé—´åŠ åˆ°è‡ªç”±é“¾è¡¨
   // Allocates a chunk for nobjs of size size.  nobjs may be reduced
   // if it is inconvenient to allocate the requested number.
-  /*´ÓÄÚ´æ³ØÖĞ·ÖÅä¿Õ¼ä£¬¸Ã¿Õ¼ä¿ÉÈİÄÉ__nobjs´óĞ¡Îª__sizeµÄÇø¿é£¬¿ÉÄÜ»áÉÙÓÚ__nobjs¸ö*/
+  /*ä»å†…å­˜æ± ä¸­åˆ†é…ç©ºé—´ï¼Œè¯¥ç©ºé—´å¯å®¹çº³__nobjså¤§å°ä¸º__sizeçš„åŒºå—ï¼Œå¯èƒ½ä¼šå°‘äº__nobjsä¸ª*/
   static char* _S_chunk_alloc(size_t __size, int& __nobjs);
 
   // Chunk allocation state.
-  static char* _S_start_free;//ÄÚ´æ³ØÆğÊ¼Î»ÖÃ
-  static char* _S_end_free;//ÄÚ´æ³Ø½áÊøÎ»ÖÃ
+  static char* _S_start_free;//å†…å­˜æ± èµ·å§‹ä½ç½®
+  static char* _S_end_free;//å†…å­˜æ± ç»“æŸä½ç½®
   static size_t _S_heap_size;
 
 # ifdef __STL_THREADS
@@ -52,7 +52,7 @@ private:
     // threads have actually been started.
     class _Lock;
     friend class _Lock;
-    class _Lock {//¸ÃÀà±£Ö¤ÄÚ´æ³ØÔÚ¶àÏß³Ì»·¾³½â¾ö»¥³â·ÃÎÊ
+    class _Lock {//è¯¥ç±»ä¿è¯å†…å­˜æ± åœ¨å¤šçº¿ç¨‹ç¯å¢ƒè§£å†³äº’æ–¥è®¿é—®
         public:
             _Lock() { __NODE_ALLOCATOR_LOCK; }
             ~_Lock() { __NODE_ALLOCATOR_UNLOCK; }
@@ -65,7 +65,7 @@ private:
     void* __ret = 0;
 
     if (__n > (size_t) _MAX_BYTES) {
-      __ret = malloc_alloc::allocate(__n);//ÄÚ´æ´óÓÚ128Ê±£¬²ÉÓÃµÚÒ»¼¶ÅäÖÃÆ÷´¦Àí
+      __ret = malloc_alloc::allocate(__n);//å†…å­˜å¤§äº128æ—¶ï¼Œé‡‡ç”¨ç¬¬ä¸€çº§é…ç½®å™¨å¤„ç†
     }
     else {
       _Obj* __STL_VOLATILE* __my_free_list
@@ -78,9 +78,9 @@ private:
       _Lock __lock_instance;
 #     endif
       _Obj* __RESTRICT __result = *__my_free_list;
-      if (__result == 0)//Èô×ÔÓÉÁ´±ífree_list²»´æÔÚ¿ÉÓÃµÄÇø¿é£¬Ôò´ÓÄÚ´æ³ØÖĞÌî³ä×ÔÓÉÁ´±í
+      if (__result == 0)//è‹¥è‡ªç”±é“¾è¡¨free_listä¸å­˜åœ¨å¯ç”¨çš„åŒºå—ï¼Œåˆ™ä»å†…å­˜æ± ä¸­å¡«å……è‡ªç”±é“¾è¡¨
         __ret = _S_refill(_S_round_up(__n));
-      else {//Èô×ÔÓÉÁ´±ífree_list´æÔÚ¿ÉÓÃÇø¿é£¬µ÷Õûfree_list
+      else {//è‹¥è‡ªç”±é“¾è¡¨free_listå­˜åœ¨å¯ç”¨åŒºå—ï¼Œè°ƒæ•´free_list
         *__my_free_list = __result -> _M_free_list_link;
         __ret = __result;
       }
@@ -91,9 +91,9 @@ private:
   /* __p may not be 0 */
   static void deallocate(void* __p, size_t __n)
   {
-    if (__n > (size_t) _MAX_BYTES)//ÄÚ´æ´óÓÚ128Ê±£¬²ÉÓÃµÚÒ»¼¶ÅäÖÃÆ÷´¦Àí
+    if (__n > (size_t) _MAX_BYTES)//å†…å­˜å¤§äº128æ—¶ï¼Œé‡‡ç”¨ç¬¬ä¸€çº§é…ç½®å™¨å¤„ç†
       malloc_alloc::deallocate(__p, __n);
-    else {//·ñÔò£¬ÕÒµ½ÏàÓ¦µÄ×ÔÓÉÁ´±íÎ»ÖÃ£¬½«Æä»ØÊÕ
+    else {//å¦åˆ™ï¼Œæ‰¾åˆ°ç›¸åº”çš„è‡ªç”±é“¾è¡¨ä½ç½®ï¼Œå°†å…¶å›æ”¶
       _Obj* __STL_VOLATILE*  __my_free_list
           = _S_free_list + _S_freelist_index(__n);
       _Obj* __q = (_Obj*)__p;
@@ -108,7 +108,7 @@ private:
       // lock is released here
     }
   }
-//³õÊ¼»¯²Ù×÷
+//åˆå§‹åŒ–æ“ä½œ
 //line from 554 to 571
   template <bool __threads, int __inst>
 char* __default_alloc_template<__threads, __inst>::_S_start_free = 0;
@@ -136,8 +136,8 @@ template <bool __threads, int __inst>
 void*
 __default_alloc_template<__threads, __inst>::_S_refill(size_t __n)
 {
-    int __nobjs = 20;//Ä¬ÈÏ½ÚµãÊı
-	//µ÷ÓÃ_S_chunk_alloc£¬´ÓÄÚ´æ³ØÖĞ»ñµÃÄÚ´æ¿Õ¼ä
+    int __nobjs = 20;//é»˜è®¤èŠ‚ç‚¹æ•°
+	//è°ƒç”¨_S_chunk_allocï¼Œä»å†…å­˜æ± ä¸­è·å¾—å†…å­˜ç©ºé—´
     char* __chunk = _S_chunk_alloc(__n, __nobjs);
     _Obj* __STL_VOLATILE* __my_free_list;
     _Obj* __result;
@@ -145,16 +145,16 @@ __default_alloc_template<__threads, __inst>::_S_refill(size_t __n)
     _Obj* __next_obj;
     int __i;
 
-	//Èç¹ûÖ»ÓĞÒ»¸öÇø¿é£¬·µ»Ø¸ø¿Í»§¶Ë£¬×ÔÓÉÁ´±íÃ»ÓĞ½ÓÇø¿é¹ÜÀí
+	//å¦‚æœåªæœ‰ä¸€ä¸ªåŒºå—ï¼Œè¿”å›ç»™å®¢æˆ·ç«¯ï¼Œè‡ªç”±é“¾è¡¨æ²¡æœ‰æ¥åŒºå—ç®¡ç†
     if (1 == __nobjs) return(__chunk);
-	//µ÷Õû×ÔÓÉÁ´±ífree_list£¬×¼±¸¹ÜÀíĞÂ½Úµã
+	//è°ƒæ•´è‡ªç”±é“¾è¡¨free_listï¼Œå‡†å¤‡ç®¡ç†æ–°èŠ‚ç‚¹
     __my_free_list = _S_free_list + _S_freelist_index(__n);
 
     /* Build free list in chunk */
-      __result = (_Obj*)__chunk;//ÕâÒ»¿é·µ»Ø¸ø¿Í»§¶Ë
-	  //×ÔÓÉÁ´±ífree_listÖ¸ÏòĞÂÅäÖÃµÄ¿Õ¼ä
+      __result = (_Obj*)__chunk;//è¿™ä¸€å—è¿”å›ç»™å®¢æˆ·ç«¯
+	  //è‡ªç”±é“¾è¡¨free_listæŒ‡å‘æ–°é…ç½®çš„ç©ºé—´
       *__my_free_list = __next_obj = (_Obj*)(__chunk + __n);
-      for (__i = 1; ; __i++) {//ÕâÀïµÚ0¸ö·µ»Ø¸ø¿Í»§¶Ë£¬ËùÒÔ´Ó1¿ªÊ¼
+      for (__i = 1; ; __i++) {//è¿™é‡Œç¬¬0ä¸ªè¿”å›ç»™å®¢æˆ·ç«¯ï¼Œæ‰€ä»¥ä»1å¼€å§‹
         __current_obj = __next_obj;
         __next_obj = (_Obj*)((char*)__next_obj + __n);
         if (__nobjs - 1 == __i) {
@@ -177,36 +177,36 @@ __default_alloc_template<__threads, __inst>::_S_chunk_alloc(size_t __size,
                                                             int& __nobjs)
 {
     char* __result;
-    size_t __total_bytes = __size * __nobjs;//ËùĞè×ÜµÄÄÚ´æ¿é
-    size_t __bytes_left = _S_end_free - _S_start_free;//ÄÚ´æ³ØÊ£Óà¿Õ¼ä
+    size_t __total_bytes = __size * __nobjs;//æ‰€éœ€æ€»çš„å†…å­˜å—
+    size_t __bytes_left = _S_end_free - _S_start_free;//å†…å­˜æ± å‰©ä½™ç©ºé—´
 
-    if (__bytes_left >= __total_bytes) {//ÈôÄÚ´æ³ØÊ£Óà¿Õ¼äÂú×ã20¸öĞèÇó£¬Ö±½Ó·ÖÅä
+    if (__bytes_left >= __total_bytes) {//è‹¥å†…å­˜æ± å‰©ä½™ç©ºé—´æ»¡è¶³20ä¸ªéœ€æ±‚ï¼Œç›´æ¥åˆ†é…
         __result = _S_start_free;
         _S_start_free += __total_bytes;
         return(__result);
     } else if (__bytes_left >= __size) {
-		/*ÈôÄÚ´æ³ØÊ£Óà¿Õ¼ä²»Âú×ã20¸öĞèÇó£¬µ«×ã¹»Âú×ãÒ»¸ö»ò¶à¸ö£¬È¡³öÄÜ¹»Âú×ãÌõ¼şÇø¿éµÄ¸öÊı*/
+		/*è‹¥å†…å­˜æ± å‰©ä½™ç©ºé—´ä¸æ»¡è¶³20ä¸ªéœ€æ±‚ï¼Œä½†è¶³å¤Ÿæ»¡è¶³ä¸€ä¸ªæˆ–å¤šä¸ªï¼Œå–å‡ºèƒ½å¤Ÿæ»¡è¶³æ¡ä»¶åŒºå—çš„ä¸ªæ•°*/
         __nobjs = (int)(__bytes_left/__size);
         __total_bytes = __size * __nobjs;
         __result = _S_start_free;
         _S_start_free += __total_bytes;
         return(__result);
     } else {
-		/*ÄÚ´æ³ØÊ£Óà¿Õ¼äÁ¬Ò»¸öÇø¿é´óĞ¡¶¼ÎŞ·¨Ìá¹©*/
+		/*å†…å­˜æ± å‰©ä½™ç©ºé—´è¿ä¸€ä¸ªåŒºå—å¤§å°éƒ½æ— æ³•æä¾›*/
         size_t __bytes_to_get = 
 	  2 * __total_bytes + _S_round_up(_S_heap_size >> 4);
         // Try to make use of the left-over piece.
         if (__bytes_left > 0) {
-			/*ÅĞ¶ÏÄÚ´æ³ØÖĞÊÇ·ñÓĞ²ĞÓàÁãÍ·ÄÚ´æ¿Õ¼ä£¬Èç¹ûÓĞÔò½øĞĞ»ØÊÕ£¬½«Æä±àÈëfree list*/
+			/*åˆ¤æ–­å†…å­˜æ± ä¸­æ˜¯å¦æœ‰æ®‹ä½™é›¶å¤´å†…å­˜ç©ºé—´ï¼Œå¦‚æœæœ‰åˆ™è¿›è¡Œå›æ”¶ï¼Œå°†å…¶ç¼–å…¥free list*/
             _Obj* __STL_VOLATILE* __my_free_list =
                         _S_free_list + _S_freelist_index(__bytes_left);
 
             ((_Obj*)_S_start_free) -> _M_free_list_link = *__my_free_list;
             *__my_free_list = (_Obj*)_S_start_free;
         }
-		//ÅäÖÃ¿ÉÓÃµÄ¶Ñ¿Õ¼ä£¬ÓÃÀ´²¹³äÄÚ´æ³Ø¿Õ¼ä
+		//é…ç½®å¯ç”¨çš„å †ç©ºé—´ï¼Œç”¨æ¥è¡¥å……å†…å­˜æ± ç©ºé—´
         _S_start_free = (char*)malloc(__bytes_to_get);
-        if (0 == _S_start_free) {//Èô¶Ñ¿Õ¼ä²»×ã
+        if (0 == _S_start_free) {//è‹¥å †ç©ºé—´ä¸è¶³
             size_t __i;
             _Obj* __STL_VOLATILE* __my_free_list;
 	    _Obj* __p;
@@ -216,11 +216,11 @@ __default_alloc_template<__threads, __inst>::_S_chunk_alloc(size_t __size,
             for (__i = __size;
                  __i <= (size_t) _MAX_BYTES;
                  __i += (size_t) _ALIGN) {
-	/*ËÑÑ°ÊÊµ±µÄfree list£¨ÊÊµ±µÄÊÇÖ¸£ºÉĞÓĞÎ´ÓÃÇø¿é£¬²¢ÇÒÇø¿é×ã¹»´ó£©£¬µ÷ÕûÒÔ½øĞĞÊÍ·Å£¬½«Æä±àÈëÄÚ´æ³Ø¡£
-					 **È»ºóµİ¹éµ÷ÓÃchunk_allocº¯Êı´ÓÄÚ´æ³ØÈ¡¿Õ¼ä¹©free list¡£*/
+	/*æœå¯»é€‚å½“çš„free listï¼ˆé€‚å½“çš„æ˜¯æŒ‡ï¼šå°šæœ‰æœªç”¨åŒºå—ï¼Œå¹¶ä¸”åŒºå—è¶³å¤Ÿå¤§ï¼‰ï¼Œè°ƒæ•´ä»¥è¿›è¡Œé‡Šæ”¾ï¼Œå°†å…¶ç¼–å…¥å†…å­˜æ± ã€‚
+					 **ç„¶åé€’å½’è°ƒç”¨chunk_allocå‡½æ•°ä»å†…å­˜æ± å–ç©ºé—´ä¾›free listã€‚*/
                 __my_free_list = _S_free_list + _S_freelist_index(__i);
                 __p = *__my_free_list;
-                if (0 != __p) {//×ÔÓÉÁ·±íÖĞ´æÔÚÎ´±»Ê¹ÓÃµÄÇø¿é£¬µ÷Õû²¢ÊÍ·Å¸ÃÇø¿é
+                if (0 != __p) {//è‡ªç”±ç»ƒè¡¨ä¸­å­˜åœ¨æœªè¢«ä½¿ç”¨çš„åŒºå—ï¼Œè°ƒæ•´å¹¶é‡Šæ”¾è¯¥åŒºå—
                     *__my_free_list = __p -> _M_free_list_link;
                     _S_start_free = (char*)__p;
                     _S_end_free = _S_start_free + __i;
@@ -229,7 +229,7 @@ __default_alloc_template<__threads, __inst>::_S_chunk_alloc(size_t __size,
                     // right free list.
                 }
             }
-	    _S_end_free = 0;	// In case of exception.µ÷ÓÃµÚÒ»¼¶ÅäÖÃÆ÷
+	    _S_end_free = 0;	// In case of exception.è°ƒç”¨ç¬¬ä¸€çº§é…ç½®å™¨
             _S_start_free = (char*)malloc_alloc::allocate(__bytes_to_get);
             // This should either throw an
             // exception or remedy the situation.  Thus we assume it
@@ -246,7 +246,7 @@ __default_alloc_template<__threads, __inst>::_S_chunk_alloc(size_t __size,
 
 
 #ifdef __STL_THREADS
-# include <stl_threads.h>//°üº¬Ïß³ÌÎÄ¼ş
+# include <stl_threads.h>//åŒ…å«çº¿ç¨‹æ–‡ä»¶
 # define __NODE_ALLOCATOR_THREADS true
 # ifdef __STL_SGI_THREADS
   // We test whether threads are in use before locking.
@@ -265,9 +265,9 @@ __default_alloc_template<__threads, __inst>::_S_chunk_alloc(size_t __size,
                 { _S_node_allocator_lock._M_release_lock(); }
 # else /* !__STL_SGI_THREADS */
 #   define __NODE_ALLOCATOR_LOCK \
-        { if (threads) _S_node_allocator_lock._M_acquire_lock(); }//»ñÈ¡Ëø
+        { if (threads) _S_node_allocator_lock._M_acquire_lock(); }//è·å–é”
 #   define __NODE_ALLOCATOR_UNLOCK \
-        { if (threads) _S_node_allocator_lock._M_release_lock(); }//ÊÍ·ÅËø
+        { if (threads) _S_node_allocator_lock._M_release_lock(); }//é‡Šæ”¾é”
 # endif
 #else
 //  Thread-unsafe
@@ -277,7 +277,7 @@ __default_alloc_template<__threads, __inst>::_S_chunk_alloc(size_t __size,
 #endif
 
 # ifdef __STL_THREADS
-    static _STL_mutex_lock _S_node_allocator_lock;//»¥³âËø±äÁ¿
+    static _STL_mutex_lock _S_node_allocator_lock;//äº’æ–¥é”å˜é‡
 # endif
 
     // It would be nice to use _STL_auto_lock here.  But we
@@ -285,7 +285,7 @@ __default_alloc_template<__threads, __inst>::_S_chunk_alloc(size_t __size,
     // threads have actually been started.
     class _Lock;
     friend class _Lock;
-    class _Lock {//½â¾öÄÚ´æ³ØÔÚ¶àÏß³Ì»·¾³ÏÂµÄ¹ÜÀí
+    class _Lock {//è§£å†³å†…å­˜æ± åœ¨å¤šçº¿ç¨‹ç¯å¢ƒä¸‹çš„ç®¡ç†
         public:
             _Lock() { __NODE_ALLOCATOR_LOCK; }
             ~_Lock() { __NODE_ALLOCATOR_UNLOCK; }

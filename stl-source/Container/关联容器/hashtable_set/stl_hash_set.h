@@ -9,15 +9,15 @@ __STL_BEGIN_NAMESPACE
 #pragma set woff 1174
 #pragma set woff 1375
 #endif
-//hash_setµÄµ×²ãÊÇ»ùÓÚhash tableµÄ£¬hash tableÃ»ÓĞÌá¹©ÅÅĞò,ËùÒÔhash_setÈİÆ÷ÀïÃæµÄÄÚÈİÊÇÃ»ÅÅĞòµÄ
-//hash_setºÍsetÒ»Ñù£¬¼üÖµºÍÊµÖµÏàÍ¬£¬²¢ÇÒ¼üÖµÊÇÎ¨Ò»µÄ
+//hash_setçš„åº•å±‚æ˜¯åŸºäºhash tableçš„ï¼Œhash tableæ²¡æœ‰æä¾›æ’åº,æ‰€ä»¥hash_setå®¹å™¨é‡Œé¢çš„å†…å®¹æ˜¯æ²¡æ’åºçš„
+//hash_setå’Œsetä¸€æ ·ï¼Œé”®å€¼å’Œå®å€¼ç›¸åŒï¼Œå¹¶ä¸”é”®å€¼æ˜¯å”¯ä¸€çš„
 
 // Forward declaration of equality operator; needed for friend declaration.
 
-//ÕâÀïÌá¹©Ä¬ÈÏµÄ²ÎÊı,ÆäÖĞ¹şÏ£º¯ÊıÔÚ<stl_hash_fun.h>¶¨Òå
-//Ç°ÃæµÄ²©ÎÄÒ²¶Ô¹şÏ£º¯Êı½øĞĞ½²½âÁË
+//è¿™é‡Œæä¾›é»˜è®¤çš„å‚æ•°,å…¶ä¸­å“ˆå¸Œå‡½æ•°åœ¨<stl_hash_fun.h>å®šä¹‰
+//å‰é¢çš„åšæ–‡ä¹Ÿå¯¹å“ˆå¸Œå‡½æ•°è¿›è¡Œè®²è§£äº†
 //http://blog.csdn.net/chenhanzhun/article/details/39584025
-//ÓÃ»§¿É×ÔĞĞÖÆ¶¨
+//ç”¨æˆ·å¯è‡ªè¡Œåˆ¶å®š
 template <class _Value,
           class _HashFcn  __STL_DEPENDENT_DEFAULT_TMPL(hash<_Value>),
           class _EqualKey __STL_DEPENDENT_DEFAULT_TMPL(equal_to<_Value>),
@@ -39,7 +39,7 @@ class hash_set
   __STL_CLASS_BINARY_FUNCTION_CHECK(_EqualKey, bool, _Value, _Value);
 
 private:
-	//_Identity»ñÈ¡valueÖµ£¬ÔÚhash_setÖĞÒ²ÊÇ¼üÖµ£¬_Identity<>¶¨ÒåÔÚ<stl_function.h>
+	//_Identityè·å–valueå€¼ï¼Œåœ¨hash_setä¸­ä¹Ÿæ˜¯é”®å€¼ï¼Œ_Identity<>å®šä¹‰åœ¨<stl_function.h>
 	/*
 	template <class _Arg, class _Result>
 	struct unary_function {
@@ -53,10 +53,10 @@ private:
 	*/
   typedef hashtable<_Value, _Value, _HashFcn, _Identity<_Value>, 
                     _EqualKey, _Alloc> _Ht;
-  _Ht _M_ht;//hash_setµÄµ×²ã»úÖÆÊÇhash table
+  _Ht _M_ht;//hash_setçš„åº•å±‚æœºåˆ¶æ˜¯hash table
 
 public:
-	//ÒÔÏÂµÄÄÚÇ¶ÀàĞÍ¾ùÀ´Ê±hash table
+	//ä»¥ä¸‹çš„å†…åµŒç±»å‹å‡æ¥æ—¶hash table
   typedef typename _Ht::key_type key_type;
   typedef typename _Ht::value_type value_type;
   typedef typename _Ht::hasher hasher;
@@ -65,7 +65,7 @@ public:
   typedef typename _Ht::size_type size_type;
   typedef typename _Ht::difference_type difference_type;
 
-  // ×¢Òâ: ²»ÄÜĞŞ¸Ähash tableÄÚ²¿µÄÔªËØ,reference, pointer, iterator¶¼Îªconst
+  // æ³¨æ„: ä¸èƒ½ä¿®æ”¹hash tableå†…éƒ¨çš„å…ƒç´ ,reference, pointer, iteratoréƒ½ä¸ºconst
   typedef typename _Ht::const_pointer pointer;
   typedef typename _Ht::const_pointer const_pointer;
   typedef typename _Ht::const_reference reference;
@@ -76,38 +76,38 @@ public:
 
   typedef typename _Ht::allocator_type allocator_type;
 
-  //·µ»Øhashº¯Êı
+  //è¿”å›hashå‡½æ•°
   hasher hash_funct() const { return _M_ht.hash_funct(); }
   key_equal key_eq() const { return _M_ht.key_eq(); }
   allocator_type get_allocator() const { return _M_ht.get_allocator(); }
 
 public:
-	//¹¹Ôìº¯Êı
-	//È±Ê¡Çé¿öÊ¹ÓÃ´óĞ¡Îª100,µ«ÊÇÊµ¼Ê·ÖÅäµÄ¿Õ¼ä´óĞ¡Îª²»Ğ¡ÓÚ100µÄ×îĞ¡ËØÊı
-	//Ö»ÊÇ¿ÕµÄhash_set£¬²»´æ´¢ÔªËØ½Úµã
+	//æ„é€ å‡½æ•°
+	//ç¼ºçœæƒ…å†µä½¿ç”¨å¤§å°ä¸º100,ä½†æ˜¯å®é™…åˆ†é…çš„ç©ºé—´å¤§å°ä¸ºä¸å°äº100çš„æœ€å°ç´ æ•°
+	//åªæ˜¯ç©ºçš„hash_setï¼Œä¸å­˜å‚¨å…ƒç´ èŠ‚ç‚¹
   hash_set()
     : _M_ht(100, hasher(), key_equal(), allocator_type()) {}
-  //Ö¸¶¨´óĞ¡nµÄhash_set±í
+  //æŒ‡å®šå¤§å°nçš„hash_setè¡¨
   explicit hash_set(size_type __n)
     : _M_ht(__n, hasher(), key_equal(), allocator_type()) {}
-  //Ö¸¶¨´óĞ¡Îªn£¬ÇÒÖ¸¶¨hashº¯ÊıµÄhash_set
+  //æŒ‡å®šå¤§å°ä¸ºnï¼Œä¸”æŒ‡å®šhashå‡½æ•°çš„hash_set
   hash_set(size_type __n, const hasher& __hf)
     : _M_ht(__n, __hf, key_equal(), allocator_type()) {}
-  //Ö¸¶¨´óĞ¡Îªn£¬ÇÒÖ¸¶¨hashº¯ÊıºÍ¼üÖµ±È½Ïº¯ÊıµÄhash_set
+  //æŒ‡å®šå¤§å°ä¸ºnï¼Œä¸”æŒ‡å®šhashå‡½æ•°å’Œé”®å€¼æ¯”è¾ƒå‡½æ•°çš„hash_set
   hash_set(size_type __n, const hasher& __hf, const key_equal& __eql,
            const allocator_type& __a = allocator_type())
     : _M_ht(__n, __hf, __eql, __a) {}
 
 #ifdef __STL_MEMBER_TEMPLATES
-  //ÒÔÏÂhash_setµÄ²åÈë²Ù×÷Ê¹ÓÃhash tableµÄinsert_unique²åÈë
-  //²»ÔÊĞíÓĞÏàÍ¬µÄ¼üÖµ²åÈë
+  //ä»¥ä¸‹hash_setçš„æ’å…¥æ“ä½œä½¿ç”¨hash tableçš„insert_uniqueæ’å…¥
+  //ä¸å…è®¸æœ‰ç›¸åŒçš„é”®å€¼æ’å…¥
 
-  //ÓÃÄ³¸ö·¶Î§µÄÔªËØ³õÊ¼»¯hash_set¶ÔÏó
-  //Ïàµ±ÓÚ°ÑÄ³¸ö·¶Î§[f,l)²åÈëµ½¿ÕµÄhash_set
+  //ç”¨æŸä¸ªèŒƒå›´çš„å…ƒç´ åˆå§‹åŒ–hash_setå¯¹è±¡
+  //ç›¸å½“äºæŠŠæŸä¸ªèŒƒå›´[f,l)æ’å…¥åˆ°ç©ºçš„hash_set
   template <class _InputIterator>
   hash_set(_InputIterator __f, _InputIterator __l)
     : _M_ht(100, hasher(), key_equal(), allocator_type())
-    { _M_ht.insert_unique(__f, __l); }//µ÷ÓÃhash tableµÄ²åÈëº¯Êı
+    { _M_ht.insert_unique(__f, __l); }//è°ƒç”¨hash tableçš„æ’å…¥å‡½æ•°
   template <class _InputIterator>
   hash_set(_InputIterator __f, _InputIterator __l, size_type __n)
     : _M_ht(__n, hasher(), key_equal(), allocator_type())
@@ -159,7 +159,7 @@ public:
 #endif /*__STL_MEMBER_TEMPLATES */
 
 public:
-	//ÒÔÏÂµÄº¯Êı²Ù×÷Ö»ÊÇµ÷ÓÃhash tableµÄ³ÉÔ±º¯Êı
+	//ä»¥ä¸‹çš„å‡½æ•°æ“ä½œåªæ˜¯è°ƒç”¨hash tableçš„æˆå‘˜å‡½æ•°
   size_type size() const { return _M_ht.size(); }
   size_type max_size() const { return _M_ht.max_size(); }
   bool empty() const { return _M_ht.empty(); }
@@ -179,18 +179,18 @@ public:
 
 public:
 	/*
-	²åÈëÔªËØ
+	æ’å…¥å…ƒç´ 
 	(1)
 		pair<iterator,bool> insert ( const value_type& val );
 	(2)		
 		template <class InputIterator>
 		void insert ( InputIterator first, InputIterator last );
 	*/
-	//²»ÔÊĞíÓĞÖØ¸´µÄ¼üÖµ
-	//·µ»ØpairµÚ¶ş¸ö²ÎÊısecondÈôÎªtrueÔò²åÈë³É¹¦
+	//ä¸å…è®¸æœ‰é‡å¤çš„é”®å€¼
+	//è¿”å›pairç¬¬äºŒä¸ªå‚æ•°secondè‹¥ä¸ºtrueåˆ™æ’å…¥æˆåŠŸ
   pair<iterator, bool> insert(const value_type& __obj)
     {
-	//µ÷ÓÃhash tableµÄinsert_unique()º¯Êı
+	//è°ƒç”¨hash tableçš„insert_unique()å‡½æ•°
       pair<typename _Ht::iterator, bool> __p = _M_ht.insert_unique(__obj);
       return pair<iterator,bool>(__p.first, __p.second);
     }
@@ -212,9 +212,9 @@ public:
     return pair<iterator, bool>(__p.first, __p.second);
   }
 
-  //²éÕÒ¼üÖµ¶ÔÓ¦µÄÔªËØ£¬²¢ÇÒ·µ»Ø¸ÃÔªËØµÄ½ÚµãÎ»ÖÃ
+  //æŸ¥æ‰¾é”®å€¼å¯¹åº”çš„å…ƒç´ ï¼Œå¹¶ä¸”è¿”å›è¯¥å…ƒç´ çš„èŠ‚ç‚¹ä½ç½®
   iterator find(const key_type& __key) const { return _M_ht.find(__key); }
-  //·µ»Ø¼üÖµÎªkeyµÄ½ÚµãÔªËØ¸öÊı
+  //è¿”å›é”®å€¼ä¸ºkeyçš„èŠ‚ç‚¹å…ƒç´ ä¸ªæ•°
   size_type count(const key_type& __key) const { return _M_ht.count(__key); }
   
   //Returns the bounds of a range that includes all the elements that compare equal to k. 
@@ -222,25 +222,25 @@ public:
   pair<iterator, iterator> equal_range(const key_type& __key) const
     { return _M_ht.equal_range(__key); }
 
-  //²Á³ıÖ¸¶¨¼üÖµµÄÔªËØ£¬²¢·µ»Ø²Á³ıµÄ¸öÊı
-  //ÒòÎª¼üÖµÎ¨Ò»,Ôò¸Ã¼üÖµµÄÔªËØ×î¶àÎª1¸ö
+  //æ“¦é™¤æŒ‡å®šé”®å€¼çš„å…ƒç´ ï¼Œå¹¶è¿”å›æ“¦é™¤çš„ä¸ªæ•°
+  //å› ä¸ºé”®å€¼å”¯ä¸€,åˆ™è¯¥é”®å€¼çš„å…ƒç´ æœ€å¤šä¸º1ä¸ª
   size_type erase(const key_type& __key) {return _M_ht.erase(__key); }
-  //²Á³ıÖ¸¶¨Î»ÖÃµÄÔªËØ
+  //æ“¦é™¤æŒ‡å®šä½ç½®çš„å…ƒç´ 
   void erase(iterator __it) { _M_ht.erase(__it); }
-  //²Á³ıÖ¸¶¨·¶Î§µÄÔªËØ
+  //æ“¦é™¤æŒ‡å®šèŒƒå›´çš„å…ƒç´ 
   void erase(iterator __f, iterator __l) { _M_ht.erase(__f, __l); }
-  //Çå³ıhash_setÈİÆ÷
+  //æ¸…é™¤hash_setå®¹å™¨
   void clear() { _M_ht.clear(); }
 
 public:
-	//µ÷Õûhash_setÈİÆ÷µÄÈİÁ¿
+	//è°ƒæ•´hash_setå®¹å™¨çš„å®¹é‡
   void resize(size_type __hint) { _M_ht.resize(__hint); }
   //Returns the number of buckets in the hash_set container.
   size_type bucket_count() const { return _M_ht.bucket_count(); }
   size_type max_bucket_count() const { return _M_ht.max_bucket_count(); }
   //Returns the number of elements in bucket n
   size_type elems_in_bucket(size_type __n) const
-    { return _M_ht.elems_in_bucket(__n); }//·µ»ØÖ¸¶¨Í°×Ó¼üÖµkeyÖĞlistÁ´±íµÄÔªËØ¸öÊı
+    { return _M_ht.elems_in_bucket(__n); }//è¿”å›æŒ‡å®šæ¡¶å­é”®å€¼keyä¸­listé“¾è¡¨çš„å…ƒç´ ä¸ªæ•°
 };
 
 template <class _Value, class _HashFcn, class _EqualKey, class _Alloc>
@@ -260,7 +260,7 @@ operator!=(const hash_set<_Value,_HashFcn,_EqualKey,_Alloc>& __hs1,
   return !(__hs1 == __hs2);
 }
 
-//½»»»Á½¸öhash_setÈİÆ÷µÄÄÚÈİ
+//äº¤æ¢ä¸¤ä¸ªhash_setå®¹å™¨çš„å†…å®¹
 template <class _Val, class _HashFcn, class _EqualKey, class _Alloc>
 inline void 
 swap(hash_set<_Val,_HashFcn,_EqualKey,_Alloc>& __hs1,
@@ -273,11 +273,11 @@ swap(hash_set<_Val,_HashFcn,_EqualKey,_Alloc>& __hs1,
 
 
 
-//ÒÔÏÂÊÇhash_multisetµÄ¶¨Òå
+//ä»¥ä¸‹æ˜¯hash_multisetçš„å®šä¹‰
 /*
-hash_multisetÊÇ»ùÓÚµ×²ã»úÖÆÎªhash table,hash_multisetµÄÔªËØ²»»á×Ô¶¯ÅÅĞò£¬ÆäËû¹¦ÄÜÓëmultisetÀàËÆ,
-hash_multisetÓëhash_setµÄÇø±ğºÍmultisetÓësetÇø±ğÒ»Ñù£¬
-hash_multisetµÄ²åÈëº¯ÊıÊÇhash tableµÄinsert_equal()
+hash_multisetæ˜¯åŸºäºåº•å±‚æœºåˆ¶ä¸ºhash table,hash_multisetçš„å…ƒç´ ä¸ä¼šè‡ªåŠ¨æ’åºï¼Œå…¶ä»–åŠŸèƒ½ä¸multisetç±»ä¼¼,
+hash_multisetä¸hash_setçš„åŒºåˆ«å’Œmultisetä¸setåŒºåˆ«ä¸€æ ·ï¼Œ
+hash_multisetçš„æ’å…¥å‡½æ•°æ˜¯hash tableçš„insert_equal()
 */
 template <class _Value,
           class _HashFcn  __STL_DEPENDENT_DEFAULT_TMPL(hash<_Value>),
@@ -301,7 +301,7 @@ class hash_multiset
   __STL_CLASS_BINARY_FUNCTION_CHECK(_EqualKey, bool, _Value, _Value);
 
 private:
-	//_Identity»ñÈ¡valueÖµ£¬ÔÚhash_setÖĞÒ²ÊÇ¼üÖµ£¬_Identity<>¶¨ÒåÔÚ<stl_function.h>
+	//_Identityè·å–valueå€¼ï¼Œåœ¨hash_setä¸­ä¹Ÿæ˜¯é”®å€¼ï¼Œ_Identity<>å®šä¹‰åœ¨<stl_function.h>
 	/*
 	template <class _Arg, class _Result>
 	struct unary_function {
@@ -315,7 +315,7 @@ private:
 	*/
   typedef hashtable<_Value, _Value, _HashFcn, _Identity<_Value>, 
                     _EqualKey, _Alloc> _Ht;
-  _Ht _M_ht;//µ×²ã»úÖÆÊÇhashtable
+  _Ht _M_ht;//åº•å±‚æœºåˆ¶æ˜¯hashtable
 
 public:
   typedef typename _Ht::key_type key_type;
@@ -325,7 +325,7 @@ public:
 
   typedef typename _Ht::size_type size_type;
   typedef typename _Ht::difference_type difference_type;
-   // ×¢Òâ: ²»ÄÜĞŞ¸Ähash tableÄÚ²¿µÄÔªËØ,reference, pointer, iterator¶¼Îªconst
+   // æ³¨æ„: ä¸èƒ½ä¿®æ”¹hash tableå†…éƒ¨çš„å…ƒç´ ,reference, pointer, iteratoréƒ½ä¸ºconst
   typedef typename _Ht::const_pointer pointer;
   typedef typename _Ht::const_pointer const_pointer;
   typedef typename _Ht::const_reference reference;
@@ -335,14 +335,14 @@ public:
   typedef typename _Ht::const_iterator const_iterator;
 
   typedef typename _Ht::allocator_type allocator_type;
-  //·µ»Øhashº¯Êı
+  //è¿”å›hashå‡½æ•°
   hasher hash_funct() const { return _M_ht.hash_funct(); }
   key_equal key_eq() const { return _M_ht.key_eq(); }
   allocator_type get_allocator() const { return _M_ht.get_allocator(); }
 
 public:
-	//¹¹Ôìº¯ÊıºÍhash_setÒ»Ñù,¾ßÌå¿ÉÒÔ²ÎÕÕhash_setµÄ½²½â
-	//Î¨Ò»µÄÇø±ğ¾ÍÊÇ²åÈëº¯ÊıÊÇinsert_equal()
+	//æ„é€ å‡½æ•°å’Œhash_setä¸€æ ·,å…·ä½“å¯ä»¥å‚ç…§hash_setçš„è®²è§£
+	//å”¯ä¸€çš„åŒºåˆ«å°±æ˜¯æ’å…¥å‡½æ•°æ˜¯insert_equal()
   hash_multiset()
     : _M_ht(100, hasher(), key_equal(), allocator_type()) {}
   explicit hash_multiset(size_type __n)
@@ -416,7 +416,7 @@ public:
   //Returns a bool value indicating whether the hash_multiset container is empty,
   //i.e. whether its size is 0.
   bool empty() const { return _M_ht.empty(); }
-  //½»»»Á½¸öhash_multisetµÄÄÚÈİ
+  //äº¤æ¢ä¸¤ä¸ªhash_multisetçš„å†…å®¹
   void swap(hash_multiset& hs) { _M_ht.swap(hs._M_ht); }
 
 #ifdef __STL_MEMBER_TEMPLATES
@@ -432,7 +432,7 @@ public:
   iterator end() const { return _M_ht.end(); }
 
 public:
-	//²åÈëÔªËØ
+	//æ’å…¥å…ƒç´ 
 	/*
 	iterator insert ( const value_type& val );
 
@@ -466,7 +466,7 @@ public:
   pair<iterator, iterator> equal_range(const key_type& __key) const
     { return _M_ht.equal_range(__key); }
 
-  //É¾³ıÔªËØ
+  //åˆ é™¤å…ƒç´ 
   /*
 	by position (1):	
 		iterator erase ( const_iterator position );
@@ -478,7 +478,7 @@ public:
   size_type erase(const key_type& __key) {return _M_ht.erase(__key); }
   void erase(iterator __it) { _M_ht.erase(__it); }
   void erase(iterator __f, iterator __l) { _M_ht.erase(__f, __l); }
-  //Çå¿ÕÈİÆ÷
+  //æ¸…ç©ºå®¹å™¨
   void clear() { _M_ht.clear(); }
 
 public:

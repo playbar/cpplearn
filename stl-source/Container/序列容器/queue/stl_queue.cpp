@@ -6,7 +6,7 @@
 __STL_BEGIN_NAMESPACE
 
 // Forward declarations of operators < and ==, needed for friend declaration.
-//Ä¬ÈÏµ×²ãÈİÆ÷ÎªdequeÈİÆ÷
+//é»˜è®¤åº•å±‚å®¹å™¨ä¸ºdequeå®¹å™¨
 template <class _Tp, 
           class _Sequence __STL_DEPENDENT_DEFAULT_TMPL(deque<_Tp>) >
 class queue;
@@ -45,7 +45,7 @@ class queue {
 #endif /* __STL_MEMBER_TEMPLATES */
 
 public:
-	// queue½öÖ§³Ö¶ÔÍ·²¿ºÍÎ²²¿µÄ²Ù×÷, ËùÒÔ²»¶¨ÒåSTLÒªÇóµÄ  
+	// queueä»…æ”¯æŒå¯¹å¤´éƒ¨å’Œå°¾éƒ¨çš„æ“ä½œ, æ‰€ä»¥ä¸å®šä¹‰STLè¦æ±‚çš„  
   // pointer, iterator, difference_type 
   typedef typename _Sequence::value_type      value_type;
   typedef typename _Sequence::size_type       size_type;
@@ -54,29 +54,29 @@ public:
   typedef typename _Sequence::reference       reference;
   typedef typename _Sequence::const_reference const_reference;
 protected:
-  _Sequence c;//µ×²ãÈİÆ÷£¬Ä¬ÈÏÎªdequeÈİÆ÷£¬ÓÃ»§¿É×ÔĞĞÖ¸¶¨ÈİÆ÷ÀàĞÍ
+  _Sequence c;//åº•å±‚å®¹å™¨ï¼Œé»˜è®¤ä¸ºdequeå®¹å™¨ï¼Œç”¨æˆ·å¯è‡ªè¡ŒæŒ‡å®šå®¹å™¨ç±»å‹
 public:
-	//ÏÂÃæ¶ÔqueueµÄÎ¬»¤ÍêÈ«ÒÀÀµÓÚµ×²ãÈİÆ÷µÄ²Ù×÷ 
+	//ä¸‹é¢å¯¹queueçš„ç»´æŠ¤å®Œå…¨ä¾èµ–äºåº•å±‚å®¹å™¨çš„æ“ä½œ 
   queue() : c() {}
   explicit queue(const _Sequence& __c) : c(__c) {}
 
-  //ÅĞ¶ÏÈİÆ÷ÊÇ·ñÎª¿Õ
+  //åˆ¤æ–­å®¹å™¨æ˜¯å¦ä¸ºç©º
   bool empty() const { return c.empty(); }
-  //·µ»ØÈİÆ÷ÖĞÔªËØµÄ¸öÊı
+  //è¿”å›å®¹å™¨ä¸­å…ƒç´ çš„ä¸ªæ•°
   size_type size() const { return c.size(); }
-  //·µ»Ø¶ÓÍ·ÔªËØµÄÒıÓÃ
+  //è¿”å›é˜Ÿå¤´å…ƒç´ çš„å¼•ç”¨
   reference front() { return c.front(); }
   const_reference front() const { return c.front(); }
-  //·µ»Ø¶ÓÎ²ÔªËØµÄÒıÓÃ
+  //è¿”å›é˜Ÿå°¾å…ƒç´ çš„å¼•ç”¨
   reference back() { return c.back(); }
   const_reference back() const { return c.back(); }
-  //Ö»ÄÜÔÚ¶ÓÎ²ĞÂÔöÔªËØ
+  //åªèƒ½åœ¨é˜Ÿå°¾æ–°å¢å…ƒç´ 
   void push(const value_type& __x) { c.push_back(__x); }
-  //Ö»ÄÜÔÚ¶ÓÍ·ÒÆ³ıÔªËØ
+  //åªèƒ½åœ¨é˜Ÿå¤´ç§»é™¤å…ƒç´ 
   void pop() { c.pop_front(); }
 };
 
-//ÏÂÃæÊÇÒÀÀµÓÚµ×²ãÈİÆ÷µÄ²Ù×÷ÔËËã·û  
+//ä¸‹é¢æ˜¯ä¾èµ–äºåº•å±‚å®¹å™¨çš„æ“ä½œè¿ç®—ç¬¦  
 template <class _Tp, class _Sequence>
 bool 
 operator==(const queue<_Tp, _Sequence>& __x, const queue<_Tp, _Sequence>& __y)
@@ -139,7 +139,7 @@ class priority_queue {
   __STL_CLASS_BINARY_FUNCTION_CHECK(_Compare, bool, _Tp, _Tp);
 
 public:
-	// priority_queue½öÖ§³Ö¶ÔÍ·²¿ºÍÎ²²¿µÄ²Ù×÷, ËùÒÔ²»¶¨ÒåSTLÒªÇóµÄ  
+	// priority_queueä»…æ”¯æŒå¯¹å¤´éƒ¨å’Œå°¾éƒ¨çš„æ“ä½œ, æ‰€ä»¥ä¸å®šä¹‰STLè¦æ±‚çš„  
   // pointer, iterator, difference_type 
   typedef typename _Sequence::value_type      value_type;
   typedef typename _Sequence::size_type       size_type;
@@ -148,11 +148,11 @@ public:
   typedef typename _Sequence::reference       reference;
   typedef typename _Sequence::const_reference const_reference;
 protected:
-  _Sequence c;//µ×²ãÈİÆ÷£¬Ä¬ÈÏÎªvector£¬ÓÃ»§¿É×ÔĞĞÖ¸¶¨ÈİÆ÷ÀàĞÍ
-  _Compare comp;//ÓÅÏÈ¼¶¾ö²ß·½Ê½
+  _Sequence c;//åº•å±‚å®¹å™¨ï¼Œé»˜è®¤ä¸ºvectorï¼Œç”¨æˆ·å¯è‡ªè¡ŒæŒ‡å®šå®¹å™¨ç±»å‹
+  _Compare comp;//ä¼˜å…ˆçº§å†³ç­–æ–¹å¼
 public:
 	//***********************************************************
-	//*	¹¹Ôìº¯Êı
+	//*	æ„é€ å‡½æ•°
 	//*	priority_queue() 
 	//*	explicit priority_queue(const Compare& __x) 
 	//*	explicit priority_queue (const Compare& comp = Compare(),
@@ -206,13 +206,13 @@ public:
   }
 #endif /* __STL_MEMBER_TEMPLATES */
 
-  //ÅĞ¶ÏÈİÆ÷ÊÇ·ñÎª¿Õ
+  //åˆ¤æ–­å®¹å™¨æ˜¯å¦ä¸ºç©º
   bool empty() const { return c.empty(); }
-  //·µ»ØÈİÆ÷ÔªËØµÄ¸öÊı
+  //è¿”å›å®¹å™¨å…ƒç´ çš„ä¸ªæ•°
   size_type size() const { return c.size(); }
-  //·µ»ØÓÅÏÈ¼¶×î¸ßÔªËØµÄÒıÓÃ
+  //è¿”å›ä¼˜å…ˆçº§æœ€é«˜å…ƒç´ çš„å¼•ç”¨
   const_reference top() const { return c.front(); }
-  //ĞÂÔöÔªËØ£¬²¢¸ù¾İÓÅÏÈ¼¶µ÷Õû¶Ñ
+  //æ–°å¢å…ƒç´ ï¼Œå¹¶æ ¹æ®ä¼˜å…ˆçº§è°ƒæ•´å †
   void push(const value_type& __x) {
     __STL_TRY {
       c.push_back(__x); 
@@ -220,7 +220,7 @@ public:
     }
     __STL_UNWIND(c.clear());
   }
-  //µ¯³öÓÅÏÈ¼¶×î¸ßµÄÔªËØ
+  //å¼¹å‡ºä¼˜å…ˆçº§æœ€é«˜çš„å…ƒç´ 
   void pop() {
     __STL_TRY {
       pop_heap(c.begin(), c.end(), comp);

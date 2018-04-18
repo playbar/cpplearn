@@ -4,38 +4,38 @@
 __STL_BEGIN_NAMESPACE
 /*
 	sum (1)	:The default operation is to add the elements up;
-Õâ¸ö°æ±¾µÄÄ¬ÈÏ²Ù×÷Ê±ÀÛ¼Ó£»
+è¿™ä¸ªç‰ˆæœ¬çš„é»˜è®¤æ“ä½œæ—¶ç´¯åŠ ï¼›
 		template <class InputIterator, class T>
 		T accumulate (InputIterator first, InputIterator last, T init);
 
 	custom (2):	a different operation can be specified as binary_op;
-Õâ¸ö°æ±¾µÄ²Ù×÷¿ÉÒÔÊÇÓÃ»§Í¨¹ıbinary_op×ÔĞĞÖ¸¶¨£»Ö¸¶¨º¯ÊıÔÚ<stl_function.h>¶¨Òå£¬Ò²¿É×Ô¼º¶¨Òå
+è¿™ä¸ªç‰ˆæœ¬çš„æ“ä½œå¯ä»¥æ˜¯ç”¨æˆ·é€šè¿‡binary_opè‡ªè¡ŒæŒ‡å®šï¼›æŒ‡å®šå‡½æ•°åœ¨<stl_function.h>å®šä¹‰ï¼Œä¹Ÿå¯è‡ªå·±å®šä¹‰
 		template <class InputIterator, class T, class BinaryOperation>
 		T accumulate (InputIterator first, InputIterator last, T init,
 					 BinaryOperation binary_op);
 */
-//µÚÒ»¸ö°æ±¾£ºÄ¬ÈÏ²Ù×÷ÊÇÀÛ¼Ó
-//¼ÆËã[first,last)Çø¼äÔªËØÓëinitµÄºÍ
-//·µ»ØÒ»¸ö¸±±¾
+//ç¬¬ä¸€ä¸ªç‰ˆæœ¬ï¼šé»˜è®¤æ“ä½œæ˜¯ç´¯åŠ 
+//è®¡ç®—[first,last)åŒºé—´å…ƒç´ ä¸initçš„å’Œ
+//è¿”å›ä¸€ä¸ªå‰¯æœ¬
 template <class _InputIterator, class _Tp>
 _Tp accumulate(_InputIterator __first, _InputIterator __last, _Tp __init)
 {
   __STL_REQUIRES(_InputIterator, _InputIterator);
-  for ( ; __first != __last; ++__first)//±éÀúÖ¸¶¨·¶Î§ÔªËØ
-    __init = __init + *__first;//½«Ã¿¸öÔªËØÀÛ¼Óµ½³õÊ¼ÖµinitÉÏ
+  for ( ; __first != __last; ++__first)//éå†æŒ‡å®šèŒƒå›´å…ƒç´ 
+    __init = __init + *__first;//å°†æ¯ä¸ªå…ƒç´ ç´¯åŠ åˆ°åˆå§‹å€¼initä¸Š
   return __init;
 }
-//µÚ¶ş¸ö°æ±¾£ºÓÃ»§¿É×ÔĞĞÖ¸¶¨¶şÔª²Ù×÷º¯Êı
+//ç¬¬äºŒä¸ªç‰ˆæœ¬ï¼šç”¨æˆ·å¯è‡ªè¡ŒæŒ‡å®šäºŒå…ƒæ“ä½œå‡½æ•°
 template <class _InputIterator, class _Tp, class _BinaryOperation>
 _Tp accumulate(_InputIterator __first, _InputIterator __last, _Tp __init,
                _BinaryOperation __binary_op)
 {
   __STL_REQUIRES(_InputIterator, _InputIterator);
-  for ( ; __first != __last; ++__first)//±éÀúÖ¸¶¨·¶Î§ÔªËØ
-    __init = __binary_op(__init, *__first);//¶ÔÃ¿¸öÔªËØÖ´ĞĞ¶şÔª²Ù×÷
+  for ( ; __first != __last; ++__first)//éå†æŒ‡å®šèŒƒå›´å…ƒç´ 
+    __init = __binary_op(__init, *__first);//å¯¹æ¯ä¸ªå…ƒç´ æ‰§è¡ŒäºŒå…ƒæ“ä½œ
   return __init;
 }
-//ÏÂÃæ¾ÙÀı×Ó£º
+//ä¸‹é¢ä¸¾ä¾‹å­ï¼š
 /*accumulate example:
 	#include <iostream>     // std::cout
 	#include <functional>   // std::minus
@@ -75,8 +75,8 @@ _Tp accumulate(_InputIterator __first, _InputIterator __last, _Tp __init,
 	using custom object: 280
 	*/
 
-/*Ä¬ÈÏ²Ù×÷ÊÇ°ÑÄÚ»ı(Ïà³Ë)µÄÖµÓë³õÊ¼ÖµinitÏà¼Ó
-ÓÃ»§¿ÉÒÔ×ÔĞĞÖ¸¶¨²Ù×÷ÀàĞÍ
+/*é»˜è®¤æ“ä½œæ˜¯æŠŠå†…ç§¯(ç›¸ä¹˜)çš„å€¼ä¸åˆå§‹å€¼initç›¸åŠ 
+ç”¨æˆ·å¯ä»¥è‡ªè¡ŒæŒ‡å®šæ“ä½œç±»å‹
 	sum/multiply (1)	
 		template <class InputIterator1, class InputIterator2, class T>
 		T inner_product (InputIterator1 first1, InputIterator1 last1,
@@ -89,25 +89,25 @@ _Tp accumulate(_InputIterator __first, _InputIterator __last, _Tp __init,
 						BinaryOperation1 binary_op1,
 						BinaryOperation2 binary_op2);
 */
-//ÃèÊö£ºThe two default operations (to add up the result of multiplying the pairs) 
+//æè¿°ï¼šThe two default operations (to add up the result of multiplying the pairs) 
 //may be overridden by the arguments binary_op1 and binary_op2.
-//¹¦ÄÜ£ºReturns the result of accumulating init with the inner products of the pairs 
+//åŠŸèƒ½ï¼šReturns the result of accumulating init with the inner products of the pairs 
 //formed by the elements of two ranges starting at first1 and first2.
 
-//°æ±¾Ò»£ºÊ¹ÓÃÄ¬ÈÏ²Ù×÷
+//ç‰ˆæœ¬ä¸€ï¼šä½¿ç”¨é»˜è®¤æ“ä½œ
 template <class _InputIterator1, class _InputIterator2, class _Tp>
 _Tp inner_product(_InputIterator1 __first1, _InputIterator1 __last1,
                   _InputIterator2 __first2, _Tp __init)
 {
   __STL_REQUIRES(_InputIterator2, _InputIterator);
   __STL_REQUIRES(_InputIterator2, _InputIterator);
-//ÒÔµÚÒ»¸öĞòÁĞµÄÔªËØ¸öÊıÎª¾İ£¬½«Á½¸öĞòÁĞ¶¼×ßÒ»±é
-  for ( ; __first1 != __last1; ++__first1, ++__first2)¡¢
-    __init = __init + (*__first1 * *__first2);//Ö´ĞĞÁ½¸öĞòÁĞµÄÄÚ»ıÓë³õÊ¼ÖµinitÏà¼Ó
+//ä»¥ç¬¬ä¸€ä¸ªåºåˆ—çš„å…ƒç´ ä¸ªæ•°ä¸ºæ®ï¼Œå°†ä¸¤ä¸ªåºåˆ—éƒ½èµ°ä¸€é
+  for ( ; __first1 != __last1; ++__first1, ++__first2)ã€
+    __init = __init + (*__first1 * *__first2);//æ‰§è¡Œä¸¤ä¸ªåºåˆ—çš„å†…ç§¯ä¸åˆå§‹å€¼initç›¸åŠ 
   return __init;
 }
 
-//°æ±¾¶ş£ºÓÃ»§¿É×ÔĞĞÖ¸¶¨¶şÔª²Ù×÷º¯Êı
+//ç‰ˆæœ¬äºŒï¼šç”¨æˆ·å¯è‡ªè¡ŒæŒ‡å®šäºŒå…ƒæ“ä½œå‡½æ•°
 template <class _InputIterator1, class _InputIterator2, class _Tp,
           class _BinaryOperation1, class _BinaryOperation2>
 _Tp inner_product(_InputIterator1 __first1, _InputIterator1 __last1,
@@ -117,13 +117,13 @@ _Tp inner_product(_InputIterator1 __first1, _InputIterator1 __last1,
 {
   __STL_REQUIRES(_InputIterator2, _InputIterator);
   __STL_REQUIRES(_InputIterator2, _InputIterator);
-  //ÒÔµÚÒ»¸öĞòÁĞµÄÔªËØ¸öÊıÎª¾İ£¬½«Á½¸öĞòÁĞ¶¼×ßÒ»±é
+  //ä»¥ç¬¬ä¸€ä¸ªåºåˆ—çš„å…ƒç´ ä¸ªæ•°ä¸ºæ®ï¼Œå°†ä¸¤ä¸ªåºåˆ—éƒ½èµ°ä¸€é
   for ( ; __first1 != __last1; ++__first1, ++__first2)
-	  //Ê×ÏÈÖ¸¶¨__binary_op2²Ù×÷£¬ÔÙÖ¸¶¨__binary_op1²Ù×÷
+	  //é¦–å…ˆæŒ‡å®š__binary_op2æ“ä½œï¼Œå†æŒ‡å®š__binary_op1æ“ä½œ
     __init = __binary_op1(__init, __binary_op2(*__first1, *__first2));
   return __init;
 }
-//ÏÂÃæ¾ÙÀı×Ó£º
+//ä¸‹é¢ä¸¾ä¾‹å­ï¼š
 /*inner_product example:
 	#include <iostream>     // std::cout
 	#include <functional>   // std::minus, std::divides
@@ -159,8 +159,8 @@ _Tp inner_product(_InputIterator1 __first1, _InputIterator1 __last1,
 	using custom functions: -56
 */
 
-//¾Ö²¿ÇóºÍ
-/*¹¦ÄÜÓëÃèÊö£º
+//å±€éƒ¨æ±‚å’Œ
+/*åŠŸèƒ½ä¸æè¿°ï¼š
 Assigns to every element in the range starting at result the partial sum of 
 the corresponding elements in the range [first,last).
 
@@ -173,28 +173,28 @@ y3 = x0 + x1 + x2 + x3
 y4 = x0 + x1 + x2 + x3 + x4 
 ... ... ...
 */
-/*°æ±¾Ò»£ºÄ¬ÈÏ²Ù×÷ÊÇ£ºThe default operation is to add the elements up;
+/*ç‰ˆæœ¬ä¸€ï¼šé»˜è®¤æ“ä½œæ˜¯ï¼šThe default operation is to add the elements up;
 	sum (1)	
 		template <class InputIterator, class OutputIterator>
 		OutputIterator partial_sum (InputIterator first, InputIterator last,
 								   OutputIterator result);
-°æ±¾¶ş£ºÓÃ»§¿ÉÒÔ×ÔĞĞÖ¸¶¨¶şÔª²Ù×÷£ºoperation can be specified as binary_op instead.
+ç‰ˆæœ¬äºŒï¼šç”¨æˆ·å¯ä»¥è‡ªè¡ŒæŒ‡å®šäºŒå…ƒæ“ä½œï¼šoperation can be specified as binary_op instead.
 	custom (2)	
 		template <class InputIterator, class OutputIterator, class BinaryOperation>
 		OutputIterator partial_sum (InputIterator first, InputIterator last,
 								   OutputIterator result, BinaryOperation binary_op);
 */
 
-//°æ±¾Ò»£ºÄ¬ÈÏ²Ù×÷º¯Êı
+//ç‰ˆæœ¬ä¸€ï¼šé»˜è®¤æ“ä½œå‡½æ•°
 template <class _InputIterator, class _OutputIterator, class _Tp>
 _OutputIterator 
 __partial_sum(_InputIterator __first, _InputIterator __last,
               _OutputIterator __result, _Tp*)
 {
   _Tp __value = *__first;
-  while (++__first != __last) {//±éÀúÇø¼äÔªËØ
-    __value = __value + *__first;//Çø¼äÇ°n¸öÔªËØµÄ×ÜºÍ
-    *++__result = __value;//°ÑÔªËØ¸³¸øÊä³ö¶Ë
+  while (++__first != __last) {//éå†åŒºé—´å…ƒç´ 
+    __value = __value + *__first;//åŒºé—´å‰nä¸ªå…ƒç´ çš„æ€»å’Œ
+    *++__result = __value;//æŠŠå…ƒç´ èµ‹ç»™è¾“å‡ºç«¯
   }
   return ++__result;
 }
@@ -206,12 +206,12 @@ partial_sum(_InputIterator __first, _InputIterator __last,
 {
   __STL_REQUIRES(_InputIterator, _InputIterator);
   __STL_REQUIRES(_OutputIterator, _OutputIterator);
-  if (__first == __last) return __result;//ÈôÎª¿Õ
-  *__result = *__first;//³õÊ¼Öµ
-  //µ÷ÓÃÉÏÃæµÄº¯Êı£¬İÍÈ¡³öfirstµÄÀàĞÍ·½±ãÉÏÃæº¯ÊıÊ¹ÓÃ
+  if (__first == __last) return __result;//è‹¥ä¸ºç©º
+  *__result = *__first;//åˆå§‹å€¼
+  //è°ƒç”¨ä¸Šé¢çš„å‡½æ•°ï¼Œèƒå–å‡ºfirstçš„ç±»å‹æ–¹ä¾¿ä¸Šé¢å‡½æ•°ä½¿ç”¨
   return __partial_sum(__first, __last, __result, __VALUE_TYPE(__first));
 }
-//°æ±¾¶ş£ºÓÃ»§Ö¸¶¨¶şÔª²Ù×÷º¯Êı
+//ç‰ˆæœ¬äºŒï¼šç”¨æˆ·æŒ‡å®šäºŒå…ƒæ“ä½œå‡½æ•°
 template <class _InputIterator, class _OutputIterator, class _Tp,
           class _BinaryOperation>
 _OutputIterator 
@@ -219,9 +219,9 @@ __partial_sum(_InputIterator __first, _InputIterator __last,
               _OutputIterator __result, _Tp*, _BinaryOperation __binary_op)
 {
   _Tp __value = *__first;
-  while (++__first != __last) {//±éÀúÇø¼äÔªËØ
-    __value = __binary_op(__value, *__first);//Çø¼äÇ°n¸öÔªËØµÄ__binary_op
-    *++__result = __value;//°ÑÔªËØ¸³¸øÊä³ö¶Ë
+  while (++__first != __last) {//éå†åŒºé—´å…ƒç´ 
+    __value = __binary_op(__value, *__first);//åŒºé—´å‰nä¸ªå…ƒç´ çš„__binary_op
+    *++__result = __value;//æŠŠå…ƒç´ èµ‹ç»™è¾“å‡ºç«¯
   }
   return ++__result;
 }
@@ -235,11 +235,11 @@ partial_sum(_InputIterator __first, _InputIterator __last,
   __STL_REQUIRES(_OutputIterator, _OutputIterator);
   if (__first == __last) return __result;
   *__result = *__first;
-  //µ÷ÓÃÉÏÃæµÄº¯Êı£¬İÍÈ¡³öfirstµÄÀàĞÍ·½±ãÉÏÃæº¯ÊıÊ¹ÓÃ
+  //è°ƒç”¨ä¸Šé¢çš„å‡½æ•°ï¼Œèƒå–å‡ºfirstçš„ç±»å‹æ–¹ä¾¿ä¸Šé¢å‡½æ•°ä½¿ç”¨
   return __partial_sum(__first, __last, __result, __VALUE_TYPE(__first), 
                        __binary_op);
 }
-//ÏÂÃæ¾ÙÀı£º
+//ä¸‹é¢ä¸¾ä¾‹ï¼š
 /*partial_sum example:
 	#include <iostream>     // std::cout
 	#include <functional>   // std::multiplies
@@ -274,7 +274,7 @@ partial_sum(_InputIterator __first, _InputIterator __last,
 */
 
 
-/*¹¦ÄÜÓëÃèÊö£º
+/*åŠŸèƒ½ä¸æè¿°ï¼š
 Assigns to every element in the range starting at result the difference 
 between its corresponding element in the range [first,last) 
 and the one preceding it (except for *result, which is assigned *first).
@@ -301,17 +301,17 @@ The default operation is to calculate the difference, but some other operation c
 		OutputIterator adjacent_difference ( InputIterator first, InputIterator last,
 											OutputIterator result, BinaryOperation binary_op );
 */
-//°æ±¾Ò»£ºÄ¬ÈÏ²Ù×÷º¯Êı
+//ç‰ˆæœ¬ä¸€ï¼šé»˜è®¤æ“ä½œå‡½æ•°
 template <class _InputIterator, class _OutputIterator, class _Tp>
 _OutputIterator 
 __adjacent_difference(_InputIterator __first, _InputIterator __last,
                       _OutputIterator __result, _Tp*)
 {
   _Tp __value = *__first;
-  while (++__first != __last) {//±éÀúÇø¼ä
-    _Tp __tmp = *__first;//³õÊ¼»¯tmp
-    *++__result = __tmp - __value;//¼ÆËãÏàÁÚÁ½ÔªËØµÄ²î¶î(ºó-Ç°)£¬²¢¸³¸øÊä³ö¶Ë
-    __value = __tmp;//¸üĞÂµ±Ç°Öµ
+  while (++__first != __last) {//éå†åŒºé—´
+    _Tp __tmp = *__first;//åˆå§‹åŒ–tmp
+    *++__result = __tmp - __value;//è®¡ç®—ç›¸é‚»ä¸¤å…ƒç´ çš„å·®é¢(å-å‰)ï¼Œå¹¶èµ‹ç»™è¾“å‡ºç«¯
+    __value = __tmp;//æ›´æ–°å½“å‰å€¼
   }
   return ++__result;
 }
@@ -323,13 +323,13 @@ adjacent_difference(_InputIterator __first,
 {
   __STL_REQUIRES(_InputIterator, _InputIterator);
   __STL_REQUIRES(_OutputIterator, _OutputIterator);
-  if (__first == __last) return __result;//ÈôÎª¿ÕÖ±½Ó·µ»Ø
-  *__result = *__first;//³õÊ¼Öµ
-  //µ÷ÓÃÉÏÃæµÄº¯Êı__adjacent_difference()
+  if (__first == __last) return __result;//è‹¥ä¸ºç©ºç›´æ¥è¿”å›
+  *__result = *__first;//åˆå§‹å€¼
+  //è°ƒç”¨ä¸Šé¢çš„å‡½æ•°__adjacent_difference()
   return __adjacent_difference(__first, __last, __result,
                                __VALUE_TYPE(__first));
 }
-//°æ±¾¶ş£º¿ÉÖ¸¶¨²Ù×÷º¯Êı
+//ç‰ˆæœ¬äºŒï¼šå¯æŒ‡å®šæ“ä½œå‡½æ•°
 template <class _InputIterator, class _OutputIterator, class _Tp, 
           class _BinaryOperation>
 _OutputIterator
@@ -337,10 +337,10 @@ __adjacent_difference(_InputIterator __first, _InputIterator __last,
                       _OutputIterator __result, _Tp*,
                       _BinaryOperation __binary_op) {
   _Tp __value = *__first;
-  while (++__first != __last) {//±éÀúÇø¼ä
-    _Tp __tmp = *__first;//³õÊ¼»¯tmp
-    *++__result = __binary_op(__tmp, __value);//¼ÆËãÏàÁÚÁ½ÔªËØµÄ²Ù×÷£¬²¢¸³¸øÊä³ö¶Ë
-    __value = __tmp;//¸üĞÂµ±Ç°Öµ
+  while (++__first != __last) {//éå†åŒºé—´
+    _Tp __tmp = *__first;//åˆå§‹åŒ–tmp
+    *++__result = __binary_op(__tmp, __value);//è®¡ç®—ç›¸é‚»ä¸¤å…ƒç´ çš„æ“ä½œï¼Œå¹¶èµ‹ç»™è¾“å‡ºç«¯
+    __value = __tmp;//æ›´æ–°å½“å‰å€¼
   }
   return ++__result;
 }
@@ -352,14 +352,14 @@ adjacent_difference(_InputIterator __first, _InputIterator __last,
 {
   __STL_REQUIRES(_InputIterator, _InputIterator);
   __STL_REQUIRES(_OutputIterator, _OutputIterator);
-  if (__first == __last) return __result;//ÈôÎª¿ÕÖ±½Ó·µ»Ø
-  *__result = *__first;//³õÊ¼Öµ
-  //µ÷ÓÃÉÏÃæµÄº¯Êı__adjacent_difference()
+  if (__first == __last) return __result;//è‹¥ä¸ºç©ºç›´æ¥è¿”å›
+  *__result = *__first;//åˆå§‹å€¼
+  //è°ƒç”¨ä¸Šé¢çš„å‡½æ•°__adjacent_difference()
   return __adjacent_difference(__first, __last, __result,
                                __VALUE_TYPE(__first),
                                __binary_op);
 }
-//ÏÂÃæ¾ÙÀı×Ó£º
+//ä¸‹é¢ä¸¾ä¾‹å­ï¼š
 /*adjacent_difference example:
 	#include <iostream>     // std::cout
 	#include <functional>   // std::multiplies
@@ -397,12 +397,12 @@ adjacent_difference(_InputIterator __first, _InputIterator __last,
 
 // Returns __x ** __n, where __n >= 0.  _Note that "multiplication"
 // is required to be associative, but not necessarily commutative.
-//powerÎªSGI×¨Êô£¬²¢²»ÔÚSTL±ê×¼Ö®ÁĞ£¬ËüÓÃÀ´¼ÆËãÄ³ÊıµÄnÃİ´Î·½¡£  
+//powerä¸ºSGIä¸“å±ï¼Œå¹¶ä¸åœ¨STLæ ‡å‡†ä¹‹åˆ—ï¼Œå®ƒç”¨æ¥è®¡ç®—æŸæ•°çš„nå¹‚æ¬¡æ–¹ã€‚  
   
   
-// °æ±¾Ò»£¬Ãİ´Î·½¡£Èç¹ûÖ¸¶¨Îª³Ë·¨ÔËËã£¬Ôòµ±n >= 0 Ê±´«»Ø x^n¡£  
-// ×¢Òâ£¬"multiplication" ±ØĞëÂú×ã½áºÏÂÉ£¨associative£©£¬  
-// µ«²»ĞèÂú×ã½»»»ÂÉ£¨commutative£©¡£  
+// ç‰ˆæœ¬ä¸€ï¼Œå¹‚æ¬¡æ–¹ã€‚å¦‚æœæŒ‡å®šä¸ºä¹˜æ³•è¿ç®—ï¼Œåˆ™å½“n >= 0 æ—¶ä¼ å› x^nã€‚  
+// æ³¨æ„ï¼Œ"multiplication" å¿…é¡»æ»¡è¶³ç»“åˆå¾‹ï¼ˆassociativeï¼‰ï¼Œ  
+// ä½†ä¸éœ€æ»¡è¶³äº¤æ¢å¾‹ï¼ˆcommutativeï¼‰ã€‚  
 template <class _Tp, class _Integer, class _MonoidOperation>
 _Tp __power(_Tp __x, _Integer __n, _MonoidOperation __opr)
 {
@@ -425,7 +425,7 @@ _Tp __power(_Tp __x, _Integer __n, _MonoidOperation __opr)
     return __result;
   }
 }
-//°æ±¾¶ş£ºÒÔ multiplies<_Tp>()²Ù×÷µ÷ÓÃ°æ±¾Ò»
+//ç‰ˆæœ¬äºŒï¼šä»¥ multiplies<_Tp>()æ“ä½œè°ƒç”¨ç‰ˆæœ¬ä¸€
 template <class _Tp, class _Integer>
 inline _Tp __power(_Tp __x, _Integer __n)
 {
@@ -434,7 +434,7 @@ inline _Tp __power(_Tp __x, _Integer __n)
 
 // Alias for the internal name __power.  Note that power is an extension,
 // not part of the C++ standard.
-//¶ÔÉÏÃæº¯ÊıµÄ·â×°
+//å¯¹ä¸Šé¢å‡½æ•°çš„å°è£…
 template <class _Tp, class _Integer, class _MonoidOperation>
 inline _Tp power(_Tp __x, _Integer __n, _MonoidOperation __opr)
 {
@@ -448,9 +448,9 @@ inline _Tp power(_Tp __x, _Integer __n)
 }
 
 // iota is not part of the C++ standard.  It is an extension.
-//C++11ÒÑ¾­°ÑÕâ¸öÁĞÎªSTLµÄ±ê×¼
-//Éè¶¨Ä³¸öÇø¼äµÄÄÚÈİ£¬Ê¹ÆäÃ¿¸öÔªËØ´ÓÖ¸¶¨Öµvalue¿ªÊ¼£¬³ÊÏÖµİÔö
-//ÔÚ [first,last) ·¶Î§ÄÚƒÈÌîÈëvalue, value+1, value+2...  
+//C++11å·²ç»æŠŠè¿™ä¸ªåˆ—ä¸ºSTLçš„æ ‡å‡†
+//è®¾å®šæŸä¸ªåŒºé—´çš„å†…å®¹ï¼Œä½¿å…¶æ¯ä¸ªå…ƒç´ ä»æŒ‡å®šå€¼valueå¼€å§‹ï¼Œå‘ˆç°é€’å¢
+//åœ¨ [first,last) èŒƒå›´å†…å…§å¡«å…¥value, value+1, value+2...  
 template <class _ForwardIter, class _Tp>
 void 
 iota(_ForwardIter __first, _ForwardIter __last, _Tp __value)
@@ -460,7 +460,7 @@ iota(_ForwardIter __first, _ForwardIter __last, _Tp __value)
   while (__first != __last)
     *__first++ = __value++;
 }
-//¾ÙÀı×Ó£º
+//ä¸¾ä¾‹å­ï¼š
 /*iota example
 	#include <iostream>     // std::cout
 	#include <numeric>      // std::iota

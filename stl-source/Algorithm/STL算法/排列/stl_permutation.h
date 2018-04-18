@@ -1,57 +1,57 @@
 // next_permutation and prev_permutation, with and without an explicitly 
 // supplied comparison function.
-//next_permutation»ñÈ¡[first,last)Çø¼äËù±êÊ¾ĞòÁĞµÄÏÂÒ»¸öÅÅÁĞ×éºÏ£¬Èô¹ûÃ»ÓĞÏÂÒ»¸öÅÅĞò×éºÏ£¬Ôò·µ»Øfalse;·ñÔò·µ»Øtrue;
+//next_permutationè·å–[first,last)åŒºé—´æ‰€æ ‡ç¤ºåºåˆ—çš„ä¸‹ä¸€ä¸ªæ’åˆ—ç»„åˆï¼Œè‹¥æœæ²¡æœ‰ä¸‹ä¸€ä¸ªæ’åºç»„åˆï¼Œåˆ™è¿”å›false;å¦åˆ™è¿”å›true;
 /*
-º¯Êı¹¦ÄÜ£ºRearranges the elements in the range [first,last) into the next lexicographically greater permutation.
-º¯ÊıÔ­ĞÍ£º
-default (1)	£º°æ±¾Ò»²ÉÓÃless-than²Ù×÷·û
+å‡½æ•°åŠŸèƒ½ï¼šRearranges the elements in the range [first,last) into the next lexicographically greater permutation.
+å‡½æ•°åŸå‹ï¼š
+default (1)	ï¼šç‰ˆæœ¬ä¸€é‡‡ç”¨less-thanæ“ä½œç¬¦
 	template <class BidirectionalIterator>
 	bool next_permutation (BidirectionalIterator first,
                          BidirectionalIterator last);
-custom (2)	£º°æ±¾¶ş²ÉÓÃ·Âº¯Êıcomp¾ö¶¨
+custom (2)	ï¼šç‰ˆæœ¬äºŒé‡‡ç”¨ä»¿å‡½æ•°compå†³å®š
 	template <class BidirectionalIterator, class Compare>
 	bool next_permutation (BidirectionalIterator first,
                          BidirectionalIterator last, Compare comp);
 */
-//°æ±¾Ò»
+//ç‰ˆæœ¬ä¸€
 template <class _BidirectionalIter>
 bool next_permutation(_BidirectionalIter __first, _BidirectionalIter __last) {
   __STL_REQUIRES(_BidirectionalIter, _BidirectionalIterator);
   __STL_REQUIRES(typename iterator_traits<_BidirectionalIter>::value_type,
                  _LessThanComparable);
   if (__first == __last)
-    return false;//ÈôÎª¿Õ£¬Ôò·µ»Øfalse
+    return false;//è‹¥ä¸ºç©ºï¼Œåˆ™è¿”å›false
   _BidirectionalIter __i = __first;
   ++__i;
-  if (__i == __last)//Çø¼äÖ»ÓĞÒ»¸öÔªËØ
+  if (__i == __last)//åŒºé—´åªæœ‰ä¸€ä¸ªå…ƒç´ 
     return false;
-  //ÈôÇø¼äÔªËØ¸öÊı²»Ğ¡ÓÚÁ½¸ö
-  __i = __last;//iÖ¸ÏòÎ²¶Ë
-  --__i;//²»¶ÏºóÒÆ
+  //è‹¥åŒºé—´å…ƒç´ ä¸ªæ•°ä¸å°äºä¸¤ä¸ª
+  __i = __last;//iæŒ‡å‘å°¾ç«¯
+  --__i;//ä¸æ–­åç§»
 
   for(;;) {
-	  //ÏÂÃæÁ½ĞĞÊÇÈÃiiºÍi³ÉÎªÏàÁÚµÄÔªËØ
-	  //ÆäÖĞiÎªµÚÒ»¸öÔªËØ£¬iiÎªµÚ¶ş¸öÔªËØ
+	  //ä¸‹é¢ä¸¤è¡Œæ˜¯è®©iiå’Œiæˆä¸ºç›¸é‚»çš„å…ƒç´ 
+	  //å…¶ä¸­iä¸ºç¬¬ä¸€ä¸ªå…ƒç´ ï¼Œiiä¸ºç¬¬äºŒä¸ªå…ƒç´ 
     _BidirectionalIter __ii = __i;//
     --__i;
-	//ÒÔÏÂÔÚÏàÁÚÔªËØÅĞ¶Ï
-    if (*__i < *__ii) {//ÈôÇ°Ò»¸öÔªËØĞ¡ÓÚºóÒ»¸öÔªËØ£¬
-		//ÔòÔÙ´Ó×îÎ²¶Ë¿ªÊ¼ÍùÇ°¼ì²é£¬ÕÒ³öµÚÒ»¸ö´óÓÚ*iµÄÔªËØ£¬Áî¸ÃÔªËØÎª*j£¬½«*iºÍ*j½»»»
-		//ÔÙ½«iiÖ®ºóµÄËùÓĞÔªËØµßµ¹ÅÅĞò
-      _BidirectionalIter __j = __last;//ÁîjÖ¸Ïò×îÎ²¶Ë
-      while (!(*__i < *--__j))//ÓÉÎ²¶ËÍùÇ°¼ì²é£¬Ö±µ½Óöµ½±È*i´óµÄÔªËØ
+	//ä»¥ä¸‹åœ¨ç›¸é‚»å…ƒç´ åˆ¤æ–­
+    if (*__i < *__ii) {//è‹¥å‰ä¸€ä¸ªå…ƒç´ å°äºåä¸€ä¸ªå…ƒç´ ï¼Œ
+		//åˆ™å†ä»æœ€å°¾ç«¯å¼€å§‹å¾€å‰æ£€æŸ¥ï¼Œæ‰¾å‡ºç¬¬ä¸€ä¸ªå¤§äº*içš„å…ƒç´ ï¼Œä»¤è¯¥å…ƒç´ ä¸º*jï¼Œå°†*iå’Œ*jäº¤æ¢
+		//å†å°†iiä¹‹åçš„æ‰€æœ‰å…ƒç´ é¢ å€’æ’åº
+      _BidirectionalIter __j = __last;//ä»¤jæŒ‡å‘æœ€å°¾ç«¯
+      while (!(*__i < *--__j))//ç”±å°¾ç«¯å¾€å‰æ£€æŸ¥ï¼Œç›´åˆ°é‡åˆ°æ¯”*iå¤§çš„å…ƒç´ 
         {}
-      iter_swap(__i, __j);//½»»»µü´úÆ÷iºÍµü´úÆ÷jËùÖ¸µÄÔªËØ
-      reverse(__ii, __last);//½«iiÖ®ºóµÄÔªËØÈ«²¿ÄæÏòÖØÅÅ
+      iter_swap(__i, __j);//äº¤æ¢è¿­ä»£å™¨iå’Œè¿­ä»£å™¨jæ‰€æŒ‡çš„å…ƒç´ 
+      reverse(__ii, __last);//å°†iiä¹‹åçš„å…ƒç´ å…¨éƒ¨é€†å‘é‡æ’
       return true;
     }
-    if (__i == __first) {//½øĞĞµ½×îÇ°Ãæ
-      reverse(__first, __last);//Õû¸öÇø¼äÈ«²¿ÄæÏòÖØÅÅ
+    if (__i == __first) {//è¿›è¡Œåˆ°æœ€å‰é¢
+      reverse(__first, __last);//æ•´ä¸ªåŒºé—´å…¨éƒ¨é€†å‘é‡æ’
       return false;
     }
   }
 }
-//°æ±¾¶ş
+//ç‰ˆæœ¬äºŒ
 template <class _BidirectionalIter, class _Compare>
 bool next_permutation(_BidirectionalIter __first, _BidirectionalIter __last,
                       _Compare __comp) {
@@ -85,7 +85,7 @@ bool next_permutation(_BidirectionalIter __first, _BidirectionalIter __last,
     }
   }
 }
-//next_permutationº¯Êı¾ÙÀı£º
+//next_permutationå‡½æ•°ä¸¾ä¾‹ï¼š
 /*
 	#include <iostream>     // std::cout
 	#include <algorithm>    // std::next_permutation, std::sort
@@ -134,58 +134,58 @@ bool next_permutation(_BidirectionalIter __first, _BidirectionalIter __last,
 	After loop: 1 2 3 4
 */
 
-//prev_permutation»ñÈ¡[first,last)Çø¼äËù±êÊ¾ĞòÁĞµÄÉÏÒ»¸öÅÅÁĞ×éºÏ£¬Èô¹ûÃ»ÓĞÉÏÒ»¸öÅÅĞò×éºÏ£¬Ôò·µ»Øfalse;·ñÔò·µ»Øtrue;
+//prev_permutationè·å–[first,last)åŒºé—´æ‰€æ ‡ç¤ºåºåˆ—çš„ä¸Šä¸€ä¸ªæ’åˆ—ç»„åˆï¼Œè‹¥æœæ²¡æœ‰ä¸Šä¸€ä¸ªæ’åºç»„åˆï¼Œåˆ™è¿”å›false;å¦åˆ™è¿”å›true;
 /*
-º¯Êı¹¦ÄÜ£ºRearranges the elements in the range [first,last) into the previous lexicographically-ordered permutation.
-º¯ÊıÔ­ĞÍ£º
-default (1)	£º°æ±¾Ò»²ÉÓÃless-than²Ù×÷·û
+å‡½æ•°åŠŸèƒ½ï¼šRearranges the elements in the range [first,last) into the previous lexicographically-ordered permutation.
+å‡½æ•°åŸå‹ï¼š
+default (1)	ï¼šç‰ˆæœ¬ä¸€é‡‡ç”¨less-thanæ“ä½œç¬¦
 	template <class BidirectionalIterator>
 	bool prev_permutation (BidirectionalIterator first,
                          BidirectionalIterator last );
-custom (2)	£º°æ±¾¶ş²ÉÓÃ·Âº¯Êıcomp
+custom (2)	ï¼šç‰ˆæœ¬äºŒé‡‡ç”¨ä»¿å‡½æ•°comp
 	template <class BidirectionalIterator, class Compare>
 	bool prev_permutation (BidirectionalIterator first,
                          BidirectionalIterator last, Compare comp);
 */
-//°æ±¾Ò»
+//ç‰ˆæœ¬ä¸€
 template <class _BidirectionalIter>
 bool prev_permutation(_BidirectionalIter __first, _BidirectionalIter __last) {
   __STL_REQUIRES(_BidirectionalIter, _BidirectionalIterator);
   __STL_REQUIRES(typename iterator_traits<_BidirectionalIter>::value_type,
                  _LessThanComparable);
   if (__first == __last)
-    return false;//ÈôÇø¼äÎª¿Õ£¬·µ»Øfalse
+    return false;//è‹¥åŒºé—´ä¸ºç©ºï¼Œè¿”å›false
   _BidirectionalIter __i = __first;
   ++__i;
-  if (__i == __last)//Çø¼äÖ»ÓĞÒ»¸öÔªËØ
-    return false;//·µ»Øfalse
-  //ÈôÇø¼äÔªËØ¸öÊı²»Ğ¡ÓÚÁ½¸ö
+  if (__i == __last)//åŒºé—´åªæœ‰ä¸€ä¸ªå…ƒç´ 
+    return false;//è¿”å›false
+  //è‹¥åŒºé—´å…ƒç´ ä¸ªæ•°ä¸å°äºä¸¤ä¸ª
   __i = __last;
   --__i;
 
   for(;;) {
-	  //ÏÂÃæÁ½ĞĞÊÇÈÃiiºÍi³ÉÎªÏàÁÚµÄÔªËØ
-	  //ÆäÖĞiÎªµÚÒ»¸öÔªËØ£¬iiÎªµÚ¶ş¸öÔªËØ
+	  //ä¸‹é¢ä¸¤è¡Œæ˜¯è®©iiå’Œiæˆä¸ºç›¸é‚»çš„å…ƒç´ 
+	  //å…¶ä¸­iä¸ºç¬¬ä¸€ä¸ªå…ƒç´ ï¼Œiiä¸ºç¬¬äºŒä¸ªå…ƒç´ 
     _BidirectionalIter __ii = __i;
     --__i;
-	//ÒÔÏÂÔÚÏàÁÚÔªËØÅĞ¶Ï
-    if (*__ii < *__i) {//ÈôÇ°Ò»¸öÔªËØ´óÓÚºóÒ»¸öÔªËØ£¬
-		//ÔòÔÙ´Ó×îÎ²¶Ë¿ªÊ¼ÍùÇ°¼ì²é£¬ÕÒ³öµÚÒ»¸öĞ¡ÓÚ*iµÄÔªËØ£¬Áî¸ÃÔªËØÎª*j£¬½«*iºÍ*j½»»»
-		//ÔÙ½«iiÖ®ºóµÄËùÓĞÔªËØµßµ¹ÅÅĞò
-      _BidirectionalIter __j = __last;//ÁîjÖ¸Ïò×îÎ²¶Ë      
-      while (!(*--__j < *__i))//ÓÉÎ²¶ËÍùÇ°¼ì²é£¬Ö±µ½Óöµ½±È*iĞ¡µÄÔªËØ
+	//ä»¥ä¸‹åœ¨ç›¸é‚»å…ƒç´ åˆ¤æ–­
+    if (*__ii < *__i) {//è‹¥å‰ä¸€ä¸ªå…ƒç´ å¤§äºåä¸€ä¸ªå…ƒç´ ï¼Œ
+		//åˆ™å†ä»æœ€å°¾ç«¯å¼€å§‹å¾€å‰æ£€æŸ¥ï¼Œæ‰¾å‡ºç¬¬ä¸€ä¸ªå°äº*içš„å…ƒç´ ï¼Œä»¤è¯¥å…ƒç´ ä¸º*jï¼Œå°†*iå’Œ*jäº¤æ¢
+		//å†å°†iiä¹‹åçš„æ‰€æœ‰å…ƒç´ é¢ å€’æ’åº
+      _BidirectionalIter __j = __last;//ä»¤jæŒ‡å‘æœ€å°¾ç«¯      
+      while (!(*--__j < *__i))//ç”±å°¾ç«¯å¾€å‰æ£€æŸ¥ï¼Œç›´åˆ°é‡åˆ°æ¯”*iå°çš„å…ƒç´ 
         {}
-      iter_swap(__i, __j); //½»»»µü´úÆ÷iºÍµü´úÆ÷jËùÖ¸µÄÔªËØ
-      reverse(__ii, __last);//½«iiÖ®ºóµÄÔªËØÈ«²¿ÄæÏòÖØÅÅ
+      iter_swap(__i, __j); //äº¤æ¢è¿­ä»£å™¨iå’Œè¿­ä»£å™¨jæ‰€æŒ‡çš„å…ƒç´ 
+      reverse(__ii, __last);//å°†iiä¹‹åçš„å…ƒç´ å…¨éƒ¨é€†å‘é‡æ’
       return true;
     }
-    if (__i == __first) {//½øĞĞµ½×îÇ°Ãæ
-      reverse(__first, __last);//°ÑÇø¼äËùÓĞÔªËØÄæÏòÖØÅÅ
+    if (__i == __first) {//è¿›è¡Œåˆ°æœ€å‰é¢
+      reverse(__first, __last);//æŠŠåŒºé—´æ‰€æœ‰å…ƒç´ é€†å‘é‡æ’
       return false;
     }
   }
 }
-//°æ±¾¶ş
+//ç‰ˆæœ¬äºŒ
 template <class _BidirectionalIter, class _Compare>
 bool prev_permutation(_BidirectionalIter __first, _BidirectionalIter __last,
                       _Compare __comp) {
@@ -219,7 +219,7 @@ bool prev_permutation(_BidirectionalIter __first, _BidirectionalIter __last,
     }
   }
 }
-//prev_permutationº¯Êı¾ÙÀı
+//prev_permutationå‡½æ•°ä¸¾ä¾‹
 /*
 	#include <iostream>     // std::cout
 	#include <algorithm>    // std::next_permutation, std::sort, std::reverse

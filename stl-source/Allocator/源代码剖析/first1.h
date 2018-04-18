@@ -3,7 +3,7 @@
 template <class _Tp>
 class allocator {
   typedef alloc _Alloc;          // The underlying allocator.
-public:							//Êı¾İÀàĞÍµÄ³ÉÔ±±äÁ¿ÔÚºóĞøÕÂ½Ú(traits±à³Ì¼¼ÇÉ)½éÉÜ
+public:							//æ•°æ®ç±»å‹çš„æˆå‘˜å˜é‡åœ¨åç»­ç« èŠ‚(traitsç¼–ç¨‹æŠ€å·§)ä»‹ç»
   typedef size_t     size_type;
   typedef ptrdiff_t  difference_type;
   typedef _Tp*       pointer;
@@ -12,44 +12,44 @@ public:							//Êı¾İÀàĞÍµÄ³ÉÔ±±äÁ¿ÔÚºóĞøÕÂ½Ú(traits±à³Ì¼¼ÇÉ)½éÉÜ
   typedef const _Tp& const_reference;
   typedef _Tp        value_type;
 
-  template <class _Tp1> struct rebind {//Ç¶Ì×Ò»¸ötemplate,ÇÒ½ö°üº¬Î¨Ò»³ÉÔ±other,ÊÇÒ»¸ötypedef;
+  template <class _Tp1> struct rebind {//åµŒå¥—ä¸€ä¸ªtemplate,ä¸”ä»…åŒ…å«å”¯ä¸€æˆå‘˜other,æ˜¯ä¸€ä¸ªtypedef;
     typedef allocator<_Tp1> other;
   };
-  //ÏÂÃæÊÇ³ÉÔ±º¯Êı
-  allocator() __STL_NOTHROW {}	//Ä¬ÈÏ¹¹Ôìº¯Êı,__STL_NOTHROWÔÚ stl_config.hÖĞ¶¨Òå,ÒªÃ´Îª¿Õ,ÒªÃ´Îª throw()Òì³£»úÖÆ
-  allocator(const allocator&) __STL_NOTHROW {}	//¸´ÖÆ¹¹Ôìº¯Êı
-  template <class _Tp1> allocator(const allocator<_Tp1>&) __STL_NOTHROW {}//·º»¯µÄ¸´ÖÆ¹¹Ôìº¯Êı
-  ~allocator() __STL_NOTHROW {}//Îö¹¹º¯Êı
+  //ä¸‹é¢æ˜¯æˆå‘˜å‡½æ•°
+  allocator() __STL_NOTHROW {}	//é»˜è®¤æ„é€ å‡½æ•°,__STL_NOTHROWåœ¨ stl_config.hä¸­å®šä¹‰,è¦ä¹ˆä¸ºç©º,è¦ä¹ˆä¸º throw()å¼‚å¸¸æœºåˆ¶
+  allocator(const allocator&) __STL_NOTHROW {}	//å¤åˆ¶æ„é€ å‡½æ•°
+  template <class _Tp1> allocator(const allocator<_Tp1>&) __STL_NOTHROW {}//æ³›åŒ–çš„å¤åˆ¶æ„é€ å‡½æ•°
+  ~allocator() __STL_NOTHROW {}//ææ„å‡½æ•°
 
-  pointer address(reference __x) const { return &__x; }//·µ»Ø¶ÔÏóµÄµØÖ·
-  const_pointer address(const_reference __x) const { return &__x; }//·µ»Øconst¶ÔÏóµÄµØÖ·
+  pointer address(reference __x) const { return &__x; }//è¿”å›å¯¹è±¡çš„åœ°å€
+  const_pointer address(const_reference __x) const { return &__x; }//è¿”å›constå¯¹è±¡çš„åœ°å€
 
   // __n is permitted to be 0.  The C++ standard says nothing about what
   // the return value is when __n == 0.
-  _Tp* allocate(size_type __n, const void* = 0) {// ÅäÖÃ¿Õ¼ä£¬Èç¹ûÉêÇëµÄ¿Õ¼ä¿éÊı²»Îª0£¬ÄÇÃ´µ÷ÓÃ _Alloc Ò²¼´ alloc µÄ allocate º¯ÊıÀ´·ÖÅäÄÚ´æ£¬
- //ÕâÀïµÄ alloc ÔÚ SGI STL ÖĞÄ¬ÈÏÊ¹ÓÃµÄÊÇ__default_alloc_template<__NODE_ALLOCATOR_THREADS, 0>Õâ¸öÊµÏÖ£¨¼ûµÚ402ĞĞ£©
+  _Tp* allocate(size_type __n, const void* = 0) {// é…ç½®ç©ºé—´ï¼Œå¦‚æœç”³è¯·çš„ç©ºé—´å—æ•°ä¸ä¸º0ï¼Œé‚£ä¹ˆè°ƒç”¨ _Alloc ä¹Ÿå³ alloc çš„ allocate å‡½æ•°æ¥åˆ†é…å†…å­˜ï¼Œ
+ //è¿™é‡Œçš„ alloc åœ¨ SGI STL ä¸­é»˜è®¤ä½¿ç”¨çš„æ˜¯__default_alloc_template<__NODE_ALLOCATOR_THREADS, 0>è¿™ä¸ªå®ç°ï¼ˆè§ç¬¬402è¡Œï¼‰
     return __n != 0 ? static_cast<_Tp*>(_Alloc::allocate(__n * sizeof(_Tp))) 
                     : 0;
   }
 
   // __p is not permitted to be a null pointer.
-  void deallocate(pointer __p, size_type __n)//ÊÍ·ÅÒÑÅäÖÃµÄ¿Õ¼ä
+  void deallocate(pointer __p, size_type __n)//é‡Šæ”¾å·²é…ç½®çš„ç©ºé—´
     { _Alloc::deallocate(__p, __n * sizeof(_Tp)); }
 
-  size_type max_size() const __STL_NOTHROW //·µ»Ø¿É³É¹¦ÅäÖÃµÄ×î´óÖµ
+  size_type max_size() const __STL_NOTHROW //è¿”å›å¯æˆåŠŸé…ç½®çš„æœ€å¤§å€¼
     { return size_t(-1) / sizeof(_Tp); }
 
-  void construct(pointer __p, const _Tp& __val) { new(__p) _Tp(__val); }//¹¹Ôì£¬µÈÍ¬ÓÚnew ((void*)p) T(x)
-  void destroy(pointer __p) { __p->~_Tp(); }//Îö¹¹£¬µÈÍ¬ÓÚp->~T()
+  void construct(pointer __p, const _Tp& __val) { new(__p) _Tp(__val); }//æ„é€ ï¼Œç­‰åŒäºnew ((void*)p) T(x)
+  void destroy(pointer __p) { __p->~_Tp(); }//ææ„ï¼Œç­‰åŒäºp->~T()
 };
 
-//Òì³£´¦Àí
+//å¼‚å¸¸å¤„ç†
 /*tihs program is in the file of stl_alloc.h*/
 //line 109 to 118
 class __malloc_alloc_template {
 
 private:
-//ÄÚ´æ²»×ãÒì³£´¦Àí
+//å†…å­˜ä¸è¶³å¼‚å¸¸å¤„ç†
   static void* _S_oom_malloc(size_t);
   static void* _S_oom_realloc(void*, size_t);
 
@@ -57,7 +57,7 @@ private:
   static void (* __malloc_alloc_oom_handler)();
 #endif
   //line 141 to 146
-  //Ö¸¶¨×Ô¼ºµÄÒì³£´¦Àí
+  //æŒ‡å®šè‡ªå·±çš„å¼‚å¸¸å¤„ç†
   static void (* __set_malloc_handler(void (*__f)()))()
   {
     void (* __old)() = __malloc_alloc_oom_handler;
@@ -74,11 +74,11 @@ void (* __malloc_alloc_template<__inst>::__malloc_alloc_oom_handler)() = 0;
 #  if defined(__STL_NO_BAD_ALLOC) || !defined(__STL_USE_EXCEPTIONS)
 #    include <stdio.h>
 #    include <stdlib.h>
-//Ä¬ÈÏµÄÇ¿ÖÆÍË³ö
+//é»˜è®¤çš„å¼ºåˆ¶é€€å‡º
 #    define __THROW_BAD_ALLOC fprintf(stderr, "out of memory\n"); exit(1)
 #  else /* Standard conforming out-of-memory handling */
 #    include <new>
-//Å×³öÓÃ»§Éè¼ÆÒì³£´¦ÀíÀı³Ì
+//æŠ›å‡ºç”¨æˆ·è®¾è®¡å¼‚å¸¸å¤„ç†ä¾‹ç¨‹
 #    define __THROW_BAD_ALLOC throw std::bad_alloc()
 #  endif
 #endif

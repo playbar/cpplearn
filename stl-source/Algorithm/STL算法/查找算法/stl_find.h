@@ -1,35 +1,35 @@
 // find and find_if.
-//²éÕÒÇø¼ä[first,last)ÄÚÔªËØµÚÒ»¸öÓëvalueÖµÏàµÈµÄÔªËØ£¬²¢·µ»ØÆäÎ»ÖÃ
-//ÆäÖĞfindº¯ÊıÊÇ²ÉÓÃÄ¬ÈÏµÄequality²Ù×÷operator==
-//find_ifÊÇ²ÉÓÃÓÃ»§×ÔĞĞÖ¸¶¨µÄ²Ù×÷pred
+//æŸ¥æ‰¾åŒºé—´[first,last)å†…å…ƒç´ ç¬¬ä¸€ä¸ªä¸valueå€¼ç›¸ç­‰çš„å…ƒç´ ï¼Œå¹¶è¿”å›å…¶ä½ç½®
+//å…¶ä¸­findå‡½æ•°æ˜¯é‡‡ç”¨é»˜è®¤çš„equalityæ“ä½œoperator==
+//find_ifæ˜¯é‡‡ç”¨ç”¨æˆ·è‡ªè¡ŒæŒ‡å®šçš„æ“ä½œpred
 
-//Èôfindº¯ÊıİÍÈ¡³öÀ´µÄµü´úÆ÷ÀàĞÍÎªÊäÈëµü´úÆ÷input_iterator_tag£¬Ôòµ÷ÓÃ´Ëº¯Êı
+//è‹¥findå‡½æ•°èƒå–å‡ºæ¥çš„è¿­ä»£å™¨ç±»å‹ä¸ºè¾“å…¥è¿­ä»£å™¨input_iterator_tagï¼Œåˆ™è°ƒç”¨æ­¤å‡½æ•°
 template <class _InputIter, class _Tp>
 inline _InputIter find(_InputIter __first, _InputIter __last,
                        const _Tp& __val,
                        input_iterator_tag)
-{//ÈôÉĞÎ´µ½´ïÇø¼äµÄÎ²¶Ë£¬ÇÒÎ´ÕÒµ½Æ¥ÅäµÄÖµ£¬Ôò¼ÌĞø²éÕÒ
+{//è‹¥å°šæœªåˆ°è¾¾åŒºé—´çš„å°¾ç«¯ï¼Œä¸”æœªæ‰¾åˆ°åŒ¹é…çš„å€¼ï¼Œåˆ™ç»§ç»­æŸ¥æ‰¾
   while (__first != __last && !(*__first == __val))
     ++__first;
-  //ÈôÕÒµ½Æ¥ÅäµÄÖµ£¬Ôò·µ»Ø¸ÃÎ»ÖÃ
-  //ÈôÕÒ²»µ½£¬¼´µ½´ïÇø¼äÎ²¶Ë£¬´ËÊ±first=last£¬Ôò·µ»Øfirst
+  //è‹¥æ‰¾åˆ°åŒ¹é…çš„å€¼ï¼Œåˆ™è¿”å›è¯¥ä½ç½®
+  //è‹¥æ‰¾ä¸åˆ°ï¼Œå³åˆ°è¾¾åŒºé—´å°¾ç«¯ï¼Œæ­¤æ—¶first=lastï¼Œåˆ™è¿”å›first
   return __first;
 }
-//Èôfind_ifº¯ÊıİÍÈ¡³öÀ´µÄµü´úÆ÷ÀàĞÍÎªÊäÈëµü´úÆ÷input_iterator_tag£¬Ôòµ÷ÓÃ´Ëº¯Êı
+//è‹¥find_ifå‡½æ•°èƒå–å‡ºæ¥çš„è¿­ä»£å™¨ç±»å‹ä¸ºè¾“å…¥è¿­ä»£å™¨input_iterator_tagï¼Œåˆ™è°ƒç”¨æ­¤å‡½æ•°
 template <class _InputIter, class _Predicate>
 inline _InputIter find_if(_InputIter __first, _InputIter __last,
                           _Predicate __pred,
                           input_iterator_tag)
-{//ÈôÉĞÎ´µ½´ïÇø¼äµÄÎ²¶Ë£¬ÇÒÎ´ÕÒµ½Æ¥ÅäµÄÖµ£¬Ôò¼ÌĞø²éÕÒ
+{//è‹¥å°šæœªåˆ°è¾¾åŒºé—´çš„å°¾ç«¯ï¼Œä¸”æœªæ‰¾åˆ°åŒ¹é…çš„å€¼ï¼Œåˆ™ç»§ç»­æŸ¥æ‰¾
   while (__first != __last && !__pred(*__first))
     ++__first;
-  //ÈôÕÒµ½Æ¥ÅäµÄÖµ£¬Ôò·µ»Ø¸ÃÎ»ÖÃ
-  //ÈôÕÒ²»µ½£¬¼´µ½´ïÇø¼äÎ²¶Ë£¬´ËÊ±first=last£¬Ôò·µ»Øfirst
+  //è‹¥æ‰¾åˆ°åŒ¹é…çš„å€¼ï¼Œåˆ™è¿”å›è¯¥ä½ç½®
+  //è‹¥æ‰¾ä¸åˆ°ï¼Œå³åˆ°è¾¾åŒºé—´å°¾ç«¯ï¼Œæ­¤æ—¶first=lastï¼Œåˆ™è¿”å›first
   return __first;
 }
 
 #ifdef __STL_CLASS_PARTIAL_SPECIALIZATION
-//Èôfindº¯ÊıİÍÈ¡³öÀ´µÄµü´úÆ÷ÀàĞÍÎªËæ»ú·ÃÎÊµü´úÆ÷random_access_iterator_tag£¬Ôòµ÷ÓÃ´Ëº¯Êı
+//è‹¥findå‡½æ•°èƒå–å‡ºæ¥çš„è¿­ä»£å™¨ç±»å‹ä¸ºéšæœºè®¿é—®è¿­ä»£å™¨random_access_iterator_tagï¼Œåˆ™è°ƒç”¨æ­¤å‡½æ•°
 template <class _RandomAccessIter, class _Tp>
 _RandomAccessIter find(_RandomAccessIter __first, _RandomAccessIter __last,
                        const _Tp& __val,
@@ -67,7 +67,7 @@ _RandomAccessIter find(_RandomAccessIter __first, _RandomAccessIter __last,
     return __last;
   }
 }
-//Èôfind_ifº¯ÊıİÍÈ¡³öÀ´µÄµü´úÆ÷ÀàĞÍÎªËæ»ú·ÃÎÊµü´úÆ÷random_access_iterator_tag£¬Ôòµ÷ÓÃ´Ëº¯Êı
+//è‹¥find_ifå‡½æ•°èƒå–å‡ºæ¥çš„è¿­ä»£å™¨ç±»å‹ä¸ºéšæœºè®¿é—®è¿­ä»£å™¨random_access_iterator_tagï¼Œåˆ™è°ƒç”¨æ­¤å‡½æ•°
 template <class _RandomAccessIter, class _Predicate>
 _RandomAccessIter find_if(_RandomAccessIter __first, _RandomAccessIter __last,
                           _Predicate __pred,
@@ -107,13 +107,13 @@ _RandomAccessIter find_if(_RandomAccessIter __first, _RandomAccessIter __last,
 }
 
 #endif /* __STL_CLASS_PARTIAL_SPECIALIZATION */
-/*findº¯Êı¹¦ÄÜ£ºReturns an iterator to the first element in the range [first,last) that compares equal to val. 
+/*findå‡½æ•°åŠŸèƒ½ï¼šReturns an iterator to the first element in the range [first,last) that compares equal to val. 
 If no such element is found, the function returns last.
-findº¯ÊıÔ­ĞÍ£º
+findå‡½æ•°åŸå‹ï¼š
 	template <class InputIterator, class T>
 	InputIterator find (InputIterator first, InputIterator last, const T& val);
 */
-//findº¯Êı¶ÔÍâ½Ó¿Ú
+//findå‡½æ•°å¯¹å¤–æ¥å£
 template <class _InputIter, class _Tp>
 inline _InputIter find(_InputIter __first, _InputIter __last,
                        const _Tp& __val)
@@ -121,26 +121,26 @@ inline _InputIter find(_InputIter __first, _InputIter __last,
   __STL_REQUIRES(_InputIter, _InputIterator);
   __STL_REQUIRES_BINARY_OP(_OP_EQUAL, bool, 
             typename iterator_traits<_InputIter>::value_type, _Tp);
-  //Ê×ÏÈİÍÈ¡³öfirstµü´úÆ÷µÄÀàĞÍ£¬¸ù¾İµü´úÆ÷µÄÀàĞÍµ÷ÓÃ²»Í¬µÄº¯Êı
+  //é¦–å…ˆèƒå–å‡ºfirstè¿­ä»£å™¨çš„ç±»å‹ï¼Œæ ¹æ®è¿­ä»£å™¨çš„ç±»å‹è°ƒç”¨ä¸åŒçš„å‡½æ•°
   return find(__first, __last, __val, __ITERATOR_CATEGORY(__first));
 }
-/*find_ifº¯Êı¹¦ÄÜ£ºReturns an iterator to the first element in the range [first,last) for which pred returns true. 
+/*find_ifå‡½æ•°åŠŸèƒ½ï¼šReturns an iterator to the first element in the range [first,last) for which pred returns true. 
 If no such element is found, the function returns last.
-find_ifº¯ÊıÔ­ĞÍ£º
+find_ifå‡½æ•°åŸå‹ï¼š
 	template <class InputIterator, class UnaryPredicate>
 	InputIterator find_if (InputIterator first, InputIterator last, UnaryPredicate pred);
 */
-//find_if º¯Êı¶ÔÍâ½Ó¿Ú
+//find_if å‡½æ•°å¯¹å¤–æ¥å£
 template <class _InputIter, class _Predicate>
 inline _InputIter find_if(_InputIter __first, _InputIter __last,
                           _Predicate __pred) {
   __STL_REQUIRES(_InputIter, _InputIterator);
   __STL_UNARY_FUNCTION_CHECK(_Predicate, bool,
           typename iterator_traits<_InputIter>::value_type);
-  //Ê×ÏÈİÍÈ¡³öfirstµü´úÆ÷µÄÀàĞÍ£¬¸ù¾İµü´úÆ÷µÄÀàĞÍµ÷ÓÃ²»Í¬µÄº¯Êı
+  //é¦–å…ˆèƒå–å‡ºfirstè¿­ä»£å™¨çš„ç±»å‹ï¼Œæ ¹æ®è¿­ä»£å™¨çš„ç±»å‹è°ƒç”¨ä¸åŒçš„å‡½æ•°
   return find_if(__first, __last, __pred, __ITERATOR_CATEGORY(__first));
 }
-//findºÍfind_ifº¯Êı¾ÙÀı£º
+//findå’Œfind_ifå‡½æ•°ä¸¾ä¾‹ï¼š
 /*
 	#include <iostream>     // std::cout
 	#include <algorithm>    // std::find_if
@@ -178,47 +178,47 @@ inline _InputIter find_if(_InputIter __first, _InputIter __last,
 
 // adjacent_find.
 
-//²éÕÒÇø¼ä[first,last)ÄÚµÚÒ»´ÎÖØ¸´µÄÏàÁÚÔªËØ
-//Èô´æÔÚ·µ»ØÏàÁÚÔªËØµÄµÚÒ»¸öÔªËØÎ»ÖÃ
-//Èô²»´æÔÚ·µ»ØlastÎ»ÖÃ
-/*¸Ãº¯ÊıÓĞÁ½¸ö°æ±¾£ºµÚÒ»°æ±¾ÊÇÄ¬ÈÏ²Ù×÷operator==£»µÚ¶ş°æ±¾ÊÇÓÃ»§Ö¸¶¨µÄ¶şÔª²Ù×÷pred
-º¯Êı¶ÔÍâ½Ó¿ÚµÄÔ­ĞÍ£º
-equality (1)£ºÄ¬ÈÏ²Ù×÷ÊÇoperator==
+//æŸ¥æ‰¾åŒºé—´[first,last)å†…ç¬¬ä¸€æ¬¡é‡å¤çš„ç›¸é‚»å…ƒç´ 
+//è‹¥å­˜åœ¨è¿”å›ç›¸é‚»å…ƒç´ çš„ç¬¬ä¸€ä¸ªå…ƒç´ ä½ç½®
+//è‹¥ä¸å­˜åœ¨è¿”å›lastä½ç½®
+/*è¯¥å‡½æ•°æœ‰ä¸¤ä¸ªç‰ˆæœ¬ï¼šç¬¬ä¸€ç‰ˆæœ¬æ˜¯é»˜è®¤æ“ä½œoperator==ï¼›ç¬¬äºŒç‰ˆæœ¬æ˜¯ç”¨æˆ·æŒ‡å®šçš„äºŒå…ƒæ“ä½œpred
+å‡½æ•°å¯¹å¤–æ¥å£çš„åŸå‹ï¼š
+equality (1)ï¼šé»˜è®¤æ“ä½œæ˜¯operator==
 	template <class ForwardIterator>
 	ForwardIterator adjacent_find (ForwardIterator first, ForwardIterator last);
-predicate (2)£ºÓÃ»§Ö¸¶¨µÄ¶şÔª²Ù×÷pred	
+predicate (2)ï¼šç”¨æˆ·æŒ‡å®šçš„äºŒå…ƒæ“ä½œpred	
 	template <class ForwardIterator, class BinaryPredicate>
 	ForwardIterator adjacent_find (ForwardIterator first, ForwardIterator last,
                                   BinaryPredicate pred);
 
 */
-//°æ±¾Ò»£ºÄ¬ÈÏ²Ù×÷ÊÇoperator==
+//ç‰ˆæœ¬ä¸€ï¼šé»˜è®¤æ“ä½œæ˜¯operator==
 template <class _ForwardIter>
 _ForwardIter adjacent_find(_ForwardIter __first, _ForwardIter __last) {
   __STL_REQUIRES(_ForwardIter, _ForwardIterator);
   __STL_REQUIRES(typename iterator_traits<_ForwardIter>::value_type,
                  _EqualityComparable);
   /*
-  Çé¿ö1£ºÈôÊäÈëÇø¼äÎª¿Õ£¬ÔòÖ±½Ó·µ»ØÎ²¶Ëlast£»
-  Çé¿ö2£ºÈôÊäÈëÇø¼ä²»Îª¿Õ£¬ÇÒ´æÔÚÏàÁÚÖØ¸´ÔªËØ£¬Ôò·µ»ØÏàÁÚÔªËØµÄµÚÒ»¸öÔªËØµÄÎ»ÖÃ£»
-  Çé¿ö3£ºÈôÊäÈëÇø¼ä²»Îª¿Õ£¬µ«ÊÇ²»´æÔÚÏàÁÚÖØ¸´ÔªËØ£¬ÔòÖ±½Ó·µ»ØÎ²¶Ëlast£»
+  æƒ…å†µ1ï¼šè‹¥è¾“å…¥åŒºé—´ä¸ºç©ºï¼Œåˆ™ç›´æ¥è¿”å›å°¾ç«¯lastï¼›
+  æƒ…å†µ2ï¼šè‹¥è¾“å…¥åŒºé—´ä¸ä¸ºç©ºï¼Œä¸”å­˜åœ¨ç›¸é‚»é‡å¤å…ƒç´ ï¼Œåˆ™è¿”å›ç›¸é‚»å…ƒç´ çš„ç¬¬ä¸€ä¸ªå…ƒç´ çš„ä½ç½®ï¼›
+  æƒ…å†µ3ï¼šè‹¥è¾“å…¥åŒºé—´ä¸ä¸ºç©ºï¼Œä½†æ˜¯ä¸å­˜åœ¨ç›¸é‚»é‡å¤å…ƒç´ ï¼Œåˆ™ç›´æ¥è¿”å›å°¾ç«¯lastï¼›
   */
-  //Çé¿ö1£º
-  if (__first == __last)//ÈôÊäÈëÇø¼äÎª¿Õ
-    return __last;//Ö±½Ó·µ»Ølast
-  //Çé¿ö2£º
-  _ForwardIter __next = __first;//¶¨Òåµ±Ç°Î»ÖÃµÄÏÂÒ»¸öÎ»ÖÃ(¼´µ±Ç°ÔªËØµÄÏàÁÚÔªËØ)
-  while(++__next != __last) {//Èô»¹Ã»µ½´ïÎ²¶Ë£¬Ö´ĞĞwhileÑ­»·
-    if (*__first == *__next)//ÏàÁÚÔªËØÖµÏàµÈ£¬ÔòÕÒµ½ÏàÁÚÖØ¸´ÔªËØ
-      return __first;//·µ»ØµÚÒ»¸öÔªËØµÄÎ»ÖÃ
-    __first = __next;//ÈôÔİÊ±ÕÒ²»µ½£¬Ôò¼ÌĞøÕÒ£¬Ö±µ½µ½´ïÇø¼äÎ²¶Ë
+  //æƒ…å†µ1ï¼š
+  if (__first == __last)//è‹¥è¾“å…¥åŒºé—´ä¸ºç©º
+    return __last;//ç›´æ¥è¿”å›last
+  //æƒ…å†µ2ï¼š
+  _ForwardIter __next = __first;//å®šä¹‰å½“å‰ä½ç½®çš„ä¸‹ä¸€ä¸ªä½ç½®(å³å½“å‰å…ƒç´ çš„ç›¸é‚»å…ƒç´ )
+  while(++__next != __last) {//è‹¥è¿˜æ²¡åˆ°è¾¾å°¾ç«¯ï¼Œæ‰§è¡Œwhileå¾ªç¯
+    if (*__first == *__next)//ç›¸é‚»å…ƒç´ å€¼ç›¸ç­‰ï¼Œåˆ™æ‰¾åˆ°ç›¸é‚»é‡å¤å…ƒç´ 
+      return __first;//è¿”å›ç¬¬ä¸€ä¸ªå…ƒç´ çš„ä½ç½®
+    __first = __next;//è‹¥æš‚æ—¶æ‰¾ä¸åˆ°ï¼Œåˆ™ç»§ç»­æ‰¾ï¼Œç›´åˆ°åˆ°è¾¾åŒºé—´å°¾ç«¯
   }
-  //Çé¿ö3£º
-  return __last;//Ö±½Ó·µ»ØÎ²¶Ëlast
+  //æƒ…å†µ3ï¼š
+  return __last;//ç›´æ¥è¿”å›å°¾ç«¯last
 }
 
-//°æ±¾¶ş£ºÓÃ»§Ö¸¶¨µÄ¶şÔª²Ù×÷pred	
-//ÊµÏÖ¹ı³ÌºÍ°æ±¾Ò»Ò»Ñù£¬Ö»ÊÇÅĞ¶Ï¹æÔò²»Í¬
+//ç‰ˆæœ¬äºŒï¼šç”¨æˆ·æŒ‡å®šçš„äºŒå…ƒæ“ä½œpred	
+//å®ç°è¿‡ç¨‹å’Œç‰ˆæœ¬ä¸€ä¸€æ ·ï¼Œåªæ˜¯åˆ¤æ–­è§„åˆ™ä¸åŒ
 template <class _ForwardIter, class _BinaryPredicate>
 _ForwardIter adjacent_find(_ForwardIter __first, _ForwardIter __last,
                            _BinaryPredicate __binary_pred) {
@@ -230,14 +230,14 @@ _ForwardIter adjacent_find(_ForwardIter __first, _ForwardIter __last,
     return __last;
   _ForwardIter __next = __first;
   while(++__next != __last) {
-	  //Èç¹ûÕÒµ½ÏàÁÚÔªËØ·ûºÏÓÃ»§Ö¸¶¨Ìõ¼ş£¬¾Í·µ»ØµÚÒ»ÔªËØÎ»ÖÃ
+	  //å¦‚æœæ‰¾åˆ°ç›¸é‚»å…ƒç´ ç¬¦åˆç”¨æˆ·æŒ‡å®šæ¡ä»¶ï¼Œå°±è¿”å›ç¬¬ä¸€å…ƒç´ ä½ç½®
     if (__binary_pred(*__first, *__next))
       return __first;
     __first = __next;
   }
   return __last;
 }
-//adjacent_findº¯Êı¾ÙÀı£º
+//adjacent_findå‡½æ•°ä¸¾ä¾‹ï¼š
 /*
 	#include <iostream>     // std::cout
 	#include <algorithm>    // std::adjacent_find
@@ -274,25 +274,25 @@ _ForwardIter adjacent_find(_ForwardIter __first, _ForwardIter __last,
 
 
 // search.
-//ÔÚĞòÁĞÒ»[first1,last1)Ëùº­¸ÇµÄÇø¼äÖĞ£¬²éÕÒĞòÁĞ¶ş[first2,last2)µÄÊ×´Î³öÏÖµã
-//¸Ã²éÕÒº¯ÊıÓĞÁ½¸ö°æ±¾£º
-//°æ±¾Ò»£ºÊ¹ÓÃÄ¬ÈÏµÄequality²Ù×÷operator==
-//°æ±¾¶ş£ºÓÃ»§¸ù¾İĞèÒª×ÔĞĞÖ¸¶¨²Ù×÷¹æÔò
-/*searchº¯Êı¹¦ÄÜ£ºSearches the range [first1,last1) for the first occurrence of the sequence defined by [first2,last2), 
+//åœ¨åºåˆ—ä¸€[first1,last1)æ‰€æ¶µç›–çš„åŒºé—´ä¸­ï¼ŒæŸ¥æ‰¾åºåˆ—äºŒ[first2,last2)çš„é¦–æ¬¡å‡ºç°ç‚¹
+//è¯¥æŸ¥æ‰¾å‡½æ•°æœ‰ä¸¤ä¸ªç‰ˆæœ¬ï¼š
+//ç‰ˆæœ¬ä¸€ï¼šä½¿ç”¨é»˜è®¤çš„equalityæ“ä½œoperator==
+//ç‰ˆæœ¬äºŒï¼šç”¨æˆ·æ ¹æ®éœ€è¦è‡ªè¡ŒæŒ‡å®šæ“ä½œè§„åˆ™
+/*searchå‡½æ•°åŠŸèƒ½ï¼šSearches the range [first1,last1) for the first occurrence of the sequence defined by [first2,last2), 
 and returns an iterator to its first element, or last1 if no occurrences are found.
 
-searchº¯ÊıµÄÔ­ĞÍ£º
-equality (1)£º°æ±¾Ò»
+searchå‡½æ•°çš„åŸå‹ï¼š
+equality (1)ï¼šç‰ˆæœ¬ä¸€
 	template <class ForwardIterator1, class ForwardIterator2>
 	ForwardIterator1 search (ForwardIterator1 first1, ForwardIterator1 last1,
                             ForwardIterator2 first2, ForwardIterator2 last2);
-predicate (2)£º°æ±¾¶ş	
+predicate (2)ï¼šç‰ˆæœ¬äºŒ	
 	template <class ForwardIterator1, class ForwardIterator2, class BinaryPredicate>
 	ForwardIterator1 search (ForwardIterator1 first1, ForwardIterator1 last1,
                             ForwardIterator2 first2, ForwardIterator2 last2,
                             BinaryPredicate pred);
 */
-//°æ±¾Ò»£ºÊ¹ÓÃÄ¬ÈÏµÄequality²Ù×÷operator==
+//ç‰ˆæœ¬ä¸€ï¼šä½¿ç”¨é»˜è®¤çš„equalityæ“ä½œoperator==
 template <class _ForwardIter1, class _ForwardIter2>
 _ForwardIter1 search(_ForwardIter1 __first1, _ForwardIter1 __last1,
                      _ForwardIter2 __first2, _ForwardIter2 __last2) 
@@ -321,21 +321,21 @@ _ForwardIter1 search(_ForwardIter1 __first1, _ForwardIter1 __last1,
 
   _ForwardIter1 __current = __first1;
 
-  while (__first1 != __last1) {//Èô»¹Ã»µ½´ïÇø¼äÎ²¶Ë
-    __first1 = find(__first1, __last1, *__first2);//²éÕÒ*first2ÔÚÇø¼ä[first1,last1)Ê×´Î³öÏÖµÄÎ»ÖÃ
-    if (__first1 == __last1)//ÈôÔÚ[first1,last1)ÖĞ²»´æÔÚ*first2£¬¼´ÔÚ[first1,last1)²»´æÔÚ×ÓĞòÁĞ[first2,last2)
-      return __last1;//ÔòÖ±½Ó·µ»ØÇø¼äÎ²¶Ë
+  while (__first1 != __last1) {//è‹¥è¿˜æ²¡åˆ°è¾¾åŒºé—´å°¾ç«¯
+    __first1 = find(__first1, __last1, *__first2);//æŸ¥æ‰¾*first2åœ¨åŒºé—´[first1,last1)é¦–æ¬¡å‡ºç°çš„ä½ç½®
+    if (__first1 == __last1)//è‹¥åœ¨[first1,last1)ä¸­ä¸å­˜åœ¨*first2ï¼Œå³åœ¨[first1,last1)ä¸å­˜åœ¨å­åºåˆ—[first2,last2)
+      return __last1;//åˆ™ç›´æ¥è¿”å›åŒºé—´å°¾ç«¯
 
     __p = __p1;
     __current = __first1; 
-    if (++__current == __last1)//Èô[first1,last1)Ö»ÓĞÒ»¸öÔªËØ£¬¼´ĞòÁĞ[first1,last1)Ğ¡ÓÚĞòÁĞ[first2,last2)
-      return __last1;//²»¿ÉÄÜ³ÉÎªÆä×ÓĞòÁĞ£¬·µ»Ølast1
+    if (++__current == __last1)//è‹¥[first1,last1)åªæœ‰ä¸€ä¸ªå…ƒç´ ï¼Œå³åºåˆ—[first1,last1)å°äºåºåˆ—[first2,last2)
+      return __last1;//ä¸å¯èƒ½æˆä¸ºå…¶å­åºåˆ—ï¼Œè¿”å›last1
 
-    while (*__current == *__p) {//ÈôÁ½¸öĞòÁĞÏà¶ÔÓ¦µÄÖµÏàÍ¬
-      if (++__p == __last2)//ÈôĞòÁĞ[first2,last2)Ö»ÓĞÁ½¸öÔªËØ£¬ÇÒÓëĞòÁĞÒ»Æ¥Åä
-        return __first1;//Ôò·µ»ØÆ¥ÅäµÄÊ×´ÎÎ»ÖÃ
-      if (++__current == __last1)//ÈôµÚÒ»¸öĞòÁĞĞ¡ÓÚµÚ¶ş¸öĞòÁĞ
-        return __last1;//·µ»Ølast1
+    while (*__current == *__p) {//è‹¥ä¸¤ä¸ªåºåˆ—ç›¸å¯¹åº”çš„å€¼ç›¸åŒ
+      if (++__p == __last2)//è‹¥åºåˆ—[first2,last2)åªæœ‰ä¸¤ä¸ªå…ƒç´ ï¼Œä¸”ä¸åºåˆ—ä¸€åŒ¹é…
+        return __first1;//åˆ™è¿”å›åŒ¹é…çš„é¦–æ¬¡ä½ç½®
+      if (++__current == __last1)//è‹¥ç¬¬ä¸€ä¸ªåºåˆ—å°äºç¬¬äºŒä¸ªåºåˆ—
+        return __last1;//è¿”å›last1
     }
 
     ++__first1;
@@ -343,7 +343,7 @@ _ForwardIter1 search(_ForwardIter1 __first1, _ForwardIter1 __last1,
   return __first1;
 }
 
-//°æ±¾¶ş£ºÓÃ»§¸ù¾İĞèÒª×ÔĞĞÖ¸¶¨²Ù×÷¹æÔò
+//ç‰ˆæœ¬äºŒï¼šç”¨æˆ·æ ¹æ®éœ€è¦è‡ªè¡ŒæŒ‡å®šæ“ä½œè§„åˆ™
 template <class _ForwardIter1, class _ForwardIter2, class _BinaryPred>
 _ForwardIter1 search(_ForwardIter1 __first1, _ForwardIter1 __last1,
                      _ForwardIter2 __first2, _ForwardIter2 __last2,
@@ -404,25 +404,25 @@ _ForwardIter1 search(_ForwardIter1 __first1, _ForwardIter1 __last1,
 }
 
 // search_n.  Search for __count consecutive copies of __val.
-//ÔÚĞòÁĞ[first,last)²éÕÒÁ¬Ğøcount¸ö·ûºÏÌõ¼şÖµvalueÔªËØµÄÎ»ÖÃ
-//¸Ã²éÕÒº¯ÊıÓĞÁ½¸ö°æ±¾£º
-//°æ±¾Ò»£ºÊ¹ÓÃÄ¬ÈÏµÄequality²Ù×÷operator==
-//°æ±¾¶ş£ºÓÃ»§¸ù¾İĞèÒª×ÔĞĞÖ¸¶¨²Ù×÷¹æÔò
-/*search_nº¯Êı¹¦ÄÜ£ºSearches the range [first,last) for a sequence of count elements, 
+//åœ¨åºåˆ—[first,last)æŸ¥æ‰¾è¿ç»­countä¸ªç¬¦åˆæ¡ä»¶å€¼valueå…ƒç´ çš„ä½ç½®
+//è¯¥æŸ¥æ‰¾å‡½æ•°æœ‰ä¸¤ä¸ªç‰ˆæœ¬ï¼š
+//ç‰ˆæœ¬ä¸€ï¼šä½¿ç”¨é»˜è®¤çš„equalityæ“ä½œoperator==
+//ç‰ˆæœ¬äºŒï¼šç”¨æˆ·æ ¹æ®éœ€è¦è‡ªè¡ŒæŒ‡å®šæ“ä½œè§„åˆ™
+/*search_nå‡½æ•°åŠŸèƒ½ï¼šSearches the range [first,last) for a sequence of count elements, 
 each comparing equal to val (or for which pred returns true).
 
 
-search_nº¯ÊıµÄÔ­ĞÍ£º
-equality (1)£º°æ±¾Ò»	
+search_nå‡½æ•°çš„åŸå‹ï¼š
+equality (1)ï¼šç‰ˆæœ¬ä¸€	
 	template <class ForwardIterator, class Size, class T>
 	ForwardIterator search_n (ForwardIterator first, ForwardIterator last,
                              Size count, const T& val);
-predicate (2)£º°æ±¾¶ş	
+predicate (2)ï¼šç‰ˆæœ¬äºŒ	
 	template <class ForwardIterator, class Size, class T, class BinaryPredicate>
 	ForwardIterator search_n ( ForwardIterator first, ForwardIterator last,
                               Size count, const T& val, BinaryPredicate pred );
 */
-//°æ±¾Ò»£ºÊ¹ÓÃÄ¬ÈÏµÄequality²Ù×÷operator==
+//ç‰ˆæœ¬ä¸€ï¼šä½¿ç”¨é»˜è®¤çš„equalityæ“ä½œoperator==
 template <class _ForwardIter, class _Integer, class _Tp>
 _ForwardIter search_n(_ForwardIter __first, _ForwardIter __last,
                       _Integer __count, const _Tp& __val) {
@@ -433,26 +433,26 @@ _ForwardIter search_n(_ForwardIter __first, _ForwardIter __last,
 
   if (__count <= 0)
     return __first;
-  else {//Ê×ÏÈ²éÕÒvalueµÚÒ»´Î³öÏÖµÄÎ»ÖÃ
+  else {//é¦–å…ˆæŸ¥æ‰¾valueç¬¬ä¸€æ¬¡å‡ºç°çš„ä½ç½®
     __first = find(__first, __last, __val);
-    while (__first != __last) {//Èô³öÏÖµÄÎ»ÖÃ²»ÊÇÇø¼äÎ²¶Ë
-      _Integer __n = __count - 1;//¸üĞÂ¸öÊı£¬ÏÂÃæÖ»Ğè²éÕÒn=count-1¸öÁ¬ĞøÏàÍ¬value¼´¿É
+    while (__first != __last) {//è‹¥å‡ºç°çš„ä½ç½®ä¸æ˜¯åŒºé—´å°¾ç«¯
+      _Integer __n = __count - 1;//æ›´æ–°ä¸ªæ•°ï¼Œä¸‹é¢åªéœ€æŸ¥æ‰¾n=count-1ä¸ªè¿ç»­ç›¸åŒvalueå³å¯
       _ForwardIter __i = __first;
-      ++__i;//´Óµ±Ç°Î»ÖÃµÄÏÂÒ»¸öÎ»ÖÃ¿ªÊ¼²éÕÒ
-	  //ÈôÃ»ÓĞµ½´ïÇø¼äÎ²¶Ë£¬ÇÒ¸öÊın´óÓÚ0£¬ÇÒÇø¼äÔªËØÓëvalueÖµÏàµÈ
+      ++__i;//ä»å½“å‰ä½ç½®çš„ä¸‹ä¸€ä¸ªä½ç½®å¼€å§‹æŸ¥æ‰¾
+	  //è‹¥æ²¡æœ‰åˆ°è¾¾åŒºé—´å°¾ç«¯ï¼Œä¸”ä¸ªæ•°nå¤§äº0ï¼Œä¸”åŒºé—´å…ƒç´ ä¸valueå€¼ç›¸ç­‰
       while (__i != __last && __n != 0 && *__i == __val) {
-        ++__i;//¼ÌĞø²éÕÒ
-        --__n;//¼õÉÙ²éÕÒµÄ´ÎÊı£¬ÒòÎªÒÑ¾­ÕÒµ½valueÔÙ´Î³öÏÖ
+        ++__i;//ç»§ç»­æŸ¥æ‰¾
+        --__n;//å‡å°‘æŸ¥æ‰¾çš„æ¬¡æ•°ï¼Œå› ä¸ºå·²ç»æ‰¾åˆ°valueå†æ¬¡å‡ºç°
       }
-      if (__n == 0)//ÈôÇø¼äÉĞÎ´µ½´ïÎ²¶Ë£¬µ«ÊÇcount¸övalueÒÑ¾­²éÕÒµ½
-        return __first;//ÔòÊä³ö²éÕÒµ½µÄÊ×´Î³öÏÖvalueµÄÎ»ÖÃ
+      if (__n == 0)//è‹¥åŒºé—´å°šæœªåˆ°è¾¾å°¾ç«¯ï¼Œä½†æ˜¯countä¸ªvalueå·²ç»æŸ¥æ‰¾åˆ°
+        return __first;//åˆ™è¾“å‡ºæŸ¥æ‰¾åˆ°çš„é¦–æ¬¡å‡ºç°valueçš„ä½ç½®
       else
-        __first = find(__i, __last, __val);//ÈôÉĞÎ´ÕÒµ½Á¬Ğøcount¸övalueÖµµÄÎ»ÖÃ£¬ÔòÕÒ³övalueÏÂ´Î³öÏÖµÄÎ»ÖÃ£¬²¢×¼±¸ÏÂÒ»´ÎwhileÑ­»·
+        __first = find(__i, __last, __val);//è‹¥å°šæœªæ‰¾åˆ°è¿ç»­countä¸ªvalueå€¼çš„ä½ç½®ï¼Œåˆ™æ‰¾å‡ºvalueä¸‹æ¬¡å‡ºç°çš„ä½ç½®ï¼Œå¹¶å‡†å¤‡ä¸‹ä¸€æ¬¡whileå¾ªç¯
     }
     return __last;
   }
 }
-//°æ±¾¶ş£ºÓÃ»§¸ù¾İĞèÒª×ÔĞĞÖ¸¶¨²Ù×÷¹æÔò
+//ç‰ˆæœ¬äºŒï¼šç”¨æˆ·æ ¹æ®éœ€è¦è‡ªè¡ŒæŒ‡å®šæ“ä½œè§„åˆ™
 template <class _ForwardIter, class _Integer, class _Tp, class _BinaryPred>
 _ForwardIter search_n(_ForwardIter __first, _ForwardIter __last,
                       _Integer __count, const _Tp& __val,
@@ -490,7 +490,7 @@ _ForwardIter search_n(_ForwardIter __first, _ForwardIter __last,
     return __last;
   }
 } 
-//searchºÍsearch_nº¯Êı¾ÙÀı£º
+//searchå’Œsearch_nå‡½æ•°ä¸¾ä¾‹ï¼š
 /*
 	#include <iostream>     // std::cout
 	#include <algorithm>    // std::search_n
@@ -552,42 +552,42 @@ _ForwardIter __lower_bound(_ForwardIter __first, _ForwardIter __last,
                            const _Tp& __val, _Distance*) 
 {
   _Distance __len = 0;
-  distance(__first, __last, __len);//ÇóÈ¡Õû¸öÇø¼äµÄ³¤¶Èlen
+  distance(__first, __last, __len);//æ±‚å–æ•´ä¸ªåŒºé—´çš„é•¿åº¦len
   _Distance __half;
-  _ForwardIter __middle;//¶¨ÒåÇø¼äµÄÖĞ¼äµü´úÆ÷
+  _ForwardIter __middle;//å®šä¹‰åŒºé—´çš„ä¸­é—´è¿­ä»£å™¨
 
-  while (__len > 0) {//ÈôÇø¼ä²»Îª¿Õ£¬ÔòÔÚÇø¼ä[first,last)¿ªÊ¼²éÕÒvalueÖµ
-    __half = __len >> 1;//ÏòÓÒÒÆÒ»Î»£¬Ïàµ±ÓÚ³ıÒÔ2£¬¼´È¡Çø¼äµÄÖĞ¼äÖµ
-    __middle = __first;//middle³õÊ¼»¯ÎªÇø¼äµÄÆğÊ¼Î»ÖÃ
-    advance(__middle, __half);//middleÏòºóÒÆhalfÎ»£¬´ËÊ±middleÎªÇø¼äµÄÖĞ¼äÖµ
-    if (*__middle < __val) {//½«valueÖµÓëÖĞ¼äÖµ±È½Ï£¬¼´ÊÇ¶ş·Ö²éÕÒ,ÈôÖĞ¼äÖµĞ¡ÓÚvalue£¬Ôò¼ÌĞø²éÕÒÓÒ°ë²¿·Ö
-		//ÏÂÃæÁ½ĞĞÁîfirstÖ¸ÏòmiddleµÄÏÂÒ»¸öÎ»ÖÃ
+  while (__len > 0) {//è‹¥åŒºé—´ä¸ä¸ºç©ºï¼Œåˆ™åœ¨åŒºé—´[first,last)å¼€å§‹æŸ¥æ‰¾valueå€¼
+    __half = __len >> 1;//å‘å³ç§»ä¸€ä½ï¼Œç›¸å½“äºé™¤ä»¥2ï¼Œå³å–åŒºé—´çš„ä¸­é—´å€¼
+    __middle = __first;//middleåˆå§‹åŒ–ä¸ºåŒºé—´çš„èµ·å§‹ä½ç½®
+    advance(__middle, __half);//middleå‘åç§»halfä½ï¼Œæ­¤æ—¶middleä¸ºåŒºé—´çš„ä¸­é—´å€¼
+    if (*__middle < __val) {//å°†valueå€¼ä¸ä¸­é—´å€¼æ¯”è¾ƒï¼Œå³æ˜¯äºŒåˆ†æŸ¥æ‰¾,è‹¥ä¸­é—´å€¼å°äºvalueï¼Œåˆ™ç»§ç»­æŸ¥æ‰¾å³åŠéƒ¨åˆ†
+		//ä¸‹é¢ä¸¤è¡Œä»¤firstæŒ‡å‘middleçš„ä¸‹ä¸€ä¸ªä½ç½®
       __first = __middle;
       ++__first;
-      __len = __len - __half - 1;//µ÷Õû²éÕÒÇø¼äµÄ³¤¶È
+      __len = __len - __half - 1;//è°ƒæ•´æŸ¥æ‰¾åŒºé—´çš„é•¿åº¦
     }
     else
-      __len = __half;//·ñÔò²éÕÒ×ó°ë²¿·Ö
+      __len = __half;//å¦åˆ™æŸ¥æ‰¾å·¦åŠéƒ¨åˆ†
   }
   return __first;
 }
-//ÔÚÒÑÅÅĞòÇø¼ä[first,last)²éÕÒvalueÖµ
-//Èô¸ÃÇø¼ä´æÔÚÓëvalueÏàµÈµÄÔªËØ£¬Ôò·µ»ØÖ¸ÏòµÚÒ»¸öÓëvalueÏàµÈµÄµü´úÆ÷
-//Èô¸ÃÇø¼ä²»´æÔÚÓëvalueÏàµÈµÄÔªËØ£¬Ôò·µ»ØÖ¸ÏòµÚÒ»¸ö²»Ğ¡ÓÚvalueÖµµÄµü´úÆ÷
-//Èô¸ÃÇø¼äµÄÈÎºÎÔªËØ¶¼±ÈvalueÖµĞ¡£¬Ôò·µ»Ølast
+//åœ¨å·²æ’åºåŒºé—´[first,last)æŸ¥æ‰¾valueå€¼
+//è‹¥è¯¥åŒºé—´å­˜åœ¨ä¸valueç›¸ç­‰çš„å…ƒç´ ï¼Œåˆ™è¿”å›æŒ‡å‘ç¬¬ä¸€ä¸ªä¸valueç›¸ç­‰çš„è¿­ä»£å™¨
+//è‹¥è¯¥åŒºé—´ä¸å­˜åœ¨ä¸valueç›¸ç­‰çš„å…ƒç´ ï¼Œåˆ™è¿”å›æŒ‡å‘ç¬¬ä¸€ä¸ªä¸å°äºvalueå€¼çš„è¿­ä»£å™¨
+//è‹¥è¯¥åŒºé—´çš„ä»»ä½•å…ƒç´ éƒ½æ¯”valueå€¼å°ï¼Œåˆ™è¿”å›last
 /*
-º¯Êı¹¦ÄÜ£ºReturns an iterator pointing to the first element in the range [first,last) which does not compare less than val.
-º¯ÊıÔ­ĞÍ£º
-default (1)	£º°æ±¾Ò»²ÉÓÃoperator<±È½Ï
+å‡½æ•°åŠŸèƒ½ï¼šReturns an iterator pointing to the first element in the range [first,last) which does not compare less than val.
+å‡½æ•°åŸå‹ï¼š
+default (1)	ï¼šç‰ˆæœ¬ä¸€é‡‡ç”¨operator<æ¯”è¾ƒ
 	template <class ForwardIterator, class T>
 	ForwardIterator lower_bound (ForwardIterator first, ForwardIterator last,
                                const T& val);
-custom (2)	£º°æ±¾¶ş²ÉÓÃ·Âº¯Êıcomp±È½Ï¹æÔò
+custom (2)	ï¼šç‰ˆæœ¬äºŒé‡‡ç”¨ä»¿å‡½æ•°compæ¯”è¾ƒè§„åˆ™
 	template <class ForwardIterator, class T, class Compare>
 	ForwardIterator lower_bound (ForwardIterator first, ForwardIterator last,
                                const T& val, Compare comp);
 */
-//°æ±¾Ò»
+//ç‰ˆæœ¬ä¸€
 template <class _ForwardIter, class _Tp>
 inline _ForwardIter lower_bound(_ForwardIter __first, _ForwardIter __last,
 				const _Tp& __val) {
@@ -604,26 +604,26 @@ _ForwardIter __lower_bound(_ForwardIter __first, _ForwardIter __last,
                               const _Tp& __val, _Compare __comp, _Distance*)
 {
   _Distance __len = 0;
-  distance(__first, __last, __len);//ÇóÈ¡Õû¸öÇø¼äµÄ³¤¶Èlen
+  distance(__first, __last, __len);//æ±‚å–æ•´ä¸ªåŒºé—´çš„é•¿åº¦len
   _Distance __half;
-  _ForwardIter __middle;//¶¨ÒåÇø¼äµÄÖĞ¼äµü´úÆ÷
+  _ForwardIter __middle;//å®šä¹‰åŒºé—´çš„ä¸­é—´è¿­ä»£å™¨
 
-  while (__len > 0) {//ÈôÇø¼ä²»Îª¿Õ£¬ÔòÔÚÇø¼ä[first,last)¿ªÊ¼²éÕÒvalueÖµ
-    __half = __len >> 1;//ÏòÓÒÒÆÒ»Î»£¬Ïàµ±ÓÚ³ıÒÔ2£¬¼´È¡Çø¼äµÄÖĞ¼äÖµ
-    __middle = __first;//middle³õÊ¼»¯ÎªÇø¼äµÄÆğÊ¼Î»ÖÃ
-    advance(__middle, __half);//middleÏòºóÒÆhalfÎ»£¬´ËÊ±middleÎªÇø¼äµÄÖĞ¼äÖµ
-    if (__comp(*__middle, __val)) {//ÈôcompÅĞ¶ÏÎªtrue£¬Ôò¼ÌĞøÔÚÓÒ°ë²¿·Ö²éÕÒ
-		//ÏÂÃæÁ½ĞĞÁîfirstÖ¸ÏòmiddleµÄÏÂÒ»¸öÎ»ÖÃ
+  while (__len > 0) {//è‹¥åŒºé—´ä¸ä¸ºç©ºï¼Œåˆ™åœ¨åŒºé—´[first,last)å¼€å§‹æŸ¥æ‰¾valueå€¼
+    __half = __len >> 1;//å‘å³ç§»ä¸€ä½ï¼Œç›¸å½“äºé™¤ä»¥2ï¼Œå³å–åŒºé—´çš„ä¸­é—´å€¼
+    __middle = __first;//middleåˆå§‹åŒ–ä¸ºåŒºé—´çš„èµ·å§‹ä½ç½®
+    advance(__middle, __half);//middleå‘åç§»halfä½ï¼Œæ­¤æ—¶middleä¸ºåŒºé—´çš„ä¸­é—´å€¼
+    if (__comp(*__middle, __val)) {//è‹¥compåˆ¤æ–­ä¸ºtrueï¼Œåˆ™ç»§ç»­åœ¨å³åŠéƒ¨åˆ†æŸ¥æ‰¾
+		//ä¸‹é¢ä¸¤è¡Œä»¤firstæŒ‡å‘middleçš„ä¸‹ä¸€ä¸ªä½ç½®
       __first = __middle;
       ++__first;
-      __len = __len - __half - 1;//µ÷Õû²éÕÒÇø¼äµÄ³¤¶È
+      __len = __len - __half - 1;//è°ƒæ•´æŸ¥æ‰¾åŒºé—´çš„é•¿åº¦
     }
     else
-      __len = __half;//·ñÔò²éÕÒ×ó°ë²¿·Ö
+      __len = __half;//å¦åˆ™æŸ¥æ‰¾å·¦åŠéƒ¨åˆ†
   }
   return __first;
 }
-//°æ±¾¶ş£º
+//ç‰ˆæœ¬äºŒï¼š
 template <class _ForwardIter, class _Tp, class _Compare>
 inline _ForwardIter lower_bound(_ForwardIter __first, _ForwardIter __last,
                                 const _Tp& __val, _Compare __comp) {
@@ -640,40 +640,40 @@ _ForwardIter __upper_bound(_ForwardIter __first, _ForwardIter __last,
                            const _Tp& __val, _Distance*)
 {
   _Distance __len = 0;
-  distance(__first, __last, __len);//ÇóÈ¡Õû¸öÇø¼äµÄ³¤¶Èlen
+  distance(__first, __last, __len);//æ±‚å–æ•´ä¸ªåŒºé—´çš„é•¿åº¦len
   _Distance __half;
-  _ForwardIter __middle;//¶¨ÒåÇø¼äµÄÖĞ¼äµü´úÆ÷
+  _ForwardIter __middle;//å®šä¹‰åŒºé—´çš„ä¸­é—´è¿­ä»£å™¨
 
-  while (__len > 0) {//ÈôÇø¼ä²»Îª¿Õ£¬ÔòÔÚÇø¼ä[first,last)¿ªÊ¼²éÕÒvalueÖµ
-    __half = __len >> 1;//ÏòÓÒÒÆÒ»Î»£¬Ïàµ±ÓÚ³ıÒÔ2£¬¼´È¡Çø¼äµÄÖĞ¼äÖµ
-    __middle = __first;//middle³õÊ¼»¯ÎªÇø¼äµÄÆğÊ¼Î»ÖÃ
-    advance(__middle, __half);//middleÏòºóÒÆhalfÎ»£¬´ËÊ±middleÎªÇø¼äµÄÖĞ¼äÖµ
-    if (__val < *__middle)//ÈôvalueĞ¡ÓÚÖĞ¼äÔªËØÖµ
-      __len = __half;//²éÕÒ×ó°ë²¿·Ö
+  while (__len > 0) {//è‹¥åŒºé—´ä¸ä¸ºç©ºï¼Œåˆ™åœ¨åŒºé—´[first,last)å¼€å§‹æŸ¥æ‰¾valueå€¼
+    __half = __len >> 1;//å‘å³ç§»ä¸€ä½ï¼Œç›¸å½“äºé™¤ä»¥2ï¼Œå³å–åŒºé—´çš„ä¸­é—´å€¼
+    __middle = __first;//middleåˆå§‹åŒ–ä¸ºåŒºé—´çš„èµ·å§‹ä½ç½®
+    advance(__middle, __half);//middleå‘åç§»halfä½ï¼Œæ­¤æ—¶middleä¸ºåŒºé—´çš„ä¸­é—´å€¼
+    if (__val < *__middle)//è‹¥valueå°äºä¸­é—´å…ƒç´ å€¼
+      __len = __half;//æŸ¥æ‰¾å·¦åŠéƒ¨åˆ†
     else {
-		//ÏÂÃæÁ½ĞĞÁîfirstÖ¸ÏòmiddleµÄÏÂÒ»¸öÎ»ÖÃ
+		//ä¸‹é¢ä¸¤è¡Œä»¤firstæŒ‡å‘middleçš„ä¸‹ä¸€ä¸ªä½ç½®
       __first = __middle;
       ++__first;
-      __len = __len - __half - 1;//¸üĞÂlenµÄÖµ
+      __len = __len - __half - 1;//æ›´æ–°lençš„å€¼
     }
   }
   return __first;
 }
-//ÔÚÒÑÅÅĞòÇø¼ä[first,last)²éÕÒvalueÖµ
-//·µ»Ø´óÓÚvalueÖµµÄµÚÒ»¸öÔªËØµÄµü´úÆ÷
+//åœ¨å·²æ’åºåŒºé—´[first,last)æŸ¥æ‰¾valueå€¼
+//è¿”å›å¤§äºvalueå€¼çš„ç¬¬ä¸€ä¸ªå…ƒç´ çš„è¿­ä»£å™¨
 /*
-º¯Êı¹¦ÄÜ£ºReturns an iterator pointing to the first element in the range [first,last) which compares greater than val.
-º¯ÊıÔ­ĞÍ£º
-default (1)	£º°æ±¾Ò»²ÉÓÃoperator<±È½Ï
+å‡½æ•°åŠŸèƒ½ï¼šReturns an iterator pointing to the first element in the range [first,last) which compares greater than val.
+å‡½æ•°åŸå‹ï¼š
+default (1)	ï¼šç‰ˆæœ¬ä¸€é‡‡ç”¨operator<æ¯”è¾ƒ
 	template <class ForwardIterator, class T>
 	ForwardIterator upper_bound (ForwardIterator first, ForwardIterator last,
                                const T& val);
-custom (2)	£º°æ±¾¶ş²ÉÓÃ·Âº¯Êıcomp±È½Ï¹æÔò
+custom (2)	ï¼šç‰ˆæœ¬äºŒé‡‡ç”¨ä»¿å‡½æ•°compæ¯”è¾ƒè§„åˆ™
 	template <class ForwardIterator, class T, class Compare>
 	ForwardIterator upper_bound (ForwardIterator first, ForwardIterator last,
                                const T& val, Compare comp);
 */
-//°æ±¾Ò»
+//ç‰ˆæœ¬ä¸€
 template <class _ForwardIter, class _Tp>
 inline _ForwardIter upper_bound(_ForwardIter __first, _ForwardIter __last,
                                 const _Tp& __val) {
@@ -708,7 +708,7 @@ _ForwardIter __upper_bound(_ForwardIter __first, _ForwardIter __last,
   }
   return __first;
 }
-//°æ±¾¶ş
+//ç‰ˆæœ¬äºŒ
 template <class _ForwardIter, class _Tp, class _Compare>
 inline _ForwardIter upper_bound(_ForwardIter __first, _ForwardIter __last,
                                 const _Tp& __val, _Compare __comp) {
@@ -719,7 +719,7 @@ inline _ForwardIter upper_bound(_ForwardIter __first, _ForwardIter __last,
   return __upper_bound(__first, __last, __val, __comp,
                        __DISTANCE_TYPE(__first));
 }
-//º¯Êı¾ÙÀı
+//å‡½æ•°ä¸¾ä¾‹
 /*
 	#include <iostream>     // std::cout
 	#include <algorithm>    // std::lower_bound, std::upper_bound, std::sort
@@ -750,50 +750,50 @@ __equal_range(_ForwardIter __first, _ForwardIter __last, const _Tp& __val,
               _Distance*)
 {
   _Distance __len = 0;
-  distance(__first, __last, __len);//¼ÆËãÇø¼äµÄ³¤¶Èlen
+  distance(__first, __last, __len);//è®¡ç®—åŒºé—´çš„é•¿åº¦len
   _Distance __half;
   _ForwardIter __middle, __left, __right;
 
-  while (__len > 0) {//ÈôÇø¼ä·Ç¿Õ
-    __half = __len >> 1;//lenÓÒÒÆÒ»Î»£¬ÏàµÈÓÚ³ıÒÔ2£¬¼´halfÎªÇø¼äµÄ³¤¶ÈµÄÒ»°ë
-    __middle = __first;//³õÊ¼»¯middleµÄÖµ
-    advance(__middle, __half);//Ç°½ømiddleÎ»ÖÃ£¬Ê¹ÆäÖ¸ÏòÇø¼äÖĞ¼äÎ»ÖÃ
-    if (*__middle < __val) {//ÈôÖ¸¶¨ÔªËØvalue´óÓÚÖĞ¼äÔªËØÖµ£¬ÔòÔÚÓÒ°ë²¿·Ö¼ÌĞø²éÕÒ
-		//ÏÂÃæÁ½ĞĞÊ¹firstÖ¸ÏòmiddleµÄÏÂÒ»¸öÎ»ÖÃ£¬¼´ÓÒ°ëÇø¼äµÄÆğÊ¼Î»ÖÃ
+  while (__len > 0) {//è‹¥åŒºé—´éç©º
+    __half = __len >> 1;//lenå³ç§»ä¸€ä½ï¼Œç›¸ç­‰äºé™¤ä»¥2ï¼Œå³halfä¸ºåŒºé—´çš„é•¿åº¦çš„ä¸€åŠ
+    __middle = __first;//åˆå§‹åŒ–middleçš„å€¼
+    advance(__middle, __half);//å‰è¿›middleä½ç½®ï¼Œä½¿å…¶æŒ‡å‘åŒºé—´ä¸­é—´ä½ç½®
+    if (*__middle < __val) {//è‹¥æŒ‡å®šå…ƒç´ valueå¤§äºä¸­é—´å…ƒç´ å€¼ï¼Œåˆ™åœ¨å³åŠéƒ¨åˆ†ç»§ç»­æŸ¥æ‰¾
+		//ä¸‹é¢ä¸¤è¡Œä½¿firstæŒ‡å‘middleçš„ä¸‹ä¸€ä¸ªä½ç½®ï¼Œå³å³åŠåŒºé—´çš„èµ·å§‹ä½ç½®
       __first = __middle;
       ++__first;
-      __len = __len - __half - 1;//¸üĞÂ´ı²éÕÒÇø¼äµÄ³¤¶È
+      __len = __len - __half - 1;//æ›´æ–°å¾…æŸ¥æ‰¾åŒºé—´çš„é•¿åº¦
     }
-    else if (__val < *__middle)//ÈôÖ¸¶¨ÔªËØvalueĞ¡ÓÚÖĞ¼äÔªËØÖµ£¬ÔòÔÚ×ó°ë²¿·Ö¼ÌĞø²éÕÒ
-      __len = __half;//¸üĞÂ´ı²éÕÒÇø¼äµÄ³¤¶È
-    else {//ÈôÖ¸¶¨ÔªËØvalueµÈÓÚÖĞ¼äÔªËØÖµ
-		//ÔÚÇ°°ë²¿·ÖÕÒlower_boundÎ»ÖÃ
+    else if (__val < *__middle)//è‹¥æŒ‡å®šå…ƒç´ valueå°äºä¸­é—´å…ƒç´ å€¼ï¼Œåˆ™åœ¨å·¦åŠéƒ¨åˆ†ç»§ç»­æŸ¥æ‰¾
+      __len = __half;//æ›´æ–°å¾…æŸ¥æ‰¾åŒºé—´çš„é•¿åº¦
+    else {//è‹¥æŒ‡å®šå…ƒç´ valueç­‰äºä¸­é—´å…ƒç´ å€¼
+		//åœ¨å‰åŠéƒ¨åˆ†æ‰¾lower_boundä½ç½®
       __left = lower_bound(__first, __middle, __val);
       advance(__first, __len);
-	  //ÔÚºó°ë²¿·ÖÕÒupper_bound
+	  //åœ¨ååŠéƒ¨åˆ†æ‰¾upper_bound
       __right = upper_bound(++__middle, __first, __val);
-      return pair<_ForwardIter, _ForwardIter>(__left, __right);//·µ»Øpair¶ÔÏó£¬µÚÒ»¸öµü´úÆ÷Îªleft£¬µÚ¶ş¸öµü´úÆ÷Îªright
+      return pair<_ForwardIter, _ForwardIter>(__left, __right);//è¿”å›pairå¯¹è±¡ï¼Œç¬¬ä¸€ä¸ªè¿­ä»£å™¨ä¸ºleftï¼Œç¬¬äºŒä¸ªè¿­ä»£å™¨ä¸ºright
     }
   }
   return pair<_ForwardIter, _ForwardIter>(__first, __first);
 }
-//²éÕÒÇø¼äÓëvalueÏàµÈµÄÏàÁÚÖØ¸´ÔªËØµÄÆğÊ¼Î»ÖÃºÍ½áÊøÎ»ÖÃ
-//×¢Òâ£º[first,last)ÊÇÒÑÅÅĞò£¬Ë¼Ïë»¹ÊÇ²ÉÓÃ¶ş·Ö²éÕÒ·¨
-//Í¬ÑùÒ²ÓĞÁ½¸ö°æ±¾
+//æŸ¥æ‰¾åŒºé—´ä¸valueç›¸ç­‰çš„ç›¸é‚»é‡å¤å…ƒç´ çš„èµ·å§‹ä½ç½®å’Œç»“æŸä½ç½®
+//æ³¨æ„ï¼š[first,last)æ˜¯å·²æ’åºï¼Œæ€æƒ³è¿˜æ˜¯é‡‡ç”¨äºŒåˆ†æŸ¥æ‰¾æ³•
+//åŒæ ·ä¹Ÿæœ‰ä¸¤ä¸ªç‰ˆæœ¬
 /*
-º¯Êı¹¦ÄÜ£ºReturns the bounds of the subrange that includes all the elements of the range [first,last) with values equivalent to val.
-º¯ÊıÔ­ĞÍ£º
-default (1)	£º°æ±¾Ò»Ä¬ÈÏoperator<
+å‡½æ•°åŠŸèƒ½ï¼šReturns the bounds of the subrange that includes all the elements of the range [first,last) with values equivalent to val.
+å‡½æ•°åŸå‹ï¼š
+default (1)	ï¼šç‰ˆæœ¬ä¸€é»˜è®¤operator<
 	template <class ForwardIterator, class T>
 		pair<ForwardIterator,ForwardIterator>
     equal_range (ForwardIterator first, ForwardIterator last, const T& val);
-custom (2)	£º°æ±¾¶ş²ÉÓÃ·Âº¯Êıcomp
+custom (2)	ï¼šç‰ˆæœ¬äºŒé‡‡ç”¨ä»¿å‡½æ•°comp
 	template <class ForwardIterator, class T, class Compare>
 		pair<ForwardIterator,ForwardIterator>
     equal_range (ForwardIterator first, ForwardIterator last, const T& val,
                   Compare comp);
 */
-//°æ±¾Ò»
+//ç‰ˆæœ¬ä¸€
 template <class _ForwardIter, class _Tp>
 inline pair<_ForwardIter, _ForwardIter>
 equal_range(_ForwardIter __first, _ForwardIter __last, const _Tp& __val) {
@@ -835,7 +835,7 @@ __equal_range(_ForwardIter __first, _ForwardIter __last, const _Tp& __val,
   }
   return pair<_ForwardIter, _ForwardIter>(__first, __first);
 }           
-//°æ±¾¶ş
+//ç‰ˆæœ¬äºŒ
 template <class _ForwardIter, class _Tp, class _Compare>
 inline pair<_ForwardIter, _ForwardIter>
 equal_range(_ForwardIter __first, _ForwardIter __last, const _Tp& __val,
@@ -847,7 +847,7 @@ equal_range(_ForwardIter __first, _ForwardIter __last, const _Tp& __val,
   return __equal_range(__first, __last, __val, __comp,
                        __DISTANCE_TYPE(__first));
 } 
-//equal_rangeº¯Êı¾ÙÀı£º
+//equal_rangeå‡½æ•°ä¸¾ä¾‹ï¼š
 /*
 	#include <iostream>     // std::cout
 	#include <algorithm>    // std::equal_range, std::sort
@@ -876,22 +876,22 @@ equal_range(_ForwardIter __first, _ForwardIter __last, const _Tp& __val,
 
 	  return 0;
 	}
-	Output£º
+	Outputï¼š
 	bounds at positions 3 and 6
 	bounds at positions 2 and 5 
 */
 
-//¶ş·Ö²éÕÒ·¨
-//×¢Òâ£º[first,last)ÊÇÒÑÅÅĞò
-//Í¬ÑùÒ²ÓĞÁ½¸ö°æ±¾
+//äºŒåˆ†æŸ¥æ‰¾æ³•
+//æ³¨æ„ï¼š[first,last)æ˜¯å·²æ’åº
+//åŒæ ·ä¹Ÿæœ‰ä¸¤ä¸ªç‰ˆæœ¬
 /*
-º¯Êı¹¦ÄÜ£ºReturns true if any element in the range [first,last) is equivalent to val, and false otherwise.
-º¯ÊıÔ­ĞÍ£º
-default (1)	£º°æ±¾Ò»Ä¬ÈÏoperator<
+å‡½æ•°åŠŸèƒ½ï¼šReturns true if any element in the range [first,last) is equivalent to val, and false otherwise.
+å‡½æ•°åŸå‹ï¼š
+default (1)	ï¼šç‰ˆæœ¬ä¸€é»˜è®¤operator<
 	template <class ForwardIterator, class T>
 	bool binary_search (ForwardIterator first, ForwardIterator last,
                       const T& val);
-custom (2)	£º°æ±¾¶ş²ÉÓÃ·Âº¯Êıcomp
+custom (2)	ï¼šç‰ˆæœ¬äºŒé‡‡ç”¨ä»¿å‡½æ•°comp
 	template <class ForwardIterator, class T, class Compare>
 	bool binary_search (ForwardIterator first, ForwardIterator last,
                       const T& val, Compare comp);
@@ -903,7 +903,7 @@ bool binary_search(_ForwardIter __first, _ForwardIter __last,
   __STL_REQUIRES_SAME_TYPE(_Tp,
         typename iterator_traits<_ForwardIter>::value_type);
   __STL_REQUIRES(_Tp, _LessThanComparable);
-  _ForwardIter __i = lower_bound(__first, __last, __val);//µ÷ÓÃ¶ş·Ö²éÕÒº¯Êı£¬²¢·µ»Ø²»Ğ¡ÓÚvalueÖµµÄµÚÒ»¸öµü´úÆ÷Î»ÖÃi
+  _ForwardIter __i = lower_bound(__first, __last, __val);//è°ƒç”¨äºŒåˆ†æŸ¥æ‰¾å‡½æ•°ï¼Œå¹¶è¿”å›ä¸å°äºvalueå€¼çš„ç¬¬ä¸€ä¸ªè¿­ä»£å™¨ä½ç½®i
   return __i != __last && !(__val < *__i);
 }
 
@@ -916,29 +916,29 @@ bool binary_search(_ForwardIter __first, _ForwardIter __last,
   __STL_REQUIRES_SAME_TYPE(_Tp,
         typename iterator_traits<_ForwardIter>::value_type);
   __STL_BINARY_FUNCTION_CHECK(_Compare, bool, _Tp, _Tp);
-  _ForwardIter __i = lower_bound(__first, __last, __val, __comp);//µ÷ÓÃ¶ş·Ö²éÕÒº¯Êı£¬²¢·µ»Ø²»Ğ¡ÓÚvalueÖµµÄµÚÒ»¸öµü´úÆ÷Î»ÖÃi
+  _ForwardIter __i = lower_bound(__first, __last, __val, __comp);//è°ƒç”¨äºŒåˆ†æŸ¥æ‰¾å‡½æ•°ï¼Œå¹¶è¿”å›ä¸å°äºvalueå€¼çš„ç¬¬ä¸€ä¸ªè¿­ä»£å™¨ä½ç½®i
   return __i != __last && !__comp(__val, *__i);
 }
 // find_first_of, with and without an explicitly supplied comparison function.
-//ÒÔ[first2,last2)Çø¼äÄÚµÄÄ³Ğ©ÔªËØÎª²éÕÒÄ¿±ê£¬Ñ°ÕÒËûÃÇÔÚ[first1,last1)Çø¼äÊ×´Î³öÏÖµÄÎ»ÖÃ
-//find_first_ofº¯ÊıÓĞÁ½¸ö°æ±¾£º
-//°æ±¾Ò»£ºÌá¹©Ä¬ÈÏµÄequality²Ù×÷operator==
-//°æ±¾¶ş£ºÌá¹©ÓÃ»§×ÔĞĞÖ¸¶¨µÄ²Ù×÷¹æÔòcomp
+//ä»¥[first2,last2)åŒºé—´å†…çš„æŸäº›å…ƒç´ ä¸ºæŸ¥æ‰¾ç›®æ ‡ï¼Œå¯»æ‰¾ä»–ä»¬åœ¨[first1,last1)î‰æ¶«çŠ¶çº¬é±¿å€¼å¥ˆæ¢ï¿½
+//find_first_ofå‡½æ•°æœ‰ä¸¤ä¸ªç‰ˆæœ¬ï¼š
+//ç‰ˆæœ¬ä¸€ï¼šæä¾›é»˜è®¤çš„equalityæ“ä½œoperator==
+//ç‰ˆæœ¬äºŒï¼šæä¾›ç”¨æˆ·è‡ªè¡ŒæŒ‡å®šçš„æ“ä½œè§„åˆ™comp
 /*
-º¯Êı¹¦ÄÜ£ºReturns an iterator to the first element in the range [first1,last1) that matches any of the elements in [first2,last2). 
+å‡½æ•°åŠŸèƒ½ï¼šReturns an iterator to the first element in the range [first1,last1) that matches any of the elements in [first2,last2). 
 If no such element is found, the function returns last1.
-º¯ÊıÔ­ĞÍ£º
-equality (1)£º°æ±¾Ò»	
+å‡½æ•°åŸå‹ï¼š
+equality (1)ï¼šç‰ˆæœ¬ä¸€	
 	template <class ForwardIterator1, class ForwardIterator2>
 	ForwardIterator1 find_first_of (ForwardIterator1 first1, ForwardIterator1 last1,
                                    ForwardIterator2 first2, ForwardIterator2 last2);
-predicate (2)£º°æ±¾¶ş	
+predicate (2)ï¼šç‰ˆæœ¬äºŒ	
 	template <class ForwardIterator1, class ForwardIterator2, class BinaryPredicate>
 	ForwardIterator1 find_first_of (ForwardIterator1 first1, ForwardIterator1 last1,
                                    ForwardIterator2 first2, ForwardIterator2 last2,
                                    BinaryPredicate pred);
 */
-//°æ±¾Ò»£ºÌá¹©Ä¬ÈÏµÄequality²Ù×÷operator==
+//ç‰ˆæœ¬ä¸€ï¼šæä¾›é»˜è®¤çš„equalityæ“ä½œoperator==
 template <class _InputIter, class _ForwardIter>
 _InputIter find_first_of(_InputIter __first1, _InputIter __last1,
                          _ForwardIter __first2, _ForwardIter __last2)
@@ -949,14 +949,14 @@ _InputIter find_first_of(_InputIter __first1, _InputIter __last1,
      typename iterator_traits<_InputIter>::value_type,
      typename iterator_traits<_ForwardIter>::value_type);
 
-  for ( ; __first1 != __last1; ++__first1) //ÈôĞòÁĞÒ»²»Îª¿Õ£¬Ôò±éÀúĞòÁĞÒ»£¬Ã¿´ÎÖ¸¶¨Ò»¸öÔªËØ
-	  //ÒÔÏÂ£¬¸ù¾İĞòÁĞ¶şµÄÃ¿¸öÔªËØ
+  for ( ; __first1 != __last1; ++__first1) //è‹¥åºåˆ—ä¸€ä¸ä¸ºç©ºï¼Œåˆ™éå†åºåˆ—ä¸€ï¼Œæ¯æ¬¡æŒ‡å®šä¸€ä¸ªå…ƒç´ 
+	  //ä»¥ä¸‹ï¼Œæ ¹æ®åºåˆ—äºŒçš„æ¯ä¸ªå…ƒç´ 
     for (_ForwardIter __iter = __first2; __iter != __last2; ++__iter)
-      if (*__first1 == *__iter)//ÈôĞòÁĞÒ»µÄÔªËØµÈÓÚĞòÁĞ¶şµÄÔªËØ£¬Ôò±íÊ¾ÕÒµ½
-        return __first1;//·µ»ØÕÒµ½µÄÎ»ÖÃ
-  return __last1;//·ñÔòÃ»ÕÒµ½
+      if (*__first1 == *__iter)//è‹¥åºåˆ—ä¸€çš„å…ƒç´ ç­‰äºåºåˆ—äºŒçš„å…ƒç´ ï¼Œåˆ™è¡¨ç¤ºæ‰¾åˆ°
+        return __first1;//è¿”å›æ‰¾åˆ°çš„ä½ç½®
+  return __last1;//å¦åˆ™æ²¡æ‰¾åˆ°
 }
-//°æ±¾¶ş£ºÌá¹©ÓÃ»§×ÔĞĞÖ¸¶¨µÄ²Ù×÷¹æÔòcomp
+//ç‰ˆæœ¬äºŒï¼šæä¾›ç”¨æˆ·è‡ªè¡ŒæŒ‡å®šçš„æ“ä½œè§„åˆ™comp
 template <class _InputIter, class _ForwardIter, class _BinaryPredicate>
 _InputIter find_first_of(_InputIter __first1, _InputIter __last1,
                          _ForwardIter __first2, _ForwardIter __last2,
@@ -974,7 +974,7 @@ _InputIter find_first_of(_InputIter __first1, _InputIter __last1,
         return __first1;
   return __last1;
 }
-//find_first_ofº¯Êı¾ÙÀı£º
+//find_first_ofå‡½æ•°ä¸¾ä¾‹ï¼š
 /*
 	#include <iostream>     // std::cout
 	#include <algorithm>    // std::find_first_of
@@ -1018,33 +1018,33 @@ _InputIter find_first_of(_InputIter __first1, _InputIter __last1,
 // is much faster than for forward iterators.
 
 // find_end for forward iterators. 
-//ÈôİÍÈ¡³öÀ´µÄµü´úÆ÷ÀàĞÍÎªÕıÏòµü´úÆ÷forward_iterator_tag£¬Ôòµ÷ÓÃ´Ëº¯Êı
+//è‹¥èƒå–å‡ºæ¥çš„è¿­ä»£å™¨ç±»å‹ä¸ºæ­£å‘è¿­ä»£å™¨forward_iterator_tagï¼Œåˆ™è°ƒç”¨æ­¤å‡½æ•°
 template <class _ForwardIter1, class _ForwardIter2>
 _ForwardIter1 __find_end(_ForwardIter1 __first1, _ForwardIter1 __last1,
                          _ForwardIter2 __first2, _ForwardIter2 __last2,
                          forward_iterator_tag, forward_iterator_tag)
 {
-  if (__first2 == __last2)//ÈôµÚ¶ş¸öÇø¼äÎª¿Õ
-    return __last1;//ÔòÖ±½Ó·µ»ØµÚÒ»¸öÇø¼äµÄÎ²¶Ë
+  if (__first2 == __last2)//è‹¥ç¬¬äºŒä¸ªåŒºé—´ä¸ºç©º
+    return __last1;//åˆ™ç›´æ¥è¿”å›ç¬¬ä¸€ä¸ªåŒºé—´çš„å°¾ç«¯
   else {
     _ForwardIter1 __result = __last1;
     while (1) {
-		//ÒÔÏÂÀûÓÃsearchº¯Êı²éÕÒ³öÄ³¸ö×ÓĞòÁĞµÄÊ×´Î³öÏÖµã£»ÈôÕÒ²»µ½Ö±½Ó·µ»Ølast1
+		//ä»¥ä¸‹åˆ©ç”¨searchå‡½æ•°æŸ¥æ‰¾å‡ºæŸä¸ªå­åºåˆ—çš„é¦–æ¬¡å‡ºç°ç‚¹ï¼›è‹¥æ‰¾ä¸åˆ°ç›´æ¥è¿”å›last1
       _ForwardIter1 __new_result
 
         = search(__first1, __last1, __first2, __last2);
-      if (__new_result == __last1)//Èô·µ»ØµÄÎ»ÖÃÎªÎ²¶Ë£¬Ôò±íÊ¾Ã»ÕÒµ½
-        return __result;//·µ»Ølast1
-      else {//ÈôÔÚ[first1,last1)ÖĞÕÒµ½[first2,last2)Ê×´Î³öÏÖµÄÎ»ÖÃ£¬¼ÌĞø×¼±¸ÏÂÒ»´Î²éÕÒ
+      if (__new_result == __last1)//è‹¥è¿”å›çš„ä½ç½®ä¸ºå°¾ç«¯ï¼Œåˆ™è¡¨ç¤ºæ²¡æ‰¾åˆ°
+        return __result;//è¿”å›last1
+      else {//è‹¥åœ¨[first1,last1)ä¸­æ‰¾åˆ°[first2,last2)é¦–æ¬¡å‡ºç°çš„ä½ç½®ï¼Œç»§ç»­å‡†å¤‡ä¸‹ä¸€æ¬¡æŸ¥æ‰¾
 		  
-        __result = __new_result;//¸üĞÂ·µ»ØµÄÎ»ÖÃ
-        __first1 = __new_result;//¸üĞÂ²éÕÒµÄÆğÊ¼Î»ÖÃ
-        ++__first1;//È·¶¨ÕıÈ·²éÕÒÆğÊ¼Î»ÖÃ
+        __result = __new_result;//æ›´æ–°è¿”å›çš„ä½ç½®
+        __first1 = __new_result;//æ›´æ–°æŸ¥æ‰¾çš„èµ·å§‹ä½ç½®
+        ++__first1;//ç¡®å®šæ­£ç¡®æŸ¥æ‰¾èµ·å§‹ä½ç½®
       }
     }
   }
 }
-//°æ±¾¶ş£ºÖ¸¶¨¹æÔò
+//ç‰ˆæœ¬äºŒï¼šæŒ‡å®šè§„åˆ™
 template <class _ForwardIter1, class _ForwardIter2,
           class _BinaryPredicate>
 _ForwardIter1 __find_end(_ForwardIter1 __first1, _ForwardIter1 __last1,
@@ -1072,7 +1072,7 @@ _ForwardIter1 __find_end(_ForwardIter1 __first1, _ForwardIter1 __last1,
 
 // find_end for bidirectional iterators.  Requires partial specialization.
 #ifdef __STL_CLASS_PARTIAL_SPECIALIZATION
-//ÈôİÍÈ¡³öÀ´µÄµü´úÆ÷ÀàĞÍÎªË«Ïòµü´úÆ÷bidirectional_iterator_tag£¬Ôòµ÷ÓÃ´Ëº¯Êı
+//è‹¥èƒå–å‡ºæ¥çš„è¿­ä»£å™¨ç±»å‹ä¸ºåŒå‘è¿­ä»£å™¨bidirectional_iterator_tagï¼Œåˆ™è°ƒç”¨æ­¤å‡½æ•°
 template <class _BidirectionalIter1, class _BidirectionalIter2>
 _BidirectionalIter1
 __find_end(_BidirectionalIter1 __first1, _BidirectionalIter1 __last1,
@@ -1081,25 +1081,25 @@ __find_end(_BidirectionalIter1 __first1, _BidirectionalIter1 __last1,
 {
   __STL_REQUIRES(_BidirectionalIter1, _BidirectionalIterator);
   __STL_REQUIRES(_BidirectionalIter2, _BidirectionalIterator);
-  //ÀûÓÃ·´Ïòµü´úÆ÷ºÜ¿ì¾Í¿ÉÒÔÕÒµ½
+  //åˆ©ç”¨åå‘è¿­ä»£å™¨å¾ˆå¿«å°±å¯ä»¥æ‰¾åˆ°
   typedef reverse_iterator<_BidirectionalIter1> _RevIter1;
   typedef reverse_iterator<_BidirectionalIter2> _RevIter2;
 
   _RevIter1 __rlast1(__first1);
   _RevIter2 __rlast2(__first2);
-  //²éÕÒÊ±½«ĞòÁĞÒ»ºÍĞòÁĞ¶şÄæ·½Ïò
+  //æŸ¥æ‰¾æ—¶å°†åºåˆ—ä¸€å’Œåºåˆ—äºŒé€†æ–¹å‘
   _RevIter1 __rresult = search(_RevIter1(__last1), __rlast1,
                                _RevIter2(__last2), __rlast2);
 
-  if (__rresult == __rlast1)//±íÊ¾Ã»ÕÒµ½
+  if (__rresult == __rlast1)//è¡¨ç¤ºæ²¡æ‰¾åˆ°
     return __last1;
-  else {//ÕÒµ½ÁË
-    _BidirectionalIter1 __result = __rresult.base();//×ª»áÕı³£µü´úÆ÷
-    advance(__result, -distance(__first2, __last2));//µ÷Õû»Øµ½×ÓĞòÁĞµÄÆğÊ¼Î»ÖÃ
+  else {//æ‰¾åˆ°äº†
+    _BidirectionalIter1 __result = __rresult.base();//è½¬ä¼šæ­£å¸¸è¿­ä»£å™¨
+    advance(__result, -distance(__first2, __last2));//è°ƒæ•´å›åˆ°å­åºåˆ—çš„èµ·å§‹ä½ç½®
     return __result;
   }
 }
-//°æ±¾¶ş£ºÖ¸¶¨¹æÔòcomp
+//ç‰ˆæœ¬äºŒï¼šæŒ‡å®šè§„åˆ™comp
 template <class _BidirectionalIter1, class _BidirectionalIter2,
           class _BinaryPredicate>
 _BidirectionalIter1
@@ -1129,24 +1129,24 @@ __find_end(_BidirectionalIter1 __first1, _BidirectionalIter1 __last1,
 }
 #endif /* __STL_CLASS_PARTIAL_SPECIALIZATION */
 		  // Dispatching functions for find_end.
-//find_endº¯ÊıÓĞÁ½¸ö°æ±¾£º
-//°æ±¾Ò»£ºÌá¹©Ä¬ÈÏµÄequality²Ù×÷operator==
-//°æ±¾¶ş£ºÌá¹©ÓÃ»§×ÔĞĞÖ¸¶¨µÄ²Ù×÷¹æÔòcomp
-//×¢Òâ£ºÕâÀïÒ²ÓĞÆ«ÌØ»¯µÄÖªÊ¶
-/*º¯Êı¹¦ÄÜ£ºSearches the range [first1,last1) for the last occurrence of the sequence defined by [first2,last2), 
+//find_endå‡½æ•°æœ‰ä¸¤ä¸ªç‰ˆæœ¬ï¼š
+//ç‰ˆæœ¬ä¸€ï¼šæä¾›é»˜è®¤çš„equalityæ“ä½œoperator==
+//ç‰ˆæœ¬äºŒï¼šæä¾›ç”¨æˆ·è‡ªè¡ŒæŒ‡å®šçš„æ“ä½œè§„åˆ™comp
+//æ³¨æ„ï¼šè¿™é‡Œä¹Ÿæœ‰åç‰¹åŒ–çš„çŸ¥è¯†
+/*å‡½æ•°åŠŸèƒ½ï¼šSearches the range [first1,last1) for the last occurrence of the sequence defined by [first2,last2), 
 and returns an iterator to its first element, or last1 if no occurrences are found.
-º¯ÊıÔ­ĞÍ£º
-equality (1)£º°æ±¾Ò»	
+å‡½æ•°åŸå‹ï¼š
+equality (1)ï¼šç‰ˆæœ¬ä¸€	
 	template <class ForwardIterator1, class ForwardIterator2>
 	ForwardIterator1 find_end (ForwardIterator1 first1, ForwardIterator1 last1,
                               ForwardIterator2 first2, ForwardIterator2 last2);
-predicate (2)£º°æ±¾¶ş
+predicate (2)ï¼šç‰ˆæœ¬äºŒ
 	template <class ForwardIterator1, class ForwardIterator2, class BinaryPredicate>
 	ForwardIterator1 find_end (ForwardIterator1 first1, ForwardIterator1 last1,
                               ForwardIterator2 first2, ForwardIterator2 last2,
                               BinaryPredicate pred);
 */
-//¶ÔÍâ½Ó¿ÚµÄ°æ±¾Ò»
+//å¯¹å¤–æ¥å£çš„ç‰ˆæœ¬ä¸€
 template <class _ForwardIter1, class _ForwardIter2>
 inline _ForwardIter1 
 find_end(_ForwardIter1 __first1, _ForwardIter1 __last1, 
@@ -1157,13 +1157,13 @@ find_end(_ForwardIter1 __first1, _ForwardIter1 __last1,
   __STL_REQUIRES_BINARY_OP(_OP_EQUAL, bool,
    typename iterator_traits<_ForwardIter1>::value_type,
    typename iterator_traits<_ForwardIter2>::value_type);
-  //Ê×ÏÈÍ¨¹ıiterator_traitsİÍÈ¡³öfirst1ºÍfirst2µÄµü´úÆ÷ÀàĞÍ
-  //¸ù¾İ²»Í¬µÄµü´úÆ÷ÀàĞÍµ÷ÓÃ²»Í¬µÄº¯Êı
+  //é¦–å…ˆé€šè¿‡iterator_traitsèƒå–å‡ºfirst1å’Œfirst2çš„è¿­ä»£å™¨ç±»å‹
+  //æ ¹æ®ä¸åŒçš„è¿­ä»£å™¨ç±»å‹è°ƒç”¨ä¸åŒçš„å‡½æ•°
   return __find_end(__first1, __last1, __first2, __last2,
                     __ITERATOR_CATEGORY(__first1),
                     __ITERATOR_CATEGORY(__first2));
 }
-//¶ÔÍâ½Ó¿ÚµÄ°æ±¾Ò»
+//å¯¹å¤–æ¥å£çš„ç‰ˆæœ¬ä¸€
 template <class _ForwardIter1, class _ForwardIter2, 
           class _BinaryPredicate>
 inline _ForwardIter1 
@@ -1176,14 +1176,14 @@ find_end(_ForwardIter1 __first1, _ForwardIter1 __last1,
   __STL_BINARY_FUNCTION_CHECK(_BinaryPredicate, bool,
    typename iterator_traits<_ForwardIter1>::value_type,
    typename iterator_traits<_ForwardIter2>::value_type);
-  //Ê×ÏÈÍ¨¹ıiterator_traitsİÍÈ¡³öfirst1ºÍfirst2µÄµü´úÆ÷ÀàĞÍ
-  //¸ù¾İ²»Í¬µÄµü´úÆ÷ÀàĞÍµ÷ÓÃ²»Í¬µÄº¯Êı
+  //é¦–å…ˆé€šè¿‡iterator_traitsèƒå–å‡ºfirst1å’Œfirst2çš„è¿­ä»£å™¨ç±»å‹
+  //æ ¹æ®ä¸åŒçš„è¿­ä»£å™¨ç±»å‹è°ƒç”¨ä¸åŒçš„å‡½æ•°
   return __find_end(__first1, __last1, __first2, __last2,
                     __ITERATOR_CATEGORY(__first1),
                     __ITERATOR_CATEGORY(__first2),
                     __comp);
 }
-//find_endº¯Êı¾ÙÀı£º
+//find_endå‡½æ•°ä¸¾ä¾‹ï¼š
 /*
 	#include <iostream>     // std::cout
 	#include <algorithm>    // std::find_end

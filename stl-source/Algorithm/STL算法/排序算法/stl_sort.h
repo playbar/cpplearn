@@ -12,14 +12,14 @@ inline _Distance __random_number(_Distance __n) {
 }
 
 // random_shuffle
-//½«Çø¼ä[first,last)ÄÚµÄÔªËØËæ»úÖØÅÅ
-//Á½¸ö°æ±¾µÄ²»Í¬ÊÇËæ»úÊıµÄÈ¡µÃ
-//°æ±¾Ò»ÊÇÊ¹ÓÃÄÚ²¿Ëæ»úÊı²úÉúÆ÷
-//°æ±¾¶şÊÇÊ¹ÓÃÒ»¸ö»á²úÉúËæ»úÊıµÄ·Âº¯Êı
+//å°†åŒºé—´[first,last)å†…çš„å…ƒç´ éšæœºé‡æ’
+//ä¸¤ä¸ªç‰ˆæœ¬çš„ä¸åŒæ˜¯éšæœºæ•°çš„å–å¾—
+//ç‰ˆæœ¬ä¸€æ˜¯ä½¿ç”¨å†…éƒ¨éšæœºæ•°äº§ç”Ÿå™¨
+//ç‰ˆæœ¬äºŒæ˜¯ä½¿ç”¨ä¸€ä¸ªä¼šäº§ç”Ÿéšæœºæ•°çš„ä»¿å‡½æ•°
 
 /*
-º¯Êı¹¦ÄÜ£ºRearranges the elements in the range [first,last) randomly.
-º¯ÊıÔ­ĞÍ£º
+å‡½æ•°åŠŸèƒ½ï¼šRearranges the elements in the range [first,last) randomly.
+å‡½æ•°åŸå‹ï¼š
 generator by default (1)	
 	template <class RandomAccessIterator>
 	void random_shuffle (RandomAccessIterator first, RandomAccessIterator last);
@@ -28,7 +28,7 @@ specific generator (2)
 	void random_shuffle (RandomAccessIterator first, RandomAccessIterator last,
                        RandomNumberGenerator& gen);
 */
-//°æ±¾Ò»
+//ç‰ˆæœ¬ä¸€
 template <class _RandomAccessIter>
 inline void random_shuffle(_RandomAccessIter __first,
                            _RandomAccessIter __last) {
@@ -37,7 +37,7 @@ inline void random_shuffle(_RandomAccessIter __first,
   for (_RandomAccessIter __i = __first + 1; __i != __last; ++__i)
     iter_swap(__i, __first + __random_number((__i - __first) + 1));
 }
-//°æ±¾¶ş
+//ç‰ˆæœ¬äºŒ
 template <class _RandomAccessIter, class _RandomNumberGenerator>
 void random_shuffle(_RandomAccessIter __first, _RandomAccessIter __last,
                     _RandomNumberGenerator& __rand) {
@@ -170,28 +170,28 @@ random_sample(_InputIter __first, _InputIter __last,
 }
 
 // partition, stable_partition, and their auxiliary functions
-//Èôµü´úÆ÷µÄÀàĞÍÎªforward_iterator_tag£¬Ôòµ÷ÓÃ´Ëº¯Êı
+//è‹¥è¿­ä»£å™¨çš„ç±»å‹ä¸ºforward_iterator_tagï¼Œåˆ™è°ƒç”¨æ­¤å‡½æ•°
 template <class _ForwardIter, class _Predicate>
 _ForwardIter __partition(_ForwardIter __first,
 		         _ForwardIter __last,
 			 _Predicate   __pred,
 			 forward_iterator_tag) {
-  if (__first == __last) return __first;//ÈôÎª¿Õ£¬Ö±½ÓÍË³ö
+  if (__first == __last) return __first;//è‹¥ä¸ºç©ºï¼Œç›´æ¥é€€å‡º
 
-  while (__pred(*__first))//Èôpred³öfirstµÄÖµÎªtrue
-    if (++__first == __last) return __first;//ÏÈÒÆ¶¯µü´úÆ÷first£¬ÔÚÅĞ¶ÏÊÇ·ñµ½´ïÎ²¶Ëlast
+  while (__pred(*__first))//è‹¥predå‡ºfirstçš„å€¼ä¸ºtrue
+    if (++__first == __last) return __first;//å…ˆç§»åŠ¨è¿­ä»£å™¨firstï¼Œåœ¨åˆ¤æ–­æ˜¯å¦åˆ°è¾¾å°¾ç«¯last
 
-  _ForwardIter __next = __first;//¼ÌĞøÅĞ¶Ï
+  _ForwardIter __next = __first;//ç»§ç»­åˆ¤æ–­
 
-  while (++__next != __last)//ÈôÏÂÒ»¸öÎ»ÖÃÒÀÈ»²»ÊÇÎ²¶Ë
-    if (__pred(*__next)) {//¼ÌĞøpred³önextµÄÖµ£¬ÈôÎªtrue
-      swap(*__first, *__next);//½»»»Öµ
-      ++__first;//¼ÌĞøÏÂÒ»Î»ÖÃ
+  while (++__next != __last)//è‹¥ä¸‹ä¸€ä¸ªä½ç½®ä¾ç„¶ä¸æ˜¯å°¾ç«¯
+    if (__pred(*__next)) {//ç»§ç»­predå‡ºnextçš„å€¼ï¼Œè‹¥ä¸ºtrue
+      swap(*__first, *__next);//äº¤æ¢å€¼
+      ++__first;//ç»§ç»­ä¸‹ä¸€ä½ç½®
     }
 
   return __first;
 }
-//Èôµü´úÆ÷µÄÀàĞÍÎªbidirectional_iterator_tag£¬Ôòµ÷ÓÃ´Ëº¯Êı
+//è‹¥è¿­ä»£å™¨çš„ç±»å‹ä¸ºbidirectional_iterator_tagï¼Œåˆ™è°ƒç”¨æ­¤å‡½æ•°
 template <class _BidirectionalIter, class _Predicate>
 _BidirectionalIter __partition(_BidirectionalIter __first,
                                _BidirectionalIter __last,
@@ -199,32 +199,32 @@ _BidirectionalIter __partition(_BidirectionalIter __first,
 			       bidirectional_iterator_tag) {
   while (true) {
     while (true)
-      if (__first == __last)//ÈôÎª¿Õ
-        return __first;//Ö±½ÓÍË³ö
-      else if (__pred(*__first))//firstµÄÖµ·ûºÏ²»ÒÆ¶¯Ìõ¼ş£¬Ôò²»ÒÆ¶¯¸ÃÖµ
-        ++__first;//Ö»ÒÆ¶¯µü´úÆ÷
-      else//ÈôÍ·Ö¸Õë·ûºÏÒÆ¶¯
-        break;//Ìø³öÑ­»·
-    --__last;//Î²Ö¸Õë»ØËİ
+      if (__first == __last)//è‹¥ä¸ºç©º
+        return __first;//ç›´æ¥é€€å‡º
+      else if (__pred(*__first))//firstçš„å€¼ç¬¦åˆä¸ç§»åŠ¨æ¡ä»¶ï¼Œåˆ™ä¸ç§»åŠ¨è¯¥å€¼
+        ++__first;//åªç§»åŠ¨è¿­ä»£å™¨
+      else//è‹¥å¤´æŒ‡é’ˆç¬¦åˆç§»åŠ¨
+        break;//è·³å‡ºå¾ªç¯
+    --__last;//å°¾æŒ‡é’ˆå›æº¯
     while (true)
-      if (__first == __last)//Í·Ö¸ÕëµÈÓÚÎ²Ö¸Õë
-        return __first;//²Ù×÷½áÊø
-      else if (!__pred(*__last))//Î²Ö¸ÕëµÄÔªËØ·ûºÏ²»ÒÆ¶¯²Ù×÷
-        --__last;//ÖÁÒÆ¶¯µü´úÆ÷£¬²¢²»ÒÆ¶¯¾ßÌåÔªËØ
-      else//Î²Ö¸ÕëµÄÔªËØ·ûºÏÒÆ¶¯²Ù×÷
-        break;//Ìø³öÑ­»·
-    iter_swap(__first, __last);//Í·Î²Ö¸Õë½»»»ÔªËØ
-    ++__first;//×¼±¸ÏÂÒ»´ÎÑ­»·
+      if (__first == __last)//å¤´æŒ‡é’ˆç­‰äºå°¾æŒ‡é’ˆ
+        return __first;//æ“ä½œç»“æŸ
+      else if (!__pred(*__last))//å°¾æŒ‡é’ˆçš„å…ƒç´ ç¬¦åˆä¸ç§»åŠ¨æ“ä½œ
+        --__last;//è‡³ç§»åŠ¨è¿­ä»£å™¨ï¼Œå¹¶ä¸ç§»åŠ¨å…·ä½“å…ƒç´ 
+      else//å°¾æŒ‡é’ˆçš„å…ƒç´ ç¬¦åˆç§»åŠ¨æ“ä½œ
+        break;//è·³å‡ºå¾ªç¯
+    iter_swap(__first, __last);//å¤´å°¾æŒ‡é’ˆäº¤æ¢å…ƒç´ 
+    ++__first;//å‡†å¤‡ä¸‹ä¸€æ¬¡å¾ªç¯
   }
 }
-//½«Çø¼ä[first,last)µÄÔªËØ½øĞĞÅÅĞò£¬±»predÅĞ¶ÏÎªtrueµÄ·ÅÔÚÇø¼äµÄÇ°¶Î£¬ÅĞ¶¨ÎªfalseµÄ·ÅÔÚÇø¼äºó¶Î
-//¸ÃËãËã¿ÉÄÜ»áÊ¹ÔªËØµÄÔªËØÎ»ÖÃ·ÅÉú¸Ä±ä.
+//å°†åŒºé—´[first,last)çš„å…ƒç´ è¿›è¡Œæ’åºï¼Œè¢«predåˆ¤æ–­ä¸ºtrueçš„æ”¾åœ¨åŒºé—´çš„å‰æ®µï¼Œåˆ¤å®šä¸ºfalseçš„æ”¾åœ¨åŒºé—´åæ®µ
+//è¯¥ç®—ç®—å¯èƒ½ä¼šä½¿å…ƒç´ çš„å…ƒç´ ä½ç½®æ”¾ç”Ÿæ”¹å˜.
 /*
-Ëã·¨¹¦ÄÜ£ºRearranges the elements from the range [first,last), in such a way that all the elements
+ç®—æ³•åŠŸèƒ½ï¼šRearranges the elements from the range [first,last), in such a way that all the elements
 for which pred returns true precede all those for which it returns false. 
 The iterator returned points to the first element of the second group.
 
-Ëã·¨Ô­ĞÍ£º
+ç®—æ³•åŸå‹ï¼š
 	template <class BidirectionalIterator, class UnaryPredicate>
 	BidirectionalIterator partition (BidirectionalIterator first,
                                    BidirectionalIterator last, UnaryPredicate pred);
@@ -236,10 +236,10 @@ inline _ForwardIter partition(_ForwardIter __first,
   __STL_REQUIRES(_ForwardIter, _Mutable_ForwardIterator);
   __STL_UNARY_FUNCTION_CHECK(_Predicate, bool, 
         typename iterator_traits<_ForwardIter>::value_type);
-  //Ê×ÏÈİÍÈ¡³öµü´úÆ÷firstµÄÀàĞÍ£¬¸ù¾İµü´úÆ÷µÄÀàĞÍµ÷ÓÃ²»Í¬µÄº¯Êı
+  //é¦–å…ˆèƒå–å‡ºè¿­ä»£å™¨firstçš„ç±»å‹ï¼Œæ ¹æ®è¿­ä»£å™¨çš„ç±»å‹è°ƒç”¨ä¸åŒçš„å‡½æ•°
   return __partition(__first, __last, __pred, __ITERATOR_CATEGORY(__first));
 }
-//partitionº¯Êı¾ÙÀı£º
+//partitionå‡½æ•°ä¸¾ä¾‹ï¼š
 /*
 	#include <iostream>     // std::cout
 	#include <algorithm>    // std::partition
@@ -355,31 +355,31 @@ inline _ForwardIter stable_partition(_ForwardIter __first,
                                   __VALUE_TYPE(__first),
                                   __DISTANCE_TYPE(__first));
 }
-//ÕÒ³ö¿ìËÙÅÅĞòµÄÊàÅ¦Î»ÖÃ
-//°æ±¾Ò»²ÉÓÃoperator<
+//æ‰¾å‡ºå¿«é€Ÿæ’åºçš„æ¢çº½ä½ç½®
+//ç‰ˆæœ¬ä¸€é‡‡ç”¨operator<
 template <class _RandomAccessIter, class _Tp>
 _RandomAccessIter __unguarded_partition(_RandomAccessIter __first, 
                                         _RandomAccessIter __last, 
                                         _Tp __pivot) 
 {
-	//ÕÒ³öÊàÅ¦ÖáµÄÎ»ÖÃ
-	//ÁîÍ·¶Ëµü´úÆ÷ÏòÎ²¶Ë·½ÏòÒÆ¶¯£¬Î²¶Ëµü´úÆ÷ÏòÍ·¶ËÒÆ¶¯¡£
-	//µ±*first²»Ğ¡ÓÚÊàÅ¦ÖµÊ±£¬¾ÍÍ£ÏÂÀ´£¬µ±*last²»´óÓÚÊàÅ¦ÖµÊ±Ò²Í£ÏÂÀ´£¬È»ºó¼ì²âÁ½¸öµü´úÆ÷ÊÇ·ñ½»´í
-	//Èç¹ûfirstÈÔÈ»ÔÚ×ó²à¶ølastÈÔÈ»ÔÚÓÒ²à£¬¾Í½»»»Á½¸öÔªËØ£¬È»ºó¸÷×Ôµ÷ÕûÎ»ÖÃ£¬ÏòÖĞÑë±Æ½ü£¬ÔÙ¼ÌĞøÖ´ĞĞÏàÍ¬µÄĞĞÎª.
-	//Ö±µ½firstºÍlastÁ½¸öµü´úÆ÷½»´í£¬´ËÊ±±íÊ¾ÒÑÕÒµ½ÊàÅ¦ÖáÎ»ÖÃ¼´firstËùÔÚµÄÎ»ÖÃ
+	//æ‰¾å‡ºæ¢çº½è½´çš„ä½ç½®
+	//ä»¤å¤´ç«¯è¿­ä»£å™¨å‘å°¾ç«¯æ–¹å‘ç§»åŠ¨ï¼Œå°¾ç«¯è¿­ä»£å™¨å‘å¤´ç«¯ç§»åŠ¨ã€‚
+	//å½“*firstä¸å°äºæ¢çº½å€¼æ—¶ï¼Œå°±åœä¸‹æ¥ï¼Œå½“*lastä¸å¤§äºæ¢çº½å€¼æ—¶ä¹Ÿåœä¸‹æ¥ï¼Œç„¶åæ£€æµ‹ä¸¤ä¸ªè¿­ä»£å™¨æ˜¯å¦äº¤é”™
+	//å¦‚æœfirstä»ç„¶åœ¨å·¦ä¾§è€Œlastä»ç„¶åœ¨å³ä¾§ï¼Œå°±äº¤æ¢ä¸¤ä¸ªå…ƒç´ ï¼Œç„¶åå„è‡ªè°ƒæ•´ä½ç½®ï¼Œå‘ä¸­å¤®é€¼è¿‘ï¼Œå†ç»§ç»­æ‰§è¡Œç›¸åŒçš„è¡Œä¸º.
+	//ç›´åˆ°firstå’Œlastä¸¤ä¸ªè¿­ä»£å™¨äº¤é”™ï¼Œæ­¤æ—¶è¡¨ç¤ºå·²æ‰¾åˆ°æ¢çº½è½´ä½ç½®å³firstæ‰€åœ¨çš„ä½ç½®
   while (true) {
     while (*__first < __pivot)
-      ++__first;//firstÏòÎ²¶ËÒÆ¶¯£¬Ö±µ½Óöµ½²»Ğ¡ÓÚÊàÅ¦ÖµÊ±£¬Í£Ö¹
+      ++__first;//firstå‘å°¾ç«¯ç§»åŠ¨ï¼Œç›´åˆ°é‡åˆ°ä¸å°äºæ¢çº½å€¼æ—¶ï¼Œåœæ­¢
     --__last;
     while (__pivot < *__last)
-      --__last;//lastÏòÍ·¶ËÒÆ¶¯£¬Ö±µ½Óöµ½²»´óÓÚÊàÅ¦ÖµÊ±£¬Í£Ö¹
-    if (!(__first < __last))//¼ì²âÁ½¸öµü´úÆ÷ÊÇ·ñ½»´í
-      return __first;//½»´í£¬Ôò´ËÊ±ÒÑÕÒµ½£¬¼´Îªfirstµü´úÆ÷ËùÖ¸Î»ÖÃ
-    iter_swap(__first, __last);//·ñÔò½»»»µü´úÆ÷ËùÖ¸µÄÔªËØ
-    ++__first;//¼ÌĞøÖ´ĞĞÏàÍ¬ĞĞÎª
+      --__last;//lastå‘å¤´ç«¯ç§»åŠ¨ï¼Œç›´åˆ°é‡åˆ°ä¸å¤§äºæ¢çº½å€¼æ—¶ï¼Œåœæ­¢
+    if (!(__first < __last))//æ£€æµ‹ä¸¤ä¸ªè¿­ä»£å™¨æ˜¯å¦äº¤é”™
+      return __first;//äº¤é”™ï¼Œåˆ™æ­¤æ—¶å·²æ‰¾åˆ°ï¼Œå³ä¸ºfirstè¿­ä»£å™¨æ‰€æŒ‡ä½ç½®
+    iter_swap(__first, __last);//å¦åˆ™äº¤æ¢è¿­ä»£å™¨æ‰€æŒ‡çš„å…ƒç´ 
+    ++__first;//ç»§ç»­æ‰§è¡Œç›¸åŒè¡Œä¸º
   }
 }    
-//°æ±¾Ò»²ÉÓÃ__comp
+//ç‰ˆæœ¬ä¸€é‡‡ç”¨__comp
 template <class _RandomAccessIter, class _Tp, class _Compare>
 _RandomAccessIter __unguarded_partition(_RandomAccessIter __first, 
                                         _RandomAccessIter __last, 
@@ -402,21 +402,21 @@ const int __stl_threshold = 16;
 
 
 // sort() and its auxiliary functions. 
-//__insertion_sort°æ±¾Ò»µÄ¸¨Öúº¯Êı
+//__insertion_sortç‰ˆæœ¬ä¸€çš„è¾…åŠ©å‡½æ•°
 template <class _RandomAccessIter, class _Tp>
 void __unguarded_linear_insert(_RandomAccessIter __last, _Tp __val) {
   _RandomAccessIter __next = __last;
   --__next;
-  //__insertion_sortµÄÄÚÑ­»·
-  //×¢Òâ£ºÒ»µ©²»ÔÙ³öÏÖÄæ×ª¶Ô£¬Ñ­»·¾Í½áÊø
-  while (__val < *__next) {//´æÔÚÄæ×ª¶Ô
-    *__last = *__next;//µ÷ÕûÔªËØ
-    __last = __next;//µ÷Õûµü´úÆ÷
-    --__next;//×óÒÆÒ»¸öÎ»ÖÃ
+  //__insertion_sortçš„å†…å¾ªç¯
+  //æ³¨æ„ï¼šä¸€æ—¦ä¸å†å‡ºç°é€†è½¬å¯¹ï¼Œå¾ªç¯å°±ç»“æŸ
+  while (__val < *__next) {//å­˜åœ¨é€†è½¬å¯¹
+    *__last = *__next;//è°ƒæ•´å…ƒç´ 
+    __last = __next;//è°ƒæ•´è¿­ä»£å™¨
+    --__next;//å·¦ç§»ä¸€ä¸ªä½ç½®
   }
-  *__last = __val;//valueµÄÕıÈ·²åÈëÎ»ÖÃ
+  *__last = __val;//valueçš„æ­£ç¡®æ’å…¥ä½ç½®
 }
-//__insertion_sort°æ±¾¶şµÄ¸¨Öúº¯Êı
+//__insertion_sortç‰ˆæœ¬äºŒçš„è¾…åŠ©å‡½æ•°
 template <class _RandomAccessIter, class _Tp, class _Compare>
 void __unguarded_linear_insert(_RandomAccessIter __last, _Tp __val, 
                                _Compare __comp) {
@@ -429,21 +429,21 @@ void __unguarded_linear_insert(_RandomAccessIter __last, _Tp __val,
   }
   *__last = __val;
 }
-//__insertion_sort°æ±¾Ò»µÄ¸¨Öúº¯Êı
+//__insertion_sortç‰ˆæœ¬ä¸€çš„è¾…åŠ©å‡½æ•°
 template <class _RandomAccessIter, class _Tp>
 inline void __linear_insert(_RandomAccessIter __first, 
                             _RandomAccessIter __last, _Tp*) {
-  _Tp __val = *__last;//¼ÇÂ¼Î²ÔªËØ
-  if (__val < *__first) {//Î²ÔªËØ±ÈÍ·ÔªËØ»¹Ğ¡
-	  //½«Õû¸öÇø¼äÏòÓÒÒÆÒ»¸öÎ»ÖÃ
+  _Tp __val = *__last;//è®°å½•å°¾å…ƒç´ 
+  if (__val < *__first) {//å°¾å…ƒç´ æ¯”å¤´å…ƒç´ è¿˜å°
+	  //å°†æ•´ä¸ªåŒºé—´å‘å³ç§»ä¸€ä¸ªä½ç½®
     copy_backward(__first, __last, __last + 1);
-    *__first = __val;//ÁîÍ·ÔªËØµÈÓÚÔ­ÏÈµÄÎ²ÔªËØ
-	//ÒÔÉÏÁ½ĞĞÃüÁîµÄ¹¦ÄÜÏàµÈÓÚ½»»»Á½¸öÔªËØ
+    *__first = __val;//ä»¤å¤´å…ƒç´ ç­‰äºåŸå…ˆçš„å°¾å…ƒç´ 
+	//ä»¥ä¸Šä¸¤è¡Œå‘½ä»¤çš„åŠŸèƒ½ç›¸ç­‰äºäº¤æ¢ä¸¤ä¸ªå…ƒç´ 
   }
-  else//Î²ÔªËØ²»Ğ¡ÓÚÍ·ÔªËØ
+  else//å°¾å…ƒç´ ä¸å°äºå¤´å…ƒç´ 
     __unguarded_linear_insert(__last, __val);
 }
-//__insertion_sort°æ±¾¶şµÄ¸¨Öúº¯Êı
+//__insertion_sortç‰ˆæœ¬äºŒçš„è¾…åŠ©å‡½æ•°
 template <class _RandomAccessIter, class _Tp, class _Compare>
 inline void __linear_insert(_RandomAccessIter __first, 
                             _RandomAccessIter __last, _Tp*, _Compare __comp) {
@@ -455,18 +455,18 @@ inline void __linear_insert(_RandomAccessIter __first,
   else
     __unguarded_linear_insert(__last, __val, __comp);
 }
-//__insertion_sortÒÔË«²ãÑ­»·ĞÎÊ½½øĞĞ¡£ÍâÑ­»·±éÀúÕû¸öĞòÁĞ£¬Ã¿´Îµü´ú¾ö¶¨³öÒ»¸ö×ÓÇø¼ä£»
-//ÄÚÑ­»·±éÀú×ÓÇø¼ä£¬½«×ÓÇø¼äÄÚµÄÃ¿Ò»¸ö¡°Äæ×ª¶Ô¡±µ¹×ª¹ıÀ´£¬Èç¹ûÒ»µ©²»´æÔÚ¡°Äæ×ª¶Ô¡±£¬±íÊ¾ÅÅĞòÍê±Ï¡£
-//¡°Äæ×ª¶Ô¡±¸ÅÄî£ºÖ¸ÈÎºÎÁ½¸öµü´úÆ÷iºÍj£¬i<j,¶ø*i>*j.
-//°æ±¾Ò»
+//__insertion_sortä»¥åŒå±‚å¾ªç¯å½¢å¼è¿›è¡Œã€‚å¤–å¾ªç¯éå†æ•´ä¸ªåºåˆ—ï¼Œæ¯æ¬¡è¿­ä»£å†³å®šå‡ºä¸€ä¸ªå­åŒºé—´ï¼›
+//å†…å¾ªç¯éå†å­åŒºé—´ï¼Œå°†å­åŒºé—´å†…çš„æ¯ä¸€ä¸ªâ€œé€†è½¬å¯¹â€å€’è½¬è¿‡æ¥ï¼Œå¦‚æœä¸€æ—¦ä¸å­˜åœ¨â€œé€†è½¬å¯¹â€ï¼Œè¡¨ç¤ºæ’åºå®Œæ¯•ã€‚
+//â€œé€†è½¬å¯¹â€æ¦‚å¿µï¼šæŒ‡ä»»ä½•ä¸¤ä¸ªè¿­ä»£å™¨iå’Œjï¼Œi<j,è€Œ*i>*j.
+//ç‰ˆæœ¬ä¸€
 template <class _RandomAccessIter>
 void __insertion_sort(_RandomAccessIter __first, _RandomAccessIter __last) {
-  if (__first == __last) return; //ÈôÇø¼äÎª¿Õ£¬ÔòÍË³ö
-  for (_RandomAccessIter __i = __first + 1; __i != __last; ++__i)//ÍâÑ­»·£¬±éÀúÕû¸öÇø¼ä
-	  //[first,i)ĞÎ³ÉµÄ×Ó¿Õ¼ä
+  if (__first == __last) return; //è‹¥åŒºé—´ä¸ºç©ºï¼Œåˆ™é€€å‡º
+  for (_RandomAccessIter __i = __first + 1; __i != __last; ++__i)//å¤–å¾ªç¯ï¼Œéå†æ•´ä¸ªåŒºé—´
+	  //[first,i)å½¢æˆçš„å­ç©ºé—´
     __linear_insert(__first, __i, __VALUE_TYPE(__first));
 }
-//°æ±¾¶ş
+//ç‰ˆæœ¬äºŒ
 template <class _RandomAccessIter, class _Compare>
 void __insertion_sort(_RandomAccessIter __first,
                       _RandomAccessIter __last, _Compare __comp) {
@@ -481,7 +481,7 @@ void __unguarded_insertion_sort_aux(_RandomAccessIter __first,
   for (_RandomAccessIter __i = __first; __i != __last; ++__i)
     __unguarded_linear_insert(__i, _Tp(*__i));
 }
-//sort°æ±¾Ò»µÄ¸¨Öúº¯Êı
+//sortç‰ˆæœ¬ä¸€çš„è¾…åŠ©å‡½æ•°
 template <class _RandomAccessIter>
 inline void __unguarded_insertion_sort(_RandomAccessIter __first, 
                                 _RandomAccessIter __last) {
@@ -503,16 +503,16 @@ inline void __unguarded_insertion_sort(_RandomAccessIter __first,
   __unguarded_insertion_sort_aux(__first, __last, __VALUE_TYPE(__first),
                                  __comp);
 }
-//sort°æ±¾Ò»µÄ¸¨Öúº¯Êı
+//sortç‰ˆæœ¬ä¸€çš„è¾…åŠ©å‡½æ•°
 template <class _RandomAccessIter>
 void __final_insertion_sort(_RandomAccessIter __first, 
                             _RandomAccessIter __last) {
-  if (__last - __first > __stl_threshold) {//ÅĞ¶ÏÔªËØ¸öÊıÊÇ·ñ´óÓÚ16
-	  //Ôò°ÑÇø¼ä·Ö¸î³ÉÁ½¶Î£¬Ò»¶Ë³¤¶ÈÎª16£¬ÁíÒ»¶ËÎªÊ£ÓàµÄ³¤¶È
+  if (__last - __first > __stl_threshold) {//åˆ¤æ–­å…ƒç´ ä¸ªæ•°æ˜¯å¦å¤§äº16
+	  //åˆ™æŠŠåŒºé—´åˆ†å‰²æˆä¸¤æ®µï¼Œä¸€ç«¯é•¿åº¦ä¸º16ï¼Œå¦ä¸€ç«¯ä¸ºå‰©ä½™çš„é•¿åº¦
     __insertion_sort(__first, __first + __stl_threshold);
     __unguarded_insertion_sort(__first + __stl_threshold, __last);
   }
-  else//Èô²»´óÓÚ16£¬Ö±½Óµ÷ÓÃ²åÈëÅÅĞò
+  else//è‹¥ä¸å¤§äº16ï¼Œç›´æ¥è°ƒç”¨æ’å…¥æ’åº
     __insertion_sort(__first, __last);
 }
 
@@ -526,38 +526,38 @@ void __final_insertion_sort(_RandomAccessIter __first,
   else
     __insertion_sort(__first, __last, __comp);
 }
-//_lg()º¯ÊıÊÇÓÃÀ´¿ØÖÆ·Ö¸î¶ñ»¯µÄÇé¿ö
-//¸Ãº¯ÊıÕÒ³ö2^k <= n µÄ×î´óÖµk;
-//ÀıÈç£ºn=7,µÃk=2; n=20,µÃk=4; n=8,µÃk=3; 
+//_lg()å‡½æ•°æ˜¯ç”¨æ¥æ§åˆ¶åˆ†å‰²æ¶åŒ–çš„æƒ…å†µ
+//è¯¥å‡½æ•°æ‰¾å‡º2^k <= n çš„æœ€å¤§å€¼k;
+//ä¾‹å¦‚ï¼šn=7,å¾—k=2; n=20,å¾—k=4; n=8,å¾—k=3; 
 template <class _Size>
 inline _Size __lg(_Size __n) {
   _Size __k;
   for (__k = 0; __n != 1; __n >>= 1) ++__k;
   return __k;
 }
-//sort°æ±¾Ò»µÄ¸¨Öúº¯Êı
-//²ÎÊı__depth_limit±íÊ¾×î´óµÄ·Ö¸î²ãÊı
+//sortç‰ˆæœ¬ä¸€çš„è¾…åŠ©å‡½æ•°
+//å‚æ•°__depth_limitè¡¨ç¤ºæœ€å¤§çš„åˆ†å‰²å±‚æ•°
 template <class _RandomAccessIter, class _Tp, class _Size>
 void __introsort_loop(_RandomAccessIter __first,
                       _RandomAccessIter __last, _Tp*,
                       _Size __depth_limit)
 {
-	//__stl_thresholdÎªÈ«¾Ö³£Á¿£¬ÆäÖµÎª16
-  while (__last - __first > __stl_threshold) {//ÈôÇø¼ä³¤¶È´óÓÚ16
-    if (__depth_limit == 0) {//±íÊ¾·Ö¸î¶ñ»¯
-      partial_sort(__first, __last, __last);//×ª¶øµ÷ÓÃ¶ÑÅÅĞòheap_sort()
+	//__stl_thresholdä¸ºå…¨å±€å¸¸é‡ï¼Œå…¶å€¼ä¸º16
+  while (__last - __first > __stl_threshold) {//è‹¥åŒºé—´é•¿åº¦å¤§äº16
+    if (__depth_limit == 0) {//è¡¨ç¤ºåˆ†å‰²æ¶åŒ–
+      partial_sort(__first, __last, __last);//è½¬è€Œè°ƒç”¨å †æ’åºheap_sort()
       return;
     }
     --__depth_limit;
-	//¼ÆËã·Ö¸îµãcut£¬ÊàÅ¦ÖµÊÇ²ÉÓÃÊ×¡¢Î²¡¢ÖĞÑëÈı¸öµÄÖĞ¼äÖµ
+	//è®¡ç®—åˆ†å‰²ç‚¹cutï¼Œæ¢çº½å€¼æ˜¯é‡‡ç”¨é¦–ã€å°¾ã€ä¸­å¤®ä¸‰ä¸ªçš„ä¸­é—´å€¼
     _RandomAccessIter __cut =
       __unguarded_partition(__first, __last,
                             _Tp(__median(*__first,
                                          *(__first + (__last - __first)/2),
                                          *(__last - 1))));
-	//¶ÔÓÒ°ë²¿·Öµİ¹éµØ½øĞĞÅÅĞò
+	//å¯¹å³åŠéƒ¨åˆ†é€’å½’åœ°è¿›è¡Œæ’åº
     __introsort_loop(__cut, __last, (_Tp*) 0, __depth_limit);
-    __last = __cut;//½ÓÏÂÀ´¶Ô×ó°ë²¿·Öµİ¹éµØ½øĞĞÅÅĞò
+    __last = __cut;//æ¥ä¸‹æ¥å¯¹å·¦åŠéƒ¨åˆ†é€’å½’åœ°è¿›è¡Œæ’åº
   }
 }
 
@@ -582,33 +582,33 @@ void __introsort_loop(_RandomAccessIter __first,
     __last = __cut;
   }
 }
-//SGI STLµÄÅÅĞòËã·¨£¬µü´úÆ÷²ÎÊıµÄÀàĞÍ±ØĞëÊÇËæ»ú·ÃÎÊµü´úÆ÷_RandomAccessIter
+//SGI STLçš„æ’åºç®—æ³•ï¼Œè¿­ä»£å™¨å‚æ•°çš„ç±»å‹å¿…é¡»æ˜¯éšæœºè®¿é—®è¿­ä»£å™¨_RandomAccessIter
 /*
-º¯Êı¹¦ÄÜ£ºSorts the elements in the range [first,last) into ascending order.
-º¯ÊıÔ­ĞÍ£º
-default (1)	£º°æ±¾Ò»²ÉÓÃÄ¬ÈÏµÄoperator<
+å‡½æ•°åŠŸèƒ½ï¼šSorts the elements in the range [first,last) into ascending order.
+å‡½æ•°åŸå‹ï¼š
+default (1)	ï¼šç‰ˆæœ¬ä¸€é‡‡ç”¨é»˜è®¤çš„operator<
 	template <class RandomAccessIterator>
 	void sort (RandomAccessIterator first, RandomAccessIterator last);
-custom (2)	£º°æ±¾¶ş²ÉÓÃ·Âº¯Êıcomp
+custom (2)	ï¼šç‰ˆæœ¬äºŒé‡‡ç”¨ä»¿å‡½æ•°comp
 	template <class RandomAccessIterator, class Compare>
 	void sort (RandomAccessIterator first, RandomAccessIterator last, Compare comp);
  */
-//°æ±¾Ò»
+//ç‰ˆæœ¬ä¸€
 template <class _RandomAccessIter>
 inline void sort(_RandomAccessIter __first, _RandomAccessIter __last) {
   __STL_REQUIRES(_RandomAccessIter, _Mutable_RandomAccessIterator);
   __STL_REQUIRES(typename iterator_traits<_RandomAccessIter>::value_type,
                  _LessThanComparable);
-  //_lg()º¯ÊıÊÇÓÃÀ´¿ØÖÆ·Ö¸î¶ñ»¯µÄÇé¿ö
+  //_lg()å‡½æ•°æ˜¯ç”¨æ¥æ§åˆ¶åˆ†å‰²æ¶åŒ–çš„æƒ…å†µ
   if (__first != __last) {
     __introsort_loop(__first, __last,
                      __VALUE_TYPE(__first),
                      __lg(__last - __first) * 2);
-	//½øĞĞ²åÈëÅÅĞò
+	//è¿›è¡Œæ’å…¥æ’åº
     __final_insertion_sort(__first, __last);
   }
 }
-//°æ±¾¶ş
+//ç‰ˆæœ¬äºŒ
 template <class _RandomAccessIter, class _Compare>
 inline void sort(_RandomAccessIter __first, _RandomAccessIter __last,
                  _Compare __comp) {
@@ -853,21 +853,21 @@ inline void stable_sort(_RandomAccessIter __first,
 }
 
 // partial_sort, partial_sort_copy, and auxiliary functions.
-//ÖØĞÂ°²ÅÅĞòÁĞ[first,last)£¬Ê¹ĞòÁĞÇ°°ë²¿·Ömiddle-first¸ö×îĞ¡ÔªËØÒÔµİÔöË³ĞòÅÅĞò£¬²¢½«ÆäÖÃÓÚ[first,middle)
-//ÆäÓàlast-middle¸öÔªËØ²»Ö¸¶¨ÈÎºÎÅÅĞò£¬²¢½«ÆäÖÃÓÚ[middle,last)
-//×¢Òâ£ºµü´úÆ÷middleÊÇÔÚ[first,last)·¶Î§Ö®ÄÚ
+//é‡æ–°å®‰æ’åºåˆ—[first,last)ï¼Œä½¿åºåˆ—å‰åŠéƒ¨åˆ†middle-firstä¸ªæœ€å°å…ƒç´ ä»¥é€’å¢é¡ºåºæ’åºï¼Œå¹¶å°†å…¶ç½®äº[first,middle)
+//å…¶ä½™last-middleä¸ªå…ƒç´ ä¸æŒ‡å®šä»»ä½•æ’åºï¼Œå¹¶å°†å…¶ç½®äº[middle,last)
+//æ³¨æ„ï¼šè¿­ä»£å™¨middleæ˜¯åœ¨[first,last)èŒƒå›´ä¹‹å†…
 
 /*
-º¯Êı¹¦ÄÜ£ºRearranges the elements in the range [first,last), 
+å‡½æ•°åŠŸèƒ½ï¼šRearranges the elements in the range [first,last), 
 in such a way that the elements before middle are the smallest elements in the entire range 
 and are sorted in ascending order, while the remaining elements are left without any specific order.
 
-º¯ÊıÔ­ĞÍ£º
-default (1)	°æ±¾Ò» operator< 
+å‡½æ•°åŸå‹ï¼š
+default (1)	ç‰ˆæœ¬ä¸€ operator< 
 	template <class RandomAccessIterator>
 	void partial_sort (RandomAccessIterator first, RandomAccessIterator middle,
                      RandomAccessIterator last);
-custom (2) °æ±¾¶ş comp	
+custom (2) ç‰ˆæœ¬äºŒ comp	
 	template <class RandomAccessIterator, class Compare>
 	void partial_sort (RandomAccessIterator first, RandomAccessIterator middle,
                      RandomAccessIterator last, Compare comp);
@@ -876,21 +876,21 @@ custom (2) °æ±¾¶ş comp
 template <class _RandomAccessIter, class _Tp>
 void __partial_sort(_RandomAccessIter __first, _RandomAccessIter __middle,
                     _RandomAccessIter __last, _Tp*) {
-		//ÀûÓÃheapµÄÖªÊ¶£¬ÔÚSGI STLÖĞ£¬ÊÇ²ÉÓÃ×î´ó¶Ñ
-		//½«[first,middle)Çø¼äµÄÔªËØ´´½¨³É×î´ó¶Ñ
-		//ÔÙ¸ù¾İ×î´ó¶ÑµÄĞÔÖÊ£¬Ò»¸öÒ»¸öµ¯³ö¶Ñ£¬²¢½«Æä±£´æ£¬¼´¶ÑÅÅĞò
-  make_heap(__first, __middle);//´´½¨×î´ó¶Ñ£¬¶¨ÒåÓë<stl_heap.h>ÎÄ¼ş
-  //ÒÔÏÂÊÇÔÚÇø¼äÖĞ[first,last)ÕÒ³ömiddle-first¸ö×îĞ¡ÔªËØ
-  //ÕâÀïµÄÊÇ½«ºó°ë²¿·Ö[middle,last)µÄÔªËØÒÀ´ÎÓë×î´ó¶ÑµÄ¸ù½ÚµãÔªËØ(¼´¶ÑµÄ×î´óÔªËØ)±È½Ï
-  //ÈôĞ¡ÓÚ¶ÑµÄ×î´óÔªËØ£¬ÔòÓë¶ÑµÄ×î´óÔªËØ½»»»£¬²¢µ÷Õû¶Ñ£¬Ê¹ÆäÒÀ´Î³ÉÎª×î´ó¶Ñ
-  //Èô²»Ğ¡ÓÚ¶ÑµÄ×î´óÔªËØ£¬Ôò²»×÷ÈÎºÎ²Ù×÷
+		//åˆ©ç”¨heapçš„çŸ¥è¯†ï¼Œåœ¨SGI STLä¸­ï¼Œæ˜¯é‡‡ç”¨æœ€å¤§å †
+		//å°†[first,middle)åŒºé—´çš„å…ƒç´ åˆ›å»ºæˆæœ€å¤§å †
+		//å†æ ¹æ®æœ€å¤§å †çš„æ€§è´¨ï¼Œä¸€ä¸ªä¸€ä¸ªå¼¹å‡ºå †ï¼Œå¹¶å°†å…¶ä¿å­˜ï¼Œå³å †æ’åº
+  make_heap(__first, __middle);//åˆ›å»ºæœ€å¤§å †ï¼Œå®šä¹‰ä¸<stl_heap.h>æ–‡ä»¶
+  //ä»¥ä¸‹æ˜¯åœ¨åŒºé—´ä¸­[first,last)æ‰¾å‡ºmiddle-firstä¸ªæœ€å°å…ƒç´ 
+  //è¿™é‡Œçš„æ˜¯å°†ååŠéƒ¨åˆ†[middle,last)çš„å…ƒç´ ä¾æ¬¡ä¸æœ€å¤§å †çš„æ ¹èŠ‚ç‚¹å…ƒç´ (å³å †çš„æœ€å¤§å…ƒç´ )æ¯”è¾ƒ
+  //è‹¥å°äºå †çš„æœ€å¤§å…ƒç´ ï¼Œåˆ™ä¸å †çš„æœ€å¤§å…ƒç´ äº¤æ¢ï¼Œå¹¶è°ƒæ•´å †ï¼Œä½¿å…¶ä¾æ¬¡æˆä¸ºæœ€å¤§å †
+  //è‹¥ä¸å°äºå †çš„æœ€å¤§å…ƒç´ ï¼Œåˆ™ä¸ä½œä»»ä½•æ“ä½œ
   for (_RandomAccessIter __i = __middle; __i < __last; ++__i)
     if (*__i < *__first) 
       __pop_heap(__first, __middle, __i, _Tp(*__i),
                  __DISTANCE_TYPE(__first));
-  sort_heap(__first, __middle);//¶Ô×î´ó¶Ñ½øĞĞ¶ÑÅÅĞò
+  sort_heap(__first, __middle);//å¯¹æœ€å¤§å †è¿›è¡Œå †æ’åº
 }
-//°æ±¾Ò»
+//ç‰ˆæœ¬ä¸€
 template <class _RandomAccessIter>
 inline void partial_sort(_RandomAccessIter __first,
                          _RandomAccessIter __middle,
@@ -911,7 +911,7 @@ void __partial_sort(_RandomAccessIter __first, _RandomAccessIter __middle,
                  __DISTANCE_TYPE(__first));
   sort_heap(__first, __middle, __comp);
 }
-//°æ±¾¶ş
+//ç‰ˆæœ¬äºŒ
 template <class _RandomAccessIter, class _Compare>
 inline void partial_sort(_RandomAccessIter __first,
                          _RandomAccessIter __middle,
@@ -922,7 +922,7 @@ inline void partial_sort(_RandomAccessIter __first,
       typename iterator_traits<_RandomAccessIter>::value_type);
   __partial_sort(__first, __middle, __last, __VALUE_TYPE(__first), __comp);
 }
-//partial_sort_copyÓëpartial_sortµÄÊµÏÖ»úÖÆÊÇÏàÍ¬£¬Ö»ÊÇpartial_sort_copy½«ÔªËØÅÅĞòºó·ÅÔÚÒÔresultÆğÊ¼µÄÈİÆ÷ÖĞ
+//partial_sort_copyä¸partial_sortçš„å®ç°æœºåˆ¶æ˜¯ç›¸åŒï¼Œåªæ˜¯partial_sort_copyå°†å…ƒç´ æ’åºåæ”¾åœ¨ä»¥resultèµ·å§‹çš„å®¹å™¨ä¸­
 template <class _InputIter, class _RandomAccessIter, class _Distance,
           class _Tp>
 _RandomAccessIter __partial_sort_copy(_InputIter __first,
@@ -1012,31 +1012,31 @@ partial_sort_copy(_InputIter __first, _InputIter __last,
                              __VALUE_TYPE(__first));
 }
 // nth_element() and its auxiliary functions.  
-//nth_element°æ±¾Ò»¸¨Öúº¯Êı
+//nth_elementç‰ˆæœ¬ä¸€è¾…åŠ©å‡½æ•°
 template <class _RandomAccessIter, class _Tp>
 void __nth_element(_RandomAccessIter __first, _RandomAccessIter __nth,
                    _RandomAccessIter __last, _Tp*) {
-  while (__last - __first > 3) {//Çø¼ä³¤¶È´óÓÚ3
-	  //»ñÈ¡·Ö¸îµãcut
+  while (__last - __first > 3) {//åŒºé—´é•¿åº¦å¤§äº3
+	  //è·å–åˆ†å‰²ç‚¹cut
     _RandomAccessIter __cut =
       __unguarded_partition(__first, __last,
                             _Tp(__median(*__first,
                                          *(__first + (__last - __first)/2),
                                          *(__last - 1))));
-    if (__cut <= __nth)//Èô·Ö¸îµãĞ¡ÓÚÖ¸¶¨Î»ÖÃ£¬ÔònthÎ»ÖÃÔÚÓÒ°ë¶Î
-      __first = __cut;//ÔÙ¶ÔÓÒ°ë¶Î½øĞĞ·Ö¸î
-    else //·ñÔò£¬¶Ô×ó°ë¶Î½øĞĞ·Ö¸î
+    if (__cut <= __nth)//è‹¥åˆ†å‰²ç‚¹å°äºæŒ‡å®šä½ç½®ï¼Œåˆ™nthä½ç½®åœ¨å³åŠæ®µ
+      __first = __cut;//å†å¯¹å³åŠæ®µè¿›è¡Œåˆ†å‰²
+    else //å¦åˆ™ï¼Œå¯¹å·¦åŠæ®µè¿›è¡Œåˆ†å‰²
       __last = __cut;
   }
   __insertion_sort(__first, __last);
 }
-//ÖØĞÂÅÅĞòĞòÁĞ[first,last)£¬Ê¹µü´úÆ÷nthËùÖ¸µÄÔªËØ£¬Óë¡°Õû¸ö[first,last)ĞòÁĞÍêÕûÅÅĞòºó£¬Í¬Ò»Î»ÖÃµÄÔªËØ¡±Í¬Öµ.
-//´ËÍâ£¬±ØĞë±£Ö¤[nth,last)ÄÚµÄËùÓĞÔªËØ²»Ğ¡ÓÚ[first,nth)ÄÚµÄÔªËØ£¬µ«ÊÇ¶ÔÓÚĞòÁĞ[first,nth)ºÍĞòÁĞ[nth,last)ÄÚµÄÔªËØµÄÅÅĞòË³Ğò²»ÄÜÈ·¶¨.
+//é‡æ–°æ’åºåºåˆ—[first,last)ï¼Œä½¿è¿­ä»£å™¨nthæ‰€æŒ‡çš„å…ƒç´ ï¼Œä¸â€œæ•´ä¸ª[first,last)åºåˆ—å®Œæ•´æ’åºåï¼ŒåŒä¸€ä½ç½®çš„å…ƒç´ â€åŒå€¼.
+//æ­¤å¤–ï¼Œå¿…é¡»ä¿è¯[nth,last)å†…çš„æ‰€æœ‰å…ƒç´ ä¸å°äº[first,nth)å†…çš„å…ƒç´ ï¼Œä½†æ˜¯å¯¹äºåºåˆ—[first,nth)å’Œåºåˆ—[nth,last)å†…çš„å…ƒç´ çš„æ’åºé¡ºåºä¸èƒ½ç¡®å®š.
 
 /*
-º¯Êı¹¦ÄÜ£ºRearranges the elements in the range [first,last), 
+å‡½æ•°åŠŸèƒ½ï¼šRearranges the elements in the range [first,last), 
 in such a way that the element at the nth position is the element that would be in that position in a sorted sequence.
-º¯ÊıÔ­ĞÍ£º
+å‡½æ•°åŸå‹ï¼š
 default (1)	
 	template <class RandomAccessIterator>
 	void nth_element (RandomAccessIterator first, RandomAccessIterator nth,
@@ -1046,7 +1046,7 @@ custom (2)
 	void nth_element (RandomAccessIterator first, RandomAccessIterator nth,
                     RandomAccessIterator last, Compare comp);
 */
-//nth_element°æ±¾Ò»
+//nth_elementç‰ˆæœ¬ä¸€
 template <class _RandomAccessIter>
 inline void nth_element(_RandomAccessIter __first, _RandomAccessIter __nth,
                         _RandomAccessIter __last) {

@@ -12,13 +12,13 @@ __STL_BEGIN_NAMESPACE
 
 // Forward declaration of operators < and ==, needed for friend declaration.
 
-//multimapµÄÌØĞÔ¼°ÆäÓÃ·¨ºÍmapÍêÈ«ÏàÍ¬£¬Î¨Ò»µÄÇø±ğ¾ÍÊÇmultimapÔÊĞí¼üÖµkeyÖØ¸´
-//Òò´ËmultimapµÄ²åÈë²Ù×÷²ÉÓÃµÄÊÇµ×²ãRB-TreeµÄinsert_equal()¶ø·Çinsert_unique()
-//ÓĞ¹ØmapÈİÆ÷µÄÆÊÎö¼ûÇ°Ãæ²©ÎÄ
-//mapÄÚ²¿ÔªËØ¸ù¾İ¼üÖµkeyÄ¬ÈÏÊ¹ÓÃµİÔöÅÅĞòless
-//ÓÃ»§¿É×ÔĞĞÖÆ¶¨±È½ÏÀàĞÍ
-//ÄÚ²¿Î¬»¤µÄÊı¾İ½á¹¹ÊÇºìºÚÊ÷, ¾ßÓĞ·Ç³£ÓÅĞãµÄ×î»µÇé¿öµÄÊ±¼ä¸´ÔÓ¶È
-//×¢Òâ:multimapÔÊĞíÔªËØÖØ¸´,¼´¼üÖµºÍÊµÖµ¶¼¿ÉÒÔÖØ¸´,ÕâµãÓëmap²»Í¬
+//multimapçš„ç‰¹æ€§åŠå…¶ç”¨æ³•å’Œmapå®Œå…¨ç›¸åŒï¼Œå”¯ä¸€çš„åŒºåˆ«å°±æ˜¯multimapå…è®¸é”®å€¼keyé‡å¤
+//å› æ­¤multimapçš„æ’å…¥æ“ä½œé‡‡ç”¨çš„æ˜¯åº•å±‚RB-Treeçš„insert_equal()è€Œéinsert_unique()
+//æœ‰å…³mapå®¹å™¨çš„å‰–æè§å‰é¢åšæ–‡
+//mapå†…éƒ¨å…ƒç´ æ ¹æ®é”®å€¼keyé»˜è®¤ä½¿ç”¨é€’å¢æ’åºless
+//ç”¨æˆ·å¯è‡ªè¡Œåˆ¶å®šæ¯”è¾ƒç±»å‹
+//å†…éƒ¨ç»´æŠ¤çš„æ•°æ®ç»“æ„æ˜¯çº¢é»‘æ ‘, å…·æœ‰éå¸¸ä¼˜ç§€çš„æœ€åæƒ…å†µçš„æ—¶é—´å¤æ‚åº¦
+//æ³¨æ„:multimapå…è®¸å…ƒç´ é‡å¤,å³é”®å€¼å’Œå®å€¼éƒ½å¯ä»¥é‡å¤,è¿™ç‚¹ä¸mapä¸åŒ
 template <class _Key, class _Tp, 
           class _Compare __STL_DEPENDENT_DEFAULT_TMPL(less<_Key>),
           class _Alloc = __STL_DEFAULT_ALLOCATOR(_Tp) >
@@ -43,15 +43,15 @@ public:
 
 // typedefs:
 
-  //ÏÂÃæµÄ¶¨ÒåÓëmapÏàÍ¬
+  //ä¸‹é¢çš„å®šä¹‰ä¸mapç›¸åŒ
   typedef _Key                  key_type;
   typedef _Tp                   data_type;
   typedef _Tp                   mapped_type;
   typedef pair<const _Key, _Tp> value_type;
   typedef _Compare              key_compare;
 
-   //Ç¶Ì×Àà,Ìá¹©¼üÖµkey±È½Ïº¯Êı½Ó¿Ú
-  //¼Ì³Ğ×Ô<stl_function.h>ÖĞµÄbinary_function
+   //åµŒå¥—ç±»,æä¾›é”®å€¼keyæ¯”è¾ƒå‡½æ•°æ¥å£
+  //ç»§æ‰¿è‡ª<stl_function.h>ä¸­çš„binary_function
   /*
 	template <class _Arg1, class _Arg2, class _Result>
 	struct binary_function {
@@ -72,7 +72,7 @@ public:
   };
 
 private:
-	//µ×²ã»úÖÆÊÇRB-Tree
+	//åº•å±‚æœºåˆ¶æ˜¯RB-Tree
   typedef _Rb_tree<key_type, value_type, 
                   _Select1st<value_type>, key_compare, _Alloc> _Rep_type;
   _Rep_type _M_t;  // red-black tree representing multimap
@@ -81,9 +81,9 @@ public:
   typedef typename _Rep_type::const_pointer const_pointer;
   typedef typename _Rep_type::reference reference;
   typedef typename _Rep_type::const_reference const_reference;
-  //mapµÄµü´úÆ÷²»Ö±½Ó¶¨ÒåÎªconst_iterator,¶øÊÇ·Ö±ğ¶¨Òåiterator,const_iterator
-  //ÊÇÒòÎªmapµÄ¼üÖµkey²»ÄÜ±»ĞŞ¸Ä,ÒòÎª±ØĞë×ñÊØ±È½Ïº¯ÊıµÄÅÅĞò¹æÔò,ËùÒÔ±ØĞë¶¨ÒåÎªconst_iterator
-  //¶ømapµÄÊµÖµvalue¿ÉÒÔ±»ĞŞ¸Ä,Ôò¶¨ÒåÎªiterator
+  //mapçš„è¿­ä»£å™¨ä¸ç›´æ¥å®šä¹‰ä¸ºconst_iterator,è€Œæ˜¯åˆ†åˆ«å®šä¹‰iterator,const_iterator
+  //æ˜¯å› ä¸ºmapçš„é”®å€¼keyä¸èƒ½è¢«ä¿®æ”¹,å› ä¸ºå¿…é¡»éµå®ˆæ¯”è¾ƒå‡½æ•°çš„æ’åºè§„åˆ™,æ‰€ä»¥å¿…é¡»å®šä¹‰ä¸ºconst_iterator
+  //è€Œmapçš„å®å€¼valueå¯ä»¥è¢«ä¿®æ”¹,åˆ™å®šä¹‰ä¸ºiterator
   typedef typename _Rep_type::iterator iterator;
   typedef typename _Rep_type::const_iterator const_iterator; 
   typedef typename _Rep_type::reverse_iterator reverse_iterator;
@@ -93,10 +93,10 @@ public:
   typedef typename _Rep_type::allocator_type allocator_type;
 
 // allocation/deallocation
-  // ×¢Òâ:multimapÖ»ÄÜÊ¹ÓÃRB-treeµÄinsert-equal(),²»ÄÜÊ¹ÓÃinsert-unique() 
+  // æ³¨æ„:multimapåªèƒ½ä½¿ç”¨RB-treeçš„insert-equal(),ä¸èƒ½ä½¿ç”¨insert-unique() 
 
   /*
-  ¹¹Ôìº¯Êı
+  æ„é€ å‡½æ•°
 		multimap();
 		explicit multimap (const key_compare& comp = key_compare(),
 					   const allocator_type& alloc = allocator_type());
@@ -142,9 +142,9 @@ public:
            const allocator_type& __a = allocator_type())
     : _M_t(__comp, __a) { _M_t.insert_equal(__first, __last); }
 #endif /* __STL_MEMBER_TEMPLATES */
-  //¿½±´¹¹Ôìº¯Êı
+  //æ‹·è´æ„é€ å‡½æ•°
   multimap(const multimap<_Key,_Tp,_Compare,_Alloc>& __x) : _M_t(__x._M_t) { }
-  //ÕâÀïÌá¹©ÁËoperator=,¼´¿ÉÒÔÍ¨¹ı=³õÊ¼»¯¶ÔÏó
+  //è¿™é‡Œæä¾›äº†operator=,å³å¯ä»¥é€šè¿‡=åˆå§‹åŒ–å¯¹è±¡
   multimap<_Key,_Tp,_Compare,_Alloc>&
   operator=(const multimap<_Key,_Tp,_Compare,_Alloc>& __x) {
     _M_t = __x._M_t;
@@ -152,10 +152,10 @@ public:
   }
 
   // accessors:
-   //·µ»Ø¼üÖµµÄ±È½Ïº¯Êı,ÕâÀïÊÇµ÷ÓÃRB-TreeµÄkey_comp()
+   //è¿”å›é”®å€¼çš„æ¯”è¾ƒå‡½æ•°,è¿™é‡Œæ˜¯è°ƒç”¨RB-Treeçš„key_comp()
   key_compare key_comp() const { return _M_t.key_comp(); }
-   //·µ»ØÊµÖµµÄ±È½Ïº¯Êı
-  //ÕâÀïµ÷ÓÃµÄÊÇmapÇ¶Ì×ÀàÖĞ¶¨ÒåµÄ±È½Ïº¯Êı
+   //è¿”å›å®å€¼çš„æ¯”è¾ƒå‡½æ•°
+  //è¿™é‡Œè°ƒç”¨çš„æ˜¯mapåµŒå¥—ç±»ä¸­å®šä¹‰çš„æ¯”è¾ƒå‡½æ•°
   /*
 	  class value_compare
 		: public binary_function<value_type, value_type, bool> {
@@ -165,10 +165,10 @@ public:
 		value_compare(_Compare __c) : comp(__c) {}
 	  public:
 		bool operator()(const value_type& __x, const value_type& __y) const {
-		  return comp(__x.first, __y.first);//ÒÔ¼üÖµµ÷ÓÃ±È½Ïº¯Êı
+		  return comp(__x.first, __y.first);//ä»¥é”®å€¼è°ƒç”¨æ¯”è¾ƒå‡½æ•°
 		}
   */
-  //Êµ¼ÊÉÏ×îÖÕ»¹ÊÇµ÷ÓÃ¼üÖµkeyµÄ±È½Ïº¯Êı£¬¼´ËûÃÇÊÇµ÷ÓÃÍ¬Ò»¸ö±È½Ïº¯Êı
+  //å®é™…ä¸Šæœ€ç»ˆè¿˜æ˜¯è°ƒç”¨é”®å€¼keyçš„æ¯”è¾ƒå‡½æ•°ï¼Œå³ä»–ä»¬æ˜¯è°ƒç”¨åŒä¸€ä¸ªæ¯”è¾ƒå‡½æ•°
   value_compare value_comp() const { return value_compare(_M_t.key_comp()); }
   allocator_type get_allocator() const { return _M_t.get_allocator(); }
 
@@ -180,18 +180,18 @@ public:
   const_reverse_iterator rbegin() const { return _M_t.rbegin(); }
   reverse_iterator rend() { return _M_t.rend(); }
   const_reverse_iterator rend() const { return _M_t.rend(); }
-  //ÅĞ¶ÏÈİÆ÷multimapÊÇ·ñÎª¿Õ
+  //åˆ¤æ–­å®¹å™¨multimapæ˜¯å¦ä¸ºç©º
   bool empty() const { return _M_t.empty(); }
-  //·µ»ØÈİÆ÷multimapµÄ´óĞ¡
+  //è¿”å›å®¹å™¨multimapçš„å¤§å°
   size_type size() const { return _M_t.size(); }
   size_type max_size() const { return _M_t.max_size(); }
-  //½»»»multimap¶ÔÏóµÄÄÚÈİ
+  //äº¤æ¢multimapå¯¹è±¡çš„å†…å®¹
   void swap(multimap<_Key,_Tp,_Compare,_Alloc>& __x) { _M_t.swap(__x._M_t); }
 
   // insert/erase
   /*
-	multimapÖ»ÄÜÊ¹ÓÃRB-treeµÄinsert-equal()
-	²åÈëÔªËØ
+	multimapåªèƒ½ä½¿ç”¨RB-treeçš„insert-equal()
+	æ’å…¥å…ƒç´ 
 	iterator insert (const value_type& val);
 	
 	iterator insert (iterator position, const value_type& val);
@@ -199,15 +199,15 @@ public:
 	template <class InputIterator>
 	void insert (InputIterator first, InputIterator last);
   */
-  //²åÈëÔªËØ½Úµã,µ÷ÓÃRB-TreeµÄinsert-equal();
-  //²åÈëÔªËØµÄ¼üÖµkeyÔÊĞíÖØ¸´
+  //æ’å…¥å…ƒç´ èŠ‚ç‚¹,è°ƒç”¨RB-Treeçš„insert-equal();
+  //æ’å…¥å…ƒç´ çš„é”®å€¼keyå…è®¸é‡å¤
   iterator insert(const value_type& __x) { return _M_t.insert_equal(__x); }
-  //ÔÚÖ¸¶¨Î»ÖÃ²åÈëÔªËØ
+  //åœ¨æŒ‡å®šä½ç½®æ’å…¥å…ƒç´ 
   iterator insert(iterator __position, const value_type& __x) {
     return _M_t.insert_equal(__position, __x);
   }
 #ifdef __STL_MEMBER_TEMPLATES  
-  //²åÈë[first,last)ÔªËØ
+  //æ’å…¥[first,last)å…ƒç´ 
   template <class _InputIterator>
   void insert(_InputIterator __first, _InputIterator __last) {
     _M_t.insert_equal(__first, __last);
@@ -221,29 +221,29 @@ public:
   }
 #endif /* __STL_MEMBER_TEMPLATES */
   /*
-	²Á³ıÔªËØ
+	æ“¦é™¤å…ƒç´ 
 	void erase (iterator position);
 
 	size_type erase (const key_type& k);
 	
     void erase (iterator first, iterator last);
   */
-  //ÔÚÖ¸¶¨Î»ÖÃ²Á³ıÔªËØ
+  //åœ¨æŒ‡å®šä½ç½®æ“¦é™¤å…ƒç´ 
   void erase(iterator __position) { _M_t.erase(__position); }
-  //²Á³ıÖ¸¶¨¼üÖµµÄ½Úµã
+  //æ“¦é™¤æŒ‡å®šé”®å€¼çš„èŠ‚ç‚¹
   size_type erase(const key_type& __x) { return _M_t.erase(__x); }
-  //²Á³ıÖ¸¶¨Çø¼äµÄ½Úµã
+  //æ“¦é™¤æŒ‡å®šåŒºé—´çš„èŠ‚ç‚¹
   void erase(iterator __first, iterator __last)
     { _M_t.erase(__first, __last); }
-  //Çå¿ÕÈİÆ÷
+  //æ¸…ç©ºå®¹å™¨
   void clear() { _M_t.clear(); }
 
   // multimap operations:
 
-  //²éÕÒÖ¸¶¨¼üÖµµÄ½Úµã
+  //æŸ¥æ‰¾æŒ‡å®šé”®å€¼çš„èŠ‚ç‚¹
   iterator find(const key_type& __x) { return _M_t.find(__x); }
   const_iterator find(const key_type& __x) const { return _M_t.find(__x); }
-  //¼ÆËãÖ¸¶¨¼üÖµÔªËØµÄ¸öÊı
+  //è®¡ç®—æŒ‡å®šé”®å€¼å…ƒç´ çš„ä¸ªæ•°
   size_type count(const key_type& __x) const { return _M_t.count(__x); }
    //Returns an iterator pointing to the first element in the container 
   //whose key is not considered to go before k (i.e., either it is equivalent or goes after).
@@ -269,7 +269,7 @@ public:
   }
 
 
-  //ÒÔÏÂÊÇ²Ù×÷·ûÖØÔØ
+  //ä»¥ä¸‹æ˜¯æ“ä½œç¬¦é‡è½½
 #ifdef __STL_TEMPLATE_FRIENDS 
   template <class _K1, class _T1, class _C1, class _A1>
   friend bool operator== (const multimap<_K1, _T1, _C1, _A1>&,

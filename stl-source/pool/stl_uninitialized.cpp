@@ -38,11 +38,11 @@ __STL_BEGIN_NAMESPACE
 // Valid if copy construction is equivalent to assignment, and if the
 //  destructor is trivial.
 template <class _InputIter, class _ForwardIter>
-/*¸Ãº¯Êı½ÓÊÜÈı¸öµü´úÆ÷²ÎÊı£ºµü´úÆ÷firstÊÇÊäÈëµÄÆğÊ¼µØÖ·£¬
-*µü´úÆ÷lastÊÇÊäÈëµÄ½áÊøµØÖ·£¬µü´úÆ÷resultÊÇÊä³öµÄÆğÊ¼µØÖ·
-*¼´°ÑÊı¾İ¸´ÖÆµ½[result,result+(last-first)]Õâ¸ö·¶Î§
-*ÎªÁËÌá¸ßĞ§ÂÊ£¬Ê×ÏÈÓÃ__VALUE_TYPE()İÍÈ¡³öµü´úÆ÷resultµÄĞÍ±ğvalue_type
-*ÔÙÀûÓÃ__type_traitsÅĞ¶Ï¸ÃĞÍ±ğÊÇ·ñÎªPODĞÍ±ğ
+/*è¯¥å‡½æ•°æ¥å—ä¸‰ä¸ªè¿­ä»£å™¨å‚æ•°ï¼šè¿­ä»£å™¨firstæ˜¯è¾“å…¥çš„èµ·å§‹åœ°å€ï¼Œ
+*è¿­ä»£å™¨lastæ˜¯è¾“å…¥çš„ç»“æŸåœ°å€ï¼Œè¿­ä»£å™¨resultæ˜¯è¾“å‡ºçš„èµ·å§‹åœ°å€
+*å³æŠŠæ•°æ®å¤åˆ¶åˆ°[result,result+(last-first)]è¿™ä¸ªèŒƒå›´
+*ä¸ºäº†æé«˜æ•ˆç‡ï¼Œé¦–å…ˆç”¨__VALUE_TYPE()èƒå–å‡ºè¿­ä»£å™¨resultçš„å‹åˆ«value_type
+*å†åˆ©ç”¨__type_traitsåˆ¤æ–­è¯¥å‹åˆ«æ˜¯å¦ä¸ºPODå‹åˆ«
 */
 inline _ForwardIter
   uninitialized_copy(_InputIter __first, _InputIter __last,
@@ -54,7 +54,7 @@ inline _ForwardIter
 
 template <class _InputIter, class _ForwardIter, class _Tp>
 inline _ForwardIter
-/*ÀûÓÃ__type_traitsÅĞ¶Ï¸ÃĞÍ±ğÊÇ·ñÎªPODĞÍ±ğ*/
+/*åˆ©ç”¨__type_traitsåˆ¤æ–­è¯¥å‹åˆ«æ˜¯å¦ä¸ºPODå‹åˆ«*/
 __uninitialized_copy(_InputIter __first, _InputIter __last,
                      _ForwardIter __result, _Tp*)
 {
@@ -63,39 +63,39 @@ __uninitialized_copy(_InputIter __first, _InputIter __last,
 }
 
 template <class _InputIter, class _ForwardIter>
-_ForwardIter //Èô²»ÊÇPODĞÍ±ğ£¬¾ÍÅÉËÍµ½ÕâÀï
+_ForwardIter //è‹¥ä¸æ˜¯PODå‹åˆ«ï¼Œå°±æ´¾é€åˆ°è¿™é‡Œ
 __uninitialized_copy_aux(_InputIter __first, _InputIter __last,
                          _ForwardIter __result,
                          __false_type)
 {
   _ForwardIter __cur = __result;
-  __STL_TRY {//ÕâÀï¼ÓÈëÁËÒì³£´¦Àí»úÖÆ
+  __STL_TRY {//è¿™é‡ŒåŠ å…¥äº†å¼‚å¸¸å¤„ç†æœºåˆ¶
     for ( ; __first != __last; ++__first, ++__cur)
-      _Construct(&*__cur, *__first);//¹¹Ôì¶ÔÏó£¬±ØĞëÊÇÒ»¸öÒ»¸öÔªËØµÄ¹¹Ôì£¬²»ÄÜÅúÁ¿
+      _Construct(&*__cur, *__first);//æ„é€ å¯¹è±¡ï¼Œå¿…é¡»æ˜¯ä¸€ä¸ªä¸€ä¸ªå…ƒç´ çš„æ„é€ ï¼Œä¸èƒ½æ‰¹é‡
     return __cur;
   }
-  __STL_UNWIND(_Destroy(__result, __cur));//Îö¹¹¶ÔÏó
+  __STL_UNWIND(_Destroy(__result, __cur));//ææ„å¯¹è±¡
 }
 
 template <class _InputIter, class _ForwardIter>
-inline _ForwardIter //ÈôÊÇPODĞÍ±ğ£¬¾ÍÅÉËÍµ½ÕâÀï
+inline _ForwardIter //è‹¥æ˜¯PODå‹åˆ«ï¼Œå°±æ´¾é€åˆ°è¿™é‡Œ
 __uninitialized_copy_aux(_InputIter __first, _InputIter __last,
                          _ForwardIter __result,
                          __true_type)
 {
-	/*µ÷ÓÃSTLµÄËã·¨copy()
-	*º¯ÊıÔ­ĞÍ£ºtemplate< class InputIt, class OutputIt >
+	/*è°ƒç”¨STLçš„ç®—æ³•copy()
+	*å‡½æ•°åŸå‹ï¼štemplate< class InputIt, class OutputIt >
 	* OutputIt copy( InputIt first, InputIt last, OutputIt d_first );
 	*/
 	return copy(__first, __last, __result);
 }
-//ÏÂÃæÊÇÕë¶Ôchar*£¬wchar_t* µÄuninitialized_copy()ÌØ»¯°æ±¾
+//ä¸‹é¢æ˜¯é’ˆå¯¹char*ï¼Œwchar_t* çš„uninitialized_copy()ç‰¹åŒ–ç‰ˆæœ¬
 inline char* uninitialized_copy(const char* __first, const char* __last,
                                 char* __result) {
 /* void* memmove( void* dest, const void* src, std::size_t count );
-* destÖ¸ÏòÊä³öµÄÆğÊ¼µØÖ·
-* srcÖ¸ÏòÊäÈëµÄÆäÊµµØÖ·
-* countÒª¸´ÖÆµÄ×Ö½ÚÊı
+* destæŒ‡å‘è¾“å‡ºçš„èµ·å§‹åœ°å€
+* srcæŒ‡å‘è¾“å…¥çš„å…¶å®åœ°å€
+* countè¦å¤åˆ¶çš„å­—èŠ‚æ•°
 */
   memmove(__result, __first, __last - __first);
   return __result + (__last - __first);
@@ -113,20 +113,20 @@ uninitialized_copy(const wchar_t* __first, const wchar_t* __last,
 // Valid if copy construction is equivalent to assignment, and if the
 // destructor is trivial.
 template <class _ForwardIter, class _Tp>
-/*ÈôÊÇPODĞÍ±ğ£¬Ôòµ÷ÓÃ´Ëº¯Êı
+/*è‹¥æ˜¯PODå‹åˆ«ï¼Œåˆ™è°ƒç”¨æ­¤å‡½æ•°
 	*/
 inline void
 __uninitialized_fill_aux(_ForwardIter __first, _ForwardIter __last, 
                          const _Tp& __x, __true_type)
 {
-/*º¯ÊıÔ­ĞÍ£ºtemplate< class ForwardIt, class T >
+/*å‡½æ•°åŸå‹ï¼štemplate< class ForwardIt, class T >
   * void fill( ForwardIt first, ForwardIt last, const T& value );  
   */
 	fill(__first, __last, __x);
 }
 
 template <class _ForwardIter, class _Tp>
-/*Èô²»ÊÇPODĞÍ±ğ£¬Ôòµ÷ÓÃ´Ëº¯Êı
+/*è‹¥ä¸æ˜¯PODå‹åˆ«ï¼Œåˆ™è°ƒç”¨æ­¤å‡½æ•°
 	*/
 void
 __uninitialized_fill_aux(_ForwardIter __first, _ForwardIter __last, 
@@ -141,8 +141,8 @@ __uninitialized_fill_aux(_ForwardIter __first, _ForwardIter __last,
 }
 
 template <class _ForwardIter, class _Tp, class _Tp1>
-//ÓÃ__type_traits¼¼ÊõÅĞ¶Ï¸ÃĞÍ±ğÊÇ·ñ
-ÎªPODĞÍ±ğ
+//ç”¨__type_traitsæŠ€æœ¯åˆ¤æ–­è¯¥å‹åˆ«æ˜¯å¦
+ä¸ºPODå‹åˆ«
 inline void __uninitialized_fill(_ForwardIter __first, 
                                  _ForwardIter __last, const _Tp& __x, _Tp1*)
 {
@@ -152,12 +152,12 @@ inline void __uninitialized_fill(_ForwardIter __first,
 }
 
 template <class _ForwardIter, class _Tp>
-/*¸Ãº¯Êı½ÓÊÜÈı¸ö²ÎÊı£º
-*µü´úÆ÷firstÖ¸ÏòÓû³õÊ¼»¯µÄ¿Õ¼äÆğÊ¼µØÖ·
-*µü´úÆ÷lastÖ¸ÏòÓû³õÊ¼»¯µÄ¿Õ¼ä½áÊøµØÖ·
-*x±íÊ¾³õÖµ
-*Ê×ÏÈÀûÓÃ__VALUE_TYPE()İÍÈ¡³öµü´úÆ÷firstµÄĞÍ±ğvalue_type
-*È»ºóÓÃ__type_traits¼¼ÊõÅĞ¶Ï¸ÃĞÍ±ğÊÇ·ñÎªPODĞÍ±ğ
+/*è¯¥å‡½æ•°æ¥å—ä¸‰ä¸ªå‚æ•°ï¼š
+*è¿­ä»£å™¨firstæŒ‡å‘æ¬²åˆå§‹åŒ–çš„ç©ºé—´èµ·å§‹åœ°å€
+*è¿­ä»£å™¨lastæŒ‡å‘æ¬²åˆå§‹åŒ–çš„ç©ºé—´ç»“æŸåœ°å€
+*xè¡¨ç¤ºåˆå€¼
+*é¦–å…ˆåˆ©ç”¨__VALUE_TYPE()èƒå–å‡ºè¿­ä»£å™¨firstçš„å‹åˆ«value_type
+*ç„¶åç”¨__type_traitsæŠ€æœ¯åˆ¤æ–­è¯¥å‹åˆ«æ˜¯å¦ä¸ºPODå‹åˆ«
 */
 inline void uninitialized_fill(_ForwardIter __first,
                                _ForwardIter __last, 
@@ -170,13 +170,13 @@ inline void uninitialized_fill(_ForwardIter __first,
 //  destructor is trivial.
 template <class _ForwardIter, class _Size, class _Tp>
 inline _ForwardIter
-	/*ÈôÊÇPODĞÍ±ğ£¬Ôòµ÷ÓÃ´Ëº¯Êı
+	/*è‹¥æ˜¯PODå‹åˆ«ï¼Œåˆ™è°ƒç”¨æ­¤å‡½æ•°
 	*/
 __uninitialized_fill_n_aux(_ForwardIter __first, _Size __n,
                            const _Tp& __x, __true_type)
 {
-  /*µ÷ÓÃSTLËã·¨
-  *Ô­ĞÍ£ºtemplate< class OutputIt, class Size, class T >
+  /*è°ƒç”¨STLç®—æ³•
+  *åŸå‹ï¼štemplate< class OutputIt, class Size, class T >
   * void fill_n( OutputIt first, Size count, const T& value );
   * template< class OutputIt, class Size, class T >
   * OutputIt fill_n( OutputIt first, Size count, const T& value );
@@ -186,7 +186,7 @@ __uninitialized_fill_n_aux(_ForwardIter __first, _Size __n,
 
 template <class _ForwardIter, class _Size, class _Tp>
 _ForwardIter
-	/*Èô²»ÊÇPODĞÍ±ğ£¬Ôòµ÷ÓÃ´Ëº¯Êı
+	/*è‹¥ä¸æ˜¯PODå‹åˆ«ï¼Œåˆ™è°ƒç”¨æ­¤å‡½æ•°
 	*/
 __uninitialized_fill_n_aux(_ForwardIter __first, _Size __n,
                            const _Tp& __x, __false_type)
@@ -202,26 +202,26 @@ __uninitialized_fill_n_aux(_ForwardIter __first, _Size __n,
 
 template <class _ForwardIter, class _Size, class _Tp, class _Tp1>
 inline _ForwardIter 
-	//ÓÃ__type_traits¼¼ÊõÅĞ¶Ï¸ÃĞÍ±ğÊÇ·ñÎªPODĞÍ±ğ
+	//ç”¨__type_traitsæŠ€æœ¯åˆ¤æ–­è¯¥å‹åˆ«æ˜¯å¦ä¸ºPODå‹åˆ«
 __uninitialized_fill_n(_ForwardIter __first, _Size __n, const _Tp& __x, _Tp1*)
 {
   typedef typename __type_traits<_Tp1>::is_POD_type _Is_POD;
-  //_Is_POD()ÅĞ¶Ïvalue_typeÊÇ·ñÎªPODĞÍ±ğ
+  //_Is_POD()åˆ¤æ–­value_typeæ˜¯å¦ä¸ºPODå‹åˆ«
   return __uninitialized_fill_n_aux(__first, __n, __x, _Is_POD());
 }
 
 template <class _ForwardIter, class _Size, class _Tp>
 inline _ForwardIter 
-/*¸Ãº¯Êı½ÓÊÜÈı¸ö²ÎÊı£º
-*µü´úÆ÷firstÖ¸ÏòÓû³õÊ¼»¯µÄ¿Õ¼äÆğÊ¼µØÖ·
-*n±íÊ¾Óû³õÊ¼»¯¿Õ¼ä´óĞ¡
-*x±íÊ¾³õÖµ
-*Ê×ÏÈÀûÓÃ__VALUE_TYPE()İÍÈ¡³öµü´úÆ÷firstµÄĞÍ±ğvalue_type
-*È»ºóÓÃ__type_traits¼¼ÊõÅĞ¶Ï¸ÃĞÍ±ğÊÇ·ñÎªPODĞÍ±ğ
+/*è¯¥å‡½æ•°æ¥å—ä¸‰ä¸ªå‚æ•°ï¼š
+*è¿­ä»£å™¨firstæŒ‡å‘æ¬²åˆå§‹åŒ–çš„ç©ºé—´èµ·å§‹åœ°å€
+*nè¡¨ç¤ºæ¬²åˆå§‹åŒ–ç©ºé—´å¤§å°
+*xè¡¨ç¤ºåˆå€¼
+*é¦–å…ˆåˆ©ç”¨__VALUE_TYPE()èƒå–å‡ºè¿­ä»£å™¨firstçš„å‹åˆ«value_type
+*ç„¶åç”¨__type_traitsæŠ€æœ¯åˆ¤æ–­è¯¥å‹åˆ«æ˜¯å¦ä¸ºPODå‹åˆ«
 */
 uninitialized_fill_n(_ForwardIter __first, _Size __n, const _Tp& __x)
 {
-  //__VALUE_TYPE(__first)İÍÈ¡³öfirstµÄĞÍ±ğvalue_type
+  //__VALUE_TYPE(__first)èƒå–å‡ºfirstçš„å‹åˆ«value_type
 	return __uninitialized_fill_n(__first, __n, __x, __VALUE_TYPE(__first));
 }
 

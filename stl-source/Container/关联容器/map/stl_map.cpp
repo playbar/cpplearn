@@ -10,17 +10,17 @@ __STL_BEGIN_NAMESPACE
 #pragma set woff 1375
 #endif
 /*
-	mapµÄËùÓĞ½ÚµãÔªËØ¶¼ÊÇpair,pairÓĞÁ½¸ö³ÉÔ±±äÁ¿first£¬second
-	µÚÒ»¸öfirstÊÇ¼üÖµkey,µÚ¶ş¸ösecondÊÇÊµÖµvalue
-	ÓĞ¹ØpairµÄ¶¨Òå¼ûÇ°ÎÄ<stl_pair.h>ÆÊÎö
+	mapçš„æ‰€æœ‰èŠ‚ç‚¹å…ƒç´ éƒ½æ˜¯pair,pairæœ‰ä¸¤ä¸ªæˆå‘˜å˜é‡firstï¼Œsecond
+	ç¬¬ä¸€ä¸ªfirstæ˜¯é”®å€¼key,ç¬¬äºŒä¸ªsecondæ˜¯å®å€¼value
+	æœ‰å…³pairçš„å®šä¹‰è§å‰æ–‡<stl_pair.h>å‰–æ
 */
 
-//mapÄÚ²¿ÔªËØ¸ù¾İ¼üÖµkeyÄ¬ÈÏÊ¹ÓÃµİÔöÅÅĞòless
-//ÓÃ»§¿É×ÔĞĞÖÆ¶¨±È½ÏÀàĞÍ
-//ÄÚ²¿Î¬»¤µÄÊı¾İ½á¹¹ÊÇºìºÚÊ÷, ¾ßÓĞ·Ç³£ÓÅĞãµÄ×î»µÇé¿öµÄÊ±¼ä¸´ÔÓ¶È  
-//×¢Òâ£ºmap¼üÖµºÍÊµÖµÊÇ·Ö¿ªµÄ£¬mapµÄ¼üÖµkeyÊÇÎ¨Ò»µÄ£¬ÊµÖµvalue¿ÉÒÔÖØ¸´
-//²»ÄÜÍ¨¹ıµü´úÆ÷ĞŞ¸ÄmapµÄ¼üÖµkey,Æäµü´úÆ÷ÀàĞÍÊÇ¶¨ÒåÎªRB-TreeµÄconst_iterator
-//µ«ÊÇ¿ÉÒÔÍ¨¹ıµü´úÆ÷ĞŞ¸ÄmapµÄÊµÖµvalue
+//mapå†…éƒ¨å…ƒç´ æ ¹æ®é”®å€¼keyé»˜è®¤ä½¿ç”¨é€’å¢æ’åºless
+//ç”¨æˆ·å¯è‡ªè¡Œåˆ¶å®šæ¯”è¾ƒç±»å‹
+//å†…éƒ¨ç»´æŠ¤çš„æ•°æ®ç»“æ„æ˜¯çº¢é»‘æ ‘, å…·æœ‰éå¸¸ä¼˜ç§€çš„æœ€åæƒ…å†µçš„æ—¶é—´å¤æ‚åº¦  
+//æ³¨æ„ï¼šmapé”®å€¼å’Œå®å€¼æ˜¯åˆ†å¼€çš„ï¼Œmapçš„é”®å€¼keyæ˜¯å”¯ä¸€çš„ï¼Œå®å€¼valueå¯ä»¥é‡å¤
+//ä¸èƒ½é€šè¿‡è¿­ä»£å™¨ä¿®æ”¹mapçš„é”®å€¼key,å…¶è¿­ä»£å™¨ç±»å‹æ˜¯å®šä¹‰ä¸ºRB-Treeçš„const_iterator
+//ä½†æ˜¯å¯ä»¥é€šè¿‡è¿­ä»£å™¨ä¿®æ”¹mapçš„å®å€¼value
 
 // Forward declarations of operators == and <, needed for friend declarations.
 template <class _Key, class _Tp, 
@@ -36,7 +36,7 @@ template <class _Key, class _Tp, class _Compare, class _Alloc>
 inline bool operator<(const map<_Key,_Tp,_Compare,_Alloc>& __x, 
                       const map<_Key,_Tp,_Compare,_Alloc>& __y);
 
-//map¶¨Òå
+//mapå®šä¹‰
 template <class _Key, class _Tp, class _Compare, class _Alloc>
 class map {
 public:
@@ -48,14 +48,14 @@ public:
 
 // typedefs:
 
-  typedef _Key                  key_type;//¼üÖµkeyÀàĞÍ
-  typedef _Tp                   data_type;//Êı¾İ(ÊµÖµ)valueÀàĞÍ
+  typedef _Key                  key_type;//é”®å€¼keyç±»å‹
+  typedef _Tp                   data_type;//æ•°æ®(å®å€¼)valueç±»å‹
   typedef _Tp                   mapped_type;
-  typedef pair<const _Key, _Tp> value_type;//ÔªËØĞÍ±ğ,°üº¬(¼üÖµ/ÊµÖµ),const±£Ö¤¼üÖµkey²»±»ĞŞ¸Ä
-  typedef _Compare              key_compare;//¼üÖµkey±È½Ïº¯Êı
+  typedef pair<const _Key, _Tp> value_type;//å…ƒç´ å‹åˆ«,åŒ…å«(é”®å€¼/å®å€¼),constä¿è¯é”®å€¼keyä¸è¢«ä¿®æ”¹
+  typedef _Compare              key_compare;//é”®å€¼keyæ¯”è¾ƒå‡½æ•°
     
-  //Ç¶Ì×Àà,Ìá¹©¼üÖµkey±È½Ïº¯Êı½Ó¿Ú
-  //¼Ì³Ğ×Ô<stl_function.h>ÖĞµÄbinary_function
+  //åµŒå¥—ç±»,æä¾›é”®å€¼keyæ¯”è¾ƒå‡½æ•°æ¥å£
+  //ç»§æ‰¿è‡ª<stl_function.h>ä¸­çš„binary_function
   /*
 	template <class _Arg1, class _Arg2, class _Result>
 	struct binary_function {
@@ -72,14 +72,14 @@ public:
     value_compare(_Compare __c) : comp(__c) {}
   public:
     bool operator()(const value_type& __x, const value_type& __y) const {
-      return comp(__x.first, __y.first);//ÒÔ¼üÖµµ÷ÓÃ±È½Ïº¯Êı
+      return comp(__x.first, __y.first);//ä»¥é”®å€¼è°ƒç”¨æ¯”è¾ƒå‡½æ•°
     }
   };
 
 private:
-	//µ×²ã»úÖÆÊÇRB-Tree
-	//ÒÔmapÀàĞÍ£¨Ò»¸öpair£©µÄµÚÒ»¸öÀàĞÍ×÷ÎªTB-treeµÄ¼üÖµÀàĞÍ.  
-	//ËùÒÔÔÚRB-treeÖĞ£¬¼üÖµkey²»ÄÜĞŞ¸Ä
+	//åº•å±‚æœºåˆ¶æ˜¯RB-Tree
+	//ä»¥mapç±»å‹ï¼ˆä¸€ä¸ªpairï¼‰çš„ç¬¬ä¸€ä¸ªç±»å‹ä½œä¸ºTB-treeçš„é”®å€¼ç±»å‹.  
+	//æ‰€ä»¥åœ¨RB-treeä¸­ï¼Œé”®å€¼keyä¸èƒ½ä¿®æ”¹
   typedef _Rb_tree<key_type, value_type, 
                    _Select1st<value_type>, key_compare, _Alloc> _Rep_type;
   _Rep_type _M_t;  // red-black tree representing map
@@ -88,9 +88,9 @@ public:
   typedef typename _Rep_type::const_pointer const_pointer;
   typedef typename _Rep_type::reference reference;
   typedef typename _Rep_type::const_reference const_reference;
-  //mapµÄµü´úÆ÷²»Ö±½Ó¶¨ÒåÎªconst_iterator,¶øÊÇ·Ö±ğ¶¨Òåiterator,const_iterator
-  //ÊÇÒòÎªmapµÄ¼üÖµkey²»ÄÜ±»ĞŞ¸Ä,ËùÒÔ±ØĞë¶¨ÒåÎªconst_iterator
-  //¶ømapµÄÊµÖµvalue¿ÉÒÔ±»ĞŞ¸Ä,Ôò¶¨ÒåÎªiterator
+  //mapçš„è¿­ä»£å™¨ä¸ç›´æ¥å®šä¹‰ä¸ºconst_iterator,è€Œæ˜¯åˆ†åˆ«å®šä¹‰iterator,const_iterator
+  //æ˜¯å› ä¸ºmapçš„é”®å€¼keyä¸èƒ½è¢«ä¿®æ”¹,æ‰€ä»¥å¿…é¡»å®šä¹‰ä¸ºconst_iterator
+  //è€Œmapçš„å®å€¼valueå¯ä»¥è¢«ä¿®æ”¹,åˆ™å®šä¹‰ä¸ºiterator
   typedef typename _Rep_type::iterator iterator;
   typedef typename _Rep_type::const_iterator const_iterator;
   typedef typename _Rep_type::reverse_iterator reverse_iterator;
@@ -100,10 +100,10 @@ public:
   typedef typename _Rep_type::allocator_type allocator_type;
 
   // allocation/deallocation
-  // mapÖ»ÄÜÊ¹ÓÃRB-treeµÄinsert-unique(),²»ÄÜÊ¹ÓÃinsert-equal() 
-  //ÒòÎª±ØĞë±£Ö¤¼üÖµÎ¨Ò»
+  // mapåªèƒ½ä½¿ç”¨RB-treeçš„insert-unique(),ä¸èƒ½ä½¿ç”¨insert-equal() 
+  //å› ä¸ºå¿…é¡»ä¿è¯é”®å€¼å”¯ä¸€
   /*
-				¹¹Ôìº¯Êı
+				æ„é€ å‡½æ•°
 	map();
 	explicit map (const key_compare& comp = key_compare(),
               const allocator_type& alloc = allocator_type());
@@ -184,9 +184,9 @@ public:
 
 #endif /* __STL_MEMBER_TEMPLATES */
 
-  //¿½±´¹¹Ôìº¯Êı
+  //æ‹·è´æ„é€ å‡½æ•°
   map(const map<_Key,_Tp,_Compare,_Alloc>& __x) : _M_t(__x._M_t) {}
-  //ÕâÀïÌá¹©ÁËoperator=,¼´¿ÉÒÔÍ¨¹ı=³õÊ¼»¯¶ÔÏó
+  //è¿™é‡Œæä¾›äº†operator=,å³å¯ä»¥é€šè¿‡=åˆå§‹åŒ–å¯¹è±¡
   map<_Key,_Tp,_Compare,_Alloc>&
   operator=(const map<_Key, _Tp, _Compare, _Alloc>& __x)
   {
@@ -196,11 +196,11 @@ public:
 
   // accessors:
 
-  //ÒÔÏÂµ÷ÓÃRB-TreeµÄ²Ù×÷
-  //·µ»Ø¼üÖµµÄ±È½Ïº¯Êı,ÕâÀïÊÇµ÷ÓÃRB-TreeµÄkey_comp()
+  //ä»¥ä¸‹è°ƒç”¨RB-Treeçš„æ“ä½œ
+  //è¿”å›é”®å€¼çš„æ¯”è¾ƒå‡½æ•°,è¿™é‡Œæ˜¯è°ƒç”¨RB-Treeçš„key_comp()
   key_compare key_comp() const { return _M_t.key_comp(); }
-  //·µ»ØÊµÖµµÄ±È½Ïº¯Êı
-  //ÕâÀïµ÷ÓÃµÄÊÇmapÇ¶Ì×ÀàÖĞ¶¨ÒåµÄ±È½Ïº¯Êı
+  //è¿”å›å®å€¼çš„æ¯”è¾ƒå‡½æ•°
+  //è¿™é‡Œè°ƒç”¨çš„æ˜¯mapåµŒå¥—ç±»ä¸­å®šä¹‰çš„æ¯”è¾ƒå‡½æ•°
   /*
 	  class value_compare
 		: public binary_function<value_type, value_type, bool> {
@@ -210,12 +210,12 @@ public:
 		value_compare(_Compare __c) : comp(__c) {}
 	  public:
 		bool operator()(const value_type& __x, const value_type& __y) const {
-		  return comp(__x.first, __y.first);//ÒÔ¼üÖµµ÷ÓÃ±È½Ïº¯Êı
+		  return comp(__x.first, __y.first);//ä»¥é”®å€¼è°ƒç”¨æ¯”è¾ƒå‡½æ•°
 		}
   */
-  //Êµ¼ÊÉÏ×îÖÕ»¹ÊÇµ÷ÓÃ¼üÖµkeyµÄ±È½Ïº¯Êı£¬¼´ËûÃÇÊÇµ÷ÓÃÍ¬Ò»¸ö±È½Ïº¯Êı
+  //å®é™…ä¸Šæœ€ç»ˆè¿˜æ˜¯è°ƒç”¨é”®å€¼keyçš„æ¯”è¾ƒå‡½æ•°ï¼Œå³ä»–ä»¬æ˜¯è°ƒç”¨åŒä¸€ä¸ªæ¯”è¾ƒå‡½æ•°
   value_compare value_comp() const { return value_compare(_M_t.key_comp()); }
-  //»ñµÃ·ÖÅäÆ÷µÄÀàĞÍ
+  //è·å¾—åˆ†é…å™¨çš„ç±»å‹
   allocator_type get_allocator() const { return _M_t.get_allocator(); }
 
   iterator begin() { return _M_t.begin(); }
@@ -229,16 +229,16 @@ public:
   bool empty() const { return _M_t.empty(); }
   size_type size() const { return _M_t.size(); }
   size_type max_size() const { return _M_t.max_size(); }
-  //ÖØÔØoperator[],·µ»ØÊÇÊµÖµvalue(¼´pair.second)µÄÒıÓÃ
-  //×¢Òâ:ÈôÄãÔ­ÏÈÃ»ÓĞ¶¨Òåmap¶ÔÏó,¼´Äã·ÃÎÊµÄ¼üÖµkey²»´æÔÚ,Ôò»á×Ô¶¯ĞÂ½¨Ò»¸ömap¶ÔÏó
-  //¼üÖµkeyÎªÄã·ÃÎÊµÄ¼üÖµkey,ÊµÖµvalueÎª¿Õ,¿´ÏÂÃæµÄÀı×Ó¾ÍÃ÷°×ÁË
+  //é‡è½½operator[],è¿”å›æ˜¯å®å€¼value(å³pair.second)çš„å¼•ç”¨
+  //æ³¨æ„:è‹¥ä½ åŸå…ˆæ²¡æœ‰å®šä¹‰mapå¯¹è±¡,å³ä½ è®¿é—®çš„é”®å€¼keyä¸å­˜åœ¨,åˆ™ä¼šè‡ªåŠ¨æ–°å»ºä¸€ä¸ªmapå¯¹è±¡
+  //é”®å€¼keyä¸ºä½ è®¿é—®çš„é”®å€¼key,å®å€¼valueä¸ºç©º,çœ‹ä¸‹é¢çš„ä¾‹å­å°±æ˜ç™½äº†
     _Tp& operator[](const key_type& __k) {
     iterator __i = lower_bound(__k);
     // __i->first is greater than or equivalent to __k.
     if (__i == end() || key_comp()(__k, (*__i).first))
       __i = insert(__i, value_type(__k, _Tp()));
     return (*__i).second;
-	//ÆäÊµ¼òµ¥µÄ·½Ê½ÊÇÖ±½Ó·µ»Ø
+	//å…¶å®ç®€å•çš„æ–¹å¼æ˜¯ç›´æ¥è¿”å›
 	//return (*((insert(value_type(k, T()))).first)).second;
   }
 	/*
@@ -271,12 +271,12 @@ public:
 	mymap['d'] is
 	mymap now contains 4 elements.
   */
-	//½»»»map¶ÔÏóµÄÄÚÈİ
+	//äº¤æ¢mapå¯¹è±¡çš„å†…å®¹
   void swap(map<_Key,_Tp,_Compare,_Alloc>& __x) { _M_t.swap(__x._M_t); }
 
   // insert/erase
   /*
-	²åÈëÔªËØ
+	æ’å…¥å…ƒç´ 
 	single element (1):	
 	pair<iterator,bool> insert (const value_type& val);
 
@@ -288,12 +288,12 @@ public:
 	void insert (InputIterator first, InputIterator last);
   */
 
-  //²åÈëÔªËØ½Úµã,µ÷ÓÃRB-TreeµÄinsert_unique(__x);
-  //²»ÄÜ²åÈëÏàÍ¬¼üÖµµÄÔªËØ
+  //æ’å…¥å…ƒç´ èŠ‚ç‚¹,è°ƒç”¨RB-Treeçš„insert_unique(__x);
+  //ä¸èƒ½æ’å…¥ç›¸åŒé”®å€¼çš„å…ƒç´ 
   pair<iterator,bool> insert(const value_type& __x) 
     { return _M_t.insert_unique(__x); }
-  //ÔÚÖ¸¶¨Î»ÖÃ²åÈëÔªËØ£¬µ«ÊÇ»áÏÈ±éÀú¸Ã¼¯ºÏ,ÅĞ¶ÏÊÇ·ñ´æÔÚÏàÍ¬ÔªËØ
-  //Èô²»´æÔÚ²ÅÔÚÖ¸¶¨Î»ÖÃ²åÈë¸ÃÔªËØ
+  //åœ¨æŒ‡å®šä½ç½®æ’å…¥å…ƒç´ ï¼Œä½†æ˜¯ä¼šå…ˆéå†è¯¥é›†åˆ,åˆ¤æ–­æ˜¯å¦å­˜åœ¨ç›¸åŒå…ƒç´ 
+  //è‹¥ä¸å­˜åœ¨æ‰åœ¨æŒ‡å®šä½ç½®æ’å…¥è¯¥å…ƒç´ 
   iterator insert(iterator position, const value_type& __x)
     { return _M_t.insert_unique(position, __x); }
 #ifdef __STL_MEMBER_TEMPLATES
@@ -310,7 +310,7 @@ public:
   }
 #endif /* __STL_MEMBER_TEMPLATES */
   /*
-  ²Á³ıÔªËØ
+  æ“¦é™¤å…ƒç´ 
 	 void erase (iterator position);
 		
 	size_type erase (const key_type& k);
@@ -318,22 +318,22 @@ public:
      void erase (iterator first, iterator last);
   */
 
-  //ÔÚÖ¸¶¨Î»ÖÃ²Á³ıÔªËØ
+  //åœ¨æŒ‡å®šä½ç½®æ“¦é™¤å…ƒç´ 
   void erase(iterator __position) { _M_t.erase(__position); }
-   //²Á³ıÖ¸¶¨¼üÖµµÄ½Úµã
+   //æ“¦é™¤æŒ‡å®šé”®å€¼çš„èŠ‚ç‚¹
   size_type erase(const key_type& __x) { return _M_t.erase(__x); }
-  //²Á³ıÖ¸¶¨Çø¼äµÄ½Úµã
+  //æ“¦é™¤æŒ‡å®šåŒºé—´çš„èŠ‚ç‚¹
   void erase(iterator __first, iterator __last)
     { _M_t.erase(__first, __last); }
-  //Çå¿Õmap
+  //æ¸…ç©ºmap
   void clear() { _M_t.clear(); }
 
   // map operations:
 
-  //²éÕÒÖ¸¶¨¼üÖµµÄ½Úµã
+  //æŸ¥æ‰¾æŒ‡å®šé”®å€¼çš„èŠ‚ç‚¹
   iterator find(const key_type& __x) { return _M_t.find(__x); }
   const_iterator find(const key_type& __x) const { return _M_t.find(__x); }
-  //¼ÆËãÖ¸¶¨¼üÖµÔªËØµÄ¸öÊı
+  //è®¡ç®—æŒ‡å®šé”®å€¼å…ƒç´ çš„ä¸ªæ•°
   size_type count(const key_type& __x) const {
     return _M_t.find(__x) == _M_t.end() ? 0 : 1; 
   }
@@ -421,7 +421,7 @@ public:
 		upper bound points to: 'c' => 30
   */
 
-//ÒÔÏÂÊÇ²Ù×÷·ûÖØÔØ
+//ä»¥ä¸‹æ˜¯æ“ä½œç¬¦é‡è½½
 #ifdef __STL_TEMPLATE_FRIENDS 
   template <class _K1, class _T1, class _C1, class _A1>
   friend bool operator== (const map<_K1, _T1, _C1, _A1>&,
@@ -437,7 +437,7 @@ public:
 #endif /* __STL_TEMPLATE_FRIENDS */
 };
 
-//±È½ÏÁ½¸ömapµÄÄÚÈİ
+//æ¯”è¾ƒä¸¤ä¸ªmapçš„å†…å®¹
 template <class _Key, class _Tp, class _Compare, class _Alloc>
 inline bool operator==(const map<_Key,_Tp,_Compare,_Alloc>& __x, 
                        const map<_Key,_Tp,_Compare,_Alloc>& __y) {

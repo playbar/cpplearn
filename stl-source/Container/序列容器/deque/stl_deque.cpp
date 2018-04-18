@@ -1,11 +1,11 @@
-/*	dequeÊÇË«Ïò¶ÓÁĞ£¬¿ÉÒÔÔÚÍ·Î²Á½¶Ë²åÈë»òÉ¾³ıÔªËØ£»
-*	dequeÓëvector×î´óµÄ²îÒì¾ÍÊÇ£º
-*	Ò»¡¢dequeÔÊĞíÓÚ³£ÊıÊ±¼äÄÚ¶ÔÍ·¶Ë½øĞĞ²åÈë»òÉ¾³ıÔªËØ£»
-*	¶ş¡¢dequeÊÇ·Ö¶ÎÁ¬ĞøÏßĞÔ¿Õ¼ä£¬ËæÊ±¿ÉÒÔÔö¼ÓÒ»¶ÎĞÂµÄ¿Õ¼ä£»
-*	deque²»ÏñvectorÄÇÑù£¬vectorµ±ÄÚ´æ²»¹»Ê±£¬ĞèÖØĞÂ·ÖÅä/¸´ÖÆÊı¾İ/ÊÍ·ÅÔ­Ê¼¿Õ¼ä£»
-*	²»¹ıdequeµÄµü´úÆ÷ÉèÖÃ±Èvector¸´ÔÓ£¬ÒòÎªµü´úÆ÷²»ÄÜÊ¹ÓÃÆÕÍ¨Ö¸Õë£¬Òò´Ë¾¡Á¿Ê¹ÓÃvector£»
-*	×¢£ºµ±¶ÔdequeµÄÔªËØ½øĞĞÅÅĞòÊ±£¬ÎªÁËÌá¸ßĞ§ÂÊ£¬Ê×ÏÈ°ÑdequeÊı¾İ¸´ÖÆµ½vector£¬
-*	ÀûÓÃvectorµÄÅÅĞòËã·¨(ÀûÓÃSTLµÄsortËã·¨)£¬ÅÅĞòÖ®ºóÔÙ´Î¸´ÖÆ»Ødeque£» 
+/*	dequeæ˜¯åŒå‘é˜Ÿåˆ—ï¼Œå¯ä»¥åœ¨å¤´å°¾ä¸¤ç«¯æ’å…¥æˆ–åˆ é™¤å…ƒç´ ï¼›
+*	dequeä¸vectoræœ€å¤§çš„å·®å¼‚å°±æ˜¯ï¼š
+*	ä¸€ã€dequeå…è®¸äºå¸¸æ•°æ—¶é—´å†…å¯¹å¤´ç«¯è¿›è¡Œæ’å…¥æˆ–åˆ é™¤å…ƒç´ ï¼›
+*	äºŒã€dequeæ˜¯åˆ†æ®µè¿ç»­çº¿æ€§ç©ºé—´ï¼Œéšæ—¶å¯ä»¥å¢åŠ ä¸€æ®µæ–°çš„ç©ºé—´ï¼›
+*	dequeä¸åƒvectoré‚£æ ·ï¼Œvectorå½“å†…å­˜ä¸å¤Ÿæ—¶ï¼Œéœ€é‡æ–°åˆ†é…/å¤åˆ¶æ•°æ®/é‡Šæ”¾åŸå§‹ç©ºé—´ï¼›
+*	ä¸è¿‡dequeçš„è¿­ä»£å™¨è®¾ç½®æ¯”vectorå¤æ‚ï¼Œå› ä¸ºè¿­ä»£å™¨ä¸èƒ½ä½¿ç”¨æ™®é€šæŒ‡é’ˆï¼Œå› æ­¤å°½é‡ä½¿ç”¨vectorï¼›
+*	æ³¨ï¼šå½“å¯¹dequeçš„å…ƒç´ è¿›è¡Œæ’åºæ—¶ï¼Œä¸ºäº†æé«˜æ•ˆç‡ï¼Œé¦–å…ˆæŠŠdequeæ•°æ®å¤åˆ¶åˆ°vectorï¼Œ
+*	åˆ©ç”¨vectorçš„æ’åºç®—æ³•(åˆ©ç”¨STLçš„sortç®—æ³•)ï¼Œæ’åºä¹‹åå†æ¬¡å¤åˆ¶å›dequeï¼› 
 */
 
 #include <concept_checks.h>
@@ -54,24 +54,24 @@ __STL_BEGIN_NAMESPACE
 #pragma set woff 1375
 #endif
 
-//*	dequeÊÇ·Ö¶ÎÁ¬ĞøÏßĞÔ¿Õ¼ä£¬ÎªÁËÄÜ¹»ÏñÁ¬ĞøÏßĞÔ¿Õ¼äÄÇÑù·ÃÎÊÊı¾İ£¬
-//*	deque²ÉÓÃÁËÒ»ÖÖÖĞ¿Ø·½·¨map,mapÊÇ¿éÁ¬ĞøµÄ¿Õ¼ä£¬ÆäÃ¿¸öÔªËØ¶¼ÊÇÒ»¸öÖ¸Õë£¬
-//*	Ö¸ÏòÒ»¿é»º³åÇø£¬ÊµÖÊÉÏmapÊÇT**£»
+//*	dequeæ˜¯åˆ†æ®µè¿ç»­çº¿æ€§ç©ºé—´ï¼Œä¸ºäº†èƒ½å¤Ÿåƒè¿ç»­çº¿æ€§ç©ºé—´é‚£æ ·è®¿é—®æ•°æ®ï¼Œ
+//*	dequeé‡‡ç”¨äº†ä¸€ç§ä¸­æ§æ–¹æ³•map,mapæ˜¯å—è¿ç»­çš„ç©ºé—´ï¼Œå…¶æ¯ä¸ªå…ƒç´ éƒ½æ˜¯ä¸€ä¸ªæŒ‡é’ˆï¼Œ
+//*	æŒ‡å‘ä¸€å—ç¼“å†²åŒºï¼Œå®è´¨ä¸Šmapæ˜¯T**ï¼›
 //***************************************************************
 
 // Note: this function is simply a kludge to work around several compilers'
 //  bugs in handling constant expressions.
-//Õâ¸öº¯ÊıÊÇ·½±ã²»Í¬±àÒëÆ÷´¦Àí³£Á¿±í´ïÊ½µÄbug
+//è¿™ä¸ªå‡½æ•°æ˜¯æ–¹ä¾¿ä¸åŒç¼–è¯‘å™¨å¤„ç†å¸¸é‡è¡¨è¾¾å¼çš„bug
 inline size_t __deque_buf_size(size_t __size) {
   return __size < 512 ? size_t(512 / __size) : size_t(1);
 }
 
-//dequeµü´úÆ÷µÄÉè¼Æ
-//*dequeÊÇ·Ö¶ÎÁ¬ĞøµÄÏßĞÔ¿Õ¼ä£¬µü´úÆ÷Éè¼ÆÊ±±ØĞëÄÜ¹»½øĞĞoperator++»òoperator--²Ù×÷
-//*	µü´úÆ÷µÄ¹¦ÄÜ£º
-//*	1¡¢±ØĞëÖªµÀ»º³åÇøµÄÎ»ÖÃ
-//*	2¡¢ÄÜ¹»ÅĞ¶ÏÊÇ·ñ´¦ÓÚÆäËùÔÚ»º³åÇøµÄ±ß½ç
-//*	3¡¢ÄÜ¹»ÖªµÀÆäËùÔÚ»º³åÇøµ±Ç°ËùÖ¸Î»ÖÃµÄÔªËØ
+//dequeè¿­ä»£å™¨çš„è®¾è®¡
+//*dequeæ˜¯åˆ†æ®µè¿ç»­çš„çº¿æ€§ç©ºé—´ï¼Œè¿­ä»£å™¨è®¾è®¡æ—¶å¿…é¡»èƒ½å¤Ÿè¿›è¡Œoperator++æˆ–operator--æ“ä½œ
+//*	è¿­ä»£å™¨çš„åŠŸèƒ½ï¼š
+//*	1ã€å¿…é¡»çŸ¥é“ç¼“å†²åŒºçš„ä½ç½®
+//*	2ã€èƒ½å¤Ÿåˆ¤æ–­æ˜¯å¦å¤„äºå…¶æ‰€åœ¨ç¼“å†²åŒºçš„è¾¹ç•Œ
+//*	3ã€èƒ½å¤ŸçŸ¥é“å…¶æ‰€åœ¨ç¼“å†²åŒºå½“å‰æ‰€æŒ‡ä½ç½®çš„å…ƒç´ 
 //********************************************
 template <class _Tp, class _Ref, class _Ptr>
 struct _Deque_iterator {
@@ -89,11 +89,11 @@ struct _Deque_iterator {
 
   typedef _Deque_iterator _Self;
 
-  //ÒÔÏÂÊÇµü´úÆ÷Éè¼ÆµÄ¹Ø¼ü£¬·ÃÎÊÈİÆ÷µÄ½Úµã
-  _Tp* _M_cur;//Ö¸Ïò»º³åÇøµ±Ç°µÄÔªËØ
-  _Tp* _M_first;//Ö¸Ïò»º³åÇøµÄÍ·(ÆğÊ¼µØÖ·)
-  _Tp* _M_last;//Ö¸Ïò»º³åÇøµÄÎ²(½áÊøµØÖ·)
-  _Map_pointer _M_node;//Ö¸ÏòÖĞ¿ØÆ÷µÄÏàÓ¦½Úµã
+  //ä»¥ä¸‹æ˜¯è¿­ä»£å™¨è®¾è®¡çš„å…³é”®ï¼Œè®¿é—®å®¹å™¨çš„èŠ‚ç‚¹
+  _Tp* _M_cur;//æŒ‡å‘ç¼“å†²åŒºå½“å‰çš„å…ƒç´ 
+  _Tp* _M_first;//æŒ‡å‘ç¼“å†²åŒºçš„å¤´(èµ·å§‹åœ°å€)
+  _Tp* _M_last;//æŒ‡å‘ç¼“å†²åŒºçš„å°¾(ç»“æŸåœ°å€)
+  _Map_pointer _M_node;//æŒ‡å‘ä¸­æ§å™¨çš„ç›¸åº”èŠ‚ç‚¹
 
   _Deque_iterator(_Tp* __x, _Map_pointer __y) 
     : _M_cur(__x), _M_first(*__y),
@@ -104,91 +104,91 @@ struct _Deque_iterator {
       _M_last(__x._M_last), _M_node(__x._M_node) {}
 
   //****************************************************************************
-  //*********************ÒÔÏÂÊÇµü´úÆ÷_Deque_iteratorµÄ²Ù×÷**********************
-  //*	ÕâĞ©²Ù×÷·ûµÄÖØÔØ·½±ãÎÒÃÇ·ÃÎÊÈİÆ÷µÄÄÚÈİ
-  //*	Ò²ÊÇÈÃdeque´Ó½Ó¿Ú¿´À´ÊÇÎ¬»¤Á¬ĞøÏßĞÔ¿Õ¼äµÄ¹Ø¼ü
+  //*********************ä»¥ä¸‹æ˜¯è¿­ä»£å™¨_Deque_iteratorçš„æ“ä½œ**********************
+  //*	è¿™äº›æ“ä½œç¬¦çš„é‡è½½æ–¹ä¾¿æˆ‘ä»¬è®¿é—®å®¹å™¨çš„å†…å®¹
+  //*	ä¹Ÿæ˜¯è®©dequeä»æ¥å£çœ‹æ¥æ˜¯ç»´æŠ¤è¿ç»­çº¿æ€§ç©ºé—´çš„å…³é”®
   //****************************************************************************
-  reference operator*() const { return *_M_cur; }//½â³ıÒıÓÃ,·µ»Øµ±Ç°ÔªËØ
+  reference operator*() const { return *_M_cur; }//è§£é™¤å¼•ç”¨,è¿”å›å½“å‰å…ƒç´ 
 #ifndef __SGI_STL_NO_ARROW_OPERATOR
   pointer operator->() const { return _M_cur; }
 #endif /* __SGI_STL_NO_ARROW_OPERATOR */
 
-  //·µ»ØÁ½¸öµü´úÆ÷Ö®¼äµÄ¾àÀë
+  //è¿”å›ä¸¤ä¸ªè¿­ä»£å™¨ä¹‹é—´çš„è·ç¦»
   difference_type operator-(const _Self& __x) const {
     return difference_type(_S_buffer_size()) * (_M_node - __x._M_node - 1) +
       (_M_cur - _M_first) + (__x._M_last - __x._M_cur);
   }
 
-  //Ç°×º×ÔÔö++²Ù×÷·ûÖØÔØ
+  //å‰ç¼€è‡ªå¢++æ“ä½œç¬¦é‡è½½
   _Self& operator++() {
-    ++_M_cur;					//ÆÕÍ¨×ÔÔö²Ù×÷£¬ÒÆÖÁÏÂÒ»¸öÔªËØ
-    if (_M_cur == _M_last) {   //ÈôÒÑ´ïµ½»º³åÇøµÄÎ²²¿
-      _M_set_node(_M_node + 1);//ÇĞ»»ÖÁÏÂÒ»»º³åÇø(½Úµã)
-      _M_cur = _M_first;	  //µÄµÚÒ»¸öÔªËØ
+    ++_M_cur;					//æ™®é€šè‡ªå¢æ“ä½œï¼Œç§»è‡³ä¸‹ä¸€ä¸ªå…ƒç´ 
+    if (_M_cur == _M_last) {   //è‹¥å·²è¾¾åˆ°ç¼“å†²åŒºçš„å°¾éƒ¨
+      _M_set_node(_M_node + 1);//åˆ‡æ¢è‡³ä¸‹ä¸€ç¼“å†²åŒº(èŠ‚ç‚¹)
+      _M_cur = _M_first;	  //çš„ç¬¬ä¸€ä¸ªå…ƒç´ 
     }
     return *this;
   }
-  //ºó×º×ÔÔö++²Ù×÷·ûÖØÔØ
-  //·µ»Øµ±Ç°µü´úÆ÷µÄÒ»¸ö¸±±¾
+  //åç¼€è‡ªå¢++æ“ä½œç¬¦é‡è½½
+  //è¿”å›å½“å‰è¿­ä»£å™¨çš„ä¸€ä¸ªå‰¯æœ¬
   _Self operator++(int)  {
-    _Self __tmp = *this;//¶¨Òåµ±Ç°µü´úÆ÷µÄÒ»¸ö¸±±¾
-    ++*this;//ÕâÀïÇ°×º++²»ÊÇÆÕÍ¨µÄ++²Ù×÷£¬ÊÇÉÏÒ»²½ÖèÒÑ¾­ÖØÔØ¹ıµÄÇ°×º++
+    _Self __tmp = *this;//å®šä¹‰å½“å‰è¿­ä»£å™¨çš„ä¸€ä¸ªå‰¯æœ¬
+    ++*this;//è¿™é‡Œå‰ç¼€++ä¸æ˜¯æ™®é€šçš„++æ“ä½œï¼Œæ˜¯ä¸Šä¸€æ­¥éª¤å·²ç»é‡è½½è¿‡çš„å‰ç¼€++
     return __tmp;
   }
 
-  //Ç°×º×Ô¼õ--²Ù×÷·ûÖØÔØ
-  //»ù±¾Ë¼ÏëÀàËÆÓÚÇ°×º×ÔÔö²Ù×÷
+  //å‰ç¼€è‡ªå‡--æ“ä½œç¬¦é‡è½½
+  //åŸºæœ¬æ€æƒ³ç±»ä¼¼äºå‰ç¼€è‡ªå¢æ“ä½œ
   _Self& operator--() {
-    if (_M_cur == _M_first) {  //ÈôÊÇµ±Ç°»º³åÇøµÄµÚÒ»¸öÔªËØ
-      _M_set_node(_M_node - 1);//ÇĞ»»µ½ÉÏÒ»¸ö»º³åÇø
-      _M_cur = _M_last;		  //µÄÎ²²¿(¼´×îºóÒ»¸öÔªËØµÄÏÂÒ»¸öÎ»ÖÃ)
+    if (_M_cur == _M_first) {  //è‹¥æ˜¯å½“å‰ç¼“å†²åŒºçš„ç¬¬ä¸€ä¸ªå…ƒç´ 
+      _M_set_node(_M_node - 1);//åˆ‡æ¢åˆ°ä¸Šä¸€ä¸ªç¼“å†²åŒº
+      _M_cur = _M_last;		  //çš„å°¾éƒ¨(å³æœ€åä¸€ä¸ªå…ƒç´ çš„ä¸‹ä¸€ä¸ªä½ç½®)
     }
-    --_M_cur;//ÆÕÍ¨µÄ×Ô¼õ²Ù×÷£¬ÒÆÖÁÇ°Ò»¸öÔªËØ
+    --_M_cur;//æ™®é€šçš„è‡ªå‡æ“ä½œï¼Œç§»è‡³å‰ä¸€ä¸ªå…ƒç´ 
     return *this;
   }
-  //ºó×º×Ô¼õ--²Ù×÷·ûÖØÔØ
-  //·µ»Øµ±Ç°µü´úÆ÷µÄ¸±±¾
+  //åç¼€è‡ªå‡--æ“ä½œç¬¦é‡è½½
+  //è¿”å›å½“å‰è¿­ä»£å™¨çš„å‰¯æœ¬
   _Self operator--(int) {
-    _Self __tmp = *this;//¶¨ÒåÒ»¸ö¸±±¾
-    --*this;			//µü´úÆ÷×Ô¼õ²Ù×÷
+    _Self __tmp = *this;//å®šä¹‰ä¸€ä¸ªå‰¯æœ¬
+    --*this;			//è¿­ä»£å™¨è‡ªå‡æ“ä½œ
     return __tmp;
   }
 
-  //ÒÔÏÂÊµÏÖËæ»ú´æÈ¡£¬µü´úÆ÷¿ÉÒÔÖ±½ÓÌøÔ¾n¸ö¾àÀë
-  //½«µü´úÆ÷Ç°ÒÆn¸ö¾àÀë£¬µ±n¸ºÖµÊ±¾ÍÎªÏÂÃæµÄoperator-=²Ù×÷
+  //ä»¥ä¸‹å®ç°éšæœºå­˜å–ï¼Œè¿­ä»£å™¨å¯ä»¥ç›´æ¥è·³è·ƒnä¸ªè·ç¦»
+  //å°†è¿­ä»£å™¨å‰ç§»nä¸ªè·ç¦»ï¼Œå½“nè´Ÿå€¼æ—¶å°±ä¸ºä¸‹é¢çš„operator-=æ“ä½œ
   _Self& operator+=(difference_type __n)
   {
-    difference_type __offset = __n + (_M_cur - _M_first);//¶¨ÒåÒ»¸öÖĞ¼ä±äÁ¿
+    difference_type __offset = __n + (_M_cur - _M_first);//å®šä¹‰ä¸€ä¸ªä¸­é—´å˜é‡
     if (__offset >= 0 && __offset < difference_type(_S_buffer_size()))
-		//ÈôÇ°ÒÆn¸ö¾àÀëºó£¬Ä¿±êÒÀÈ»ÔÚÍ¬Ò»¸ö»º³åÇø
-		//ÔòÖ±½ÓÇ°ÒÆn¸ö¾àÀë
+		//è‹¥å‰ç§»nä¸ªè·ç¦»åï¼Œç›®æ ‡ä¾ç„¶åœ¨åŒä¸€ä¸ªç¼“å†²åŒº
+		//åˆ™ç›´æ¥å‰ç§»nä¸ªè·ç¦»
       _M_cur += __n;
     else {
-		//ÈôÇ°ÒÆn¸ö¾àÀëºó£¬Ä¿±ê³¬³ö¸Ã»º³åÇø·¶Î§
-		//__offset / difference_type(_S_buffer_size())¼ÆËãÏòºóÒÆ¶¯¶àÉÙ¸ö»º³åÇø
-		//-difference_type((-__offset - 1) / _S_buffer_size()) - 1¼ÆËãÏòÇ°ÒÆ¶¯¶àÉÙ¸ö»º³åÇø
+		//è‹¥å‰ç§»nä¸ªè·ç¦»åï¼Œç›®æ ‡è¶…å‡ºè¯¥ç¼“å†²åŒºèŒƒå›´
+		//__offset / difference_type(_S_buffer_size())è®¡ç®—å‘åç§»åŠ¨å¤šå°‘ä¸ªç¼“å†²åŒº
+		//-difference_type((-__offset - 1) / _S_buffer_size()) - 1è®¡ç®—å‘å‰ç§»åŠ¨å¤šå°‘ä¸ªç¼“å†²åŒº
       difference_type __node_offset =
         __offset > 0 ? __offset / difference_type(_S_buffer_size())
                    : -difference_type((-__offset - 1) / _S_buffer_size()) - 1;
-	  //µ÷Õûµ½ÕıÈ·µÄ»º³åÇø
+	  //è°ƒæ•´åˆ°æ­£ç¡®çš„ç¼“å†²åŒº
       _M_set_node(_M_node + __node_offset);
-	  //ÇĞ»»ÖÁÕıÈ·µÄÔªËØ
+	  //åˆ‡æ¢è‡³æ­£ç¡®çš„å…ƒç´ 
       _M_cur = _M_first + 
         (__offset - __node_offset * difference_type(_S_buffer_size()));
     }
     return *this;
   }
 
-  //²Ù×÷·û+ÖØÔØ
-  //·µ»Ø²Ù×÷Ö®ºóµÄ¸±±¾
+  //æ“ä½œç¬¦+é‡è½½
+  //è¿”å›æ“ä½œä¹‹åçš„å‰¯æœ¬
   _Self operator+(difference_type __n) const
   {
     _Self __tmp = *this;
-	//µ÷ÓÃoperator+=²Ù×÷
+	//è°ƒç”¨operator+=æ“ä½œ
     return __tmp += __n;
   }
 
-  //ÀûÓÃoperator+=²Ù×÷ÊµÏÖ
+  //åˆ©ç”¨operator+=æ“ä½œå®ç°
   _Self& operator-=(difference_type __n) { return *this += -__n; }
  
   _Self operator-(difference_type __n) const {
@@ -196,8 +196,8 @@ struct _Deque_iterator {
     return __tmp -= __n;
   }
 
-  //·µ»ØÖ¸¶¨Î»ÖÃµÄÔªËØ£¬¼´ÊµÏÖËæ»ú´æÈ¡
-  //¸Ãº¯Êıµ÷ÓÃoperator+£¬operator*
+  //è¿”å›æŒ‡å®šä½ç½®çš„å…ƒç´ ï¼Œå³å®ç°éšæœºå­˜å–
+  //è¯¥å‡½æ•°è°ƒç”¨operator+ï¼Œoperator*
   reference operator[](difference_type __n) const { return *(*this + __n); }
 
   bool operator==(const _Self& __x) const { return _M_cur == __x._M_cur; }
@@ -210,16 +210,16 @@ struct _Deque_iterator {
   bool operator<=(const _Self& __x) const { return !(__x < *this); }
   bool operator>=(const _Self& __x) const { return !(*this < __x); }
 
-  //µ÷Õûµ½ÕıÈ·µÄ»º³åÇø
-  //ÇĞ»»µ½ÕıÈ·µÄÔªËØÎ»ÖÃ
+  //è°ƒæ•´åˆ°æ­£ç¡®çš„ç¼“å†²åŒº
+  //åˆ‡æ¢åˆ°æ­£ç¡®çš„å…ƒç´ ä½ï¿½
   void _M_set_node(_Map_pointer __new_node) {
-    _M_node = __new_node;//Ö¸ÏòĞÂµÄ½Úµã
-    _M_first = *__new_node;//Ö¸ÏòĞÂ½ÚµãµÄÍ·²¿
-    _M_last = _M_first + difference_type(_S_buffer_size());//Ö¸ÏòĞÂ½ÚµãµÄÎ²²¿
+    _M_node = __new_node;//æŒ‡å‘æ–°çš„èŠ‚ç‚¹
+    _M_first = *__new_node;//æŒ‡å‘æ–°èŠ‚ç‚¹çš„å¤´éƒ¨
+    _M_last = _M_first + difference_type(_S_buffer_size());//æŒ‡å‘æ–°èŠ‚ç‚¹çš„å°¾éƒ¨
   }
 };
 
-//operator+µü´úÆ÷ÏòÇ°ÒÆ¶¯n¸öÎ»ÖÃ
+//operator+è¿­ä»£å™¨å‘å‰ç§»åŠ¨nä¸ªä½ç½®
 template <class _Tp, class _Ref, class _Ptr>
 inline _Deque_iterator<_Tp, _Ref, _Ptr>
 operator+(ptrdiff_t __n, const _Deque_iterator<_Tp, _Ref, _Ptr>& __x)
@@ -255,7 +255,7 @@ inline ptrdiff_t* distance_type(const _Deque_iterator<_Tp,_Ref,_Ptr>&) {
 #ifdef __STL_USE_STD_ALLOCATORS
 
 // Base class for ordinary allocators.
-//ÕâÀïÖ»¸ºÔğÖĞ¿ØÆ÷½ÚµãÄÚ´æ¹ÜÀí
+//è¿™é‡Œåªè´Ÿè´£ä¸­æ§å™¨èŠ‚ç‚¹å†…å­˜ç®¡ç†
 template <class _Tp, class _Alloc, bool __is_static>
 class _Deque_alloc_base {
 public:
@@ -285,8 +285,8 @@ protected:
   void _M_deallocate_map(_Tp** __p, size_t __n) 
     { _M_map_allocator.deallocate(__p, __n); }
 
-  _Tp** _M_map; //Ö¸ÏòÖĞ¿ØÆ÷map
-  size_t _M_map_size;//ÖĞ¿ØÆ÷map¿ÉÈİÄÉÖ¸ÕëµÄ¸öÊı
+  _Tp** _M_map; //æŒ‡å‘ä¸­æ§å™¨map
+  size_t _M_map_size;//ä¸­æ§å™¨mapå¯å®¹çº³æŒ‡é’ˆçš„ä¸ªæ•°
 };
 
 // Specialization for instanceless allocators.
@@ -331,7 +331,7 @@ public:
   typedef _Deque_iterator<_Tp,_Tp&,_Tp*>             iterator;
   typedef _Deque_iterator<_Tp,const _Tp&,const _Tp*> const_iterator;
 
-  //²ÎÊı__num_elements±íÊ¾»º³åÇø(½Úµã)´æ´¢ÔªËØµÄ¸öÊı
+  //å‚æ•°__num_elementsè¡¨ç¤ºç¼“å†²åŒº(èŠ‚ç‚¹)å­˜å‚¨å…ƒç´ çš„ä¸ªæ•°
   _Deque_base(const allocator_type& __a, size_t __num_elements)
     : _Base(__a), _M_start(), _M_finish()
     { _M_initialize_map(__num_elements); }
@@ -343,11 +343,11 @@ protected:
   void _M_initialize_map(size_t);
   void _M_create_nodes(_Tp** __nstart, _Tp** __nfinish);
   void _M_destroy_nodes(_Tp** __nstart, _Tp** __nfinish);
-  enum { _S_initial_map_size = 8 };//ÖĞ¿ØÆ÷mapÄ¬ÈÏ´óĞ¡
+  enum { _S_initial_map_size = 8 };//ä¸­æ§å™¨mapé»˜è®¤å¤§å°
 
 protected:
-  iterator _M_start;//Ö¸ÏòµÚÒ»¸ö»º³åÇøµÄµÚÒ»¸öÔªËØ
-  iterator _M_finish;//Ö¸Ïò×îºóÒ»¸ö»º³åÇøµÄ×îºóÒ»¸öÔªËØµÄÏÂÒ»¸öÎ»ÖÃ
+  iterator _M_start;//æŒ‡å‘ç¬¬ä¸€ä¸ªç¼“å†²åŒºçš„ç¬¬ä¸€ä¸ªå…ƒç´ 
+  iterator _M_finish;//æŒ‡å‘æœ€åä¸€ä¸ªç¼“å†²åŒºçš„æœ€åä¸€ä¸ªå…ƒç´ çš„ä¸‹ä¸€ä¸ªä½ç½®
 };
 
 #else /* __STL_USE_STD_ALLOCATORS */
@@ -410,34 +410,34 @@ template <class _Tp, class _Alloc>
 void
 _Deque_base<_Tp,_Alloc>::_M_initialize_map(size_t __num_elements)
 {
-   //¸ù¾İ´æ´¢ÔªËØ¸öÊıºÍ»º³åÇø´óĞ¡¾ö¶¨ÖĞ¿ØÆ÷mapÈİÁ¿
+   //æ ¹æ®å­˜å‚¨å…ƒç´ ä¸ªæ•°å’Œç¼“å†²åŒºå¤§å°å†³å®šä¸­æ§å™¨mapå®¹é‡
 	size_t __num_nodes = 
 		__num_elements / __deque_buf_size(sizeof(_Tp)) + 1;
 
-  //ÔÚÄ¬ÈÏÖµºÍ¼ÆËãÖµÖĞ£¬È¡Æä×î´óÕß
-	//map¹ÜÀíµÄ½Úµã£¬×îÉÙÊÇ8¸ö£¬×î¶àÊÇËùĞè½ÚµãÊı¼ÓÉÏ2¸ö
-	//Ç°ºó¸÷Ô¤ÁôÒ»¸ö£¬·½±ãÀ©³ä
+  //åœ¨é»˜è®¤å€¼å’Œè®¡ç®—å€¼ä¸­ï¼Œå–å…¶æœ€å¤§è€…
+	//mapç®¡ç†çš„èŠ‚ç‚¹ï¼Œæœ€å°‘æ˜¯8ä¸ªï¼Œæœ€å¤šæ˜¯æ‰€éœ€èŠ‚ç‚¹æ•°åŠ ä¸Š2ä¸ª
+	//å‰åå„é¢„ç•™ä¸€ä¸ªï¼Œæ–¹ä¾¿æ‰©å……
   _M_map_size = max((size_t) _S_initial_map_size, __num_nodes + 2);
-  _M_map = _M_allocate_map(_M_map_size);//·ÖÅämapÄÚ´æ¿Õ¼ä
+  _M_map = _M_allocate_map(_M_map_size);//åˆ†é…mapå†…å­˜ç©ºé—´
 
-  //ÈÃstart.nodeºÍfinish.nodeÖ¸ÏòmapµÄÄÚ²¿£¬·½±ãmapµÄÁ½¶ËÀ©³ä
+  //è®©start.nodeå’Œfinish.nodeæŒ‡å‘mapçš„å†…éƒ¨ï¼Œæ–¹ä¾¿mapçš„ä¸¤ç«¯æ‰©å……
   _Tp** __nstart = _M_map + (_M_map_size - __num_nodes) / 2;
   _Tp** __nfinish = __nstart + __num_nodes;
     
   __STL_TRY {
-    _M_create_nodes(__nstart, __nfinish);//·ÖÅämapÊµ¼Ê´æ´¢µÄ½ÚµãÊı¿Õ¼ä
+    _M_create_nodes(__nstart, __nfinish);//åˆ†é…mapå®é™…å­˜å‚¨çš„èŠ‚ç‚¹æ•°ç©ºé—´
   }
   __STL_UNWIND((_M_deallocate_map(_M_map, _M_map_size), 
                 _M_map = 0, _M_map_size = 0));
-  _M_start._M_set_node(__nstart);//Ê¹µü´úÆ÷startÖ¸ÏòÕıÈ·µÄÎ»ÖÃ
-  _M_finish._M_set_node(__nfinish - 1);//Ê¹µü´úÆ÷startÖ¸ÏòÕıÈ·µÄÎ»ÖÃ
-  _M_start._M_cur = _M_start._M_first;//³õÊ¼»¯start.cur,Ê¹ÆäÖ¸ÏòµÚÒ»¸ö»º³åÇøµÄµÚÒ»¸öÔªËØ
-  //³õÊ¼»¯finish.cur,Ê¹ÆäÖ¸Ïò×îºóÒ»¸ö»º³åÇøµÄ×îºóÒ»¸öÔªËØ
+  _M_start._M_set_node(__nstart);//ä½¿è¿­ä»£å™¨startæŒ‡å‘æ­£ç¡®çš„ä½ç½®
+  _M_finish._M_set_node(__nfinish - 1);//ä½¿è¿­ä»£å™¨startæŒ‡å‘æ­£ç¡®çš„ä½ç½®
+  _M_start._M_cur = _M_start._M_first;//åˆå§‹åŒ–start.cur,ä½¿å…¶æŒ‡å‘ç¬¬ä¸€ä¸ªç¼“å†²åŒºçš„ç¬¬ä¸€ä¸ªå…ƒç´ 
+  //åˆå§‹åŒ–finish.cur,ä½¿å…¶æŒ‡å‘æœ€åä¸€ä¸ªç¼“å†²åŒºçš„æœ€åä¸€ä¸ªå…ƒç´ 
   _M_finish._M_cur = _M_finish._M_first +
                __num_elements % __deque_buf_size(sizeof(_Tp));
 }
 
-//·ÖÅämapÊµ¼Ê´æ´¢µÄ½ÚµãÊı¿Õ¼ä
+//åˆ†é…mapå®é™…å­˜å‚¨çš„èŠ‚ç‚¹æ•°ç©ºé—´
 template <class _Tp, class _Alloc>
 void _Deque_base<_Tp,_Alloc>::_M_create_nodes(_Tp** __nstart, _Tp** __nfinish)
 {
@@ -448,7 +448,7 @@ void _Deque_base<_Tp,_Alloc>::_M_create_nodes(_Tp** __nstart, _Tp** __nfinish)
   }
   __STL_UNWIND(_M_destroy_nodes(__nstart, __cur));
 }
-//ÊÍ·ÅmapµÄ½ÚµãÊı¿Õ¼ä
+//é‡Šæ”¾mapçš„èŠ‚ç‚¹æ•°ç©ºé—´
 template <class _Tp, class _Alloc>
 void
 _Deque_base<_Tp,_Alloc>::_M_destroy_nodes(_Tp** __nstart, _Tp** __nfinish)
@@ -457,8 +457,8 @@ _Deque_base<_Tp,_Alloc>::_M_destroy_nodes(_Tp** __nstart, _Tp** __nfinish)
     _M_deallocate_node(*__n);
 }
 
-//dequeÈİÆ÷µÄ¶¨Òå
-//ÅäÖÃÆ÷Ä¬ÈÏÎªµÚ¶ş¼¶ÅäÖÃÆ÷
+//dequeå®¹å™¨çš„å®šä¹‰
+//é…ç½®å™¨é»˜è®¤ä¸ºç¬¬äºŒçº§é…ç½®å™¨
 template <class _Tp, class _Alloc = __STL_DEFAULT_ALLOCATOR(_Tp) >
 class deque : protected _Deque_base<_Tp, _Alloc> {
 
@@ -499,7 +499,7 @@ protected:                      // Internal typedefs
   static size_t _S_buffer_size() { return __deque_buf_size(sizeof(_Tp)); }
 
 protected:
-	//¼Ì³Ğ»ùÀàµÄ³ÉÔ±
+	//ç»§æ‰¿åŸºç±»çš„æˆå‘˜
 #ifdef __STL_USE_NAMESPACES
   using _Base::_M_initialize_map;
   using _Base::_M_create_nodes;
@@ -509,7 +509,7 @@ protected:
   using _Base::_M_allocate_map;
   using _Base::_M_deallocate_map;
 
-  //ÏÂÃæÊÇdequeµÄÊı¾İ½á¹¹
+  //ä¸‹é¢æ˜¯dequeçš„æ•°æ®ç»“æ„
   using _Base::_M_map;
   using _Base::_M_map_size;
   using _Base::_M_start;
@@ -529,34 +529,34 @@ public:                         // Basic accessors
   const_reverse_iterator rend() const 
     { return const_reverse_iterator(_M_start); }
 
-  //Ëæ»ú·ÃÎÊ£¬ÕâÀïµ÷ÓÃµü´úÆ÷µÄÖØÔØ²Ù×÷operator[]
+  //éšæœºè®¿é—®ï¼Œè¿™é‡Œè°ƒç”¨è¿­ä»£å™¨çš„é‡è½½æ“ä½œoperator[]
   reference operator[](size_type __n)
     { return _M_start[difference_type(__n)]; }
   const_reference operator[](size_type __n) const 
     { return _M_start[difference_type(__n)]; }
 
-//Ô½½ç¼ì²é
+//è¶Šç•Œæ£€æŸ¥
 #ifdef __STL_THROW_RANGE_ERRORS
   void _M_range_check(size_type __n) const {
     if (__n >= this->size())
       __stl_throw_range_error("deque");
   }
 
-  //·ÃÎÊÖ¸¶¨Î»ÖÃµÄÔªËØ
+  //è®¿é—®æŒ‡å®šä½ç½®çš„å…ƒç´ 
   reference at(size_type __n)
     { _M_range_check(__n); return (*this)[__n]; }
   const_reference at(size_type __n) const
     { _M_range_check(__n); return (*this)[__n]; }
 #endif /* __STL_THROW_RANGE_ERRORS */
 
-  //·µ»ØµÚÒ»¸ö»º³åÇøµÄµÚÒ»¸öÔªËØ
-  //µ÷ÓÃµü´úÆ÷µÄoperator*
+  //è¿”å›ç¬¬ä¸€ä¸ªç¼“å†²åŒºçš„ç¬¬ä¸€ä¸ªå…ƒç´ 
+  //è°ƒç”¨è¿­ä»£å™¨çš„operator*
   reference front() { return *_M_start; }
-  //·µ»Ø×îºóÒ»¸ö»º³åÇøµÄ×îºóÒ»¸öÔªËØ
+  //è¿”å›æœ€åä¸€ä¸ªç¼“å†²åŒºçš„æœ€åä¸€ä¸ªå…ƒç´ 
   reference back() {
     iterator __tmp = _M_finish;
-    --__tmp;//µ÷ÓÃµü´úÆ÷µÄoperator--
-    return *__tmp;//µ÷ÓÃµü´úÆ÷µÄoperator*
+    --__tmp;//è°ƒç”¨è¿­ä»£å™¨çš„operator--
+    return *__tmp;//è°ƒç”¨è¿­ä»£å™¨çš„operator*
   }
   const_reference front() const { return *_M_start; }
   const_reference back() const {
@@ -565,11 +565,11 @@ public:                         // Basic accessors
     return *__tmp;
   }
 
-  //·µ»ØdequeÈİÆ÷´óĞ¡£¬¼´ÈİÆ÷ÔªËØ¸öÊı
-  //µ÷ÓÃµü´úÆ÷µÄoperator-
+  //è¿”å›dequeå®¹å™¨å¤§å°ï¼Œå³å®¹å™¨å…ƒç´ ä¸ªæ•°
+  //è°ƒç”¨è¿­ä»£å™¨çš„operator-
   size_type size() const { return _M_finish - _M_start; }
   size_type max_size() const { return size_type(-1); }
-  //ÅĞ¶ÏÈİÆ÷ÊÇ·ñÎª¿Õ
+  //åˆ¤æ–­å®¹å™¨æ˜¯å¦ä¸ºç©º
   /*Start and Finish are always nonsingular iterators.  NOTE: this means
    *    that an empty deque must have one node
    */
@@ -577,26 +577,26 @@ public:                         // Basic accessors
 
 public:                         
 	//**********************************************************
-	//*	ÒÔÏÂÊÇ¹¹Ôìº¯ÊıºÍÎö¹¹º¯Êı
-	//*	Ä¬ÈÏ¹¹Ôìº¯Êı
+	//*	ä»¥ä¸‹æ˜¯æ„é€ å‡½æ•°å’Œææ„å‡½æ•°
+	//*	é»˜è®¤æ„é€ å‡½æ•°
 	//*	explicit deque( const Allocator& alloc = Allocator() );
-	//*	ÈİÆ÷´óĞ¡Îªcount¸ö³õÊ¼ÖµÎªvalueµÄÔªËØ
+	//*	å®¹å™¨å¤§å°ä¸ºcountä¸ªåˆå§‹å€¼ä¸ºvalueçš„å…ƒç´ 
 	//*	explicit deque( size_type count,
     //*            const T& value = T(),
     //*            const Allocator& alloc = Allocator());
     //*     deque( size_type count,
     //*            const T& value,
     //*            const Allocator& alloc = Allocator());
-	//*	ÈİÆ÷´óĞ¡Îªcount¸öÄ¬ÈÏÖµµÄÔªËØ
+	//*	å®¹å™¨å¤§å°ä¸ºcountä¸ªé»˜è®¤å€¼çš„å…ƒç´ 
 	//*	explicit deque( size_type count );
-	//*	¿½±´¹¹Ôìº¯Êı
+	//*	æ‹·è´æ„é€ å‡½æ•°
 	//*	deque( const deque& other );
 	//*	deque( const deque& other, const Allocator& alloc );
-	//*	³õÊ¼ÖµÎª[first,last)ÄÚÈİµÄÈİÆ÷
+	//*	åˆå§‹å€¼ä¸º[first,last)å†…å®¹çš„å®¹å™¨
 	//*	template< class InputIt >
 	//*	deque( InputIt first, InputIt last,
 	//*			const Allocator& alloc = Allocator() );	
-	//*	Îö¹¹º¯Êı
+	//*	ææ„å‡½æ•°
 	//*	~deque()
 	//*
 	//********************************************************
@@ -647,9 +647,9 @@ public:
 #endif /* __STL_MEMBER_TEMPLATES */
 
   ~deque() { destroy(_M_start, _M_finish); }
-  //¹¹Ôìº¯ÊıºÍÎö¹¹º¯Êı¶¨Òå½áÊø
+  //æ„é€ å‡½æ•°å’Œææ„å‡½æ•°å®šä¹‰ç»“æŸ
 
- //ÈİÆ÷¶ÔÏó¸³Öµ²Ù×÷
+ //å®¹å™¨å¯¹è±¡èµ‹å€¼æ“ä½œ
   deque& operator= (const deque& __x) {
     const size_type __len = size();
     if (&__x != this) {
@@ -664,9 +664,9 @@ public:
     return *this;
   }        
 
-  //½»»»Á½¸öÈİÆ÷µÄÄÚÈİ
-  //ÕâÀïÊµ¼ÊÉÏ²¢Ã»ÓĞ½»»»¾ßÌåµÄÔªËØ£¬¶øÊÇ½»»»µü´úÆ÷
-  //ºÍÖĞ¿ØÆ÷ĞÅÏ¢
+  //äº¤æ¢ä¸¤ä¸ªå®¹å™¨çš„å†…å®¹
+  //è¿™é‡Œå®é™…ä¸Šå¹¶æ²¡æœ‰äº¤æ¢å…·ä½“çš„å…ƒç´ ï¼Œè€Œæ˜¯äº¤æ¢è¿­ä»£å™¨
+  //å’Œä¸­æ§å™¨ä¿¡æ¯
   void swap(deque& __x) {
     __STD::swap(_M_start, __x._M_start);
     __STD::swap(_M_finish, __x._M_finish);
@@ -681,23 +681,23 @@ public:
   // or not the type is an integer.
 
   void _M_fill_assign(size_type __n, const _Tp& __val) {
-    if (__n > size()) {//ÈôĞÂµÄ´óĞ¡±ÈÈİÆ÷Ô­À´µÄ´ó
-      fill(begin(), end(), __val);//°ÑÔ­À´ÈİÆ÷Ìî³äÎªval
-      insert(end(), __n - size(), __val);//ÈİÆ÷×·¼ÓÌî³äÖµ
+    if (__n > size()) {//è‹¥æ–°çš„å¤§å°æ¯”å®¹å™¨åŸæ¥çš„å¤§
+      fill(begin(), end(), __val);//æŠŠåŸæ¥å®¹å™¨å¡«å……ä¸ºval
+      insert(end(), __n - size(), __val);//å®¹å™¨è¿½åŠ å¡«å……å€¼
     }
-    else {//ÈôĞÂµÄ´óĞ¡±ÈÈİÆ÷Ô­À´µÄĞ¡
-      erase(begin() + __n, end());//Ôò²Á³ı¶àÓàµÄÄÚÈİ
-      fill(begin(), end(), __val);//Ìî³äÖµÎªval¸²¸ÇÔ­À´µÄÄÚÈİ
+    else {//è‹¥æ–°çš„å¤§å°æ¯”å®¹å™¨åŸæ¥çš„å°
+      erase(begin() + __n, end());//åˆ™æ“¦é™¤å¤šä½™çš„å†…å®¹
+      fill(begin(), end(), __val);//å¡«å……å€¼ä¸ºvalè¦†ç›–åŸæ¥çš„å†…å®¹
     }
   }
-  //¶ÔÍâ½Ó¿ÚµÄassignµÚÒ»¸ö°æ±¾
+  //å¯¹å¤–æ¥å£çš„assignç¬¬ä¸€ä¸ªç‰ˆæœ¬
   void assign(size_type __n, const _Tp& __val) {
     _M_fill_assign(__n, __val);
   }
 
 #ifdef __STL_MEMBER_TEMPLATES
-  //¶ÔÍâ½Ó¿ÚµÄassignµÚ¶ş¸ö°æ±¾
-  //²ÉÓÃµü´úÆ÷µÄtraist¼¼Êõ
+  //å¯¹å¤–æ¥å£çš„assignç¬¬äºŒä¸ªç‰ˆæœ¬
+  //é‡‡ç”¨è¿­ä»£å™¨çš„traistæŠ€æœ¯
   template <class _InputIterator>
   void assign(_InputIterator __first, _InputIterator __last) {
     typedef typename _Is_integer<_InputIterator>::_Integral _Integral;
@@ -724,14 +724,14 @@ private:                        // helper functions for assign()
   void _M_assign_aux(_ForwardIterator __first, _ForwardIterator __last,
                      forward_iterator_tag) {
     size_type __len = 0;
-    distance(__first, __last, __len);//¼ÆËãÁ½¸öÊäÈëµü´úÆ÷µÄ¾àÀë
-    if (__len > size()) {//ÈôÊäÈëµü´úÆ÷¾àÀë±È´ı¸³ÖµÈİÆ÷´óĞ¡»¹´ó
+    distance(__first, __last, __len);//è®¡ç®—ä¸¤ä¸ªè¾“å…¥è¿­ä»£å™¨çš„è·ç¦»
+    if (__len > size()) {//è‹¥è¾“å…¥è¿­ä»£å™¨è·ç¦»æ¯”å¾…èµ‹å€¼å®¹å™¨å¤§å°è¿˜å¤§
       _ForwardIterator __mid = __first;
-      advance(__mid, size());//½«midÏòÇ°ÒÆ¶¯size()¸ö¾àÀë
-      copy(__first, __mid, begin());//ÏÈ¸´ÖÆ[first,mid)Êı¾İ
-      insert(end(), __mid, __last);//²åÈëÊ£ÏÂµÄÊı¾İ
+      advance(__mid, size());//å°†midå‘å‰ç§»åŠ¨size()ä¸ªè·ç¦»
+      copy(__first, __mid, begin());//å…ˆå¤åˆ¶[first,mid)æ•°æ®
+      insert(end(), __mid, __last);//æ’å…¥å‰©ä¸‹çš„æ•°æ®
     }
-    else//·ñÔò²Á³ı¶àÓàµÄÊı¾İ
+    else//å¦åˆ™æ“¦é™¤å¤šä½™çš„æ•°æ®
       erase(copy(__first, __last, begin()), end());
   }
 
@@ -740,15 +740,15 @@ private:                        // helper functions for assign()
 
 public:                         // push_* and pop_*
   
-  //ÔÚÈİÆ÷Î²²¿¼ÓÊı¾İ
+  //åœ¨å®¹å™¨å°¾éƒ¨åŠ æ•°æ®
 	void push_back(const value_type& __t) {
-    //Èôµ±Ç°»º³åÇø´æÔÚ¿ÉÓÃ¿Õ¼ä
+    //è‹¥å½“å‰ç¼“å†²åŒºå­˜åœ¨å¯ç”¨ç©ºé—´
 	if (_M_finish._M_cur != _M_finish._M_last - 1) {
-      construct(_M_finish._M_cur, __t);//Ö±½Ó¹¹Ôì¶ÔÏó
-      ++_M_finish._M_cur;//µ÷ÕûÖ¸ÕëËùÖ¸Î»ÖÃ
+      construct(_M_finish._M_cur, __t);//ç›´æ¥æ„é€ å¯¹è±¡
+      ++_M_finish._M_cur;//è°ƒæ•´æŒ‡é’ˆæ‰€æŒ‡ä½ç½®
     }
-    else//Èôµ±Ç°»º³åÇø²»´æÔÚ¿ÉÓÃ¿Õ¼ä
-		//Ğè·ÖÅäÒ»¶ÎĞÂµÄÁ¬Ğø¿Õ¼ä
+    else//è‹¥å½“å‰ç¼“å†²åŒºä¸å­˜åœ¨å¯ç”¨ç©ºé—´
+		//éœ€åˆ†é…ä¸€æ®µæ–°çš„è¿ç»­ç©ºé—´
       _M_push_back_aux(__t);
   }
 
@@ -801,7 +801,7 @@ public:                         // push_* and pop_*
 
 public:             
 	//***********************************************************
-	/*	ÔÚÖ¸¶¨Î»ÖÃÖ®Ç°²åÈëÊı¾İ
+	/*	åœ¨æŒ‡å®šä½ç½®ä¹‹å‰æ’å…¥æ•°æ®
 	*************************************************************
 	*	iterator insert (iterator position, const value_type& val);
 	*
@@ -814,17 +814,17 @@ public:
 													// Insert
 
   iterator insert(iterator position, const value_type& __x) {
-    if (position._M_cur == _M_start._M_cur) {//Èôµ±Ç°Î»ÖÃÎªdeque.begin()
-      push_front(__x);//ÔòÔÚÈİÆ÷Í·²¿²åÈëÊı¾İ
+    if (position._M_cur == _M_start._M_cur) {//è‹¥å½“å‰ä½ç½®ä¸ºdeque.begin()
+      push_front(__x);//åˆ™åœ¨å®¹å™¨å¤´éƒ¨æ’å…¥æ•°æ®
       return _M_start;
     }
-    else if (position._M_cur == _M_finish._M_cur) {//Èôµ±Ç°Î»ÖÃÎªdeque.end()
+    else if (position._M_cur == _M_finish._M_cur) {//è‹¥å½“å‰ä½ç½®ä¸ºdeque.end()
       push_back(__x);
       iterator __tmp = _M_finish;
       --__tmp;
       return __tmp;
     }
-    else {//·ñÔòÔÚÈİÆ÷Ö±½Ó²åÈëÊı¾İ
+    else {//å¦åˆ™åœ¨å®¹å™¨ç›´æ¥æ’å…¥æ•°æ®
       return _M_insert_aux(position, __x);
     }
   }
@@ -868,12 +868,12 @@ public:
 
 #endif /* __STL_MEMBER_TEMPLATES */
 
-  //¸Ä±äÈİÆ÷´óĞ¡
+  //æ”¹å˜å®¹å™¨å¤§å°
   void resize(size_type __new_size, const value_type& __x) {
     const size_type __len = size();
-    if (__new_size < __len)//ĞÂµÄ´óĞ¡½Ï¾ÉµÄĞ¡ 
-      erase(_M_start + __new_size, _M_finish);//²Á³ı¶àÓàµÄÔªËØ
-    else//·ñÔò£¬Ìî³äĞÂÔöµÄ½Úµã
+    if (__new_size < __len)//æ–°çš„å¤§å°è¾ƒæ—§çš„å° 
+      erase(_M_start + __new_size, _M_finish);//æ“¦é™¤å¤šä½™çš„å…ƒç´ 
+    else//å¦åˆ™ï¼Œå¡«å……æ–°å¢çš„èŠ‚ç‚¹
       insert(_M_finish, __new_size - __len, __x);
   }
 
@@ -881,9 +881,9 @@ public:
 
 public:          
 		//********************************************************
-		/*	²Á³ıÖ¸¶¨Î»ÖÃµÄÔªËØ
+		/*	æ“¦é™¤æŒ‡å®šä½ç½®çš„å…ƒç´ 
 		*	iterator erase (iterator position);
-		*	²Á³ıÖ¸¶¨Çø¼äµÄÔªËØ
+		*	æ“¦é™¤æŒ‡å®šåŒºé—´çš„å…ƒç´ 
 		*	iterator erase (iterator first, iterator last);
 		*/
 		//********************************************************
@@ -891,13 +891,13 @@ public:
   iterator erase(iterator __pos) {
     iterator __next = __pos;
     ++__next;
-    difference_type __index = __pos - _M_start;//²Á³ıµãÖ®Ç°ÔªËØ¸öÊı
-    if (size_type(__index) < (this->size() >> 1)) {//Èô²Á³ıµãÖ®Ç°µÄÔªËØ¸öÊı½ÏÉÙ
-      copy_backward(_M_start, __pos, __next);//ÏòºóÒÆ¶¯²Á³ıµãÖ®Ç°µÄÔªËØ
+    difference_type __index = __pos - _M_start;//æ“¦é™¤ç‚¹ä¹‹å‰å…ƒç´ ä¸ªæ•°
+    if (size_type(__index) < (this->size() >> 1)) {//è‹¥æ“¦é™¤ç‚¹ä¹‹å‰çš„å…ƒç´ ä¸ªæ•°è¾ƒå°‘
+      copy_backward(_M_start, __pos, __next);//å‘åç§»åŠ¨æ“¦é™¤ç‚¹ä¹‹å‰çš„å…ƒç´ 
       pop_front();
     }
     else {
-      copy(__next, _M_finish, __pos);//·ñÔò£¬ÏòÇ°ÒÆ¶¯²Á³ıµãÖ®ºóµÄÔªËØ
+      copy(__next, _M_finish, __pos);//å¦åˆ™ï¼Œå‘å‰ç§»åŠ¨æ“¦é™¤ç‚¹ä¹‹åçš„å…ƒç´ 
       pop_back();
     }
     return _M_start + __index;
@@ -993,13 +993,13 @@ protected:                      // Allocation of _M_map and nodes
   //  deque iterators.)
 
   void _M_reserve_map_at_back (size_type __nodes_to_add = 1) {
-	  //_M_map_size - (_M_finish._M_node - _M_map)±íÊ¾mapÎ²¶Ë½ÚµãµÄ±¸ÓÃ¿Õ¼ä
+	  //_M_map_size - (_M_finish._M_node - _M_map)è¡¨ç¤ºmapå°¾ç«¯èŠ‚ç‚¹çš„å¤‡ç”¨ç©ºé—´
     if (__nodes_to_add + 1 > _M_map_size - (_M_finish._M_node - _M_map))
       _M_reallocate_map(__nodes_to_add, false);
   }
 
   void _M_reserve_map_at_front (size_type __nodes_to_add = 1) {
-	   //_M_start._M_node - _M_map±íÊ¾mapÍ·²¿½ÚµãµÄ±¸ÓÃ¿Õ¼ä
+	   //_M_start._M_node - _M_mapè¡¨ç¤ºmapå¤´éƒ¨èŠ‚ç‚¹çš„å¤‡ç”¨ç©ºé—´
     if (__nodes_to_add > size_type(_M_start._M_node - _M_map))
       _M_reallocate_map(__nodes_to_add, true);
   }
@@ -1019,9 +1019,9 @@ void deque<_Tp, _Alloc>
   iterator __cur = begin();
   for ( ; __first != __last && __cur != end(); ++__cur, ++__first)
     *__cur = *__first;
-  if (__first == __last)//Èôµ±Ç°ÈİÆ÷±ÈÊäÈëµü´úÆ÷¾àÀë´ó
-    erase(__cur, end());//²Á³ı¶àÓàµÄÊı¾İ
-  else//·ñÔò²åÈëÊ£ÏÂµÄÊı¾İ
+  if (__first == __last)//è‹¥å½“å‰å®¹å™¨æ¯”è¾“å…¥è¿­ä»£å™¨è·ç¦»å¤§
+    erase(__cur, end());//æ“¦é™¤å¤šä½™çš„æ•°æ®
+  else//å¦åˆ™æ’å…¥å‰©ä¸‹çš„æ•°æ®
     insert(end(), __first, __last);
 }
 
@@ -1031,7 +1031,7 @@ template <class _Tp, class _Alloc>
 void deque<_Tp, _Alloc>::_M_fill_insert(iterator __pos,
                                         size_type __n, const value_type& __x)
 {
-  if (__pos._M_cur == _M_start._M_cur) {//Èô²åÈëµãÔÚÈİÆ÷Í·²¿
+  if (__pos._M_cur == _M_start._M_cur) {//è‹¥æ’å…¥ç‚¹åœ¨å®¹å™¨å¤´éƒ¨
     iterator __new_start = _M_reserve_elements_at_front(__n);
     __STL_TRY {
       uninitialized_fill(__new_start, _M_start, __x);
@@ -1039,7 +1039,7 @@ void deque<_Tp, _Alloc>::_M_fill_insert(iterator __pos,
     }
     __STL_UNWIND(_M_destroy_nodes(__new_start._M_node, _M_start._M_node));
   }
-  else if (__pos._M_cur == _M_finish._M_cur) {//Èô²åÈëµãÔÚÈİÆ÷Î²²¿
+  else if (__pos._M_cur == _M_finish._M_cur) {//è‹¥æ’å…¥ç‚¹åœ¨å®¹å™¨å°¾éƒ¨
     iterator __new_finish = _M_reserve_elements_at_back(__n);
     __STL_TRY {
       uninitialized_fill(_M_finish, __new_finish, __x);
@@ -1112,7 +1112,7 @@ template <class _Tp, class _Alloc>
 typename deque<_Tp,_Alloc>::iterator 
 deque<_Tp,_Alloc>::erase(iterator __first, iterator __last)
 {
-  if (__first == _M_start && __last == _M_finish) {//Èô²Á³ıÕû¸öÈİÆ÷ÄÚÈİ
+  if (__first == _M_start && __last == _M_finish) {//è‹¥æ“¦é™¤æ•´ä¸ªå®¹å™¨å†…å®¹
     clear();
     return _M_finish;
   }
@@ -1137,11 +1137,11 @@ deque<_Tp,_Alloc>::erase(iterator __first, iterator __last)
   }
 }
 
-//Çå¿ÕÈİÆ÷ÄÚÈİ
+//æ¸…ç©ºå®¹å™¨å†…å®¹
 template <class _Tp, class _Alloc> 
 void deque<_Tp,_Alloc>::clear()
 {
-  //Ê×ÏÈÇå¿Õ»º³åÇøÊÇÂúÊı¾İµÄ½Úµã
+  //é¦–å…ˆæ¸…ç©ºç¼“å†²åŒºæ˜¯æ»¡æ•°æ®çš„èŠ‚ç‚¹
 	for (_Map_pointer __node = _M_start._M_node + 1;
        __node < _M_finish._M_node;
        ++__node) {
@@ -1149,7 +1149,7 @@ void deque<_Tp,_Alloc>::clear()
     _M_deallocate_node(*__node);
   }
 
- //Çå³ı»º³åÇø»¹´æÔÚ¿ÉÓÃ¿Õ¼äµÄ½Úµã£¬¼´Ö»´æ´¢²¿·ÖÊı¾İ
+ //æ¸…é™¤ç¼“å†²åŒºè¿˜å­˜åœ¨å¯ç”¨ç©ºé—´çš„èŠ‚ç‚¹ï¼Œå³åªå­˜å‚¨éƒ¨åˆ†æ•°æ®
 	if (_M_start._M_node != _M_finish._M_node) {
     destroy(_M_start._M_cur, _M_start._M_last);
     destroy(_M_finish._M_first, _M_finish._M_cur);
@@ -1158,7 +1158,7 @@ void deque<_Tp,_Alloc>::clear()
   else
     destroy(_M_start._M_cur, _M_finish._M_cur);
 
-  _M_finish = _M_start;//±íÊ¾ÈİÆ÷Îª¿Õ
+  _M_finish = _M_start;//è¡¨ç¤ºå®¹å™¨ä¸ºç©º
 }
 
 // Precondition: _M_start and _M_finish have already been initialized,
@@ -1166,10 +1166,10 @@ void deque<_Tp,_Alloc>::clear()
 template <class _Tp, class _Alloc>
 void deque<_Tp,_Alloc>::_M_fill_initialize(const value_type& __value) {
   _Map_pointer __cur;
-  __STL_TRY {//ÎªÃ¿¸ö½ÚµãµÄ»º³åÇøÉèÖÃ³õÖµ
+  __STL_TRY {//ä¸ºæ¯ä¸ªèŠ‚ç‚¹çš„ç¼“å†²åŒºè®¾ç½®åˆå€¼
     for (__cur = _M_start._M_node; __cur < _M_finish._M_node; ++__cur)
       uninitialized_fill(*__cur, *__cur + _S_buffer_size(), __value);
-	//×îºóÒ»¸ö»º³åÇø±ØĞëµ¥¶ÀÉèÖÃ³õÖµ£¬ÒòÎª¿ÉÄÜ´æÔÚ¿ÉÓÃ¿Õ¼ä
+	//æœ€åä¸€ä¸ªç¼“å†²åŒºå¿…é¡»å•ç‹¬è®¾ç½®åˆå€¼ï¼Œå› ä¸ºå¯èƒ½å­˜åœ¨å¯ç”¨ç©ºé—´
     uninitialized_fill(_M_finish._M_first, _M_finish._M_cur, __value);
   }
   __STL_UNWIND(destroy(_M_start, iterator(*__cur, __cur)));
@@ -1221,8 +1221,8 @@ template <class _Tp, class _Alloc>
 void deque<_Tp,_Alloc>::_M_push_back_aux(const value_type& __t)
 {
   value_type __t_copy = __t;
-  _M_reserve_map_at_back();//µ÷Õûmap
-  *(_M_finish._M_node + 1) = _M_allocate_node();//·ÖÅäÒ»¸öĞÂµÄ½Úµã
+  _M_reserve_map_at_back();//è°ƒæ•´map
+  *(_M_finish._M_node + 1) = _M_allocate_node();//åˆ†é…ä¸€ä¸ªæ–°çš„èŠ‚ç‚¹
   __STL_TRY {
     construct(_M_finish._M_cur, __t_copy);
     _M_finish._M_set_node(_M_finish._M_node + 1);
@@ -1341,18 +1341,18 @@ template <class _Tp, class _Alloc>
 typename deque<_Tp, _Alloc>::iterator
 deque<_Tp,_Alloc>::_M_insert_aux(iterator __pos, const value_type& __x)
 {
-  difference_type __index = __pos - _M_start;//¼ÆËã²åÈëµãÖ®Ç°ÔªËØ¸öÊı
+  difference_type __index = __pos - _M_start;//è®¡ç®—æ’å…¥ç‚¹ä¹‹å‰å…ƒç´ ä¸ªæ•°
   value_type __x_copy = __x;
-  if (size_type(__index) < this->size() / 2) {//Èô²åÈëµãÖ®Ç°µÄÔªËØ½ÏÉÙ
-    push_front(front());//ÏÈÔÚÈİÆ÷Í·²¿²åÈëÓëµÚÒ»¸öÔªËØÏàÍ¬µÄÔªËØ
+  if (size_type(__index) < this->size() / 2) {//è‹¥æ’å…¥ç‚¹ä¹‹å‰çš„å…ƒç´ è¾ƒå°‘
+    push_front(front());//å…ˆåœ¨å®¹å™¨å¤´éƒ¨æ’å…¥ä¸ç¬¬ä¸€ä¸ªå…ƒç´ ç›¸åŒçš„å…ƒç´ 
     iterator __front1 = _M_start;
     ++__front1;
     iterator __front2 = __front1;
     ++__front2;
-    __pos = _M_start + __index;//ÕâÀïµÄposÏà½ÏÓë½ÓÊÜ²ÎÊıµÄposÒÑ¾­Ç°ÒÆÒ»Î»ÁË
+    __pos = _M_start + __index;//è¿™é‡Œçš„posç›¸è¾ƒä¸æ¥å—å‚æ•°çš„poså·²ç»å‰ç§»ä¸€ä½äº†
     iterator __pos1 = __pos;
     ++__pos1;
-	//Ô­ĞÍ
+	//åŸå‹
 	/*
 	*	template<class InputIterator, class OutputIterator>
 	*	OutputIterator copy (InputIterator first, InputIterator last, OutputIterator result)
@@ -1364,16 +1364,16 @@ deque<_Tp,_Alloc>::_M_insert_aux(iterator __pos, const value_type& __x)
 	*	  return result;
 	*	}
 	*/
-    copy(__front2, __pos1, __front1);//ÒÆ¶¯ÔªËØ
+    copy(__front2, __pos1, __front1);//ç§»åŠ¨å…ƒç´ 
   }
-  else {//Èô²åÈëµãÖ®ºóµÄÔªËØ½ÏÉÙ
-    push_back(back());//ÏÈÔÚÈİÆ÷Î²²¿²åÈëÓë×îºóÒ»¸öÔªËØÏàÍ¬µÄÔªËØ
+  else {//è‹¥æ’å…¥ç‚¹ä¹‹åçš„å…ƒç´ è¾ƒå°‘
+    push_back(back());//å…ˆåœ¨å®¹å™¨å°¾éƒ¨æ’å…¥ä¸æœ€åä¸€ä¸ªå…ƒç´ ç›¸åŒçš„å…ƒç´ 
     iterator __back1 = _M_finish;
     --__back1;
     iterator __back2 = __back1;
     --__back2;
-    __pos = _M_start + __index;//ÕâÀïµÄposÓë½ÓÊÜ²ÎÊıµÄposÏàÍ¬
-	//**Ô­ĞÍ
+    __pos = _M_start + __index;//è¿™é‡Œçš„posä¸æ¥å—å‚æ•°çš„posç›¸åŒ
+	//**åŸå‹
 	//*	template<class BidirectionalIterator1, class BidirectionalIterator2>
 	//*	BidirectionalIterator2 copy_backward ( BidirectionalIterator1 first,
     //*                                     BidirectionalIterator1 last,
@@ -1382,7 +1382,7 @@ deque<_Tp,_Alloc>::_M_insert_aux(iterator __pos, const value_type& __x)
 	//*	  while (last!=first) *(--result) = *(--last);
 	//*	  return result;
 	//*	}
-    copy_backward(__pos, __back2, __back1);//ÒÆ¶¯ÔªËØ
+    copy_backward(__pos, __back2, __back1);//ç§»åŠ¨å…ƒç´ 
   }
   *__pos = __x_copy;
   return __pos;
@@ -1692,13 +1692,13 @@ template <class _Tp, class _Alloc>
 void deque<_Tp,_Alloc>::_M_reallocate_map(size_type __nodes_to_add,
                                           bool __add_at_front)
 {
-  //mapÔ­Ê¼½ÚµãÊı
+  //mapåŸå§‹èŠ‚ç‚¹æ•°
   size_type __old_num_nodes = _M_finish._M_node - _M_start._M_node + 1;
-  //mapĞÂµÄ½ÚµãÊı
+  //mapæ–°çš„èŠ‚ç‚¹æ•°
   size_type __new_num_nodes = __old_num_nodes + __nodes_to_add;
 
   _Map_pointer __new_nstart;
-  if (_M_map_size > 2 * __new_num_nodes) {//ÈômapµÄ´óĞ¡±ÈĞÂ½ÚµãÊıµÄÁ½±¶»¹´ó£¬ÔòÖ»Ğèµ÷Õûµü´úÆ÷startºÍfinish
+  if (_M_map_size > 2 * __new_num_nodes) {//è‹¥mapçš„å¤§å°æ¯”æ–°èŠ‚ç‚¹æ•°çš„ä¸¤å€è¿˜å¤§ï¼Œåˆ™åªéœ€è°ƒæ•´è¿­ä»£å™¨startå’Œfinish
     __new_nstart = _M_map + (_M_map_size - __new_num_nodes) / 2 
                      + (__add_at_front ? __nodes_to_add : 0);
     if (__new_nstart < _M_start._M_node)
@@ -1707,23 +1707,23 @@ void deque<_Tp,_Alloc>::_M_reallocate_map(size_type __nodes_to_add,
       copy_backward(_M_start._M_node, _M_finish._M_node + 1, 
                     __new_nstart + __old_num_nodes);
   }
-  else {//·ñÔòĞèÖØĞÂ·ÖÅäÒ»¸öĞÂµÄmap¿Õ¼ä
+  else {//å¦åˆ™éœ€é‡æ–°åˆ†é…ä¸€ä¸ªæ–°çš„mapç©ºé—´
     size_type __new_map_size = 
       _M_map_size + max(_M_map_size, __nodes_to_add) + 2;
 
     _Map_pointer __new_map = _M_allocate_map(__new_map_size);
     __new_nstart = __new_map + (__new_map_size - __new_num_nodes) / 2
                          + (__add_at_front ? __nodes_to_add : 0);
-    //¿½±´Ô­Ê¼mapµÄÄÚÈİ
+    //æ‹·è´åŸå§‹mapçš„å†…å®¹
 	copy(_M_start._M_node, _M_finish._M_node + 1, __new_nstart);
-	//ÊÍ·ÅÔ­Ê¼map¿Õ¼ä
+	//é‡Šæ”¾åŸå§‹mapç©ºé—´
     _M_deallocate_map(_M_map, _M_map_size);
-	//¸üĞÂmapµÄÆğÊ¼µØÖ·ºÍ´óĞ¡
+	//æ›´æ–°mapçš„èµ·å§‹åœ°å€å’Œå¤§å°
     _M_map = __new_map;
     _M_map_size = __new_map_size;
   }
 
-  //¸üĞÂµü´úÆ÷startºÍfinish
+  //æ›´æ–°è¿­ä»£å™¨startå’Œfinish
   _M_start._M_set_node(__new_nstart);
   _M_finish._M_set_node(__new_nstart + __old_num_nodes - 1);
 }

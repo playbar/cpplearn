@@ -1,23 +1,23 @@
 // merge, with and without an explicitly supplied comparison function.
-//½«Á½¸öÒÑÅÅĞòµÄÇø¼ä[first1,last1)ºÍÇø¼ä[first2,last2)ºÏ²¢
+//å°†ä¸¤ä¸ªå·²æ’åºçš„åŒºé—´[first1,last1)å’ŒåŒºé—´[first2,last2)åˆå¹¶
 /*
-º¯Êı¹¦ÄÜ£ºCombines the elements in the sorted ranges [first1,last1) and [first2,last2), 
+å‡½æ•°åŠŸèƒ½ï¼šCombines the elements in the sorted ranges [first1,last1) and [first2,last2), 
 into a new range beginning at result with all its elements sorted.
 
-º¯ÊıÔ­ĞÍ£º
-default (1)	£º°æ±¾Ò»
+å‡½æ•°åŸå‹ï¼š
+default (1)	ï¼šç‰ˆæœ¬ä¸€
 	template <class InputIterator1, class InputIterator2, class OutputIterator>
 	OutputIterator merge (InputIterator1 first1, InputIterator1 last1,
                         InputIterator2 first2, InputIterator2 last2,
                         OutputIterator result);
-custom (2)	£º°æ±¾¶ş
+custom (2)	ï¼šç‰ˆæœ¬äºŒ
 	template <class InputIterator1, class InputIterator2,
           class OutputIterator, class Compare>
 	OutputIterator merge (InputIterator1 first1, InputIterator1 last1,
                         InputIterator2 first2, InputIterator2 last2,
                         OutputIterator result, Compare comp);
 */
-//°æ±¾Ò»£º
+//ç‰ˆæœ¬ä¸€ï¼š
 template <class _InputIter1, class _InputIter2, class _OutputIter>
 _OutputIter merge(_InputIter1 __first1, _InputIter1 __last1,
                   _InputIter2 __first2, _InputIter2 __last2,
@@ -30,30 +30,30 @@ _OutputIter merge(_InputIter1 __first1, _InputIter1 __last1,
           typename iterator_traits<_InputIter2>::value_type);
   __STL_REQUIRES(typename iterator_traits<_InputIter1>::value_type,
                  _LessThanComparable);
-  //Á½¸öĞòÁĞ¶¼ÉĞÎ´µ½´ïÎ²¶Ë£¬ÔòÖ´ĞĞwhileÑ­»·
+  //ä¸¤ä¸ªåºåˆ—éƒ½å°šæœªåˆ°è¾¾å°¾ç«¯ï¼Œåˆ™æ‰§è¡Œwhileå¾ªç¯
   /*
-  Çé¿ö1£ºÈôĞòÁĞ¶şÔªËØ½ÏĞ¡,Ôò¼ÇÂ¼µ½Ä¿±êÇø£¬ÇÒÒÆ¶¯ĞòÁĞ¶şµÄµü´úÆ÷£¬µ«ÊÇĞòÁĞÒ»µÄµü´úÆ÷²»±ä.
-  Çé¿ö2£ºÈôĞòÁĞÒ»ÔªËØ½ÏĞ¡»òÏàµÈ,Ôò¼ÇÂ¼µ½Ä¿±êÇø£¬ÇÒÒÆ¶¯ĞòÁĞÒ»µÄµü´úÆ÷£¬µ«ÊÇĞòÁĞ¶şµÄµü´úÆ÷²»±ä.
-  ×îºó£º°ÑÊ£ÓàÔªËØµÄĞòÁĞ¸´ÖÆµ½Ä¿±êÇø
+  æƒ…å†µ1ï¼šè‹¥åºåˆ—äºŒå…ƒç´ è¾ƒå°,åˆ™è®°å½•åˆ°ç›®æ ‡åŒºï¼Œä¸”ç§»åŠ¨åºåˆ—äºŒçš„è¿­ä»£å™¨ï¼Œä½†æ˜¯åºåˆ—ä¸€çš„è¿­ä»£å™¨ä¸å˜.
+  æƒ…å†µ2ï¼šè‹¥åºåˆ—ä¸€å…ƒç´ è¾ƒå°æˆ–ç›¸ç­‰,åˆ™è®°å½•åˆ°ç›®æ ‡åŒºï¼Œä¸”ç§»åŠ¨åºåˆ—ä¸€çš„è¿­ä»£å™¨ï¼Œä½†æ˜¯åºåˆ—äºŒçš„è¿­ä»£å™¨ä¸å˜.
+  æœ€åï¼šæŠŠå‰©ä½™å…ƒç´ çš„åºåˆ—å¤åˆ¶åˆ°ç›®æ ‡åŒº
   */
   while (__first1 != __last1 && __first2 != __last2) {
-	  //Çé¿ö1
-    if (*__first2 < *__first1) {//ÈôĞòÁĞ¶şÔªËØ½ÏĞ¡
-      *__result = *__first2;//½«ÔªËØ¼ÇÂ¼µ½Ä¿±êÇø
-      ++__first2;//ÒÆ¶¯µü´úÆ÷
+	  //æƒ…å†µ1
+    if (*__first2 < *__first1) {//è‹¥åºåˆ—äºŒå…ƒç´ è¾ƒå°
+      *__result = *__first2;//å°†å…ƒç´ è®°å½•åˆ°ç›®æ ‡åŒº
+      ++__first2;//ç§»åŠ¨è¿­ä»£å™¨
     }
-	//Çé¿ö2
-    else {//ÈôĞòÁĞÒ»ÔªËØ½ÏĞ¡»òÏàµÈ
-      *__result = *__first1;//½«ÔªËØ¼ÇÂ¼µ½Ä¿±êÇø
-      ++__first1;//ÒÆ¶¯µü´úÆ÷
+	//æƒ…å†µ2
+    else {//è‹¥åºåˆ—ä¸€å…ƒç´ è¾ƒå°æˆ–ç›¸ç­‰
+      *__result = *__first1;//å°†å…ƒç´ è®°å½•åˆ°ç›®æ ‡åŒº
+      ++__first1;//ç§»åŠ¨è¿­ä»£å™¨
     }
-    ++__result;//¸üĞÂÄ¿±êÇøÎ»ÖÃ£¬ÒÔ±ãÏÂ´Î¼ÇÂ¼Êı¾İ
+    ++__result;//æ›´æ–°ç›®æ ‡åŒºä½ç½®ï¼Œä»¥ä¾¿ä¸‹æ¬¡è®°å½•æ•°æ®
   }
-  //ÈôÓĞĞòÁĞµ½´ïÎ²¶Ë£¬Ôò°ÑÃ»µ½´ïÎ²¶ËµÄĞòÁĞÊ£ÓàÔªËØ¸´ÖÆµ½Ä¿±êÇø
-  //´ËÊ±£¬Çø¼ä[first1,last1)ºÍÇø¼ä[first2,last2)ÖÁÉÙÒ»¸ö±Ø¶¨Îª¿Õ
+  //è‹¥æœ‰åºåˆ—åˆ°è¾¾å°¾ç«¯ï¼Œåˆ™æŠŠæ²¡åˆ°è¾¾å°¾ç«¯çš„åºåˆ—å‰©ä½™å…ƒç´ å¤åˆ¶åˆ°ç›®æ ‡åŒº
+  //æ­¤æ—¶ï¼ŒåŒºé—´[first1,last1)å’ŒåŒºé—´[first2,last2)è‡³å°‘ä¸€ä¸ªå¿…å®šä¸ºç©º
   return copy(__first2, __last2, copy(__first1, __last1, __result));
 }
-//°æ±¾¶ş
+//ç‰ˆæœ¬äºŒ
 template <class _InputIter1, class _InputIter2, class _OutputIter,
           class _Compare>
 _OutputIter merge(_InputIter1 __first1, _InputIter1 __last1,
@@ -81,7 +81,7 @@ _OutputIter merge(_InputIter1 __first1, _InputIter1 __last1,
   }
   return copy(__first2, __last2, copy(__first1, __last1, __result));
 }
-//mergeº¯Êı¾ÙÀı£º
+//mergeå‡½æ•°ä¸¾ä¾‹ï¼š
 /*
 	#include <iostream>     // std::cout
 	#include <algorithm>    // std::merge, std::sort
@@ -108,7 +108,7 @@ _OutputIter merge(_InputIter1 __first1, _InputIter1 __last1,
 */
 
 // inplace_merge and its auxiliary functions. 
-//°æ±¾Ò»µÄ¸¨Öúº¯Êı£¬ÎŞ»º³åÇøµÄ²Ù×÷
+//ç‰ˆæœ¬ä¸€çš„è¾…åŠ©å‡½æ•°ï¼Œæ— ç¼“å†²åŒºçš„æ“ä½œ
 template <class _BidirectionalIter, class _Distance>
 void __merge_without_buffer(_BidirectionalIter __first,
                             _BidirectionalIter __middle,
@@ -181,7 +181,7 @@ void __merge_without_buffer(_BidirectionalIter __first,
   __merge_without_buffer(__new_middle, __second_cut, __last, __len1 - __len11,
                          __len2 - __len22, __comp);
 }
-//°æ±¾Ò»µÄ¸¨Öúº¯Êı£¬ÓĞ»º³åÇøµÄ²Ù×÷
+//ç‰ˆæœ¬ä¸€çš„è¾…åŠ©å‡½æ•°ï¼Œæœ‰ç¼“å†²åŒºçš„æ“ä½œ
 template <class _BidirectionalIter1, class _BidirectionalIter2,
           class _Distance>
 _BidirectionalIter1 __rotate_adaptive(_BidirectionalIter1 __first,
@@ -191,17 +191,17 @@ _BidirectionalIter1 __rotate_adaptive(_BidirectionalIter1 __first,
                                       _BidirectionalIter2 __buffer,
                                       _Distance __buffer_size) {
   _BidirectionalIter2 __buffer_end;
-  if (__len1 > __len2 && __len2 <= __buffer_size) {//»º³åÇø×ã¹»·ÅÖÃĞòÁĞ¶ş
+  if (__len1 > __len2 && __len2 <= __buffer_size) {//ç¼“å†²åŒºè¶³å¤Ÿæ”¾ç½®åºåˆ—äºŒ
     __buffer_end = copy(__middle, __last, __buffer);
     copy_backward(__first, __middle, __last);
     return copy(__buffer, __buffer_end, __first);
   }
-  else if (__len1 <= __buffer_size) {//»º³åÇø×ã¹»·ÅÖÃĞòÁĞÒ»
+  else if (__len1 <= __buffer_size) {//ç¼“å†²åŒºè¶³å¤Ÿæ”¾ç½®åºåˆ—ä¸€
     __buffer_end = copy(__first, __middle, __buffer);
     copy(__middle, __last, __first);
     return copy_backward(__buffer, __buffer_end, __last);
   }
-  else//Èô»º³åÇøÈÔÈ»²»¹»£¬Ôòµ÷ÓÃSTLËã·¨rotate£¬²»Ê¹ÓÃ»º³åÇø
+  else//è‹¥ç¼“å†²åŒºä»ç„¶ä¸å¤Ÿï¼Œåˆ™è°ƒç”¨STLç®—æ³•rotateï¼Œä¸ä½¿ç”¨ç¼“å†²åŒº
     return rotate(__first, __middle, __last);
 }
 
@@ -263,7 +263,7 @@ _BidirectionalIter3 __merge_backward(_BidirectionalIter1 __first1,
     }
   }
 }
-//°æ±¾Ò»µÄ¸¨Öúº¯Êı£¬ÓĞ»º³åÇøµÄ²Ù×÷
+//ç‰ˆæœ¬ä¸€çš„è¾…åŠ©å‡½æ•°ï¼Œæœ‰ç¼“å†²åŒºçš„æ“ä½œ
 template <class _BidirectionalIter, class _Distance, class _Pointer>
 void __merge_adaptive(_BidirectionalIter __first,
                       _BidirectionalIter __middle, 
@@ -271,44 +271,44 @@ void __merge_adaptive(_BidirectionalIter __first,
                       _Distance __len1, _Distance __len2,
                       _Pointer __buffer, _Distance __buffer_size) {
   if (__len1 <= __len2 && __len1 <= __buffer_size) {
-	  //case1£º°ÑĞòÁĞÒ»·ÅÔÚ»º³åÇø
+	  //case1ï¼šæŠŠåºåˆ—ä¸€æ”¾åœ¨ç¼“å†²åŒº
     _Pointer __buffer_end = copy(__first, __middle, __buffer);
-	//Ö±½Óµ÷ÓÃ¹é²¢º¯Êımerge
+	//ç›´æ¥è°ƒç”¨å½’å¹¶å‡½æ•°merge
     merge(__buffer, __buffer_end, __middle, __last, __first);
   }
   else if (__len2 <= __buffer_size) {
-	  //case2£º°ÑĞòÁĞ¶ş·ÅÔÚ»º³åÇø
+	  //case2ï¼šæŠŠåºåˆ—äºŒæ”¾åœ¨ç¼“å†²åŒº
     _Pointer __buffer_end = copy(__middle, __last, __buffer);
     __merge_backward(__first, __middle, __buffer, __buffer_end, __last);
   }
-  else {//case3£º»º³åÇø²»×ã·ÅÖÃÈÎºÎÒ»¸öĞòÁĞ
+  else {//case3ï¼šç¼“å†²åŒºä¸è¶³æ”¾ç½®ä»»ä½•ä¸€ä¸ªåºåˆ—
     _BidirectionalIter __first_cut = __first;
     _BidirectionalIter __second_cut = __middle;
     _Distance __len11 = 0;
     _Distance __len22 = 0;
-    if (__len1 > __len2) {//ÈôĞòÁĞÒ»±È½Ï³¤
-      __len11 = __len1 / 2;//¼ÆËãĞòÁĞÒ»µÄÒ»°ë
-      advance(__first_cut, __len11);//ÈÃfirst_cutÖ¸ÏòĞòÁĞÒ»µÄÖĞ¼äÎ»ÖÃ
-	  //ÕÒ³ö*__first_cutÔÚ[middle,last)Çø¼äÖĞµÄµÚÒ»¸ö²»Ğ¡ÓÚ*__first_cutµÄÔªËØÎ»ÖÃ
+    if (__len1 > __len2) {//è‹¥åºåˆ—ä¸€æ¯”è¾ƒé•¿
+      __len11 = __len1 / 2;//è®¡ç®—åºåˆ—ä¸€çš„ä¸€åŠ
+      advance(__first_cut, __len11);//è®©first_cutæŒ‡å‘åºåˆ—ä¸€çš„ä¸­é—´ä½ç½®
+	  //æ‰¾å‡º*__first_cutåœ¨[middle,last)åŒºé—´ä¸­çš„ç¬¬ä¸€ä¸ªä¸å°äº*__first_cutçš„å…ƒç´ ä½ç½®
       __second_cut = lower_bound(__middle, __last, *__first_cut);
-	  //¼ÆËãmiddleµ½__second_cutÖ®¼äµÄ¾àÀë£¬±£´æÔÚ__len22
+	  //è®¡ç®—middleåˆ°__second_cutä¹‹é—´çš„è·ç¦»ï¼Œä¿å­˜åœ¨__len22
       distance(__middle, __second_cut, __len22); 
     }
-    else {//ÈôĞòÁĞ¶ş±È½Ï³¤
-      __len22 = __len2 / 2;//¼ÆËãĞòÁĞ¶şµÄÒ»°ë
-      advance(__second_cut, __len22);//ÈÃ__second_cutÖ¸ÏòĞòÁĞ¶şµÄÖĞ¼äÎ»ÖÃ
-	  //ÕÒ³ö*__second_cutÔÚ[first,middle)Çø¼äÖĞµÄµÚÒ»¸ö´óÓÚ*__second_cutµÄÔªËØÎ»ÖÃ
+    else {//è‹¥åºåˆ—äºŒæ¯”è¾ƒé•¿
+      __len22 = __len2 / 2;//è®¡ç®—åºåˆ—äºŒçš„ä¸€åŠ
+      advance(__second_cut, __len22);//è®©__second_cutæŒ‡å‘åºåˆ—äºŒçš„ä¸­é—´ä½ç½®
+	  //æ‰¾å‡º*__second_cutåœ¨[first,middle)åŒºé—´ä¸­çš„ç¬¬ä¸€ä¸ªå¤§äº*__second_cutçš„å…ƒç´ ä½ç½®
       __first_cut = upper_bound(__first, __middle, *__second_cut);
-	  //¼ÆËã__firstµ½__first_cutÖ®¼äµÄ¾àÀë£¬±£´æÔÚ__len11
+	  //è®¡ç®—__firståˆ°__first_cutä¹‹é—´çš„è·ç¦»ï¼Œä¿å­˜åœ¨__len11
       distance(__first, __first_cut, __len11);
     }
     _BidirectionalIter __new_middle =
       __rotate_adaptive(__first_cut, __middle, __second_cut, __len1 - __len11,
                         __len22, __buffer, __buffer_size);
-	//¶Ô×ó°ë¶Îµİ¹éµ÷ÓÃ
+	//å¯¹å·¦åŠæ®µé€’å½’è°ƒç”¨
     __merge_adaptive(__first, __first_cut, __new_middle, __len11,
                      __len22, __buffer, __buffer_size);
-	//¶ÔÓÒ°ë¶Îµİ¹éµ÷ÓÃ
+	//å¯¹å³åŠæ®µé€’å½’è°ƒç”¨
     __merge_adaptive(__new_middle, __second_cut, __last, __len1 - __len11,
                      __len2 - __len22, __buffer, __buffer_size);
   }
@@ -357,23 +357,23 @@ void __merge_adaptive(_BidirectionalIter __first,
                      __len2 - __len22, __buffer, __buffer_size, __comp);
   }
 }
-//°æ±¾Ò»µÄ¸¨Öúº¯Êı
+//ç‰ˆæœ¬ä¸€çš„è¾…åŠ©å‡½æ•°
 template <class _BidirectionalIter, class _Tp, class _Distance>
 inline void __inplace_merge_aux(_BidirectionalIter __first,
                                 _BidirectionalIter __middle,
                                 _BidirectionalIter __last, _Tp*, _Distance*) {
   _Distance __len1 = 0;
-  distance(__first, __middle, __len1);//¼ÆËãĞòÁĞÒ»µÄ³¤¶È
+  distance(__first, __middle, __len1);//è®¡ç®—åºåˆ—ä¸€çš„é•¿åº¦
   _Distance __len2 = 0;
-  distance(__middle, __last, __len2);//¼ÆËãĞòÁĞ¶şµÄ³¤¶È
+  distance(__middle, __last, __len2);//è®¡ç®—åºåˆ—äºŒçš„é•¿åº¦
 
-  //Ê¹ÓÃÔİÊ±»º³åÇø
+  //ä½¿ç”¨æš‚æ—¶ç¼“å†²åŒº
   _Temporary_buffer<_BidirectionalIter, _Tp> __buf(__first, __last);
-  if (__buf.begin() == 0)//Èô»º³åÇøÅäÖÃÊ§°Ü
-	  //Ôòµ÷ÓÃ²»Ê¹ÓÃ»º³åÇøµÄºÏ²¢²Ù×÷
+  if (__buf.begin() == 0)//è‹¥ç¼“å†²åŒºé…ç½®å¤±è´¥
+	  //åˆ™è°ƒç”¨ä¸ä½¿ç”¨ç¼“å†²åŒºçš„åˆå¹¶æ“ä½œ
     __merge_without_buffer(__first, __middle, __last, __len1, __len2);
-  else//Èô·ÖÅä³É¹¦
-	  //Ôòµ÷ÓÃ¾ßÓĞ»º³åÇøµÄºÏ²¢²Ù×÷
+  else//è‹¥åˆ†é…æˆåŠŸ
+	  //åˆ™è°ƒç”¨å…·æœ‰ç¼“å†²åŒºçš„åˆå¹¶æ“ä½œ
     __merge_adaptive(__first, __middle, __last, __len1, __len2,
                      __buf.begin(), _Distance(__buf.size()));
 }
@@ -397,22 +397,22 @@ inline void __inplace_merge_aux(_BidirectionalIter __first,
                      __buf.begin(), _Distance(__buf.size()),
                      __comp);
 }
-//½«Á½¸öÒÑÅÅĞòµÄĞòÁĞ[first,middle)ºÍ[middle,last)ºÏ²¢³Éµ¥Ò»ÓĞĞòĞòÁĞ.
-//ÈôÔ­À´ÊÇÔöĞò£¬ÏÖÔÚÒ²ÊÇµİÔöÅÅĞò£¬ÈôÔ­À´ÊÇµİ¼õÅÅĞò£¬ÏÖÔÚÒ²ÊÇµİ¼õÅÅĞò
+//å°†ä¸¤ä¸ªå·²æ’åºçš„åºåˆ—[first,middle)å’Œ[middle,last)åˆå¹¶æˆå•ä¸€æœ‰åºåºåˆ—.
+//è‹¥åŸæ¥æ˜¯å¢åºï¼Œç°åœ¨ä¹Ÿæ˜¯é€’å¢æ’åºï¼Œè‹¥åŸæ¥æ˜¯é€’å‡æ’åºï¼Œç°åœ¨ä¹Ÿæ˜¯é€’å‡æ’åº
 /*
-º¯Êı¹¦ÄÜ£ºMerges two consecutive sorted ranges: [first,middle) and [middle,last), 
+å‡½æ•°åŠŸèƒ½ï¼šMerges two consecutive sorted ranges: [first,middle) and [middle,last), 
 putting the result into the combined sorted range [first,last).
-º¯ÊıÔ­ĞÍ£º
-default (1)	£º°æ±¾Ò»
+å‡½æ•°åŸå‹ï¼š
+default (1)	ï¼šç‰ˆæœ¬ä¸€
 	template <class BidirectionalIterator>
 	void inplace_merge (BidirectionalIterator first, BidirectionalIterator middle,
                       BidirectionalIterator last);
-custom (2)	£º°æ±¾¶ş
+custom (2)	ï¼šç‰ˆæœ¬äºŒ
 	template <class BidirectionalIterator, class Compare>
 	void inplace_merge (BidirectionalIterator first, BidirectionalIterator middle,
                       BidirectionalIterator last, Compare comp);
 */
-//°æ±¾Ò»
+//ç‰ˆæœ¬ä¸€
 template <class _BidirectionalIter>
 inline void inplace_merge(_BidirectionalIter __first,
                           _BidirectionalIter __middle,
@@ -420,12 +420,12 @@ inline void inplace_merge(_BidirectionalIter __first,
   __STL_REQUIRES(_BidirectionalIter, _Mutable_BidirectionalIterator);
   __STL_REQUIRES(typename iterator_traits<_BidirectionalIter>::value_type,
                  _LessThanComparable);
-  if (__first == __middle || __middle == __last)//ÈôÓĞ¿ÕĞòÁĞ£¬ÔòÖ®¼ä·µ»Ø
+  if (__first == __middle || __middle == __last)//è‹¥æœ‰ç©ºåºåˆ—ï¼Œåˆ™ä¹‹é—´è¿”å›
     return;
   __inplace_merge_aux(__first, __middle, __last,
                       __VALUE_TYPE(__first), __DISTANCE_TYPE(__first));
 }
-//°æ±¾¶ş
+//ç‰ˆæœ¬äºŒ
 template <class _BidirectionalIter, class _Compare>
 inline void inplace_merge(_BidirectionalIter __first,
                           _BidirectionalIter __middle,
@@ -440,7 +440,7 @@ inline void inplace_merge(_BidirectionalIter __first,
                       __VALUE_TYPE(__first), __DISTANCE_TYPE(__first),
                       __comp);
 }
-//inplace_mergeº¯Êı¾ÙÀı£º
+//inplace_mergeå‡½æ•°ä¸¾ä¾‹ï¼š
 /*
 	#include <iostream>     // std::cout
 	#include <algorithm>    // std::inplace_merge, std::sort, std::copy
@@ -467,6 +467,6 @@ inline void inplace_merge(_BidirectionalIter __first,
 
 	  return 0;
 	}
-	Output£º
+	Outputï¼š
 	The resulting vector contains: 5 10 10 15 20 20 25 30 40 50
 */

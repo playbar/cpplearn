@@ -2,13 +2,13 @@
 #define __SGI_STL_INTERNAL_FUNCTION_H
 
 __STL_BEGIN_NAMESPACE
-//Ò»Ôª²Ù×÷½á¹¹¶¨Òå
+//ä¸€å…ƒæ“ä½œç»“æ„å®šä¹‰
 template <class _Arg, class _Result>
 struct unary_function {
   typedef _Arg argument_type;
   typedef _Result result_type;
 };
-//¶şÔª²Ù×÷½á¹¹¶¨Òå
+//äºŒå…ƒæ“ä½œç»“æ„å®šä¹‰
 template <class _Arg1, class _Arg2, class _Result>
 struct binary_function {
   typedef _Arg1 first_argument_type;
@@ -16,7 +16,7 @@ struct binary_function {
   typedef _Result result_type;
 };      
 
-//ÒÔÏÂÊÇ¶şÔª²Ù×÷ËãÊõº¯Êı¶ÔÏó£¬¼Ì³Ğ¶şÔª²Ù×÷µÄ½á¹¹
+//ä»¥ä¸‹æ˜¯äºŒå…ƒæ“ä½œç®—æœ¯å‡½æ•°å¯¹è±¡ï¼Œç»§æ‰¿äºŒå…ƒæ“ä½œçš„ç»“æ„
 /*
 plus<T>,minus<T>,multiplies<T>,divides<T>,modulus,negate
 */
@@ -52,10 +52,10 @@ struct negate : public unary_function<_Tp,_Tp>
   _Tp operator()(const _Tp& __x) const { return -__x; }
 };
 // identity_element (not part of the C++ standard).
-//Ö¤Í¬º¯Êı£º
-//ÒÔÏÂÖ»Ìá¹©µÄÁ½ÖÖÖ¤Í¬º¯Êı
-//¼Ó·¨£ºÈÎºÎÔªËØ¼ÓÉÏ0½á¹û¶¼Îª×ÔÉí
-//³Ë·¨£ºÈÎºÎÔªËØ³ËÒÔ1½á¹û¶¼Îª×ÔÉí
+//è¯åŒå‡½æ•°ï¼š
+//ä»¥ä¸‹åªæä¾›çš„ä¸¤ç§è¯åŒå‡½æ•°
+//åŠ æ³•ï¼šä»»ä½•å…ƒç´ åŠ ä¸Š0ç»“æœéƒ½ä¸ºè‡ªèº«
+//ä¹˜æ³•ï¼šä»»ä½•å…ƒç´ ä¹˜ä»¥1ç»“æœéƒ½ä¸ºè‡ªèº«
 template <class _Tp> inline _Tp identity_element(plus<_Tp>) {
   return _Tp(0);
 }
@@ -63,7 +63,7 @@ template <class _Tp> inline _Tp identity_element(multiplies<_Tp>) {
   return _Tp(1);
 }
 
-//ÒÔÏÂÊÇ¶şÔª²Ù×÷¹ØÏµº¯Êı¶ÔÏó£¬¼Ì³Ğ¶şÔª²Ù×÷µÄ½á¹¹
+//ä»¥ä¸‹æ˜¯äºŒå…ƒæ“ä½œå…³ç³»å‡½æ•°å¯¹è±¡ï¼Œç»§æ‰¿äºŒå…ƒæ“ä½œçš„ç»“æ„
 /*
 equal_to,not_equal_to,greater,less,greater_equal,less_equal,
 */
@@ -103,7 +103,7 @@ struct less_equal : public binary_function<_Tp,_Tp,bool>
   bool operator()(const _Tp& __x, const _Tp& __y) const { return __x <= __y; }
 };
 
-//ÒÔÏÂÊÇ¶şÔª²Ù×÷Âß¼­º¯Êı¶ÔÏó£¬¼Ì³Ğ¶şÔª²Ù×÷µÄ½á¹¹
+//ä»¥ä¸‹æ˜¯äºŒå…ƒæ“ä½œé€»è¾‘å‡½æ•°å¯¹è±¡ï¼Œç»§æ‰¿äºŒå…ƒæ“ä½œçš„ç»“æ„
 /*
 logical_and,logical_or,logical_not
 */
@@ -307,7 +307,7 @@ ptr_fun(_Result (*__x)(_Arg1, _Arg2)) {
 }
 
 // identity is an extensions: it is not part of the standard.
-//Ö¤Í¬
+//è¯åŒ
 template <class _Tp>
 struct _Identity : public unary_function<_Tp,_Tp> {
   const _Tp& operator()(const _Tp& __x) const { return __x; }
@@ -316,15 +316,15 @@ struct _Identity : public unary_function<_Tp,_Tp> {
 template <class _Tp> struct identity : public _Identity<_Tp> {};
 
 // select1st and select2nd are extensions: they are not part of the standard.
-//Ñ¡Ôñ
-//°æ±¾Ò»£ºÑ¡ÔñpairÔªËØµÄµÚÒ»¸ö²ÎÊı£¬ºöÂÔµÚ¶ş¸ö²ÎÊı
+//é€‰æ‹©
+//ç‰ˆæœ¬ä¸€ï¼šé€‰æ‹©pairå…ƒç´ çš„ç¬¬ä¸€ä¸ªå‚æ•°ï¼Œå¿½ç•¥ç¬¬äºŒä¸ªå‚æ•°
 template <class _Pair>
 struct _Select1st : public unary_function<_Pair, typename _Pair::first_type> {
   const typename _Pair::first_type& operator()(const _Pair& __x) const {
     return __x.first;
   }
 };
-//°æ±¾Ò»£ºÑ¡ÔñpairÔªËØµÄµÚ¶ş¸ö²ÎÊı£¬ºöÂÔµÚÒ»¸ö²ÎÊı
+//ç‰ˆæœ¬ä¸€ï¼šé€‰æ‹©pairå…ƒç´ çš„ç¬¬äºŒä¸ªå‚æ•°ï¼Œå¿½ç•¥ç¬¬ä¸€ä¸ªå‚æ•°
 template <class _Pair>
 struct _Select2nd : public unary_function<_Pair, typename _Pair::second_type>
 {
@@ -337,13 +337,13 @@ template <class _Pair> struct select1st : public _Select1st<_Pair> {};
 template <class _Pair> struct select2nd : public _Select2nd<_Pair> {};
 
 // project1st and project2nd are extensions: they are not part of the standard
-//Í¶Éä
-//°æ±¾Ò»£ºÍ¶Éä³öµÚÒ»¸ö²ÎÊı£¬ºöÂÔµÚ¶ş¸ö²ÎÊı
+//æŠ•å°„
+//ç‰ˆæœ¬ä¸€ï¼šæŠ•å°„å‡ºç¬¬ä¸€ä¸ªå‚æ•°ï¼Œå¿½ç•¥ç¬¬äºŒä¸ªå‚æ•°
 template <class _Arg1, class _Arg2>
 struct _Project1st : public binary_function<_Arg1, _Arg2, _Arg1> {
   _Arg1 operator()(const _Arg1& __x, const _Arg2&) const { return __x; }
 };
-//°æ±¾Ò»£ºÍ¶Éä³öµÚ¶ş¸ö²ÎÊı£¬ºöÂÔµÚÒ»¸ö²ÎÊı
+//ç‰ˆæœ¬ä¸€ï¼šæŠ•å°„å‡ºç¬¬äºŒä¸ªå‚æ•°ï¼Œå¿½ç•¥ç¬¬ä¸€ä¸ªå‚æ•°
 template <class _Arg1, class _Arg2>
 struct _Project2nd : public binary_function<_Arg1, _Arg2, _Arg2> {
   _Arg2 operator()(const _Arg1&, const _Arg2& __y) const { return __y; }

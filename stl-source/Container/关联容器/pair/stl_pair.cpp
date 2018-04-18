@@ -4,42 +4,42 @@
 __STL_BEGIN_NAMESPACE
 
 /*
-pairÔÚ¹ØÁªÈİÆ÷ÖĞÊ¹ÓÃºÜ¹ã·º,ËüÊÇSTLµÄÄ£°åÀàĞÍ,¿ÉÒÔ´æ´¢Á½¸ö³ÉÔ±±äÁ¿
-pair²ÉÓÃµÄÊÇstruct½á¹¹,structµÄ³ÉÔ±Ä¬ÈÏÊôĞÔÊÇpublic
+pairåœ¨å…³è”å®¹å™¨ä¸­ä½¿ç”¨å¾ˆå¹¿æ³›,å®ƒæ˜¯STLçš„æ¨¡æ¿ç±»å‹,å¯ä»¥å­˜å‚¨ä¸¤ä¸ªæˆå‘˜å˜é‡
+pairé‡‡ç”¨çš„æ˜¯structç»“æ„,structçš„æˆå‘˜é»˜è®¤å±æ€§æ˜¯public
 */
 template <class _T1, class _T2>
 struct pair {
   typedef _T1 first_type;
   typedef _T2 second_type;
 
-  //pairµÄÁ½¸ö³ÉÔ±±äÁ¿,ÆäÊôĞÔÊÇpublic
+  //pairçš„ä¸¤ä¸ªæˆå‘˜å˜é‡,å…¶å±æ€§æ˜¯public
   _T1 first;
   _T2 second;
-  //ÒÔÏÂÊÇ¹¹Ôìº¯Êı
+  //ä»¥ä¸‹æ˜¯æ„é€ å‡½æ•°
   pair() : first(_T1()), second(_T2()) {}
   pair(const _T1& __a, const _T2& __b) : first(__a), second(__b) {}
 
 #ifdef __STL_MEMBER_TEMPLATES
-  //¼æÈİĞÔµÄ¿½±´¹¹Ôìº¯Êı
-  //¼æÈİĞÔÊÇÖ¸Á½¸öpairµÄÀàĞÍ¿ÉÒÔ²»Í¬,µ«ÊÇ±ØĞë¿ÉÒÔ×ª»»
+  //å…¼å®¹æ€§çš„æ‹·è´æ„é€ å‡½æ•°
+  //å…¼å®¹æ€§æ˜¯æŒ‡ä¸¤ä¸ªpairçš„ç±»å‹å¯ä»¥ä¸åŒ,ä½†æ˜¯å¿…é¡»å¯ä»¥è½¬æ¢
   template <class _U1, class _U2>
   pair(const pair<_U1, _U2>& __p) : first(__p.first), second(__p.second) {}
-  //×¢Òâ:ÓÃpair³õÊ¼»¯ÁíÒ»¸öpairÊ±,Ö»ÄÜÍ¨¹ı¿½±´¹¹Ôìº¯Êı½øĞĞ,²»ÄÜÍ¨¹ı¸³Öµ½øĞĞ
-  //ÒòÎªÕâÀïÃ»ÓĞÌá¹©operator=²Ù×÷·ûµÄÖØÔØ
+  //æ³¨æ„:ç”¨pairåˆå§‹åŒ–å¦ä¸€ä¸ªpairæ—¶,åªèƒ½é€šè¿‡æ‹·è´æ„é€ å‡½æ•°è¿›è¡Œ,ä¸èƒ½é€šè¿‡èµ‹å€¼è¿›è¡Œ
+  //å› ä¸ºè¿™é‡Œæ²¡æœ‰æä¾›operator=æ“ä½œç¬¦çš„é‡è½½
 #endif
 };
 
-//operator==²Ù×÷·ûÖØÔØ
-//Á½¸öpairÏàµÈÊ±£¬ÒâÎ¶×ÅÁ½¸ö³ÉÔ±±äÁ¿¶¼¶ÔÓ¦ÏàµÈ
+//operator==æ“ä½œç¬¦é‡è½½
+//ä¸¤ä¸ªpairç›¸ç­‰æ—¶ï¼Œæ„å‘³ç€ä¸¤ä¸ªæˆå‘˜å˜é‡éƒ½å¯¹åº”ç›¸ç­‰
 template <class _T1, class _T2>
 inline bool operator==(const pair<_T1, _T2>& __x, const pair<_T1, _T2>& __y)
 { 
   return __x.first == __y.first && __x.second == __y.second; 
 }
 
-//operator<²Ù×÷·ûÖØÔØ
-//±È½ÏÁ½¸öpairÊ±,ÒÔµÚÒ»¸ö³ÉÔ±±äÁ¿firstÎªÖ÷,ÈôµÚÒ»¸ö³ÉÔ±±äÁ¿first²»ÄÜÅĞ¶Ï±í´ïÊ½µÄ´óĞ¡
-//Ôò¶ÔÆäµÚ¶ş¸ö³ÉÔ±±äÁ¿second½øĞĞ±È½Ï
+//operator<æ“ä½œç¬¦é‡è½½
+//æ¯”è¾ƒä¸¤ä¸ªpairæ—¶,ä»¥ç¬¬ä¸€ä¸ªæˆå‘˜å˜é‡firstä¸ºä¸»,è‹¥ç¬¬ä¸€ä¸ªæˆå‘˜å˜é‡firstä¸èƒ½åˆ¤æ–­è¡¨è¾¾å¼çš„å¤§å°
+//åˆ™å¯¹å…¶ç¬¬äºŒä¸ªæˆå‘˜å˜é‡secondè¿›è¡Œæ¯”è¾ƒ
 template <class _T1, class _T2>
 inline bool operator<(const pair<_T1, _T2>& __x, const pair<_T1, _T2>& __y)
 { 
@@ -49,8 +49,8 @@ inline bool operator<(const pair<_T1, _T2>& __x, const pair<_T1, _T2>& __y)
 
 #ifdef __STL_FUNCTION_TMPL_PARTIAL_ORDER
 
-//ÏÂÃæµÄ²Ù×÷·ûÖØÔØ¶¼ÊÇ»ùÓÚÉÏÃæoperator<ºÍoperator==²Ù×÷·ûµÄ.
-//operator!=,operator>,operator<=,operator>=²Ù×÷·ûµÄÖØÔØ
+//ä¸‹é¢çš„æ“ä½œç¬¦é‡è½½éƒ½æ˜¯åŸºäºä¸Šé¢operator<å’Œoperator==æ“ä½œç¬¦çš„.
+//operator!=,operator>,operator<=,operator>=æ“ä½œç¬¦çš„é‡è½½
 template <class _T1, class _T2>
 inline bool operator!=(const pair<_T1, _T2>& __x, const pair<_T1, _T2>& __y) {
   return !(__x == __y);
@@ -73,7 +73,7 @@ inline bool operator>=(const pair<_T1, _T2>& __x, const pair<_T1, _T2>& __y) {
 
 #endif /* __STL_FUNCTION_TMPL_PARTIAL_ORDER */
 
-//¸ù¾İÁ½¸öÊıÖµ£¬¹¹ÔìÒ»¸öpair
+//æ ¹æ®ä¸¤ä¸ªæ•°å€¼ï¼Œæ„é€ ä¸€ä¸ªpair
 template <class _T1, class _T2>
 inline pair<_T1, _T2> make_pair(const _T1& __x, const _T2& __y)
 {

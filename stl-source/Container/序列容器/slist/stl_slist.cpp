@@ -10,39 +10,39 @@ __STL_BEGIN_NAMESPACE
 #pragma set woff 1375
 #endif
 
-//µ¥ÏòÁ´±íµÄ½Úµã»ù±¾½á¹¹
+//å•å‘é“¾è¡¨çš„èŠ‚ç‚¹åŸºæœ¬ç»“æ„
 struct _Slist_node_base
 {
   _Slist_node_base* _M_next;
 };
-//µ¥ÏòÁ´±í½Úµã½á¹¹
+//å•å‘é“¾è¡¨èŠ‚ç‚¹ç»“æ„
 template <class _Tp>
 struct _Slist_node : public _Slist_node_base
 {
   _Tp _M_data;
 };
 
-//ÔÚ½ÚµãprevÖ®ºó²åÈë½Úµãnew
+//åœ¨èŠ‚ç‚¹prevä¹‹åæ’å…¥èŠ‚ç‚¹new
 inline _Slist_node_base*
 __slist_make_link(_Slist_node_base* __prev_node,
                   _Slist_node_base* __new_node)
 {
-//¸üĞÂ½ÚµãÖ¸Õë
-	//¼´ĞÂ½ÚµãnewÏÂÒ»½ÚµãÎªµ±Ç°½ÚµãprevµÄÏÂÒ»¸ö½Úµã
+//æ›´æ–°èŠ‚ç‚¹æŒ‡é’ˆ
+	//å³æ–°èŠ‚ç‚¹newä¸‹ä¸€èŠ‚ç‚¹ä¸ºå½“å‰èŠ‚ç‚¹prevçš„ä¸‹ä¸€ä¸ªèŠ‚ç‚¹
   __new_node->_M_next = __prev_node->_M_next;
-  //µ±Ç°½ÚµãµÄprevµÄÏÂÒ»¸ö½ÚµãÎªnew
+  //å½“å‰èŠ‚ç‚¹çš„prevçš„ä¸‹ä¸€ä¸ªèŠ‚ç‚¹ä¸ºnew
   __prev_node->_M_next = __new_node;
-  return __new_node;//·µ»ØĞÂ²åÈë½ÚµãµÄµØÖ·
+  return __new_node;//è¿”å›æ–°æ’å…¥èŠ‚ç‚¹çš„åœ°å€
 }
 
-//²éÕÒÖ¸¶¨½ÚµãnodeµÄÇ°Ò»¸ö½Úµã
-//ÓÉÓÚÊÇµ¥ÏòÁ´±í£¬Ğè´Ó±íÍ·head¿ªÊ¼²éÕÒ
+//æŸ¥æ‰¾æŒ‡å®šèŠ‚ç‚¹nodeçš„å‰ä¸€ä¸ªèŠ‚ç‚¹
+//ç”±äºæ˜¯å•å‘é“¾è¡¨ï¼Œéœ€ä»è¡¨å¤´headå¼€å§‹æŸ¥æ‰¾
 inline _Slist_node_base* 
 __slist_previous(_Slist_node_base* __head,
                  const _Slist_node_base* __node)
 {
   while (__head && __head->_M_next != __node)
-    __head = __head->_M_next;//±éÀú½Úµã£¬Ö±µ½Óöµ½ËùÕÒ½Úµã»ò²»´æÔÚ¸Ã½Úµã
+    __head = __head->_M_next;//éå†èŠ‚ç‚¹ï¼Œç›´åˆ°é‡åˆ°æ‰€æ‰¾èŠ‚ç‚¹æˆ–ä¸å­˜åœ¨è¯¥èŠ‚ç‚¹
   return __head;
 }
 
@@ -55,7 +55,7 @@ __slist_previous(const _Slist_node_base* __head,
   return __head;
 }
 
-//½«½Úµã(before_first,before_last]²åÈëµ½Ö¸¶¨½ÚµãposÖ®ºó
+//å°†èŠ‚ç‚¹(before_first,before_last]æ’å…¥åˆ°æŒ‡å®šèŠ‚ç‚¹posä¹‹å
 inline void __slist_splice_after(_Slist_node_base* __pos,
                                  _Slist_node_base* __before_first,
                                  _Slist_node_base* __before_last)
@@ -63,9 +63,9 @@ inline void __slist_splice_after(_Slist_node_base* __pos,
   if (__pos != __before_first && __pos != __before_last) {
     _Slist_node_base* __first = __before_first->_M_next;
     _Slist_node_base* __after = __pos->_M_next;
-	//½«½ÚµãÁ´±í(before_first,before_last]´ÓÁ´±íÖĞÒÆ³ı
+	//å°†èŠ‚ç‚¹é“¾è¡¨(before_first,before_last]ä»é“¾è¡¨ä¸­ç§»é™¤
     __before_first->_M_next = __before_last->_M_next;
-	//½«(before_first,before_last]²åÈëµ½Ö¸¶¨Î»ÖÃposÖ®ºó
+	//å°†(before_first,before_last]æ’å…¥åˆ°æŒ‡å®šä½ç½®posä¹‹å
     __pos->_M_next = __first;
     __before_last->_M_next = __after;
   }
@@ -74,22 +74,22 @@ inline void __slist_splice_after(_Slist_node_base* __pos,
 inline void
 __slist_splice_after(_Slist_node_base* __pos, _Slist_node_base* __head)
 {
-  _Slist_node_base* __before_last = __slist_previous(__head, 0);//ÕÒ³öÁ´±íµÄ×îºóÒ»¸ö½Úµã
-  if (__before_last != __head) {//Á´±í·Ç¿Õ
+  _Slist_node_base* __before_last = __slist_previous(__head, 0);//æ‰¾å‡ºé“¾è¡¨çš„æœ€åä¸€ä¸ªèŠ‚ç‚¹
+  if (__before_last != __head) {//é“¾è¡¨éç©º
     _Slist_node_base* __after = __pos->_M_next;
     __pos->_M_next = __head->_M_next;
     __head->_M_next = 0;
     __before_last->_M_next = __after;
   }
 }
-//µ¥ÏòÁ´±í·´×ª
-//ÕâÀï²ÎÊınode±ØĞëÎªµÚÒ»¸ö½áµã¼´Îªhead->next£¬²»È»Á´±í»áÔì³ÉÄÚ´æĞ¹Â¶
+//å•å‘é“¾è¡¨åè½¬
+//è¿™é‡Œå‚æ•°nodeå¿…é¡»ä¸ºç¬¬ä¸€ä¸ªç»“ç‚¹å³ä¸ºhead->nextï¼Œä¸ç„¶é“¾è¡¨ä¼šé€ æˆå†…å­˜æ³„éœ²
 inline _Slist_node_base* __slist_reverse(_Slist_node_base* __node)
 {
   _Slist_node_base* __result = __node;
   __node = __node->_M_next;
-  __result->_M_next = 0;//Á´±íÎ²²¿
-  while(__node) {//Á´±í·Ç¿Õ
+  __result->_M_next = 0;//é“¾è¡¨å°¾éƒ¨
+  while(__node) {//é“¾è¡¨éç©º
     _Slist_node_base* __next = __node->_M_next;
     __node->_M_next = __result;
     __result = __node;
@@ -97,36 +97,36 @@ inline _Slist_node_base* __slist_reverse(_Slist_node_base* __node)
   }
   return __result;
 }
-//·µ»ØÁ´±í´óĞ¡
-//½Úµã²ÎÊınode±ØĞëÎªµÚÒ»¸ö½Úµã¼´Îªhead->next;
+//è¿”å›é“¾è¡¨å¤§å°
+//èŠ‚ç‚¹å‚æ•°nodeå¿…é¡»ä¸ºç¬¬ä¸€ä¸ªèŠ‚ç‚¹å³ä¸ºhead->next;
 inline size_t __slist_size(_Slist_node_base* __node)
 {
   size_t __result = 0;
-  for ( ; __node != 0; __node = __node->_M_next)//±éÀúÁ´±í½Úµã
+  for ( ; __node != 0; __node = __node->_M_next)//éå†é“¾è¡¨èŠ‚ç‚¹
     ++__result;
   return __result;
 }
 
-//µ¥ÏòÁ´±íµÄµü´úÆ÷µÄ»ù±¾½á¹¹
+//å•å‘é“¾è¡¨çš„è¿­ä»£å™¨çš„åŸºæœ¬ç»“æ„
 struct _Slist_iterator_base
 {
   typedef size_t               size_type;
   typedef ptrdiff_t            difference_type;
-  typedef forward_iterator_tag iterator_category;//ÕıÏòµü´úÆ÷
+  typedef forward_iterator_tag iterator_category;//æ­£å‘è¿­ä»£å™¨
 
-  _Slist_node_base* _M_node;//Á´±í½ÚµãÖ¸Õë
+  _Slist_node_base* _M_node;//é“¾è¡¨èŠ‚ç‚¹æŒ‡é’ˆ
 
   _Slist_iterator_base(_Slist_node_base* __x) : _M_node(__x) {}
-  void _M_incr() { _M_node = _M_node->_M_next; }//Ç°ÒÆÒ»¸ö½Úµã
+  void _M_incr() { _M_node = _M_node->_M_next; }//å‰ç§»ä¸€ä¸ªèŠ‚ç‚¹
 
   bool operator==(const _Slist_iterator_base& __x) const {
-    return _M_node == __x._M_node;//½ÚµãÖ¸ÕëÖ¸ÏòÏàÍ¬Î»ÖÃ
+    return _M_node == __x._M_node;//èŠ‚ç‚¹æŒ‡é’ˆæŒ‡å‘ç›¸åŒä½ç½®
   }
   bool operator!=(const _Slist_iterator_base& __x) const {
-    return _M_node != __x._M_node;//½ÚµãÖ¸ÕëÖ¸Ïò²»Í¬Î»ÖÃ
+    return _M_node != __x._M_node;//èŠ‚ç‚¹æŒ‡é’ˆæŒ‡å‘ä¸åŒä½ç½®
   }
 };
-//µ¥ÏòÁ´±íµü´úÆ÷½á¹¹
+//å•å‘é“¾è¡¨è¿­ä»£å™¨ç»“æ„
 template <class _Tp, class _Ref, class _Ptr>
 struct _Slist_iterator : public _Slist_iterator_base
 {
@@ -142,26 +142,26 @@ struct _Slist_iterator : public _Slist_iterator_base
   _Slist_iterator(_Node* __x) : _Slist_iterator_base(__x) {}
   _Slist_iterator() : _Slist_iterator_base(0) {}
   _Slist_iterator(const iterator& __x) : _Slist_iterator_base(__x._M_node) {}
-  //½â³ıÒıÓÃ£¬·µ»Ø½ÚµãÊı¾İ
+  //è§£é™¤å¼•ç”¨ï¼Œè¿”å›èŠ‚ç‚¹æ•°æ®
   reference operator*() const { return ((_Node*) _M_node)->_M_data; }
 #ifndef __SGI_STL_NO_ARROW_OPERATOR
   pointer operator->() const { return &(operator*()); }
 #endif /* __SGI_STL_NO_ARROW_OPERATOR */
 
-  //Ç°×ºoperator++
+  //å‰ç¼€operator++
   _Self& operator++()
   {
     _M_incr();
     return *this;
   }
-  //ºó×ºoperator++
+  //åç¼€operator++
   _Self operator++(int)
   {
     _Self __tmp = *this;
     _M_incr();
     return __tmp;
   }
-  //µ¥ÏòÁ´±í²»ÄÜoperator--²Ù×÷
+  //å•å‘é“¾è¡¨ä¸èƒ½operator--æ“ä½œ
 };
 
 #ifndef __STL_CLASS_PARTIAL_SPECIALIZATION
@@ -201,10 +201,10 @@ public:
   _Slist_alloc_base(const allocator_type& __a) : _M_node_allocator(__a) {}
 
 protected:
-	//·ÖÅäÒ»¸ö½Úµã¿Õ¼ä
+	//åˆ†é…ä¸€ä¸ªèŠ‚ç‚¹ç©ºé—´
   _Slist_node<_Tp>* _M_get_node() 
     { return _M_node_allocator.allocate(1); }
-  //ÊÍ·ÅÖ¸¶¨µÄ½Úµã¿Õ¼ä
+  //é‡Šæ”¾æŒ‡å®šçš„èŠ‚ç‚¹ç©ºé—´
   void _M_put_node(_Slist_node<_Tp>* __p) 
     { _M_node_allocator.deallocate(__p, 1); }
 
@@ -231,7 +231,7 @@ protected:
   void _M_put_node(_Slist_node<_Tp>* __p) { _Alloc_type::deallocate(__p, 1); }
 
 protected:
-  _Slist_node_base _M_head;//Á´±íÍ·
+  _Slist_node_base _M_head;//é“¾è¡¨å¤´
 };
 
 
@@ -250,7 +250,7 @@ struct _Slist_base
   ~_Slist_base() { _M_erase_after(&this->_M_head, 0); }
 
 protected:
-	//²Á³ıÖ¸¶¨½ÚµãµÄºóÒ»¸ö½Úµã
+	//æ“¦é™¤æŒ‡å®šèŠ‚ç‚¹çš„åä¸€ä¸ªèŠ‚ç‚¹
   _Slist_node_base* _M_erase_after(_Slist_node_base* __pos)
   {
     _Slist_node<_Tp>* __next = (_Slist_node<_Tp>*) (__pos->_M_next);
@@ -295,7 +295,7 @@ protected:
 
 #endif /* __STL_USE_STD_ALLOCATORS */
 
-//²Á³ı(first,last)Ö®¼äµÄ½Úµã
+//æ“¦é™¤(first,last)ä¹‹é—´çš„èŠ‚ç‚¹
 template <class _Tp, class _Alloc> 
 _Slist_node_base*
 _Slist_base<_Tp,_Alloc>::_M_erase_after(_Slist_node_base* __before_first,
@@ -311,7 +311,7 @@ _Slist_base<_Tp,_Alloc>::_M_erase_after(_Slist_node_base* __before_first,
   return __last_node;
 }
 
-//µ¥ÏòÁ´±íslist¶¨Òå
+//å•å‘é“¾è¡¨slistå®šä¹‰
 template <class _Tp, class _Alloc = __STL_DEFAULT_ALLOCATOR(_Tp) >
 class slist : private _Slist_base<_Tp,_Alloc>
 {
@@ -341,7 +341,7 @@ private:
   typedef _Slist_node_base      _Node_base;
   typedef _Slist_iterator_base  _Iterator_base;
 
-  //´´½¨³õÊ¼ÖµÎªxµÄ½Úµã
+  //åˆ›å»ºåˆå§‹å€¼ä¸ºxçš„èŠ‚ç‚¹
   _Node* _M_create_node(const value_type& __x) {
     _Node* __node = this->_M_get_node();
     __STL_TRY {
@@ -428,12 +428,12 @@ public:
 
 public:
 
-  //·µ»ØµÚÒ»¸ö½Úµãµü´úÆ÷
+  //è¿”å›ç¬¬ä¸€ä¸ªèŠ‚ç‚¹è¿­ä»£å™¨
 	iterator begin() { return iterator((_Node*)this->_M_head._M_next); }
   const_iterator begin() const 
     { return const_iterator((_Node*)this->_M_head._M_next);}
 
-  //·µ»ØÁ´±íÎ²²¿
+  //è¿”å›é“¾è¡¨å°¾éƒ¨
   iterator end() { return iterator(0); }
   const_iterator end() const { return const_iterator(0); }
 
@@ -444,36 +444,36 @@ public:
   // slist, before_begin() is not the same iterator as end().  It 
   // is always necessary to increment before_begin() at least once to
   // obtain end().
-  //Á´±íÍ·
+  //é“¾è¡¨å¤´
   iterator before_begin() { return iterator((_Node*) &this->_M_head); }
   const_iterator before_begin() const
     { return const_iterator((_Node*) &this->_M_head); }
 
-  //·µ»ØÁ´±í´óĞ¡
+  //è¿”å›é“¾è¡¨å¤§å°
   size_type size() const { return __slist_size(this->_M_head._M_next); }
   
   size_type max_size() const { return size_type(-1); }
 
-  //ÅĞ¶ÏÊÇ·ñÎª¿ÕÁ´±í
+  //åˆ¤æ–­æ˜¯å¦ä¸ºç©ºé“¾è¡¨
   bool empty() const { return this->_M_head._M_next == 0; }
 
-  //½»»»Á´±íÄÚÈİ
-  //ÊµÖÊÉÏÖ»½»»»Ö¸ÏòÁ´±íµÄÖ¸Õë
+  //äº¤æ¢é“¾è¡¨å†…å®¹
+  //å®è´¨ä¸Šåªäº¤æ¢æŒ‡å‘é“¾è¡¨çš„æŒ‡é’ˆ
   void swap(slist& __x)
     { __STD::swap(this->_M_head._M_next, __x._M_head._M_next); }
 
 public:
 
-  //·µ»ØµÚÒ»¸ö½ÚµãÊı¾İ
+  //è¿”å›ç¬¬ä¸€ä¸ªèŠ‚ç‚¹æ•°æ®
 	reference front() { return ((_Node*) this->_M_head._M_next)->_M_data; }
   const_reference front() const 
     { return ((_Node*) this->_M_head._M_next)->_M_data; }
-  //ÔÚÁ´±íÍ·²¿ĞÂÔö½Úµã
+  //åœ¨é“¾è¡¨å¤´éƒ¨æ–°å¢èŠ‚ç‚¹
   void push_front(const value_type& __x)   {
     __slist_make_link(&this->_M_head, _M_create_node(__x));
   }
   void push_front() { __slist_make_link(&this->_M_head, _M_create_node()); }
- //É¾³ı½Úµã
+ //åˆ é™¤èŠ‚ç‚¹
   void pop_front() {
     _Node* __node = (_Node*) this->_M_head._M_next;
     this->_M_head._M_next = __node->_M_next;
@@ -481,7 +481,7 @@ public:
     this->_M_put_node(__node);
   }
 
-  //·µ»ØÖ¸¶¨½ÚµãµÄÇ°Ò»¸ö½Úµã
+  //è¿”å›æŒ‡å®šèŠ‚ç‚¹çš„å‰ä¸€ä¸ªèŠ‚ç‚¹
   iterator previous(const_iterator __pos) {
     return iterator((_Node*) __slist_previous(&this->_M_head, __pos._M_node));
   }
@@ -491,7 +491,7 @@ public:
   }
 
 private:
-	//ÔÚÖ¸¶¨½ÚµãºóÃæ²åÈëÖµÎªxµÄ½Úµã
+	//åœ¨æŒ‡å®šèŠ‚ç‚¹åé¢æ’å…¥å€¼ä¸ºxçš„èŠ‚ç‚¹
   _Node* _M_insert_after(_Node_base* __pos, const value_type& __x) {
     return (_Node*) (__slist_make_link(__pos, _M_create_node(__x)));
   }
@@ -500,7 +500,7 @@ private:
     return (_Node*) (__slist_make_link(__pos, _M_create_node()));
   }
 
-  //ÔÚÖ¸¶¨½ÚµãºóÃæÁ¬Ğø²åÈën¸öÖµÎªxµÄ½Úµã
+  //åœ¨æŒ‡å®šèŠ‚ç‚¹åé¢è¿ç»­æ’å…¥nä¸ªå€¼ä¸ºxçš„èŠ‚ç‚¹
   void _M_insert_after_fill(_Node_base* __pos,
                             size_type __n, const value_type& __x) {
     for (size_type __i = 0; __i < __n; ++__i)
@@ -510,8 +510,8 @@ private:
 #ifdef __STL_MEMBER_TEMPLATES
 
   // Check whether it's an integral type.  If so, it's not an iterator.
-  //ÔÚÖ¸¶¨½ÚµãÖ®ºó²åÈë[first,last)Êı¾İ½Úµã
-  //Ê×ÏÈÅĞ¶ÏÊäÈëÊı¾İÀàĞÍÊÇ·ñÎªÕûÊı
+  //åœ¨æŒ‡å®šèŠ‚ç‚¹ä¹‹åæ’å…¥[first,last)æ•°æ®èŠ‚ç‚¹
+  //é¦–å…ˆåˆ¤æ–­è¾“å…¥æ•°æ®ç±»å‹æ˜¯å¦ä¸ºæ•´æ•°
   template <class _InIter>
   void _M_insert_after_range(_Node_base* __pos, 
                              _InIter __first, _InIter __last) {
@@ -519,14 +519,14 @@ private:
     _M_insert_after_range(__pos, __first, __last, _Integral());
   }
 
-  //ÈôÊÇÕûÊı£¬ÔòÔÚÖ¸¶¨½ÚµãÖ®ºóÁ¬Ğø²åÈën¸öÏàÍ¬½Úµã
+  //è‹¥æ˜¯æ•´æ•°ï¼Œåˆ™åœ¨æŒ‡å®šèŠ‚ç‚¹ä¹‹åè¿ç»­æ’å…¥nä¸ªç›¸åŒèŠ‚ç‚¹
   template <class _Integer>
   void _M_insert_after_range(_Node_base* __pos, _Integer __n, _Integer __x,
                              __true_type) {
     _M_insert_after_fill(__pos, __n, __x);
   }
 
-  //Èô²»ÊÇÕûÊı£¬ÔòÒ»¸öÒ»¸ö½ÚµãÒ»´Î²åÈë
+  //è‹¥ä¸æ˜¯æ•´æ•°ï¼Œåˆ™ä¸€ä¸ªä¸€ä¸ªèŠ‚ç‚¹ä¸€æ¬¡æ’å…¥
   template <class _InIter>
   void _M_insert_after_range(_Node_base* __pos,
                              _InIter __first, _InIter __last,
@@ -558,7 +558,7 @@ private:
 #endif /* __STL_MEMBER_TEMPLATES */
 
 public:
-	//¶ÔÍâ½Ó¿Ú
+	//å¯¹å¤–æ¥å£
   iterator insert_after(iterator __pos, const value_type& __x) {
     return iterator(_M_insert_after(__pos._M_node, __x));
   }
@@ -592,9 +592,9 @@ public:
   }
 
 #endif /* __STL_MEMBER_TEMPLATES */
-	//ÔÚÖ¸¶¨½ÚµãÖ®Ç°²åÈë
+	//åœ¨æŒ‡å®šèŠ‚ç‚¹ä¹‹å‰æ’å…¥
   iterator insert(iterator __pos, const value_type& __x) {
-	  //ÕâÀïÊ×ÏÈÕÒ³öÖ¸¶¨½ÚµãµÄÇ°Ò»¸ö½Úµã£¬È»ºóÔÙ°ÑĞÂ½Úµã²åÈëµ½Ç°Ò»½ÚµãµÄºóÃæ
+	  //è¿™é‡Œé¦–å…ˆæ‰¾å‡ºæŒ‡å®šèŠ‚ç‚¹çš„å‰ä¸€ä¸ªèŠ‚ç‚¹ï¼Œç„¶åå†æŠŠæ–°èŠ‚ç‚¹æ’å…¥åˆ°å‰ä¸€èŠ‚ç‚¹çš„åé¢
     return iterator(_M_insert_after(__slist_previous(&this->_M_head,
                                                      __pos._M_node),
                     __x));
@@ -637,7 +637,7 @@ public:
 
 
 public:
-	//ÔÚÖ¸¶¨½ÚµãÖ®ºó²Á³ı½Úµã
+	//åœ¨æŒ‡å®šèŠ‚ç‚¹ä¹‹åæ“¦é™¤èŠ‚ç‚¹
   iterator erase_after(iterator __pos) {
     return iterator((_Node*) this->_M_erase_after(__pos._M_node));
   }
@@ -655,10 +655,10 @@ public:
       __slist_previous(&this->_M_head, __first._M_node), __last._M_node);
   }
 
-  //´ÓĞÂ·ÖÅäµ¥ÏòÁ´±í´óĞ¡
+  //ä»æ–°åˆ†é…å•å‘é“¾è¡¨å¤§å°
   void resize(size_type new_size, const _Tp& __x);
   void resize(size_type new_size) { resize(new_size, _Tp()); }
-  //Çå³ıÁ´±í
+  //æ¸…é™¤é“¾è¡¨
   void clear() { this->_M_erase_after(&this->_M_head, 0); }
 
 public:
@@ -739,7 +739,7 @@ public:
 #endif /* __STL_MEMBER_TEMPLATES */
 };
 
-//ÊµÏÖÕû¸öµ¥ÏòÁ´±íµÄ¸³Öµ
+//å®ç°æ•´ä¸ªå•å‘é“¾è¡¨çš„èµ‹å€¼
 template <class _Tp, class _Alloc>
 slist<_Tp,_Alloc>& slist<_Tp,_Alloc>::operator=(const slist<_Tp,_Alloc>& __x)
 {
@@ -753,9 +753,9 @@ slist<_Tp,_Alloc>& slist<_Tp,_Alloc>::operator=(const slist<_Tp,_Alloc>& __x)
       __n1 = (_Node*) __n1->_M_next;
       __n2 = (const _Node*) __n2->_M_next;
     }
-    if (__n2 == 0)//²Á³ı¶àÓàµÄ½Úµã
+    if (__n2 == 0)//æ“¦é™¤å¤šä½™çš„èŠ‚ç‚¹
       this->_M_erase_after(__p1, 0);
-    else//²åÈëÊ£ÏÂµÄ½Úµã
+    else//æ’å…¥å‰©ä¸‹çš„èŠ‚ç‚¹
       _M_insert_after_range(__p1, const_iterator((_Node*)__n2), 
                                   const_iterator(0));
   }
@@ -868,13 +868,13 @@ void slist<_Tp,_Alloc>::resize(size_type __len, const _Tp& __x)
     --__len;
     __cur = __cur->_M_next;
   }
-  if (__cur->_M_next) //ÈôĞÂµÄ´óĞ¡±ÈÔ­À´µÄĞ¡
+  if (__cur->_M_next) //è‹¥æ–°çš„å¤§å°æ¯”åŸæ¥çš„å°
     this->_M_erase_after(__cur, 0);
-  else//ÈôĞÂµÄ´óĞ¡±ÈÔ­À´µÄ´ó
+  else//è‹¥æ–°çš„å¤§å°æ¯”åŸæ¥çš„å¤§
     _M_insert_after_fill(__cur, __len, __x);
 }
 
-//É¾³ıËùÓĞÖµÎªvalµÄ½Úµã
+//åˆ é™¤æ‰€æœ‰å€¼ä¸ºvalçš„èŠ‚ç‚¹
 template <class _Tp, class _Alloc>
 void slist<_Tp,_Alloc>::remove(const _Tp& __val)
 {
@@ -888,7 +888,7 @@ void slist<_Tp,_Alloc>::remove(const _Tp& __val)
 }
 
 
-//É¾³ıÁ¬ĞøÏàÍ¬ÖµµÄ½Úµã£¬Ê¹ÆäÎ¨Ò»
+//åˆ é™¤è¿ç»­ç›¸åŒå€¼çš„èŠ‚ç‚¹ï¼Œä½¿å…¶å”¯ä¸€
 template <class _Tp, class _Alloc> 
 void slist<_Tp,_Alloc>::unique()
 {
@@ -904,7 +904,7 @@ void slist<_Tp,_Alloc>::unique()
   }
 }
 
-//ºÏ²¢Á½¸öÓĞĞòµ¥Á´±í
+//åˆå¹¶ä¸¤ä¸ªæœ‰åºå•é“¾è¡¨
 template <class _Tp, class _Alloc>
 void slist<_Tp,_Alloc>::merge(slist<_Tp,_Alloc>& __x)
 {
@@ -921,7 +921,7 @@ void slist<_Tp,_Alloc>::merge(slist<_Tp,_Alloc>& __x)
   }
 }
 
-//ÕâÀïµÄÅÅĞòËã·¨¸úlistµÄÏàËÆ
+//è¿™é‡Œçš„æ’åºç®—æ³•è·Ÿlistçš„ç›¸ä¼¼
 template <class _Tp, class _Alloc>
 void slist<_Tp,_Alloc>::sort()
 {

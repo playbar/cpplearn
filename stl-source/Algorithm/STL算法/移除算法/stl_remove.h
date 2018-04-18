@@ -1,7 +1,7 @@
 // remove, remove_if, remove_copy, remove_copy_if
 
-//ÒÆ³ı[first,last)Çø¼äÄÚËùÓĞÓëvalueÖµÏàµÈµÄÔªËØ£¬²¢²»ÊÇÕæÕıµÄ´ÓÈİÆ÷ÖĞÉ¾³ıÕâĞ©ÔªËØ(Ô­ÈİÆ÷µÄÄÚÈİ²»»á¸Ä±ä)
-//¶øÊÇ½«½á¹û¸´ÖÆµ½Ò»¸öÒÔresultÎªÆğÊ¼Î»ÖÃµÄÈİÆ÷ÖĞ¡£ĞÂÈİÆ÷¿ÉÒÔÓëÔ­ÈİÆ÷ÖØµş
+//ç§»é™¤[first,last)åŒºé—´å†…æ‰€æœ‰ä¸valueå€¼ç›¸ç­‰çš„å…ƒç´ ï¼Œå¹¶ä¸æ˜¯çœŸæ­£çš„ä»å®¹å™¨ä¸­åˆ é™¤è¿™äº›å…ƒç´ (åŸå®¹å™¨çš„å†…å®¹ä¸ä¼šæ”¹å˜)
+//è€Œæ˜¯å°†ç»“æœå¤åˆ¶åˆ°ä¸€ä¸ªä»¥resultä¸ºèµ·å§‹ä½ç½®çš„å®¹å™¨ä¸­ã€‚æ–°å®¹å™¨å¯ä»¥ä¸åŸå®¹å™¨é‡å 
 template <class _InputIter, class _OutputIter, class _Tp>
 _OutputIter remove_copy(_InputIter __first, _InputIter __last,
                         _OutputIter __result, const _Tp& __value) {
@@ -9,15 +9,15 @@ _OutputIter remove_copy(_InputIter __first, _InputIter __last,
   __STL_REQUIRES(_OutputIter, _OutputIterator);
   __STL_REQUIRES_BINARY_OP(_OP_EQUAL, bool,
        typename iterator_traits<_InputIter>::value_type, _Tp);
-  for ( ; __first != __last; ++__first)//±éÀúÈİÆ÷
-    if (!(*__first == __value)) {//Èç¹û²»ÏàµÈ
-      *__result = *__first;//¸³Öµ¸øĞÂÈİÆ÷
-      ++__result;//ĞÂÈİÆ÷Ç°½øÒ»¸öÎ»ÖÃ
+  for ( ; __first != __last; ++__first)//éå†å®¹å™¨
+    if (!(*__first == __value)) {//å¦‚æœä¸ç›¸ç­‰
+      *__result = *__first;//èµ‹å€¼ç»™æ–°å®¹å™¨
+      ++__result;//æ–°å®¹å™¨å‰è¿›ä¸€ä¸ªä½ç½®
     }
   return __result;
 }
-//ÒÆ³ı[first,last)Çø¼äÄÚ±»·Âº¯ÊıpredÅĞ¶ÏÎªtrueµÄÔªËØ,²¢²»ÊÇÕæÕıµÄ´ÓÈİÆ÷ÖĞÉ¾³ıÕâĞ©ÔªËØ(Ô­ÈİÆ÷µÄÄÚÈİ²»»á¸Ä±ä)
-//¶øÊÇ½«½á¹û¸´ÖÆµ½Ò»¸öÒÔresultÎªÆğÊ¼Î»ÖÃµÄÈİÆ÷ÖĞ¡£ĞÂÈİÆ÷¿ÉÒÔÓëÔ­ÈİÆ÷ÖØµş
+//ç§»é™¤[first,last)åŒºé—´å†…è¢«ä»¿å‡½æ•°predåˆ¤æ–­ä¸ºtrueçš„å…ƒç´ ,å¹¶ä¸æ˜¯çœŸæ­£çš„ä»å®¹å™¨ä¸­åˆ é™¤è¿™äº›å…ƒç´ (åŸå®¹å™¨çš„å†…å®¹ä¸ä¼šæ”¹å˜)
+//è€Œæ˜¯å°†ç»“æœå¤åˆ¶åˆ°ä¸€ä¸ªä»¥resultä¸ºèµ·å§‹ä½ç½®çš„å®¹å™¨ä¸­ã€‚æ–°å®¹å™¨å¯ä»¥ä¸åŸå®¹å™¨é‡å 
 template <class _InputIter, class _OutputIter, class _Predicate>
 _OutputIter remove_copy_if(_InputIter __first, _InputIter __last,
                            _OutputIter __result, _Predicate __pred) {
@@ -25,15 +25,15 @@ _OutputIter remove_copy_if(_InputIter __first, _InputIter __last,
   __STL_REQUIRES(_OutputIter, _OutputIterator);
   __STL_UNARY_FUNCTION_CHECK(_Predicate, bool,
              typename iterator_traits<_InputIter>::value_type);
-  for ( ; __first != __last; ++__first)//±éÀúÈİÆ÷
-    if (!__pred(*__first)) {//ÈôpredÅĞ¶ÏÎªfalse
-      *__result = *__first;//¸³Öµ¸øĞÂÈİÆ÷
-      ++__result;//ĞÂÈİÆ÷Ç°½øÒ»¸öÎ»ÖÃ
+  for ( ; __first != __last; ++__first)//éå†å®¹å™¨
+    if (!__pred(*__first)) {//è‹¥predåˆ¤æ–­ä¸ºfalse
+      *__result = *__first;//èµ‹å€¼ç»™æ–°å®¹å™¨
+      ++__result;//æ–°å®¹å™¨å‰è¿›ä¸€ä¸ªä½ç½®
     }
   return __result;
 }
-//ÒÆ³ı[first,last)Çø¼äÄÚËùÓĞÓëvalueÖµÏàµÈµÄÔªËØ,¸Ã²Ù×÷²»»á¸Ä±äÈİÆ÷´óĞ¡£¬Ö»ÊÇÈİÆ÷ÖĞÔªËØÖµ¸Ä±ä
-//¼´ÒÆ³ıÖ®ºó£¬ÖØĞÂÕûÀíÈİÆ÷µÄÄÚÈİ
+//ç§»é™¤[first,last)åŒºé—´å†…æ‰€æœ‰ä¸valueå€¼ç›¸ç­‰çš„å…ƒç´ ,è¯¥æ“ä½œä¸ä¼šæ”¹å˜å®¹å™¨å¤§å°ï¼Œåªæ˜¯å®¹å™¨ä¸­å…ƒç´ å€¼æ”¹å˜
+//å³ç§»é™¤ä¹‹åï¼Œé‡æ–°æ•´ç†å®¹å™¨çš„å†…å®¹
 template <class _ForwardIter, class _Tp>
 _ForwardIter remove(_ForwardIter __first, _ForwardIter __last,
                     const _Tp& __value) {
@@ -41,27 +41,27 @@ _ForwardIter remove(_ForwardIter __first, _ForwardIter __last,
   __STL_REQUIRES_BINARY_OP(_OP_EQUAL, bool,
        typename iterator_traits<_ForwardIter>::value_type, _Tp);
   __STL_CONVERTIBLE(_Tp, typename iterator_traits<_ForwardIter>::value_type);
-  __first = find(__first, __last, __value);//ÀûÓÃË³Ğò²éÕÒÕÒ³öµÚÒ»¸öÓëvalueÏàµÈµÄÔªËØ
+  __first = find(__first, __last, __value);//åˆ©ç”¨é¡ºåºæŸ¥æ‰¾æ‰¾å‡ºç¬¬ä¸€ä¸ªä¸valueç›¸ç­‰çš„å…ƒç´ 
   _ForwardIter __i = __first;
-  //ÏÂÃæµ÷ÓÃremove_copy
+  //ä¸‹é¢è°ƒç”¨remove_copy
   return __first == __last ? __first 
                            : remove_copy(++__i, __last, __first, __value);
 }
-//ÒÆ³ı[first,last)Çø¼äÄÚËùÓĞ±»predÅĞ¶ÏÎªtrueµÄÔªËØ,¸Ã²Ù×÷²»»á¸Ä±äÈİÆ÷´óĞ¡£¬Ö»ÊÇÈİÆ÷ÖĞÔªËØÖµ¸Ä±ä
-//¼´ÒÆ³ıÖ®ºó£¬ÖØĞÂÕûÀíÈİÆ÷µÄÄÚÈİ
+//ç§»é™¤[first,last)åŒºé—´å†…æ‰€æœ‰è¢«predåˆ¤æ–­ä¸ºtrueçš„å…ƒç´ ,è¯¥æ“ä½œä¸ä¼šæ”¹å˜å®¹å™¨å¤§å°ï¼Œåªæ˜¯å®¹å™¨ä¸­å…ƒç´ å€¼æ”¹å˜
+//å³ç§»é™¤ä¹‹åï¼Œé‡æ–°æ•´ç†å®¹å™¨çš„å†…å®¹
 template <class _ForwardIter, class _Predicate>
 _ForwardIter remove_if(_ForwardIter __first, _ForwardIter __last,
                        _Predicate __pred) {
   __STL_REQUIRES(_ForwardIter, _Mutable_ForwardIterator);
   __STL_UNARY_FUNCTION_CHECK(_Predicate, bool,
                typename iterator_traits<_ForwardIter>::value_type);
-  __first = find_if(__first, __last, __pred);//ÀûÓÃË³Ğò²éÕÒÕÒ³öµÚÒ»¸öÓëvalueÏàµÈµÄÔªËØ
+  __first = find_if(__first, __last, __pred);//åˆ©ç”¨é¡ºåºæŸ¥æ‰¾æ‰¾å‡ºç¬¬ä¸€ä¸ªä¸valueç›¸ç­‰çš„å…ƒç´ 
   _ForwardIter __i = __first;
-  //ÏÂÃæµ÷ÓÃremove_copy_if
+  //ä¸‹é¢è°ƒç”¨remove_copy_if
   return __first == __last ? __first 
                            : remove_copy_if(++__i, __last, __first, __pred);
 }
-//ÉÏÃæËÄ¸öÒÆ³ıº¯Êı¾ÙÀı£º
+//ä¸Šé¢å››ä¸ªç§»é™¤å‡½æ•°ä¸¾ä¾‹ï¼š
 /*
 	#include <iostream>     // std::cout
 	#include <algorithm>    // std::remove
@@ -125,29 +125,29 @@ _OutputIter __unique_copy(_InputIter __first, _InputIter __last,
     }
   return ++__result;
 }
-//ÈôresultÀàĞÍÎªoutput_iterator_tag£¬Ôòµ÷ÓÃ¸Ãº¯Êı
+//è‹¥resultç±»å‹ä¸ºoutput_iterator_tagï¼Œåˆ™è°ƒç”¨è¯¥å‡½æ•°
 template <class _InputIter, class _OutputIter>
 inline _OutputIter __unique_copy(_InputIter __first, _InputIter __last,
                                  _OutputIter __result, 
                                  output_iterator_tag) {
-		//ÅĞ¶ÏfirstµÄvalue_typeÀàĞÍ£¬¸ù¾İ²»Í¬ÀàĞÍµ÷ÓÃ²»Í¬º¯Êı
+		//åˆ¤æ–­firstçš„value_typeç±»å‹ï¼Œæ ¹æ®ä¸åŒç±»å‹è°ƒç”¨ä¸åŒå‡½æ•°
   return __unique_copy(__first, __last, __result, __VALUE_TYPE(__first));
 }
-//ÈôresultÀàĞÍÎªforward_iterator_tag£¬Ôòµ÷ÓÃ¸Ãº¯Êı
+//è‹¥resultç±»å‹ä¸ºforward_iterator_tagï¼Œåˆ™è°ƒç”¨è¯¥å‡½æ•°
 template <class _InputIter, class _ForwardIter>
 _ForwardIter __unique_copy(_InputIter __first, _InputIter __last,
                            _ForwardIter __result, forward_iterator_tag) {
-  *__result = *__first;//¼ÇÂ¼µÚÒ»¸öÔªËØ
-  while (++__first != __last)//±éÀúÇø¼ä
-	  //Èô²»´æÔÚÏàÁÚÖØ¸´ÔªËØ£¬Ôò¼ÌĞø¼ÇÂ¼µ½Ä¿±êÇøresult
+  *__result = *__first;//è®°å½•ç¬¬ä¸€ä¸ªå…ƒç´ 
+  while (++__first != __last)//éå†åŒºé—´
+	  //è‹¥ä¸å­˜åœ¨ç›¸é‚»é‡å¤å…ƒç´ ï¼Œåˆ™ç»§ç»­è®°å½•åˆ°ç›®æ ‡åŒºresult
     if (!(*__result == *__first))
-      *++__result = *__first;//¼ÇÂ¼ÔªËØµ½Ä¿±êÇø
+      *++__result = *__first;//è®°å½•å…ƒç´ åˆ°ç›®æ ‡åŒº
   return ++__result;
 }
-////unique_copy½«Çø¼ä[first,last)ÄÚÔªËØ¸´ÖÆµ½ÒÔresult¿ªÍ·µÄÇø¼äÉÏ£¬µ«ÊÇÈç¹û´æÔÚÏàÁÚÖØ¸´ÔªËØÊ±£¬Ö»¸´ÖÆÆäÖĞµÚÒ»¸öÔªËØ
-//ºÍuniqueÒ»Ñù£¬ÕâÀïÒ²ÓĞÁ½¸ö°æ±¾
+////unique_copyå°†åŒºé—´[first,last)å†…å…ƒç´ å¤åˆ¶åˆ°ä»¥resultå¼€å¤´çš„åŒºé—´ä¸Šï¼Œä½†æ˜¯å¦‚æœå­˜åœ¨ç›¸é‚»é‡å¤å…ƒç´ æ—¶ï¼Œåªå¤åˆ¶å…¶ä¸­ç¬¬ä¸€ä¸ªå…ƒç´ 
+//å’Œuniqueä¸€æ ·ï¼Œè¿™é‡Œä¹Ÿæœ‰ä¸¤ä¸ªç‰ˆæœ¬
 /*
-º¯ÊıÔ­ĞÍ£º
+å‡½æ•°åŸå‹ï¼š
 equality (1)	
 	template <class InputIterator, class OutputIterator>
 	OutputIterator unique_copy (InputIterator first, InputIterator last,
@@ -157,7 +157,7 @@ predicate (2)
 	OutputIterator unique_copy (InputIterator first, InputIterator last,
                               OutputIterator result, BinaryPredicate pred);
 */
-//°æ±¾Ò»
+//ç‰ˆæœ¬ä¸€
 template <class _InputIter, class _OutputIter>
 inline _OutputIter unique_copy(_InputIter __first, _InputIter __last,
                                _OutputIter __result) {
@@ -166,7 +166,7 @@ inline _OutputIter unique_copy(_InputIter __first, _InputIter __last,
   __STL_REQUIRES(typename iterator_traits<_InputIter>::value_type,
                  _EqualityComparable);
   if (__first == __last) return __result;
-  //¸ù¾İresultµü´úÆ÷µÄÀàĞÍ£¬µ÷ÓÃ²»Í¬µÄº¯Êı
+  //æ ¹æ®resultè¿­ä»£å™¨çš„ç±»å‹ï¼Œè°ƒç”¨ä¸åŒçš„å‡½æ•°
   return __unique_copy(__first, __last, __result,
                        __ITERATOR_CATEGORY(__result));
 }
@@ -209,7 +209,7 @@ _ForwardIter __unique_copy(_InputIter __first, _InputIter __last,
     if (!__binary_pred(*__result, *__first)) *++__result = *__first;
   return ++__result;
 }
-//°æ±¾¶ş
+//ç‰ˆæœ¬äºŒ
 template <class _InputIter, class _OutputIter, class _BinaryPredicate>
 inline _OutputIter unique_copy(_InputIter __first, _InputIter __last,
                                _OutputIter __result,
@@ -217,33 +217,33 @@ inline _OutputIter unique_copy(_InputIter __first, _InputIter __last,
   __STL_REQUIRES(_InputIter, _InputIterator);
   __STL_REQUIRES(_OutputIter, _OutputIterator);
   if (__first == __last) return __result;
-  //¸ù¾İresultµü´úÆ÷µÄÀàĞÍ£¬µ÷ÓÃ²»Í¬µÄº¯Êı
+  //æ ¹æ®resultè¿­ä»£å™¨çš„ç±»å‹ï¼Œè°ƒç”¨ä¸åŒçš„å‡½æ•°
   return __unique_copy(__first, __last, __result, __binary_pred,
                        __ITERATOR_CATEGORY(__result));
 }
-//ÒÆ³ıÇø¼ä[first,last)ÏàÁÚÁ¬ĞøÖØ¸´µÄÔªËØ
-//uniqueÓĞÁ½¸ö°æ±¾
-//¹¦ÄÜ£ºRemoves all but the first element from every consecutive group of equivalent elements in the range [first,last).
+//ç§»é™¤åŒºé—´[first,last)ç›¸é‚»è¿ç»­é‡å¤çš„å…ƒç´ 
+//uniqueæœ‰ä¸¤ä¸ªç‰ˆæœ¬
+//åŠŸèƒ½ï¼šRemoves all but the first element from every consecutive group of equivalent elements in the range [first,last).
 /*
-º¯ÊıÔ­ĞÍ£º
-equality (1)£º°æ±¾Ò»²ÉÓÃoperator==	
+å‡½æ•°åŸå‹ï¼š
+equality (1)ï¼šç‰ˆæœ¬ä¸€é‡‡ç”¨operator==	
 	template <class ForwardIterator>
 	ForwardIterator unique (ForwardIterator first, ForwardIterator last);
-predicate (2)£º°æ±¾¶ş²ÉÓÃpred²Ù×÷	
+predicate (2)ï¼šç‰ˆæœ¬äºŒé‡‡ç”¨predæ“ä½œ	
 	template <class ForwardIterator, class BinaryPredicate>
 	ForwardIterator unique (ForwardIterator first, ForwardIterator last,
                           BinaryPredicate pred);
 */
-//°æ±¾Ò»
+//ç‰ˆæœ¬ä¸€
 template <class _ForwardIter>
 _ForwardIter unique(_ForwardIter __first, _ForwardIter __last) {
   __STL_REQUIRES(_ForwardIter, _Mutable_ForwardIterator);
   __STL_REQUIRES(typename iterator_traits<_ForwardIter>::value_type,
                  _EqualityComparable);
-  __first = adjacent_find(__first, __last);//ÕÒ³öµÚÒ»¸öÏàÁÚÔªËØµÄÆğÊ¼Î»ÖÃ
-  return unique_copy(__first, __last, __first);//µ÷ÓÃunique_copyÍê³É²Ù×÷
+  __first = adjacent_find(__first, __last);//æ‰¾å‡ºç¬¬ä¸€ä¸ªç›¸é‚»å…ƒç´ çš„èµ·å§‹ä½ç½®
+  return unique_copy(__first, __last, __first);//è°ƒç”¨unique_copyå®Œæˆæ“ä½œ
 }
-//°æ±¾¶ş
+//ç‰ˆæœ¬äºŒ
 template <class _ForwardIter, class _BinaryPredicate>
 _ForwardIter unique(_ForwardIter __first, _ForwardIter __last,
                     _BinaryPredicate __binary_pred) {
@@ -251,6 +251,6 @@ _ForwardIter unique(_ForwardIter __first, _ForwardIter __last,
   __STL_BINARY_FUNCTION_CHECK(_BinaryPredicate, bool, 
       typename iterator_traits<_ForwardIter>::value_type,
       typename iterator_traits<_ForwardIter>::value_type);
-  __first = adjacent_find(__first, __last, __binary_pred);//ÕÒ³öµÚÒ»¸öÏàÁÚÔªËØµÄÆğÊ¼Î»ÖÃ
-  return unique_copy(__first, __last, __first, __binary_pred);//µ÷ÓÃunique_copyÍê³É²Ù×÷
+  __first = adjacent_find(__first, __last, __binary_pred);//æ‰¾å‡ºç¬¬ä¸€ä¸ªç›¸é‚»å…ƒç´ çš„èµ·å§‹ä½ç½®
+  return unique_copy(__first, __last, __first, __binary_pred);//è°ƒç”¨unique_copyå®Œæˆæ“ä½œ
 }

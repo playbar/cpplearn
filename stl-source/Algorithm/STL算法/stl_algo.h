@@ -1,8 +1,8 @@
 #ifndef __SGI_STL_INTERNAL_ALGO_H
 #define __SGI_STL_INTERNAL_ALGO_H
 
-#include <stl_heap.h>//ÕâÀï°üº¬¶ÑµÄÏà¹ØËã·¨
-//×î´ó¶ÑµÄÏà¹ØËã·¨ÒÑ¾­½éÉÜ¹ıÁË£¬ÓĞĞËÈ¤Ïê¼û
+#include <stl_heap.h>//è¿™é‡ŒåŒ…å«å †çš„ç›¸å…³ç®—æ³•
+//æœ€å¤§å †çš„ç›¸å…³ç®—æ³•å·²ç»ä»‹ç»è¿‡äº†ï¼Œæœ‰å…´è¶£è¯¦è§
 //http://blog.csdn.net/chenhanzhun/article/details/39434491
 
 // See concept_checks.h for the concept-checking macros 
@@ -16,26 +16,26 @@ __STL_BEGIN_NAMESPACE
 #endif
 
 // __median (an extension, not present in the C++ standard).
-//º¯Êı¹¦ÄÜ£ºÈ¡Èı¸öÔªËØa£¬b£¬cµÄÖĞ¼äÖµ
-//°æ±¾Ò»²ÉÓÃÄ¬ÈÏµÄoperator<²Ù×÷
+//å‡½æ•°åŠŸèƒ½ï¼šå–ä¸‰ä¸ªå…ƒç´ aï¼Œbï¼Œcçš„ä¸­é—´å€¼
+//ç‰ˆæœ¬ä¸€é‡‡ç”¨é»˜è®¤çš„operator<æ“ä½œ
 template <class _Tp>
 inline const _Tp& __median(const _Tp& __a, const _Tp& __b, const _Tp& __c) {
   __STL_REQUIRES(_Tp, _LessThanComparable);
   if (__a < __b)
     if (__b < __c)
-      return __b;//Èôa<b<c£¬Ôò·µ»Øb
+      return __b;//è‹¥a<b<cï¼Œåˆ™è¿”å›b
     else if (__a < __c)
-      return __c;//Èôa<c<b£¬Ôò·µ»Øc
+      return __c;//è‹¥a<c<bï¼Œåˆ™è¿”å›c
     else
-      return __a;//Èôc<a<b£¬Ôò·µ»Øa
+      return __a;//è‹¥c<a<bï¼Œåˆ™è¿”å›a
   else if (__a < __c)
-    return __a;//Èôb<a<c£¬Ôò·µ»Øa
+    return __a;//è‹¥b<a<cï¼Œåˆ™è¿”å›a
   else if (__b < __c)
-    return __c;//Èôb<c<a£¬Ôò·µ»Øc
+    return __c;//è‹¥b<c<aï¼Œåˆ™è¿”å›c
   else
-    return __b;//·ñÔò·µ»Øb
+    return __b;//å¦åˆ™è¿”å›b
 }
-//°æ±¾¶ş²ÉÓÃ·Âº¯Êıcomp±È½Ï
+//ç‰ˆæœ¬äºŒé‡‡ç”¨ä»¿å‡½æ•°compæ¯”è¾ƒ
 template <class _Tp, class _Compare>
 inline const _Tp&
 __median(const _Tp& __a, const _Tp& __b, const _Tp& __c, _Compare __comp) {
@@ -56,17 +56,17 @@ __median(const _Tp& __a, const _Tp& __b, const _Tp& __c, _Compare __comp) {
 }
 
 // for_each.  Apply a function to every element of a range.
-//¹¦ÄÜ£ºApplies function fn to each of the elements in the range [first,last).
-//½«·Âº¯ÊıfÓ¦ÓÃÓÚ[first,last)Çø¼äÄÚµÄÃ¿Ò»¸öÔªËØÉÏ
-//×¢£º²»ÄÜ¸Ä±ä[first,last)ÄÚÔªËØÖµ
+//åŠŸèƒ½ï¼šApplies function fn to each of the elements in the range [first,last).
+//å°†ä»¿å‡½æ•°fåº”ç”¨äº[first,last)åŒºé—´å†…çš„æ¯ä¸€ä¸ªå…ƒç´ ä¸Š
+//æ³¨ï¼šä¸èƒ½æ”¹å˜[first,last)å†…å…ƒç´ å€¼
 template <class _InputIter, class _Function>
 _Function for_each(_InputIter __first, _InputIter __last, _Function __f) {
   __STL_REQUIRES(_InputIter, _InputIterator);
   for ( ; __first != __last; ++__first)
-    __f(*__first);//µ÷ÓÃ·Âº¯Êıf
+    __f(*__first);//è°ƒç”¨ä»¿å‡½æ•°f
   return __f;
 }
-//for_eachº¯Êı¾ÙÀı£º
+//for_eachå‡½æ•°ä¸¾ä¾‹ï¼š
 /*
 	#include <iostream>     // std::cout
 	#include <algorithm>    // std::for_each
@@ -103,37 +103,37 @@ _Function for_each(_InputIter __first, _InputIter __last, _Function __f) {
 */
 
 // find and find_if.
-//²éÕÒÇø¼ä[first,last)ÄÚÔªËØµÚÒ»¸öÓëvalueÖµÏàµÈµÄÔªËØ£¬²¢·µ»ØÆäÎ»ÖÃ
-//ÆäÖĞfindº¯ÊıÊÇ²ÉÓÃÄ¬ÈÏµÄequality²Ù×÷operator==
-//find_ifÊÇ²ÉÓÃÓÃ»§×ÔĞĞÖ¸¶¨µÄ²Ù×÷pred
+//æŸ¥æ‰¾åŒºé—´[first,last)å†…å…ƒç´ ç¬¬ä¸€ä¸ªä¸valueå€¼ç›¸ç­‰çš„å…ƒç´ ï¼Œå¹¶è¿”å›å…¶ä½ç½®
+//å…¶ä¸­findå‡½æ•°æ˜¯é‡‡ç”¨é»˜è®¤çš„equalityæ“ä½œoperator==
+//find_ifæ˜¯é‡‡ç”¨ç”¨æˆ·è‡ªè¡ŒæŒ‡å®šçš„æ“ä½œpred
 
-//Èôfindº¯ÊıİÍÈ¡³öÀ´µÄµü´úÆ÷ÀàĞÍÎªÊäÈëµü´úÆ÷input_iterator_tag£¬Ôòµ÷ÓÃ´Ëº¯Êı
+//è‹¥findå‡½æ•°èƒå–å‡ºæ¥çš„è¿­ä»£å™¨ç±»å‹ä¸ºè¾“å…¥è¿­ä»£å™¨input_iterator_tagï¼Œåˆ™è°ƒç”¨æ­¤å‡½æ•°
 template <class _InputIter, class _Tp>
 inline _InputIter find(_InputIter __first, _InputIter __last,
                        const _Tp& __val,
                        input_iterator_tag)
-{//ÈôÉĞÎ´µ½´ïÇø¼äµÄÎ²¶Ë£¬ÇÒÎ´ÕÒµ½Æ¥ÅäµÄÖµ£¬Ôò¼ÌĞø²éÕÒ
+{//è‹¥å°šæœªåˆ°è¾¾åŒºé—´çš„å°¾ç«¯ï¼Œä¸”æœªæ‰¾åˆ°åŒ¹é…çš„å€¼ï¼Œåˆ™ç»§ç»­æŸ¥æ‰¾
   while (__first != __last && !(*__first == __val))
     ++__first;
-  //ÈôÕÒµ½Æ¥ÅäµÄÖµ£¬Ôò·µ»Ø¸ÃÎ»ÖÃ
-  //ÈôÕÒ²»µ½£¬¼´µ½´ïÇø¼äÎ²¶Ë£¬´ËÊ±first=last£¬Ôò·µ»Øfirst
+  //è‹¥æ‰¾åˆ°åŒ¹é…çš„å€¼ï¼Œåˆ™è¿”å›è¯¥ä½ç½®
+  //è‹¥æ‰¾ä¸åˆ°ï¼Œå³åˆ°è¾¾åŒºé—´å°¾ç«¯ï¼Œæ­¤æ—¶first=lastï¼Œåˆ™è¿”å›first
   return __first;
 }
-//Èôfind_ifº¯ÊıİÍÈ¡³öÀ´µÄµü´úÆ÷ÀàĞÍÎªÊäÈëµü´úÆ÷input_iterator_tag£¬Ôòµ÷ÓÃ´Ëº¯Êı
+//è‹¥find_ifå‡½æ•°èƒå–å‡ºæ¥çš„è¿­ä»£å™¨ç±»å‹ä¸ºè¾“å…¥è¿­ä»£å™¨input_iterator_tagï¼Œåˆ™è°ƒç”¨æ­¤å‡½æ•°
 template <class _InputIter, class _Predicate>
 inline _InputIter find_if(_InputIter __first, _InputIter __last,
                           _Predicate __pred,
                           input_iterator_tag)
-{//ÈôÉĞÎ´µ½´ïÇø¼äµÄÎ²¶Ë£¬ÇÒÎ´ÕÒµ½Æ¥ÅäµÄÖµ£¬Ôò¼ÌĞø²éÕÒ
+{//è‹¥å°šæœªåˆ°è¾¾åŒºé—´çš„å°¾ç«¯ï¼Œä¸”æœªæ‰¾åˆ°åŒ¹é…çš„å€¼ï¼Œåˆ™ç»§ç»­æŸ¥æ‰¾
   while (__first != __last && !__pred(*__first))
     ++__first;
-  //ÈôÕÒµ½Æ¥ÅäµÄÖµ£¬Ôò·µ»Ø¸ÃÎ»ÖÃ
-  //ÈôÕÒ²»µ½£¬¼´µ½´ïÇø¼äÎ²¶Ë£¬´ËÊ±first=last£¬Ôò·µ»Øfirst
+  //è‹¥æ‰¾åˆ°åŒ¹é…çš„å€¼ï¼Œåˆ™è¿”å›è¯¥ä½ç½®
+  //è‹¥æ‰¾ä¸åˆ°ï¼Œå³åˆ°è¾¾åŒºé—´å°¾ç«¯ï¼Œæ­¤æ—¶first=lastï¼Œåˆ™è¿”å›first
   return __first;
 }
 
 #ifdef __STL_CLASS_PARTIAL_SPECIALIZATION
-//Èôfindº¯ÊıİÍÈ¡³öÀ´µÄµü´úÆ÷ÀàĞÍÎªËæ»ú·ÃÎÊµü´úÆ÷random_access_iterator_tag£¬Ôòµ÷ÓÃ´Ëº¯Êı
+//è‹¥findå‡½æ•°èƒå–å‡ºæ¥çš„è¿­ä»£å™¨ç±»å‹ä¸ºéšæœºè®¿é—®è¿­îŒ•é±®andom_access_iterator_tagï¼Œåˆ™è°ƒç”¨æ­¤å‡½æ•°
 template <class _RandomAccessIter, class _Tp>
 _RandomAccessIter find(_RandomAccessIter __first, _RandomAccessIter __last,
                        const _Tp& __val,
@@ -171,7 +171,7 @@ _RandomAccessIter find(_RandomAccessIter __first, _RandomAccessIter __last,
     return __last;
   }
 }
-//Èôfind_ifº¯ÊıİÍÈ¡³öÀ´µÄµü´úÆ÷ÀàĞÍÎªËæ»ú·ÃÎÊµü´úÆ÷random_access_iterator_tag£¬Ôòµ÷ÓÃ´Ëº¯Êı
+//è‹¥find_ifå‡½æ•°èƒå–å‡ºæ¥çš„è¿­ä»£å™¨ç±»å‹ä¸ºéšæœºè®¿é—®è¿­ä»£å™¨random_access_iterator_tagï¼Œåˆ™è°ƒç”¨æ­¤å‡½æ•°
 template <class _RandomAccessIter, class _Predicate>
 _RandomAccessIter find_if(_RandomAccessIter __first, _RandomAccessIter __last,
                           _Predicate __pred,
@@ -211,13 +211,13 @@ _RandomAccessIter find_if(_RandomAccessIter __first, _RandomAccessIter __last,
 }
 
 #endif /* __STL_CLASS_PARTIAL_SPECIALIZATION */
-/*findº¯Êı¹¦ÄÜ£ºReturns an iterator to the first element in the range [first,last) that compares equal to val. 
+/*findå‡½æ•°åŠŸèƒ½ï¼šReturns an iterator to the first element in the range [first,last) that compares equal to val. 
 If no such element is found, the function returns last.
-findº¯ÊıÔ­ĞÍ£º
+findå‡½æ•°åŸå‹ï¼š
 	template <class InputIterator, class T>
 	InputIterator find (InputIterator first, InputIterator last, const T& val);
 */
-//findº¯Êı¶ÔÍâ½Ó¿Ú
+//findå‡½æ•°å¯¹å¤–æ¥å£
 template <class _InputIter, class _Tp>
 inline _InputIter find(_InputIter __first, _InputIter __last,
                        const _Tp& __val)
@@ -225,26 +225,26 @@ inline _InputIter find(_InputIter __first, _InputIter __last,
   __STL_REQUIRES(_InputIter, _InputIterator);
   __STL_REQUIRES_BINARY_OP(_OP_EQUAL, bool, 
             typename iterator_traits<_InputIter>::value_type, _Tp);
-  //Ê×ÏÈİÍÈ¡³öfirstµü´úÆ÷µÄÀàĞÍ£¬¸ù¾İµü´úÆ÷µÄÀàĞÍµ÷ÓÃ²»Í¬µÄº¯Êı
+  //é¦–å…ˆèƒå–å‡ºfirstè¿­ä»£å™¨çš„ç±»å‹ï¼Œæ ¹æ®è¿­ä»£å™¨çš„ç±»å‹è°ƒç”¨ä¸åŒçš„å‡½æ•°
   return find(__first, __last, __val, __ITERATOR_CATEGORY(__first));
 }
-/*find_ifº¯Êı¹¦ÄÜ£ºReturns an iterator to the first element in the range [first,last) for which pred returns true. 
+/*find_ifå‡½æ•°åŠŸèƒ½ï¼šReturns an iterator to the first element in the range [first,last) for which pred returns true. 
 If no such element is found, the function returns last.
-find_ifº¯ÊıÔ­ĞÍ£º
+find_ifå‡½æ•°åŸå‹ï¼š
 	template <class InputIterator, class UnaryPredicate>
 	InputIterator find_if (InputIterator first, InputIterator last, UnaryPredicate pred);
 */
-//find_if º¯Êı¶ÔÍâ½Ó¿Ú
+//find_if å‡½æ•°å¯¹å¤–æ¥å£
 template <class _InputIter, class _Predicate>
 inline _InputIter find_if(_InputIter __first, _InputIter __last,
                           _Predicate __pred) {
   __STL_REQUIRES(_InputIter, _InputIterator);
   __STL_UNARY_FUNCTION_CHECK(_Predicate, bool,
           typename iterator_traits<_InputIter>::value_type);
-  //Ê×ÏÈİÍÈ¡³öfirstµü´úÆ÷µÄÀàĞÍ£¬¸ù¾İµü´úÆ÷µÄÀàĞÍµ÷ÓÃ²»Í¬µÄº¯Êı
+  //é¦–å…ˆèƒå–å‡ºfirstè¿­ä»£å™¨çš„ç±»å‹ï¼Œæ ¹æ®è¿­ä»£å™¨çš„ç±»å‹è°ƒç”¨ä¸åŒçš„å‡½æ•°
   return find_if(__first, __last, __pred, __ITERATOR_CATEGORY(__first));
 }
-//findºÍfind_ifº¯Êı¾ÙÀı£º
+//findå’Œfind_ifå‡½æ•°ä¸¾ä¾‹ï¼š
 /*
 	#include <iostream>     // std::cout
 	#include <algorithm>    // std::find_if
@@ -282,47 +282,47 @@ inline _InputIter find_if(_InputIter __first, _InputIter __last,
 
 // adjacent_find.
 
-//²éÕÒÇø¼ä[first,last)ÄÚµÚÒ»´ÎÖØ¸´µÄÏàÁÚÔªËØ
-//Èô´æÔÚ·µ»ØÏàÁÚÔªËØµÄµÚÒ»¸öÔªËØÎ»ÖÃ
-//Èô²»´æÔÚ·µ»ØlastÎ»ÖÃ
-/*¸Ãº¯ÊıÓĞÁ½¸ö°æ±¾£ºµÚÒ»°æ±¾ÊÇÄ¬ÈÏ²Ù×÷operator==£»µÚ¶ş°æ±¾ÊÇÓÃ»§Ö¸¶¨µÄ¶şÔª²Ù×÷pred
-º¯Êı¶ÔÍâ½Ó¿ÚµÄÔ­ĞÍ£º
-equality (1)£ºÄ¬ÈÏ²Ù×÷ÊÇoperator==
+//æŸ¥æ‰¾åŒºé—´[first,last)å†…ç¬¬ä¸€æ¬¡é‡å¤çš„ç›¸é‚»å…ƒç´ 
+//è‹¥å­˜åœ¨è¿”å›ç›¸é‚»å…ƒç´ çš„ç¬¬ä¸€ä¸ªå…ƒç´ ä½ç½®
+//è‹¥ä¸å­˜åœ¨è¿”å›lastä½ç½®
+/*è¯¥å‡½æ•°æœ‰ä¸¤ä¸ªç‰ˆæœ¬ï¼šç¬¬ä¸€ç‰ˆæœ¬æ˜¯é»˜è®¤æ“ä½œoperator==ï¼›ç¬¬äºŒç‰ˆæœ¬æ˜¯ç”¨æˆ·æŒ‡å®šçš„äºŒå…ƒæ“ä½œpred
+å‡½æ•°å¯¹å¤–æ¥å£çš„åŸå‹ï¼š
+equality (1)ï¼šé»˜è®¤æ“ä½œæ˜¯operator==
 	template <class ForwardIterator>
 	ForwardIterator adjacent_find (ForwardIterator first, ForwardIterator last);
-predicate (2)£ºÓÃ»§Ö¸¶¨µÄ¶şÔª²Ù×÷pred	
+predicate (2)ï¼šç”¨æˆ·æŒ‡å®šçš„äºŒå…ƒæ“ä½œpred	
 	template <class ForwardIterator, class BinaryPredicate>
 	ForwardIterator adjacent_find (ForwardIterator first, ForwardIterator last,
                                   BinaryPredicate pred);
 
 */
-//°æ±¾Ò»£ºÄ¬ÈÏ²Ù×÷ÊÇoperator==
+//ç‰ˆæœ¬ä¸€ï¼šé»˜è®¤æ“ä½œæ˜¯operator==
 template <class _ForwardIter>
 _ForwardIter adjacent_find(_ForwardIter __first, _ForwardIter __last) {
   __STL_REQUIRES(_ForwardIter, _ForwardIterator);
   __STL_REQUIRES(typename iterator_traits<_ForwardIter>::value_type,
                  _EqualityComparable);
   /*
-  Çé¿ö1£ºÈôÊäÈëÇø¼äÎª¿Õ£¬ÔòÖ±½Ó·µ»ØÎ²¶Ëlast£»
-  Çé¿ö2£ºÈôÊäÈëÇø¼ä²»Îª¿Õ£¬ÇÒ´æÔÚÏàÁÚÖØ¸´ÔªËØ£¬Ôò·µ»ØÏàÁÚÔªËØµÄµÚÒ»¸öÔªËØµÄÎ»ÖÃ£»
-  Çé¿ö3£ºÈôÊäÈëÇø¼ä²»Îª¿Õ£¬µ«ÊÇ²»´æÔÚÏàÁÚÖØ¸´ÔªËØ£¬ÔòÖ±½Ó·µ»ØÎ²¶Ëlast£»
+  æƒ…å†µ1ï¼šè‹¥è¾“å…¥åŒºé—´ä¸ºç©ºï¼Œåˆ™ç›´æ¥è¿”å›å°¾ç«¯lastï¼›
+  æƒ…å†µ2ï¼šè‹¥è¾“å…¥åŒºé—´ä¸ä¸ºç©ºï¼Œä¸”å­˜åœ¨ç›¸é‚»é‡å¤å…ƒç´ ï¼Œåˆ™è¿”å›ç›¸é‚»å…ƒç´ çš„ç¬¬ä¸€ä¸ªå…ƒç´ çš„ä½ç½®ï¼›
+  æƒ…å†µ3ï¼šè‹¥è¾“å…¥åŒºé—´ä¸ä¸ºç©ºï¼Œä½†æ˜¯ä¸å­˜åœ¨ç›¸é‚»é‡å¤å…ƒç´ ï¼Œåˆ™ç›´æ¥è¿”å›å°¾ç«¯lastï¼›
   */
-  //Çé¿ö1£º
-  if (__first == __last)//ÈôÊäÈëÇø¼äÎª¿Õ
-    return __last;//Ö±½Ó·µ»Ølast
-  //Çé¿ö2£º
-  _ForwardIter __next = __first;//¶¨Òåµ±Ç°Î»ÖÃµÄÏÂÒ»¸öÎ»ÖÃ(¼´µ±Ç°ÔªËØµÄÏàÁÚÔªËØ)
-  while(++__next != __last) {//Èô»¹Ã»µ½´ïÎ²¶Ë£¬Ö´ĞĞwhileÑ­»·
-    if (*__first == *__next)//ÏàÁÚÔªËØÖµÏàµÈ£¬ÔòÕÒµ½ÏàÁÚÖØ¸´ÔªËØ
-      return __first;//·µ»ØµÚÒ»¸öÔªËØµÄÎ»ÖÃ
-    __first = __next;//ÈôÔİÊ±ÕÒ²»µ½£¬Ôò¼ÌĞøÕÒ£¬Ö±µ½µ½´ïÇø¼äÎ²¶Ë
+  //æƒ…å†µ1ï¼š
+  if (__first == __last)//è‹¥è¾“å…¥åŒºé—´ä¸ºç©º
+    return __last;//ç›´æ¥è¿”å›last
+  //æƒ…å†µ2ï¼š
+  _ForwardIter __next = __first;//å®šä¹‰å½“å‰ä½ç½®çš„ä¸‹ä¸€ä¸ªä½ç½®(å³å½“å‰å…ƒç´ çš„ç›¸é‚»å…ƒç´ )
+  while(++__next != __last) {//è‹¥è¿˜æ²¡åˆ°è¾¾å°¾ç«¯ï¼Œæ‰§è¡Œwhileå¾ªç¯
+    if (*__first == *__next)//ç›¸é‚»å…ƒç´ å€¼ç›¸ç­‰ï¼Œåˆ™æ‰¾åˆ°ç›¸é‚»é‡å¤å…ƒç´ 
+      return __first;//è¿”å›ç¬¬ä¸€ä¸ªå…ƒç´ çš„ä½ç½®
+    __first = __next;//è‹¥æš‚æ—¶æ‰¾ä¸åˆ°ï¼Œåˆ™ç»§ç»­æ‰¾ï¼Œç›´åˆ°åˆ°è¾¾åŒºé—´å°¾ç«¯
   }
-  //Çé¿ö3£º
-  return __last;//Ö±½Ó·µ»ØÎ²¶Ëlast
+  //æƒ…å†µ3ï¼š
+  return __last;//ç›´æ¥è¿”å›å°¾ç«¯last
 }
 
-//°æ±¾¶ş£ºÓÃ»§Ö¸¶¨µÄ¶şÔª²Ù×÷pred	
-//ÊµÏÖ¹ı³ÌºÍ°æ±¾Ò»Ò»Ñù£¬Ö»ÊÇÅĞ¶Ï¹æÔò²»Í¬
+//ç‰ˆæœ¬äºŒï¼šç”¨æˆ·æŒ‡å®šçš„äºŒå…ƒæ“ä½œpred	
+//å®ç°è¿‡ç¨‹å’Œç‰ˆæœ¬ä¸€ä¸€æ ·ï¼Œåªæ˜¯åˆ¤æ–­è§„åˆ™ä¸åŒ
 template <class _ForwardIter, class _BinaryPredicate>
 _ForwardIter adjacent_find(_ForwardIter __first, _ForwardIter __last,
                            _BinaryPredicate __binary_pred) {
@@ -334,14 +334,14 @@ _ForwardIter adjacent_find(_ForwardIter __first, _ForwardIter __last,
     return __last;
   _ForwardIter __next = __first;
   while(++__next != __last) {
-	  //Èç¹ûÕÒµ½ÏàÁÚÔªËØ·ûºÏÓÃ»§Ö¸¶¨Ìõ¼ş£¬¾Í·µ»ØµÚÒ»ÔªËØÎ»ÖÃ
+	  //å¦‚æœæ‰¾åˆ°ç›¸é‚»å…ƒç´ ç¬¦åˆç”¨æˆ·æŒ‡å®šæ¡ä»¶ï¼Œå°±è¿”å›ç¬¬ä¸€å…ƒç´ ä½ç½®
     if (__binary_pred(*__first, *__next))
       return __first;
     __first = __next;
   }
   return __last;
 }
-//adjacent_findº¯Êı¾ÙÀı£º
+//adjacent_findå‡½æ•°ä¸¾ä¾‹ï¼š
 /*
 	#include <iostream>     // std::cout
 	#include <algorithm>    // std::adjacent_find
@@ -382,15 +382,15 @@ _ForwardIter adjacent_find(_ForwardIter __first, _ForwardIter __last,
 // C++ standard only has the latter version, but the former, which was present
 // in the HP STL, is retained for backward compatibility.
 
-//¼ÆËãÖ¸¶¨ÔªËØµÄ¸öÊı
-//SGI STLÖĞÌá¹©Á½¸ö°æ±¾£¬µ«ÊÇC++±ê×¼Ö»Ìá¹©Ò»ÖÖ°æ±¾
-/*¹¦ÄÜ£ºReturns the number of elements in the range [first,last) that compare equal to val.
-C++±ê×¼Ö»Ìá¹©Ò»ÖÖcountÔ­ĞÍ£º
+//è®¡ç®—æŒ‡å®šå…ƒç´ çš„ä¸ªæ•°
+//SGI STLä¸­æä¾›ä¸¤ä¸ªç‰ˆæœ¬ï¼Œä½†æ˜¯C++æ ‡å‡†åªæä¾›ä¸€ç§ç‰ˆæœ¬
+/*åŠŸèƒ½ï¼šReturns the number of elements in the range [first,last) that compare equal to val.
+C++æ ‡å‡†åªæä¾›ä¸€ç§countåŸå‹ï¼š
 	template <class InputIterator, class T>
 		typename iterator_traits<InputIterator>::difference_type
 	count (InputIterator first, InputIterator last, const T& val);
 */
-//SGI STLÌá¹©µÄ°æ±¾Ò»count£¬²»ÊÇC++±ê×¼£ºÄ¬ÈÏÊ¹ÓÃoperator==
+//SGI STLæä¾›çš„ç‰ˆæœ¬ä¸€countï¼Œä¸æ˜¯C++æ ‡å‡†ï¼šé»˜è®¤ä½¿ç”¨operator==
 template <class _InputIter, class _Tp, class _Size>
 void count(_InputIter __first, _InputIter __last, const _Tp& __value,
            _Size& __n) {
@@ -398,35 +398,35 @@ void count(_InputIter __first, _InputIter __last, const _Tp& __value,
   __STL_REQUIRES(typename iterator_traits<_InputIter>::value_type,
                  _EqualityComparable);
   __STL_REQUIRES(_Tp, _EqualityComparable);
-  //½«Çø¼ä[first,last)ÄÚµÄÔªËØºÍÖ¸¶¨Öµvalue±È½Ï
-  //ÈôÃ»µ½´ïÇø¼äÎ²¶Ë£¬¼ÌĞø²éÕÒ
+  //å°†åŒºé—´[first,last)å†…çš„å…ƒç´ å’ŒæŒ‡å®šå€¼valueæ¯”è¾ƒ
+  //è‹¥æ²¡åˆ°è¾¾åŒºé—´å°¾ç«¯ï¼Œç»§ç»­æŸ¥æ‰¾
   for ( ; __first != __last; ++__first)
-    if (*__first == __value)//Èô´æÔÚÏàµÈµÄÖµ
-      ++__n;//¼ÆÊıÆ÷ÀÛ¼Ó1
+    if (*__first == __value)//è‹¥å­˜åœ¨ç›¸ç­‰çš„å€¼
+      ++__n;//è®¡æ•°å™¨ç´¯åŠ 1
 }
 
-/*¹¦ÄÜ£ºReturns the number of elements in the range [first,last) for which pred is true.
-C++±ê×¼Ö»Ìá¹©Ò»ÖÖcount_ifÔ­ĞÍ£º
+/*åŠŸèƒ½ï¼šReturns the number of elements in the range [first,last) for which pred is true.
+C++æ ‡å‡†åªæä¾›ä¸€ç§count_ifåŸå‹ï¼š
 	template <class InputIterator, class Predicate>
 		typename iterator_traits<InputIterator>::difference_type
     count_if (InputIterator first, InputIterator last, UnaryPredicate pred);
 */
-//SGI STLÌá¹©µÄ°æ±¾Ò»count_if£¬²»ÊÇC++±ê×¼£ºÄ¬ÈÏÊ¹ÓÃoperator==
+//SGI STLæä¾›çš„ç‰ˆæœ¬ä¸€count_ifï¼Œä¸æ˜¯C++æ ‡å‡†ï¼šé»˜è®¤ä½¿ç”¨operator==
 template <class _InputIter, class _Predicate, class _Size>
 void count_if(_InputIter __first, _InputIter __last, _Predicate __pred,
               _Size& __n) {
   __STL_REQUIRES(_InputIter, _InputIterator);
   __STL_UNARY_FUNCTION_CHECK(_Predicate, bool, 
                   typename iterator_traits<_InputIter>::value_type);
-  //½«Çø¼ä[first,last)ÄÚµÄÔªËØºÍÖ¸¶¨Öµvalue±È½Ï
-  //ÈôÃ»µ½´ïÇø¼äÎ²¶Ë£¬¼ÌĞø²éÕÒ
+  //å°†åŒºé—´[first,last)å†…çš„å…ƒç´ å’ŒæŒ‡å®šå€¼valueæ¯”è¾ƒ
+  //è‹¥æ²¡åˆ°è¾¾åŒºé—´å°¾ç«¯ï¼Œç»§ç»­æŸ¥æ‰¾
   for ( ; __first != __last; ++__first)
-    if (__pred(*__first))//´æÔÚ·ûºÏ¹æÔòµÄÔªËØ
-      ++__n;//¼ÆÊıÆ÷ÀÛ¼Ó1
+    if (__pred(*__first))//å­˜åœ¨ç¬¦åˆè§„åˆ™çš„å…ƒç´ 
+      ++__n;//è®¡æ•°å™¨ç´¯åŠ 1
 }
 
 #ifdef __STL_CLASS_PARTIAL_SPECIALIZATION
-//SGI STLÌá¹©µÄ°æ±¾¶şcount£¬Ò²C++±ê×¼Ìá¹©µÄ°æ±¾
+//SGI STLæä¾›çš„ç‰ˆæœ¬äºŒcountï¼Œä¹ŸC++æ ‡å‡†æä¾›çš„ç‰ˆæœ¬
 template <class _InputIter, class _Tp>
 typename iterator_traits<_InputIter>::difference_type
 count(_InputIter __first, _InputIter __last, const _Tp& __value) {
@@ -435,15 +435,15 @@ count(_InputIter __first, _InputIter __last, const _Tp& __value) {
                  _EqualityComparable);
   __STL_REQUIRES(_Tp, _EqualityComparable);
   typename iterator_traits<_InputIter>::difference_type __n = 0;
-  //½«Çø¼ä[first,last)ÄÚµÄÔªËØºÍÖ¸¶¨Öµvalue±È½Ï
-  //ÈôÃ»µ½´ïÇø¼äÎ²¶Ë£¬¼ÌĞø²éÕÒ
+  //å°†åŒºé—´[first,last)å†…çš„å…ƒç´ å’ŒæŒ‡å®šå€¼valueæ¯”è¾ƒ
+  //è‹¥æ²¡åˆ°è¾¾åŒºé—´å°¾ç«¯ï¼Œç»§ç»­æŸ¥æ‰¾
   for ( ; __first != __last; ++__first)
-    if (*__first == __value)//´æÔÚÏàµÈµÄÔªËØ
-      ++__n;//¼ÆÊıÆ÷ÀÛ¼Ó1
+    if (*__first == __value)//å­˜åœ¨ç›¸ç­‰çš„å…ƒç´ 
+      ++__n;//è®¡æ•°å™¨ç´¯åŠ 1
   return __n;
 }
 
-//SGI STLÌá¹©µÄ°æ±¾¶şcount_if£¬Ò²C++±ê×¼Ìá¹©µÄ°æ±¾
+//SGI STLæä¾›çš„ç‰ˆæœ¬äºŒcount_ifï¼Œä¹ŸC++æ ‡å‡†æä¾›çš„ç‰ˆæœ¬
 template <class _InputIter, class _Predicate>
 typename iterator_traits<_InputIter>::difference_type
 count_if(_InputIter __first, _InputIter __last, _Predicate __pred) {
@@ -451,15 +451,15 @@ count_if(_InputIter __first, _InputIter __last, _Predicate __pred) {
   __STL_UNARY_FUNCTION_CHECK(_Predicate, bool, 
                   typename iterator_traits<_InputIter>::value_type);
   typename iterator_traits<_InputIter>::difference_type __n = 0;
-  //½«Çø¼ä[first,last)ÄÚµÄÔªËØºÍÖ¸¶¨Öµvalue±È½Ï
-  //ÈôÃ»µ½´ïÇø¼äÎ²¶Ë£¬¼ÌĞø²éÕÒ
+  //å°†åŒºé—´[first,last)å†…çš„å…ƒç´ å’ŒæŒ‡å®šå€¼valueæ¯”è¾ƒ
+  //è‹¥æ²¡åˆ°è¾¾åŒºé—´å°¾ç«¯ï¼Œç»§ç»­æŸ¥æ‰¾
   for ( ; __first != __last; ++__first)
-    if (__pred(*__first))//´æÔÚ·ûºÏ¹æÔòµÄÔªËØ
-      ++__n;//¼ÆÊıÆ÷ÀÛ¼Ó1
+    if (__pred(*__first))//å­˜åœ¨ç¬¦åˆè§„åˆ™çš„å…ƒç´ 
+      ++__n;//è®¡æ•°å™¨ç´¯åŠ 1
   return __n;
 }
 
-//ÏÂÃæÕë¶ÔcountºÍcount_ifº¯Êı¾ÙÀı£º
+//ä¸‹é¢é’ˆå¯¹countå’Œcount_ifå‡½æ•°ä¸¾ä¾‹ï¼š
 /*
 	#include <iostream>     // std::cout
 	#include <algorithm>    // std::count
@@ -491,25 +491,25 @@ count_if(_InputIter __first, _InputIter __last, _Predicate __pred) {
 #endif /* __STL_CLASS_PARTIAL_SPECIALIZATION */
 
 // search.
-//ÔÚĞòÁĞÒ»[first1,last1)Ëùº­¸ÇµÄÇø¼äÖĞ£¬²éÕÒĞòÁĞ¶ş[first2,last2)µÄÊ×´Î³öÏÖµã
-//¸Ã²éÕÒº¯ÊıÓĞÁ½¸ö°æ±¾£º
-//°æ±¾Ò»£ºÊ¹ÓÃÄ¬ÈÏµÄequality²Ù×÷operator==
-//°æ±¾¶ş£ºÓÃ»§¸ù¾İĞèÒª×ÔĞĞÖ¸¶¨²Ù×÷¹æÔò
-/*searchº¯Êı¹¦ÄÜ£ºSearches the range [first1,last1) for the first occurrence of the sequence defined by [first2,last2), 
+//åœ¨åºåˆ—ä¸€[first1,last1)æ‰€æ¶µç›–çš„åŒºé—´ä¸­ï¼ŒæŸ¥æ‰¾åºåˆ—äºŒ[first2,last2)çš„é¦–æ¬¡å‡ºç°ç‚¹
+//è¯¥æŸ¥æ¶²î‡¿î¼è¾›ç¤éœ­å§¹è†ï¿½
+//ç‰ˆæœ¬ä¸€ï¼šä½¿ç”¨é»˜è®¤çš„equalityæ“ä½œoperator==
+//ç‰ˆæœ¬äºŒï¼šç”¨æˆ·æ ¹æ®éœ€è¦è‡ªè¡ŒæŒ‡å®šæ“ä½œè§„åˆ™
+/*searchå‡½æ•°åŠŸèƒ½ï¼šSearches the range [first1,last1) for the first occurrence of the sequence defined by [first2,last2), 
 and returns an iterator to its first element, or last1 if no occurrences are found.
 
-searchº¯ÊıµÄÔ­ĞÍ£º
-equality (1)£º°æ±¾Ò»
+searchå‡½æ•°çš„åŸå‹ï¼š
+equality (1)ï¼šç‰ˆæœ¬ä¸€
 	template <class ForwardIterator1, class ForwardIterator2>
 	ForwardIterator1 search (ForwardIterator1 first1, ForwardIterator1 last1,
                             ForwardIterator2 first2, ForwardIterator2 last2);
-predicate (2)£º°æ±¾¶ş	
+predicate (2)ï¼šç‰ˆæœ¬äºŒ	
 	template <class ForwardIterator1, class ForwardIterator2, class BinaryPredicate>
 	ForwardIterator1 search (ForwardIterator1 first1, ForwardIterator1 last1,
                             ForwardIterator2 first2, ForwardIterator2 last2,
                             BinaryPredicate pred);
 */
-//°æ±¾Ò»£ºÊ¹ÓÃÄ¬ÈÏµÄequality²Ù×÷operator==
+//ç‰ˆæœ¬ä¸€ï¼šä½¿ç”¨é»˜è®¤çš„equalityæ“ä½œoperator==
 template <class _ForwardIter1, class _ForwardIter2>
 _ForwardIter1 search(_ForwardIter1 __first1, _ForwardIter1 __last1,
                      _ForwardIter2 __first2, _ForwardIter2 __last2) 
@@ -538,21 +538,21 @@ _ForwardIter1 search(_ForwardIter1 __first1, _ForwardIter1 __last1,
 
   _ForwardIter1 __current = __first1;
 
-  while (__first1 != __last1) {//Èô»¹Ã»µ½´ïÇø¼äÎ²¶Ë
-    __first1 = find(__first1, __last1, *__first2);//²éÕÒ*first2ÔÚÇø¼ä[first1,last1)Ê×´Î³öÏÖµÄÎ»ÖÃ
-    if (__first1 == __last1)//ÈôÔÚ[first1,last1)ÖĞ²»´æÔÚ*first2£¬¼´ÔÚ[first1,last1)²»´æÔÚ×ÓĞòÁĞ[first2,last2)
-      return __last1;//ÔòÖ±½Ó·µ»ØÇø¼äÎ²¶Ë
+  while (__first1 != __last1) {//è‹¥è¿˜æ²¡åˆ°è¾¾åŒºé—´å°¾ç«¯
+    __first1 = find(__first1, __last1, *__first2);//æŸ¥æ‰¾*first2åœ¨åŒºé—´[first1,last1)é¦–æ¬¡å‡ºç°çš„ä½ç½®
+    if (__first1 == __last1)//è‹¥åœ¨[first1,last1)ä¸­ä¸å­˜åœ¨*first2ï¼Œå³åœ¨[first1,last1)ä¸å­˜åœ¨å­åºåˆ—[first2,last2)
+      return __last1;//åˆ™ç›´æ¥è¿”å›åŒºé—´å°¾ç«¯
 
     __p = __p1;
     __current = __first1; 
-    if (++__current == __last1)//Èô[first1,last1)Ö»ÓĞÒ»¸öÔªËØ£¬¼´ĞòÁĞ[first1,last1)Ğ¡ÓÚĞòÁĞ[first2,last2)
-      return __last1;//²»¿ÉÄÜ³ÉÎªÆä×ÓĞòÁĞ£¬·µ»Ølast1
+    if (++__current == __last1)//è‹¥[first1,last1)åªæœ‰ä¸€ä¸ªå…ƒç´ ï¼Œå³åºåˆ—[first1,last1)å°äºåºåˆ—[first2,last2)
+      return __last1;//ä¸å¯èƒ½æˆä¸ºå…¶å­åºåˆ—ï¼Œè¿”å›last1
 
-    while (*__current == *__p) {//ÈôÁ½¸öĞòÁĞÏà¶ÔÓ¦µÄÖµÏàÍ¬
-      if (++__p == __last2)//ÈôĞòÁĞ[first2,last2)Ö»ÓĞÁ½¸öÔªËØ£¬ÇÒÓëĞòÁĞÒ»Æ¥Åä
-        return __first1;//Ôò·µ»ØÆ¥ÅäµÄÊ×´ÎÎ»ÖÃ
-      if (++__current == __last1)//ÈôµÚÒ»¸öĞòÁĞĞ¡ÓÚµÚ¶ş¸öĞòÁĞ
-        return __last1;//·µ»Ølast1
+    while (*__current == *__p) {//è‹¥ä¸¤ä¸ªåºåˆ—ç›¸å¯¹åº”çš„å€¼ç›¸åŒ
+      if (++__p == __last2)//è‹¥åºåˆ—[first2,last2)åªæœ‰ä¸¤ä¸ªå…ƒç´ ï¼Œä¸”ä¸åºåˆ—ä¸€åŒ¹é…
+        return __first1;//åˆ™è¿”å›åŒ¹é…çš„é¦–æ¬¡ä½ç½®
+      if (++__current == __last1)//è‹¥ç¬¬ä¸€ä¸ªåºåˆ—å°äºç¬¬äºŒä¸ªåºåˆ—
+        return __last1;//è¿”å›last1
     }
 
     ++__first1;
@@ -560,7 +560,7 @@ _ForwardIter1 search(_ForwardIter1 __first1, _ForwardIter1 __last1,
   return __first1;
 }
 
-//°æ±¾¶ş£ºÓÃ»§¸ù¾İĞèÒª×ÔĞĞÖ¸¶¨²Ù×÷¹æÔò
+//ç‰ˆæœ¬äºŒï¼šç”¨æˆ·æ ¹æ®éœ€è¦è‡ªè¡ŒæŒ‡å®šæ“ä½œè§„åˆ™
 template <class _ForwardIter1, class _ForwardIter2, class _BinaryPred>
 _ForwardIter1 search(_ForwardIter1 __first1, _ForwardIter1 __last1,
                      _ForwardIter2 __first2, _ForwardIter2 __last2,
@@ -621,25 +621,25 @@ _ForwardIter1 search(_ForwardIter1 __first1, _ForwardIter1 __last1,
 }
 
 // search_n.  Search for __count consecutive copies of __val.
-//ÔÚĞòÁĞ[first,last)²éÕÒÁ¬Ğøcount¸ö·ûºÏÌõ¼şÖµvalueÔªËØµÄÎ»ÖÃ
-//¸Ã²éÕÒº¯ÊıÓĞÁ½¸ö°æ±¾£º
-//°æ±¾Ò»£ºÊ¹ÓÃÄ¬ÈÏµÄequality²Ù×÷operator==
-//°æ±¾¶ş£ºÓÃ»§¸ù¾İĞèÒª×ÔĞĞÖ¸¶¨²Ù×÷¹æÔò
-/*search_nº¯Êı¹¦ÄÜ£ºSearches the range [first,last) for a sequence of count elements, 
+//åœ¨åºåˆ—[first,last)æŸ¥æ‰¾è¿ç»­countä¸ªç¬¦åˆæ¡ä»¶å€¼valueå…ƒç´ çš„ä½ç½®
+//è¯¥æŸ¥æ‰¾å‡½æ•°æœ‰ä¸¤ä¸ªç‰ˆæœ¬ï¼š
+//ç‰ˆæœ¬ä¸€ï¼šä½¿ç”¨é»˜è®¤çš„equalityæ“ä½œoperator==
+//ç‰ˆæœ¬äºŒï¼šç”¨æˆ·æ ¹æ®éœ€è¦è‡ªè¡ŒæŒ‡å®šæ“ä½œè§„åˆ™
+/*search_nå‡½æ•°åŠŸèƒ½ï¼šSearches the range [first,last) for a sequence of count elements, 
 each comparing equal to val (or for which pred returns true).
 
 
-search_nº¯ÊıµÄÔ­ĞÍ£º
-equality (1)£º°æ±¾Ò»	
+search_nå‡½æ•°çš„åŸå‹ï¼š
+equality (1)ï¼šç‰ˆæœ¬ä¸€	
 	template <class ForwardIterator, class Size, class T>
 	ForwardIterator search_n (ForwardIterator first, ForwardIterator last,
                              Size count, const T& val);
-predicate (2)£º°æ±¾¶ş	
+predicate (2)ï¼šç‰ˆæœ¬äºŒ	
 	template <class ForwardIterator, class Size, class T, class BinaryPredicate>
 	ForwardIterator search_n ( ForwardIterator first, ForwardIterator last,
                               Size count, const T& val, BinaryPredicate pred );
 */
-//°æ±¾Ò»£ºÊ¹ÓÃÄ¬ÈÏµÄequality²Ù×÷operator==
+//ç‰ˆæœ¬ä¸€ï¼šä½¿ç”¨é»˜è®¤çš„equalityæ“ä½œoperator==
 template <class _ForwardIter, class _Integer, class _Tp>
 _ForwardIter search_n(_ForwardIter __first, _ForwardIter __last,
                       _Integer __count, const _Tp& __val) {
@@ -650,26 +650,26 @@ _ForwardIter search_n(_ForwardIter __first, _ForwardIter __last,
 
   if (__count <= 0)
     return __first;
-  else {//Ê×ÏÈ²éÕÒvalueµÚÒ»´Î³öÏÖµÄÎ»ÖÃ
+  else {//é¦–å…ˆæŸ¥æ‰¾valueç¬¬ä¸€æ¬¡å‡ºç°çš„ä½ç½®
     __first = find(__first, __last, __val);
-    while (__first != __last) {//Èô³öÏÖµÄÎ»ÖÃ²»ÊÇÇø¼äÎ²¶Ë
-      _Integer __n = __count - 1;//¸üĞÂ¸öÊı£¬ÏÂÃæÖ»Ğè²éÕÒn=count-1¸öÁ¬ĞøÏàÍ¬value¼´¿É
+    while (__first != __last) {//è‹¥å‡ºç°çš„ä½ç½®ä¸æ˜¯åŒºé—´å°¾ç«¯
+      _Integer __n = __count - 1;//æ›´æ–°ä¸ªæ•°ï¼Œä¸‹é¢åªéœ€æŸ¥æ‰¾n=count-1ä¸ªè¿ç»­ç›¸åŒvalueå³å¯
       _ForwardIter __i = __first;
-      ++__i;//´Óµ±Ç°Î»ÖÃµÄÏÂÒ»¸öÎ»ÖÃ¿ªÊ¼²éÕÒ
-	  //ÈôÃ»ÓĞµ½´ïÇø¼äÎ²¶Ë£¬ÇÒ¸öÊın´óÓÚ0£¬ÇÒÇø¼äÔªËØÓëvalueÖµÏàµÈ
+      ++__i;//ä»å½“å‰ä½ç½®çš„ä¸‹ä¸€ä¸ªä½ç½®å¼€å§‹æŸ¥æ‰¾
+	  //è‹¥æ²¡æœ‰åˆ°è¾¾åŒºé—´å°¾ç«¯ï¼Œä¸”ä¸ªæ•°nå¤§äº0ï¼Œä¸”åŒºé—´å…ƒç´ ä¸valueå€¼ç›¸ç­‰
       while (__i != __last && __n != 0 && *__i == __val) {
-        ++__i;//¼ÌĞø²éÕÒ
-        --__n;//¼õÉÙ²éÕÒµÄ´ÎÊı£¬ÒòÎªÒÑ¾­ÕÒµ½valueÔÙ´Î³öÏÖ
+        ++__i;//ç»§ç»­æŸ¥æ‰¾
+        --__n;//å‡å°‘æŸ¥æ‰¾çš„æ¬¡æ•°ï¼Œå› ä¸ºå·²ç»æ‰¾åˆ°valueå†æ¬¡å‡ºç°
       }
-      if (__n == 0)//ÈôÇø¼äÉĞÎ´µ½´ïÎ²¶Ë£¬µ«ÊÇcount¸övalueÒÑ¾­²éÕÒµ½
-        return __first;//ÔòÊä³ö²éÕÒµ½µÄÊ×´Î³öÏÖvalueµÄÎ»ÖÃ
+      if (__n == 0)//è‹¥åŒºé—´å°šæœªåˆ°è¾¾å°¾ç«¯ï¼Œä½†æ˜¯countä¸ªvalueå·²ç»æŸ¥æ‰¾åˆ°
+        return __first;//åˆ™è¾“å‡ºæŸ¥æ‰¾åˆ°çš„é¦–æ¬¡å‡ºç°valueçš„ä½ç½®
       else
-        __first = find(__i, __last, __val);//ÈôÉĞÎ´ÕÒµ½Á¬Ğøcount¸övalueÖµµÄÎ»ÖÃ£¬ÔòÕÒ³övalueÏÂ´Î³öÏÖµÄÎ»ÖÃ£¬²¢×¼±¸ÏÂÒ»´ÎwhileÑ­»·
+        __first = find(__i, __last, __val);//è‹¥å°šæœªæ‰¾åˆ°è¿ç»­countä¸ªvalueå€¼çš„ä½ç½®ï¼Œåˆ™æ‰¾å‡ºvalueä¸‹æ¬¡å‡ºç°çš„ä½ç½®ï¼Œå¹¶å‡†å¤‡ä¸‹ä¸€æ¬¡whileå¾ªç¯
     }
     return __last;
   }
 }
-//°æ±¾¶ş£ºÓÃ»§¸ù¾İĞèÒª×ÔĞĞÖ¸¶¨²Ù×÷¹æÔò
+//ç‰ˆæœ¬äºŒï¼šç”¨æˆ·æ ¹æ®éœ€è¦è‡ªè¡ŒæŒ‡å®šæ“ä½œè§„åˆ™
 template <class _ForwardIter, class _Integer, class _Tp, class _BinaryPred>
 _ForwardIter search_n(_ForwardIter __first, _ForwardIter __last,
                       _Integer __count, const _Tp& __val,
@@ -707,7 +707,7 @@ _ForwardIter search_n(_ForwardIter __first, _ForwardIter __last,
     return __last;
   }
 } 
-//searchºÍsearch_nº¯Êı¾ÙÀı£º
+//searchå’Œsearch_nå‡½æ•°ä¸¾ä¾‹ï¼š
 /*
 	#include <iostream>     // std::cout
 	#include <algorithm>    // std::search_n
@@ -763,9 +763,9 @@ _ForwardIter search_n(_ForwardIter __first, _ForwardIter __last,
 */
 
 // swap_ranges
-//½«Çø¼ä[first1,last1)ÄÚµÄÔªËØÓë¡°´Ófirst2¿ªÊ¼£¬¸öÊıÏàÍ¬¡±µÄÔªËØÏà»¥½»»»
-//ÕâÁ½¸öĞòÁĞ¿ÉÎ»ÓÚÍ¬Ò»ÈİÆ÷£¬»ò²»Í¬ÈİÆ÷
-//Èç¹ûµÚ¶şĞòÁĞĞ¡ÓÚµÚÒ»ĞòÁĞ³¤¶È£¬»òÕßÁ½ĞòÁĞÔÚÍ¬Ò»ÈİÆ÷ÇÒÖØµş£¬Ôò½á¹ûÎ´¿ÉÔ¤ÆÚ
+//å°†åŒºé—´[first1,last1)å†…çš„å…ƒç´ ä¸â€œä»first2å¼€å§‹ï¼Œä¸ªæ•°ç›¸åŒâ€çš„å…ƒç´ ç›¸äº’äº¤æ¢
+//è¿™ä¸¤ä¸ªåºåˆ—å¯ä½äºåŒä¸€å®¹å™¨ï¼Œæˆ–ä¸åŒå®¹å™¨
+//å¦‚æœç¬¬äºŒåºåˆ—å°äºç¬¬ä¸€åºåˆ—é•¿åº¦ï¼Œæˆ–è€…ä¸¤åºåˆ—åœ¨åŒä¸€å®¹å™¨ä¸”é‡å ï¼Œåˆ™ç»“æœæœªå¯é¢„æœŸ
 //Exchanges the values of each of the elements in the range [first1,last1) 
 //with those of their respective elements in the range beginning at first2.
 template <class _ForwardIter1, class _ForwardIter2>
@@ -777,11 +777,11 @@ _ForwardIter2 swap_ranges(_ForwardIter1 __first1, _ForwardIter1 __last1,
                     typename iterator_traits<_ForwardIter2>::value_type);
   __STL_CONVERTIBLE(typename iterator_traits<_ForwardIter2>::value_type,
                     typename iterator_traits<_ForwardIter1>::value_type);
-  for ( ; __first1 != __last1; ++__first1, ++__first2)//±éÀúµÚÒ»¸öĞòÁĞ
-    iter_swap(__first1, __first2);//½»»»µü´úÆ÷ËùÖ¸µÄÔªËØ
+  for ( ; __first1 != __last1; ++__first1, ++__first2)//éå†ç¬¬ä¸€ä¸ªåºåˆ—
+    iter_swap(__first1, __first2);//äº¤æ¢è¿­ä»£å™¨æ‰€æŒ‡çš„å…ƒç´ 
   return __first2;
 }
-//swap_rangesº¯Êı¾ÙÀı£º
+//swap_rangeså‡½æ•°ä¸¾ä¾‹ï¼š
 /*
 	#include <iostream>     // std::cout
 	#include <algorithm>    // std::swap_ranges
@@ -812,20 +812,20 @@ _ForwardIter2 swap_ranges(_ForwardIter1 __first1, _ForwardIter1 __last1,
 */
 
 // transform
-//Á½¸ö°æ±¾
+//ä¸¤ä¸ªç‰ˆæœ¬
 /*
-º¯ÊıÔ­ĞÍ£º
-unary operation(1)£º°æ±¾Ò»	
+å‡½æ•°åŸå‹ï¼š
+unary operation(1)ï¼šç‰ˆæœ¬ä¸€	
 	template <class InputIterator, class OutputIterator, class UnaryOperation>
 	OutputIterator transform (InputIterator first1, InputIterator last1,
                             OutputIterator result, UnaryOperation op);
-binary operation(2)£º°æ±¾¶ş	
+binary operation(2)ï¼šç‰ˆæœ¬äºŒ	
 	template <class InputIterator1, class InputIterator2,
           class OutputIterator, class BinaryOperation>
 	OutputIterator transform (InputIterator1 first1, InputIterator1 last1,
                             InputIterator2 first2, OutputIterator result,
                             BinaryOperation binary_op);
-º¯Êı¹¦ÄÜ£º
+å‡½æ•°åŠŸèƒ½ï¼š
 (1) unary operation
 	Applies op to each of the elements in the range [first1,last1) and stores the value 
 	returned by each operation in the range that begins at result.
@@ -834,7 +834,7 @@ binary operation(2)£º°æ±¾¶ş
 	and the respective argument in the range that begins at first2 as second argument. 
 	The value returned by each call is stored in the range that begins at result.
 */
-//µÚÒ»¸ö°æ±¾£ºÒÔ·Âº¯Êıopr×÷ÓÃÓÚ[first,last)ÖĞµÄÃ¿Ò»¸öÔªËØ£¬²¢ÒÔÆä½á¹û²úÉú³öÒ»¸öĞÂµÄĞòÁĞ
+//ç¬¬ä¸€ä¸ªç‰ˆæœ¬ï¼šä»¥ä»¿å‡½æ•°oprä½œç”¨äº[first,last)ä¸­çš„æ¯ä¸€ä¸ªå…ƒç´ ï¼Œå¹¶ä»¥å…¶ç»“æœäº§ç”Ÿå‡ºä¸€ä¸ªæ–°çš„åºåˆ—
 template <class _InputIter, class _OutputIter, class _UnaryOperation>
 _OutputIter transform(_InputIter __first, _InputIter __last,
                       _OutputIter __result, _UnaryOperation __opr) {
@@ -845,8 +845,8 @@ _OutputIter transform(_InputIter __first, _InputIter __last,
     *__result = __opr(*__first);
   return __result;
 }
-//µÚ¶ş¸ö°æ±¾£ºÒÔ·Âº¯Êıbinary_op×÷ÓÃÓÚÒ»Ë«ÔªËØÉÏ£¨ÆäÖĞÒ»¸öÔªËØÀ´×Ô[first1,last1)£¬ÁíÒ»¸öÔªËØÀ´×Ô¡°´Ófirst2¿ªÊ¼µÄĞòÁĞ¡±£©
-//²¢ÒÔÆä½á¹û²úÉú³öÒ»¸öĞÂµÄĞòÁĞ
+//ç¬¬äºŒä¸ªç‰ˆæœ¬ï¼šä»¥ä»¿å‡½æ•°binary_opä½œç”¨äºä¸€åŒå…ƒç´ ä¸Šï¼ˆå…¶ä¸­ä¸€ä¸ªå…ƒç´ æ¥è‡ª[first1,last1)ï¼Œå¦ä¸€ä¸ªå…ƒç´ æ¥è‡ªâ€œä»first2å¼€å§‹çš„åºåˆ—â€ï¼‰
+//å¹¶ä»¥å…¶ç»“æœäº§ç”Ÿå‡ºä¸€ä¸ªæ–°çš„åºåˆ—
 template <class _InputIter1, class _InputIter2, class _OutputIter,
           class _BinaryOperation>
 _OutputIter transform(_InputIter1 __first1, _InputIter1 __last1,
@@ -859,7 +859,7 @@ _OutputIter transform(_InputIter1 __first1, _InputIter1 __last1,
     *__result = __binary_op(*__first1, *__first2);
   return __result;
 }
-//transformº¯Êı¾ÙÀı£º
+//transformå‡½æ•°ä¸¾ä¾‹ï¼š
 /*
 	#include <vector>       // std::vector
 	#include <functional>   // std::plus
@@ -900,7 +900,7 @@ _OutputIter transform(_InputIter1 __first1, _InputIter1 __last1,
 */
 
 // replace, replace_if, replace_copy, replace_copy_if
-//½«Çø¼ä[first,last)ÄÚµÄËùÓĞold_value¶¼ÒÔnew_valueÌæ´ú.
+//å°†åŒºé—´[first,last)å†…çš„æ‰€æœ‰old_valueéƒ½ä»¥new_valueæ›¿ä»£.
 template <class _ForwardIter, class _Tp>
 void replace(_ForwardIter __first, _ForwardIter __last,
              const _Tp& __old_value, const _Tp& __new_value) {
@@ -909,11 +909,11 @@ void replace(_ForwardIter __first, _ForwardIter __last,
          typename iterator_traits<_ForwardIter>::value_type, _Tp);
   __STL_CONVERTIBLE(_Tp, typename iterator_traits<_ForwardIter>::value_type);
   for ( ; __first != __last; ++__first)
-	  //½«Çø¼äÄÚËùÓĞold_value¶¼ÒÔnew_valueÌæ´ú.
+	  //å°†åŒºé—´å†…æ‰€æœ‰old_valueéƒ½ä»¥new_valueæ›¿ä»£.
     if (*__first == __old_value)
       *__first = __new_value;
 }
-//½«Çø¼ä[first,last)ÄÚµÄËùÓĞ±»predÅĞ¶ÏÎªtrueµÄÔªËØ¶¼ÒÔnew_valueÌæ´ú.
+//å°†åŒºé—´[first,last)å†…çš„æ‰€æœ‰è¢«predåˆ¤æ–­ä¸ºtrueçš„å…ƒç´ éƒ½ä»¥new_valueæ›¿ä»£.
 template <class _ForwardIter, class _Predicate, class _Tp>
 void replace_if(_ForwardIter __first, _ForwardIter __last,
                 _Predicate __pred, const _Tp& __new_value) {
@@ -922,11 +922,11 @@ void replace_if(_ForwardIter __first, _ForwardIter __last,
   __STL_UNARY_FUNCTION_CHECK(_Predicate, bool,
              typename iterator_traits<_ForwardIter>::value_type);
   for ( ; __first != __last; ++__first)
-    if (__pred(*__first))//predÅĞ¶ÏÎªtrue
-      *__first = __new_value;//ĞŞ¸ÄÆäÖµ
+    if (__pred(*__first))//predåˆ¤æ–­ä¸ºtrue
+      *__first = __new_value;//ä¿®æ”¹å…¶å€¼
 }
-//½«Çø¼ä[first,last)ÄÚµÄËùÓĞold_value¶¼ÒÔnew_valueÌæ´ú.½«ĞÂĞòÁĞ¸´ÖÆµ½resultËùÖ¸µÄÈİÆ÷ÖĞ
-//Ô­Ê¼ÈİÆ÷µÄÄÚÈİ²¢²»»á¸Ä±ä
+//å°†åŒºé—´[first,last)å†…çš„æ‰€æœ‰old_valueéƒ½ä»¥new_valueæ›¿ä»£.å°†æ–°åºåˆ—å¤åˆ¶åˆ°resultæ‰€æŒ‡çš„å®¹å™¨ä¸­
+//åŸå§‹å®¹å™¨çš„å†…å®¹å¹¶ä¸ä¼šæ”¹å˜
 template <class _InputIter, class _OutputIter, class _Tp>
 _OutputIter replace_copy(_InputIter __first, _InputIter __last,
                          _OutputIter __result,
@@ -939,8 +939,8 @@ _OutputIter replace_copy(_InputIter __first, _InputIter __last,
     *__result = *__first == __old_value ? __new_value : *__first;
   return __result;
 }
-//½«Çø¼ä[first,last)ÄÚµÄËùÓĞ±»predÅĞ¶ÏÎªtrueµÄÔªËØ¶¼ÒÔnew_valueÌæ´ú.½«ĞÂĞòÁĞ¸´ÖÆµ½resultËùÖ¸µÄÈİÆ÷ÖĞ
-//Ô­Ê¼ÈİÆ÷µÄÄÚÈİ²¢²»»á¸Ä±ä
+//å°†åŒºé—´[first,last)å†…çš„æ‰€æœ‰è¢«predåˆ¤æ–­ä¸ºtrueçš„å…ƒç´ éƒ½ä»¥new_valueæ›¿ä»£.å°†æ–°åºåˆ—å¤åˆ¶åˆ°resultæ‰€æŒ‡çš„å®¹å™¨ä¸­
+//åŸå§‹å®¹å™¨çš„å†…å®¹å¹¶ä¸ä¼šæ”¹å˜
 template <class _InputIter, class _OutputIter, class _Predicate, class _Tp>
 _OutputIter replace_copy_if(_InputIter __first, _InputIter __last,
                             _OutputIter __result,
@@ -955,28 +955,28 @@ _OutputIter replace_copy_if(_InputIter __first, _InputIter __last,
 }
 
 // generate and generate_n
-//½«·Âº¯ÊıgenµÄ´¦Àí½á¹ûÌî³äÔÚ[first, last)Çø¼äÄÚËùÓĞÔªËØÉÏ£¬ËùÎ½ÌîĞ´
-//¾ÍÊÇÓÃµü´úÆ÷ËùÖ¸ÔªËØµÄassignment²Ù×÷
-//×¢Òâ£º¶ÔÓÚÓÃ»§×Ô¶¨ÒåÀàĞÍÒªÌá¹©operator =() 
+//å°†ä»¿å‡½æ•°gençš„å¤„ç†ç»“æœå¡«å……åœ¨[first, last)åŒºé—´å†…æ‰€æœ‰å…ƒç´ ä¸Šï¼Œæ‰€è°“å¡«å†™
+//å°±æ˜¯ç”¨è¿­ä»£å™¨æ‰€æŒ‡å…ƒç´ çš„assignmentæ“ä½œ
+//æ³¨æ„ï¼šå¯¹äºç”¨æˆ·è‡ªå®šä¹‰ç±»å‹è¦æä¾›operator =() 
 
 template <class _ForwardIter, class _Generator>
 void generate(_ForwardIter __first, _ForwardIter __last, _Generator __gen) {
   __STL_REQUIRES(_ForwardIter, _ForwardIterator);
   __STL_GENERATOR_CHECK(_Generator, 
           typename iterator_traits<_ForwardIter>::value_type);
-  for ( ; __first != __last; ++__first)//±éÀúÕû¸öĞòÁĞ
+  for ( ; __first != __last; ++__first)//éå†æ•´ä¸ªåºåˆ—
     *__first = __gen();
 }
-//½«·Âº¯ÊıgenµÄ´¦Àí½á¹ûÌî³äÔÚfirst¿ªÊ¼µÄn¸öÔªËØÉÏ£¬ËùÎ½ÌîĞ´
-//¾ÍÊÇÓÃµü´úÆ÷ËùÖ¸ÔªËØµÄassignment²Ù×÷
+//å°†ä»¿å‡½æ•°gençš„å¤„ç†ç»“æœå¡«å……åœ¨firstå¼€å§‹çš„nä¸ªå…ƒç´ ä¸Šï¼Œæ‰€è°“å¡«å†™
+//å°±æ˜¯ç”¨è¿­ä»£å™¨æ‰€æŒ‡å…ƒç´ çš„assignmentæ“ä½œ
 template <class _OutputIter, class _Size, class _Generator>
 _OutputIter generate_n(_OutputIter __first, _Size __n, _Generator __gen) {
   __STL_REQUIRES(_OutputIter, _OutputIterator);
-  for ( ; __n > 0; --__n, ++__first)//Ö»ÏŞÓÚn¸öÔªËØ
+  for ( ; __n > 0; --__n, ++__first)//åªé™äºnä¸ªå…ƒç´ 
     *__first = __gen();
   return __first;
 }
-//generateºÍgenerate_nº¯Êı¾ÙÀı£º
+//generateå’Œgenerate_nå‡½æ•°ä¸¾ä¾‹ï¼š
 /*
 	#include <iostream>     // std::cout
 	#include <algorithm>    // std::generate_n
@@ -1014,8 +1014,8 @@ _OutputIter generate_n(_OutputIter __first, _Size __n, _Generator __gen) {
 
 // remove, remove_if, remove_copy, remove_copy_if
 
-//ÒÆ³ı[first,last)Çø¼äÄÚËùÓĞÓëvalueÖµÏàµÈµÄÔªËØ£¬²¢²»ÊÇÕæÕıµÄ´ÓÈİÆ÷ÖĞÉ¾³ıÕâĞ©ÔªËØ(Ô­ÈİÆ÷µÄÄÚÈİ²»»á¸Ä±ä)
-//¶øÊÇ½«½á¹û¸´ÖÆµ½Ò»¸öÒÔresultÎªÆğÊ¼Î»ÖÃµÄÈİÆ÷ÖĞ¡£ĞÂÈİÆ÷¿ÉÒÔÓëÔ­ÈİÆ÷ÖØµş
+//ç§»é™¤[first,last)åŒºé—´å†…æ‰€æœ‰ä¸valueå€¼ç›¸ç­‰çš„å…ƒç´ ï¼Œå¹¶ä¸æ˜¯çœŸæ­£çš„ä»å®¹å™¨ä¸­åˆ é™¤è¿™äº›å…ƒç´ (åŸå®¹å™¨çš„å†…å®¹ä¸ä¼šæ”¹å˜)
+//è€Œæ˜¯å°†ç»“æœå¤åˆ¶åˆ°ä¸€ä¸ªä»¥resultä¸ºèµ·å§‹ä½ç½®çš„å®¹å™¨ä¸­ã€‚æ–°å®¹å™¨å¯ä»¥ä¸åŸå®¹å™¨é‡å 
 template <class _InputIter, class _OutputIter, class _Tp>
 _OutputIter remove_copy(_InputIter __first, _InputIter __last,
                         _OutputIter __result, const _Tp& __value) {
@@ -1023,15 +1023,15 @@ _OutputIter remove_copy(_InputIter __first, _InputIter __last,
   __STL_REQUIRES(_OutputIter, _OutputIterator);
   __STL_REQUIRES_BINARY_OP(_OP_EQUAL, bool,
        typename iterator_traits<_InputIter>::value_type, _Tp);
-  for ( ; __first != __last; ++__first)//±éÀúÈİÆ÷
-    if (!(*__first == __value)) {//Èç¹û²»ÏàµÈ
-      *__result = *__first;//¸³Öµ¸øĞÂÈİÆ÷
-      ++__result;//ĞÂÈİÆ÷Ç°½øÒ»¸öÎ»ÖÃ
+  for ( ; __first != __last; ++__first)//éå†å®¹å™¨
+    if (!(*__first == __value)) {//å¦‚æœä¸ç›¸ç­‰
+      *__result = *__first;//èµ‹å€¼ç»™æ–°å®¹å™¨
+      ++__result;//æ–°å®¹å™¨å‰è¿›ä¸€ä¸ªä½ç½®
     }
   return __result;
 }
-//ÒÆ³ı[first,last)Çø¼äÄÚ±»·Âº¯ÊıpredÅĞ¶ÏÎªtrueµÄÔªËØ,²¢²»ÊÇÕæÕıµÄ´ÓÈİÆ÷ÖĞÉ¾³ıÕâĞ©ÔªËØ(Ô­ÈİÆ÷µÄÄÚÈİ²»»á¸Ä±ä)
-//¶øÊÇ½«½á¹û¸´ÖÆµ½Ò»¸öÒÔresultÎªÆğÊ¼Î»ÖÃµÄÈİÆ÷ÖĞ¡£ĞÂÈİÆ÷¿ÉÒÔÓëÔ­ÈİÆ÷ÖØµş
+//ç§»é™¤[first,last)åŒºé—´å†…è¢«ä»¿å‡½æ•°predåˆ¤æ–­ä¸ºtrueçš„å…ƒç´ ,å¹¶ä¸æ˜¯çœŸæ­£çš„ä»å®¹å™¨ä¸­åˆ é™¤è¿™äº›å…ƒç´ (åŸå®¹å™¨çš„å†…å®¹ä¸ä¼šæ”¹å˜)
+//è€Œæ˜¯å°†ç»“æœå¤åˆ¶åˆ°ä¸€ä¸ªä»¥resultä¸ºèµ·å§‹ä½ç½®çš„å®¹å™¨ä¸­ã€‚æ–°å®¹å™¨å¯ä»¥ä¸åŸå®¹å™¨é‡å 
 template <class _InputIter, class _OutputIter, class _Predicate>
 _OutputIter remove_copy_if(_InputIter __first, _InputIter __last,
                            _OutputIter __result, _Predicate __pred) {
@@ -1039,15 +1039,15 @@ _OutputIter remove_copy_if(_InputIter __first, _InputIter __last,
   __STL_REQUIRES(_OutputIter, _OutputIterator);
   __STL_UNARY_FUNCTION_CHECK(_Predicate, bool,
              typename iterator_traits<_InputIter>::value_type);
-  for ( ; __first != __last; ++__first)//±éÀúÈİÆ÷
-    if (!__pred(*__first)) {//ÈôpredÅĞ¶ÏÎªfalse
-      *__result = *__first;//¸³Öµ¸øĞÂÈİÆ÷
-      ++__result;//ĞÂÈİÆ÷Ç°½øÒ»¸öÎ»ÖÃ
+  for ( ; __first != __last; ++__first)//éå†å®¹å™¨
+    if (!__pred(*__first)) {//è‹¥predåˆ¤æ–­ä¸ºfalse
+      *__result = *__first;//èµ‹å€¼ç»™æ–°å®¹å™¨
+      ++__result;//æ–°å®¹å™¨å‰è¿›ä¸€ä¸ªä½ç½®
     }
   return __result;
 }
-//ÒÆ³ı[first,last)Çø¼äÄÚËùÓĞÓëvalueÖµÏàµÈµÄÔªËØ,¸Ã²Ù×÷²»»á¸Ä±äÈİÆ÷´óĞ¡£¬Ö»ÊÇÈİÆ÷ÖĞÔªËØÖµ¸Ä±ä
-//¼´ÒÆ³ıÖ®ºó£¬ÖØĞÂÕûÀíÈİÆ÷µÄÄÚÈİ
+//ç§»é™¤[first,last)åŒºé—´å†…æ‰€æœ‰ä¸valueå€¼ç›¸ç­‰çš„å…ƒç´ ,è¯¥æ“ä½œä¸ä¼šæ”¹å˜å®¹å™¨å¤§å°ï¼Œåªæ˜¯å®¹å™¨ä¸­å…ƒç´ å€¼æ”¹å˜
+//å³ç§»é™¤ä¹‹åï¼Œé‡æ–°æ•´ç†å®¹å™¨çš„å†…å®¹
 template <class _ForwardIter, class _Tp>
 _ForwardIter remove(_ForwardIter __first, _ForwardIter __last,
                     const _Tp& __value) {
@@ -1055,27 +1055,27 @@ _ForwardIter remove(_ForwardIter __first, _ForwardIter __last,
   __STL_REQUIRES_BINARY_OP(_OP_EQUAL, bool,
        typename iterator_traits<_ForwardIter>::value_type, _Tp);
   __STL_CONVERTIBLE(_Tp, typename iterator_traits<_ForwardIter>::value_type);
-  __first = find(__first, __last, __value);//ÀûÓÃË³Ğò²éÕÒÕÒ³öµÚÒ»¸öÓëvalueÏàµÈµÄÔªËØ
+  __first = find(__first, __last, __value);//åˆ©ç”¨é¡ºåºæŸ¥æ‰¾æ‰¾å‡ºç¬¬ä¸€ä¸ªä¸valueç›¸ç­‰çš„å…ƒç´ 
   _ForwardIter __i = __first;
-  //ÏÂÃæµ÷ÓÃremove_copy
+  //ä¸‹é¢è°ƒç”¨remove_copy
   return __first == __last ? __first 
                            : remove_copy(++__i, __last, __first, __value);
 }
-//ÒÆ³ı[first,last)Çø¼äÄÚËùÓĞ±»predÅĞ¶ÏÎªtrueµÄÔªËØ,¸Ã²Ù×÷²»»á¸Ä±äÈİÆ÷´óĞ¡£¬Ö»ÊÇÈİÆ÷ÖĞÔªËØÖµ¸Ä±ä
-//¼´ÒÆ³ıÖ®ºó£¬ÖØĞÂÕûÀíÈİÆ÷µÄÄÚÈİ
+//ç§»é™¤[first,last)åŒºé—´å†…æ‰€æœ‰è¢«predåˆ¤æ–­ä¸ºtrueçš„å…ƒç´ ,è¯¥æ“ä½œä¸ä¼šæ”¹å˜å®¹å™¨å¤§å°ï¼Œåªæ˜¯å®¹å™¨ä¸­å…ƒç´ å€¼æ”¹å˜
+//å³ç§»é™¤ä¹‹åï¼Œé‡æ–°æ•´ç†å®¹å™¨çš„å†…å®¹
 template <class _ForwardIter, class _Predicate>
 _ForwardIter remove_if(_ForwardIter __first, _ForwardIter __last,
                        _Predicate __pred) {
   __STL_REQUIRES(_ForwardIter, _Mutable_ForwardIterator);
   __STL_UNARY_FUNCTION_CHECK(_Predicate, bool,
                typename iterator_traits<_ForwardIter>::value_type);
-  __first = find_if(__first, __last, __pred);//ÀûÓÃË³Ğò²éÕÒÕÒ³öµÚÒ»¸öÓëvalueÏàµÈµÄÔªËØ
+  __first = find_if(__first, __last, __pred);//åˆ©ç”¨é¡ºåºæŸ¥æ‰¾æ‰¾å‡ºç¬¬ä¸€ä¸ªä¸valueç›¸ç­‰çš„å…ƒç´ 
   _ForwardIter __i = __first;
-  //ÏÂÃæµ÷ÓÃremove_copy_if
+  //ä¸‹é¢è°ƒç”¨remove_copy_if
   return __first == __last ? __first 
                            : remove_copy_if(++__i, __last, __first, __pred);
 }
-//ÉÏÃæËÄ¸öÒÆ³ıº¯Êı¾ÙÀı£º
+//ä¸Šé¢å››ä¸ªç§»é™¤å‡½æ•°ä¸¾ä¾‹ï¼š
 /*
 	#include <iostream>     // std::cout
 	#include <algorithm>    // std::remove
@@ -1139,29 +1139,29 @@ _OutputIter __unique_copy(_InputIter __first, _InputIter __last,
     }
   return ++__result;
 }
-//ÈôresultÀàĞÍÎªoutput_iterator_tag£¬Ôòµ÷ÓÃ¸Ãº¯Êı
+//è‹¥resultç±»å‹ä¸ºoutput_iterator_tagï¼Œåˆ™è°ƒç”¨è¯¥å‡½æ•°
 template <class _InputIter, class _OutputIter>
 inline _OutputIter __unique_copy(_InputIter __first, _InputIter __last,
                                  _OutputIter __result, 
                                  output_iterator_tag) {
-		//ÅĞ¶ÏfirstµÄvalue_typeÀàĞÍ£¬¸ù¾İ²»Í¬ÀàĞÍµ÷ÓÃ²»Í¬º¯Êı
+		//åˆ¤æ–­firstçš„value_typeç±»å‹ï¼Œæ ¹æ®ä¸åŒç±»å‹è°ƒç”¨ä¸åŒå‡½æ•°
   return __unique_copy(__first, __last, __result, __VALUE_TYPE(__first));
 }
-//ÈôresultÀàĞÍÎªforward_iterator_tag£¬Ôòµ÷ÓÃ¸Ãº¯Êı
+//è‹¥resultç±»å‹ä¸ºforward_iterator_tagï¼Œåˆ™è°ƒç”¨è¯¥å‡½æ•°
 template <class _InputIter, class _ForwardIter>
 _ForwardIter __unique_copy(_InputIter __first, _InputIter __last,
                            _ForwardIter __result, forward_iterator_tag) {
-  *__result = *__first;//¼ÇÂ¼µÚÒ»¸öÔªËØ
-  while (++__first != __last)//±éÀúÇø¼ä
-	  //Èô²»´æÔÚÏàÁÚÖØ¸´ÔªËØ£¬Ôò¼ÌĞø¼ÇÂ¼µ½Ä¿±êÇøresult
+  *__result = *__first;//è®°å½•ç¬¬ä¸€ä¸ªå…ƒç´ 
+  while (++__first != __last)//éå†åŒºé—´
+	  //è‹¥ä¸å­˜åœ¨ç›¸é‚»é‡å¤å…ƒç´ ï¼Œåˆ™ç»§ç»­è®°å½•åˆ°ç›®æ ‡åŒºresult
     if (!(*__result == *__first))
-      *++__result = *__first;//¼ÇÂ¼ÔªËØµ½Ä¿±êÇø
+      *++__result = *__first;//è®°å½•å…ƒç´ åˆ°ç›®æ ‡åŒº
   return ++__result;
 }
-////unique_copy½«Çø¼ä[first,last)ÄÚÔªËØ¸´ÖÆµ½ÒÔresult¿ªÍ·µÄÇø¼äÉÏ£¬µ«ÊÇÈç¹û´æÔÚÏàÁÚÖØ¸´ÔªËØÊ±£¬Ö»¸´ÖÆÆäÖĞµÚÒ»¸öÔªËØ
-//ºÍuniqueÒ»Ñù£¬ÕâÀïÒ²ÓĞÁ½¸ö°æ±¾
+////unique_copyå°†åŒºé—´[first,last)å†…å…ƒç´ å¤åˆ¶åˆ°ä»¥resultå¼€å¤´çš„åŒºé—´ä¸Šï¼Œä½†æ˜¯å¦‚æœå­˜åœ¨ç›¸é‚»é‡å¤å…ƒç´ æ—¶ï¼Œåªå¤åˆ¶å…¶ä¸­ç¬¬ä¸€ä¸ªå…ƒç´ 
+//å’Œuniqueä¸€æ ·ï¼Œè¿™é‡Œä¹Ÿæœ‰ä¸¤ä¸ªç‰ˆæœ¬
 /*
-º¯ÊıÔ­ĞÍ£º
+å‡½æ•°åŸå‹ï¼š
 equality (1)	
 	template <class InputIterator, class OutputIterator>
 	OutputIterator unique_copy (InputIterator first, InputIterator last,
@@ -1171,7 +1171,7 @@ predicate (2)
 	OutputIterator unique_copy (InputIterator first, InputIterator last,
                               OutputIterator result, BinaryPredicate pred);
 */
-//°æ±¾Ò»
+//ç‰ˆæœ¬ä¸€
 template <class _InputIter, class _OutputIter>
 inline _OutputIter unique_copy(_InputIter __first, _InputIter __last,
                                _OutputIter __result) {
@@ -1180,7 +1180,7 @@ inline _OutputIter unique_copy(_InputIter __first, _InputIter __last,
   __STL_REQUIRES(typename iterator_traits<_InputIter>::value_type,
                  _EqualityComparable);
   if (__first == __last) return __result;
-  //¸ù¾İresultµü´úÆ÷µÄÀàĞÍ£¬µ÷ÓÃ²»Í¬µÄº¯Êı
+  //æ ¹æ®resultè¿­ä»£å™¨çš„ç±»å‹ï¼Œè°ƒç”¨ä¸åŒçš„å‡½æ•°
   return __unique_copy(__first, __last, __result,
                        __ITERATOR_CATEGORY(__result));
 }
@@ -1223,7 +1223,7 @@ _ForwardIter __unique_copy(_InputIter __first, _InputIter __last,
     if (!__binary_pred(*__result, *__first)) *++__result = *__first;
   return ++__result;
 }
-//°æ±¾¶ş
+//ç‰ˆæœ¬äºŒ
 template <class _InputIter, class _OutputIter, class _BinaryPredicate>
 inline _OutputIter unique_copy(_InputIter __first, _InputIter __last,
                                _OutputIter __result,
@@ -1231,33 +1231,33 @@ inline _OutputIter unique_copy(_InputIter __first, _InputIter __last,
   __STL_REQUIRES(_InputIter, _InputIterator);
   __STL_REQUIRES(_OutputIter, _OutputIterator);
   if (__first == __last) return __result;
-  //¸ù¾İresultµü´úÆ÷µÄÀàĞÍ£¬µ÷ÓÃ²»Í¬µÄº¯Êı
+  //æ ¹æ®resultè¿­ä»£å™¨çš„ç±»å‹ï¼Œè°ƒç”¨ä¸åŒçš„å‡½æ•°
   return __unique_copy(__first, __last, __result, __binary_pred,
                        __ITERATOR_CATEGORY(__result));
 }
-//ÒÆ³ıÇø¼ä[first,last)ÏàÁÚÁ¬ĞøÖØ¸´µÄÔªËØ
-//uniqueÓĞÁ½¸ö°æ±¾
-//¹¦ÄÜ£ºRemoves all but the first element from every consecutive group of equivalent elements in the range [first,last).
+//ç§»é™¤åŒºé—´[first,last)ç›¸é‚»è¿ç»­é‡å¤çš„å…ƒç´ 
+//uniqueæœ‰ä¸¤ä¸ªç‰ˆæœ¬
+//åŠŸèƒ½ï¼šRemoves all but the first element from every consecutive group of equivalent elements in the range [first,last).
 /*
-º¯ÊıÔ­ĞÍ£º
-equality (1)£º°æ±¾Ò»²ÉÓÃoperator==	
+å‡½æ•°åŸå‹ï¼š
+equality (1)ï¼šç‰ˆæœ¬ä¸€é‡‡ç”¨operator==	
 	template <class ForwardIterator>
 	ForwardIterator unique (ForwardIterator first, ForwardIterator last);
-predicate (2)£º°æ±¾¶ş²ÉÓÃpred²Ù×÷	
+predicate (2)ï¼šç‰ˆæœ¬äºŒé‡‡ç”¨predæ“ä½œ	
 	template <class ForwardIterator, class BinaryPredicate>
 	ForwardIterator unique (ForwardIterator first, ForwardIterator last,
                           BinaryPredicate pred);
 */
-//°æ±¾Ò»
+//ç‰ˆæœ¬ä¸€
 template <class _ForwardIter>
 _ForwardIter unique(_ForwardIter __first, _ForwardIter __last) {
   __STL_REQUIRES(_ForwardIter, _Mutable_ForwardIterator);
   __STL_REQUIRES(typename iterator_traits<_ForwardIter>::value_type,
                  _EqualityComparable);
-  __first = adjacent_find(__first, __last);//ÕÒ³öµÚÒ»¸öÏàÁÚÔªËØµÄÆğÊ¼Î»ÖÃ
-  return unique_copy(__first, __last, __first);//µ÷ÓÃunique_copyÍê³É²Ù×÷
+  __first = adjacent_find(__first, __last);//æ‰¾å‡ºç¬¬ä¸€ä¸ªç›¸é‚»å…ƒç´ çš„èµ·å§‹ä½ç½®
+  return unique_copy(__first, __last, __first);//è°ƒç”¨unique_copyå®Œæˆæ“ä½œ
 }
-//°æ±¾¶ş
+//ç‰ˆæœ¬äºŒ
 template <class _ForwardIter, class _BinaryPredicate>
 _ForwardIter unique(_ForwardIter __first, _ForwardIter __last,
                     _BinaryPredicate __binary_pred) {
@@ -1265,47 +1265,47 @@ _ForwardIter unique(_ForwardIter __first, _ForwardIter __last,
   __STL_BINARY_FUNCTION_CHECK(_BinaryPredicate, bool, 
       typename iterator_traits<_ForwardIter>::value_type,
       typename iterator_traits<_ForwardIter>::value_type);
-  __first = adjacent_find(__first, __last, __binary_pred);//ÕÒ³öµÚÒ»¸öÏàÁÚÔªËØµÄÆğÊ¼Î»ÖÃ
-  return unique_copy(__first, __last, __first, __binary_pred);//µ÷ÓÃunique_copyÍê³É²Ù×÷
+  __first = adjacent_find(__first, __last, __binary_pred);//æ‰¾å‡ºç¬¬ä¸€ä¸ªç›¸é‚»å…ƒç´ çš„èµ·å§‹ä½ç½®
+  return unique_copy(__first, __last, __first, __binary_pred);//è°ƒç”¨unique_copyå®Œæˆæ“ä½œ
 }
 
 // reverse and reverse_copy, and their auxiliary functions
 
-//Èôµü´úÆ÷ÀàĞÍÎªbidirectional_iterator_tag£¬Ôòµ÷ÓÃ´Ëº¯Êı
+//è‹¥è¿­ä»£å™¨ç±»å‹ä¸ºbidirectional_iterator_tagï¼Œåˆ™è°ƒç”¨æ­¤å‡½æ•°
 template <class _BidirectionalIter>
 void __reverse(_BidirectionalIter __first, _BidirectionalIter __last, 
                bidirectional_iterator_tag) {
   while (true)
-    if (__first == __last || __first == --__last)//ÕâÀïĞè×¢Òâ£¬Ã¿´ÎÅĞ¶Ïlastµü´úÆ÷¶¼»áºóÍËÒ»Î»
+    if (__first == __last || __first == --__last)//è¿™é‡Œéœ€æ³¨æ„ï¼Œæ¯æ¬¡åˆ¤æ–­lastè¿­ä»£å™¨éƒ½ä¼šåé€€ä¸€ä½
       return;
     else
-      iter_swap(__first++, __last);//µ¥Ïò½»»»µü´úÆ÷ËùÖ¸µÄÔªËØ
+      iter_swap(__first++, __last);//å•å‘äº¤æ¢è¿­ä»£å™¨æ‰€æŒ‡çš„å…ƒç´ 
 }
-//Èôµü´úÆ÷ÀàĞÍÎªrandom_access_iterator_tag£¬Ôòµ÷ÓÃ´Ëº¯Êı
+//è‹¥è¿­ä»£å™¨ç±»å‹ä¸ºrandom_access_iterator_tagï¼Œåˆ™è°ƒç”¨æ­¤å‡½æ•°
 template <class _RandomAccessIter>
 void __reverse(_RandomAccessIter __first, _RandomAccessIter __last,
                random_access_iterator_tag) {
-  while (__first < __last)//±éÀúÈİÆ÷
-    iter_swap(__first++, --__last);//½»»»Á½¶Ëµü´úÆ÷ËùÖ¸µÄÔªËØ
+  while (__first < __last)//éå†å®¹å™¨
+    iter_swap(__first++, --__last);//äº¤æ¢ä¸¤ç«¯è¿­ä»£å™¨æ‰€æŒ‡çš„å…ƒç´ 
 }
-//½«ĞòÁĞ[first,last)µÄËùÓĞÔªËØÔÚÔ­ÈİÆ÷ÖĞµßµ¹ÖØÅÅ
+//å°†åºåˆ—[first,last)çš„æ‰€æœ‰å…ƒç´ åœ¨åŸå®¹å™¨ä¸­é¢ å€’é‡æ’
 template <class _BidirectionalIter>
 inline void reverse(_BidirectionalIter __first, _BidirectionalIter __last) {
   __STL_REQUIRES(_BidirectionalIter, _Mutable_BidirectionalIterator);
-  //Ê×ÏÈİÍÈ¡³öµü´úÆ÷µÄÀàĞÍ
+  //é¦–å…ˆèƒå–å‡ºè¿­ä»£å™¨çš„ç±»å‹
   __reverse(__first, __last, __ITERATOR_CATEGORY(__first));
 }
-//ĞĞÎªÀàËÆreverse£¬µ«²úÉúµÄĞÂĞòÁĞ»á±»ÖÃÓÚÒÔresultÖ¸³öµÄÈİÆ÷ÖĞ
+//è¡Œä¸ºç±»ä¼¼reverseï¼Œä½†äº§ç”Ÿçš„æ–°åºåˆ—ä¼šè¢«ç½®äºä»¥resultæŒ‡å‡ºçš„å®¹å™¨ä¸­
 template <class _BidirectionalIter, class _OutputIter>
 _OutputIter reverse_copy(_BidirectionalIter __first,
                          _BidirectionalIter __last,
                          _OutputIter __result) {
   __STL_REQUIRES(_BidirectionalIter, _BidirectionalIterator);
   __STL_REQUIRES(_OutputIter, _OutputIterator);
-  while (__first != __last) {//±éÀúÈİÆ÷
-    --__last;//Î²¶ËÇ°ÒÆÒ»¸öÎ»ÖÃ
-    *__result = *__last;//resultÈİÆ÷µÄÆğÊ¼Î»ÖÃÔªËØÖµÎªÔ­Ê¼ÈİÆ÷Î²¶ËÔªËØÖµ
-    ++__result;//¸üĞÂresult£¬Ê¹ÆäÇ°½øÒ»¸öÎ»ÖÃ
+  while (__first != __last) {//éå†å®¹å™¨
+    --__last;//å°¾ç«¯å‰ç§»ä¸€ä¸ªä½ç½®
+    *__result = *__last;//resultå®¹å™¨çš„èµ·å§‹ä½ç½®å…ƒç´ å€¼ä¸ºåŸå§‹å®¹å™¨å°¾ç«¯å…ƒç´ å€¼
+    ++__result;//æ›´æ–°resultï¼Œä½¿å…¶å‰è¿›ä¸€ä¸ªä½ç½®
   }
   return __result;
 }
@@ -1323,7 +1323,7 @@ _EuclideanRingElement __gcd(_EuclideanRingElement __m,
   }
   return __m;
 }
-//µü´úÆ÷ÀàĞÍÎªforward_iterator_tag£¬µ÷ÓÃ´Ëº¯Êı
+//è¿­ä»£å™¨ç±»å‹ä¸ºforward_iterator_tagï¼Œè°ƒç”¨æ­¤å‡½æ•°
 template <class _ForwardIter, class _Distance>
 _ForwardIter __rotate(_ForwardIter __first,
                       _ForwardIter __middle,
@@ -1357,7 +1357,7 @@ _ForwardIter __rotate(_ForwardIter __first,
   return __new_middle;
 }
 
-//µü´úÆ÷ÀàĞÍÎªbidirectional_iterator_tag£¬µ÷ÓÃ´Ëº¯Êı
+//è¿­ä»£å™¨ç±»å‹ä¸ºbidirectional_iterator_tagï¼Œè°ƒç”¨æ­¤å‡½æ•°
 template <class _BidirectionalIter, class _Distance>
 _BidirectionalIter __rotate(_BidirectionalIter __first,
                             _BidirectionalIter __middle,
@@ -1385,7 +1385,7 @@ _BidirectionalIter __rotate(_BidirectionalIter __first,
     return __first;
   }
 }
-//µü´úÆ÷ÀàĞÍÎªRandom_iterator_tag£¬µ÷ÓÃ´Ëº¯Êı
+//è¿­ä»£å™¨ç±»å‹ä¸ºRandom_iterator_tagï¼Œè°ƒç”¨æ­¤å‡½æ•°
 template <class _RandomAccessIter, class _Distance, class _Tp>
 _RandomAccessIter __rotate(_RandomAccessIter __first,
                            _RandomAccessIter __middle,
@@ -1441,25 +1441,25 @@ _RandomAccessIter __rotate(_RandomAccessIter __first,
 
   return __result;
 }
-//½«Çø¼ä[first,middle)ÄÚµÄÔªËØºÍ[middle,last)ÄÚµÄÔªËØ»¥»»¡£minddleËùÖ¸µÄÔªËØ»á³ÉÎªÈİÆ÷µÄµÚÒ»¸öÔªËØ
-//ÀıÈç¶ÔĞòÁĞ{1,2,3,4,5,6,7}£¬¶ÔÔªËØ3½øĞĞĞı×ª²Ù×÷,Ôò½á¹ûÎª{3,4,5,6,7,1,2}
+//å°†åŒºé—´[first,middle)å†…çš„å…ƒç´ å’Œ[middle,last)å†…çš„å…ƒç´ äº’æ¢ã€‚minddleæ‰€æŒ‡çš„å…ƒç´ ä¼šæˆä¸ºå®¹å™¨çš„ç¬¬ä¸€ä¸ªå…ƒç´ 
+//ä¾‹å¦‚å¯¹åºåˆ—{1,2,3,4,5,6,7}ï¼Œå¯¹å…ƒç´ 3è¿›è¡Œæ—‹è½¬æ“ä½œ,åˆ™ç»“æœä¸º{3,4,5,6,7,1,2}
 template <class _ForwardIter>
 inline _ForwardIter rotate(_ForwardIter __first, _ForwardIter __middle,
                            _ForwardIter __last) {
   __STL_REQUIRES(_ForwardIter, _Mutable_ForwardIterator);
-  //İÍÈ¡³öµü´úÆ÷µÄÀàĞÍ£¬¸ù¾İµü´úÆ÷µÄÀàĞÍµ÷ÓÃ²»Í¬µÄº¯Êı
+  //èƒå–å‡ºè¿­ä»£å™¨çš„ç±»å‹ï¼Œæ ¹æ®è¿­ä»£å™¨çš„ç±»å‹è°ƒç”¨ä¸åŒçš„å‡½æ•°
   return __rotate(__first, __middle, __last,
                   __DISTANCE_TYPE(__first),
                   __ITERATOR_CATEGORY(__first));
 }
-//½«Çø¼ä[first,middle)ÄÚµÄÔªËØºÍ[middle,last)ÄÚµÄÔªËØ»¥»»¡£minddleËùÖ¸µÄÔªËØ»á³ÉÎªĞÂÈİÆ÷resultµÄµÚÒ»¸öÔªËØ
+//å°†åŒºé—´[first,middle)å†…çš„å…ƒç´ å’Œ[middle,last)å†…çš„å…ƒç´ äº’æ¢ã€‚minddleæ‰€æŒ‡çš„å…ƒç´ ä¼šæˆä¸ºæ–°å®¹å™¨resultçš„ç¬¬ä¸€ä¸ªå…ƒç´ 
 template <class _ForwardIter, class _OutputIter>
 _OutputIter rotate_copy(_ForwardIter __first, _ForwardIter __middle,
                         _ForwardIter __last, _OutputIter __result) {
   __STL_REQUIRES(_ForwardIter, _ForwardIterator);
   __STL_REQUIRES(_OutputIter, _OutputIterator);
-  //ÕâÀïÖ±½Ó²ÉÓÃ¸´ÖÆ²Ù×÷£¬ÏÈ°Ñ[middle,last)¸´ÖÆµ½resultÈİÆ÷ÖĞ£¬
-  //ÔÙ°Ñ[first,middle)ÄÚÈİ¸´ÖÆµ½resultÈİÆ÷ÖĞ
+  //è¿™é‡Œç›´æ¥é‡‡ç”¨å¤åˆ¶æ“ä½œï¼Œå…ˆæŠŠ[middle,last)å¤åˆ¶åˆ°resultå®¹å™¨ä¸­ï¼Œ
+  //å†æŠŠ[first,middle)å†…å®¹å¤åˆ¶åˆ°resultå®¹å™¨ä¸­
   return copy(__first, __middle, copy(__middle, __last, __result));
 }
 
@@ -1477,14 +1477,14 @@ inline _Distance __random_number(_Distance __n) {
 }
 
 // random_shuffle
-//½«Çø¼ä[first,last)ÄÚµÄÔªËØËæ»úÖØÅÅ
-//Á½¸ö°æ±¾µÄ²»Í¬ÊÇËæ»úÊıµÄÈ¡µÃ
-//°æ±¾Ò»ÊÇÊ¹ÓÃÄÚ²¿Ëæ»úÊı²úÉúÆ÷
-//°æ±¾¶şÊÇÊ¹ÓÃÒ»¸ö»á²úÉúËæ»úÊıµÄ·Âº¯Êı
+//å°†åŒºé—´[first,last)å†…çš„å…ƒç´ éšæœºé‡æ’
+//ä¸¤ä¸ªç‰ˆæœ¬çš„ä¸åŒæ˜¯éšæœºæ•°çš„å–å¾—
+//ç‰ˆæœ¬ä¸€æ˜¯ä½¿ç”¨å†…éƒ¨éšæœºæ•°äº§ç”Ÿå™¨
+//ç‰ˆæœ¬äºŒæ˜¯ä½¿ç”¨ä¸€ä¸ªä¼šäº§ç”Ÿéšæœºæ•°çš„ä»¿å‡½æ•°
 
 /*
-º¯Êı¹¦ÄÜ£ºRearranges the elements in the range [first,last) randomly.
-º¯ÊıÔ­ĞÍ£º
+å‡½æ•°åŠŸèƒ½ï¼šRearranges the elements in the range [first,last) randomly.
+å‡½æ•°åŸå‹ï¼š
 generator by default (1)	
 	template <class RandomAccessIterator>
 	void random_shuffle (RandomAccessIterator first, RandomAccessIterator last);
@@ -1493,7 +1493,7 @@ specific generator (2)
 	void random_shuffle (RandomAccessIterator first, RandomAccessIterator last,
                        RandomNumberGenerator& gen);
 */
-//°æ±¾Ò»
+//ç‰ˆæœ¬ä¸€
 template <class _RandomAccessIter>
 inline void random_shuffle(_RandomAccessIter __first,
                            _RandomAccessIter __last) {
@@ -1502,7 +1502,7 @@ inline void random_shuffle(_RandomAccessIter __first,
   for (_RandomAccessIter __i = __first + 1; __i != __last; ++__i)
     iter_swap(__i, __first + __random_number((__i - __first) + 1));
 }
-//°æ±¾¶ş
+//ç‰ˆæœ¬äºŒ
 template <class _RandomAccessIter, class _RandomNumberGenerator>
 void random_shuffle(_RandomAccessIter __first, _RandomAccessIter __last,
                     _RandomNumberGenerator& __rand) {
@@ -1635,28 +1635,28 @@ random_sample(_InputIter __first, _InputIter __last,
 }
 
 // partition, stable_partition, and their auxiliary functions
-//Èôµü´úÆ÷µÄÀàĞÍÎªforward_iterator_tag£¬Ôòµ÷ÓÃ´Ëº¯Êı
+//è‹¥è¿­ä»£å™¨çš„ç±»å‹ä¸ºforward_iterator_tagï¼Œåˆ™è°ƒç”¨æ­¤å‡½æ•°
 template <class _ForwardIter, class _Predicate>
 _ForwardIter __partition(_ForwardIter __first,
 		         _ForwardIter __last,
 			 _Predicate   __pred,
 			 forward_iterator_tag) {
-  if (__first == __last) return __first;//ÈôÎª¿Õ£¬Ö±½ÓÍË³ö
+  if (__first == __last) return __first;//è‹¥ä¸ºç©ºï¼Œç›´æ¥é€€å‡º
 
-  while (__pred(*__first))//Èôpred³öfirstµÄÖµÎªtrue
-    if (++__first == __last) return __first;//ÏÈÒÆ¶¯µü´úÆ÷first£¬ÔÚÅĞ¶ÏÊÇ·ñµ½´ïÎ²¶Ëlast
+  while (__pred(*__first))//è‹¥predå‡ºfirstçš„å€¼ä¸ºtrue
+    if (++__first == __last) return __first;//å…ˆç§»åŠ¨è¿­ä»£å™¨firstï¼Œåœ¨åˆ¤æ–­æ˜¯å¦åˆ°è¾¾å°¾ç«¯last
 
-  _ForwardIter __next = __first;//¼ÌĞøÅĞ¶Ï
+  _ForwardIter __next = __first;//ç»§ç»­åˆ¤æ–­
 
-  while (++__next != __last)//ÈôÏÂÒ»¸öÎ»ÖÃÒÀÈ»²»ÊÇÎ²¶Ë
-    if (__pred(*__next)) {//¼ÌĞøpred³önextµÄÖµ£¬ÈôÎªtrue
-      swap(*__first, *__next);//½»»»Öµ
-      ++__first;//¼ÌĞøÏÂÒ»Î»ÖÃ
+  while (++__next != __last)//è‹¥ä¸‹ä¸€ä¸ªä½ç½®ä¾ç„¶ä¸æ˜¯å°¾ç«¯
+    if (__pred(*__next)) {//ç»§ç»­predå‡ºnextçš„å€¼ï¼Œè‹¥ä¸ºtrue
+      swap(*__first, *__next);//äº¤æ¢å€¼
+      ++__first;//ç»§ç»­ä¸‹ä¸€ä½ç½®
     }
 
   return __first;
 }
-//Èôµü´úÆ÷µÄÀàĞÍÎªbidirectional_iterator_tag£¬Ôòµ÷ÓÃ´Ëº¯Êı
+//è‹¥è¿­ä»£å™¨çš„ç±»å‹ä¸ºbidirectional_iterator_tagï¼Œåˆ™è°ƒç”¨æ­¤å‡½æ•°
 template <class _BidirectionalIter, class _Predicate>
 _BidirectionalIter __partition(_BidirectionalIter __first,
                                _BidirectionalIter __last,
@@ -1664,32 +1664,32 @@ _BidirectionalIter __partition(_BidirectionalIter __first,
 			       bidirectional_iterator_tag) {
   while (true) {
     while (true)
-      if (__first == __last)//ÈôÎª¿Õ
-        return __first;//Ö±½ÓÍË³ö
-      else if (__pred(*__first))//firstµÄÖµ·ûºÏ²»ÒÆ¶¯Ìõ¼ş£¬Ôò²»ÒÆ¶¯¸ÃÖµ
-        ++__first;//Ö»ÒÆ¶¯µü´úÆ÷
-      else//ÈôÍ·Ö¸Õë·ûºÏÒÆ¶¯
-        break;//Ìø³öÑ­»·
-    --__last;//Î²Ö¸Õë»ØËİ
+      if (__first == __last)//è‹¥ä¸ºç©º
+        return __first;//ç›´æ¥é€€å‡º
+      else if (__pred(*__first))//firstçš„å€¼ç¬¦åˆä¸ç§»åŠ¨æ¡ä»¶ï¼Œåˆ™ä¸ç§»åŠ¨è¯¥å€¼
+        ++__first;//åªç§»åŠ¨è¿­ä»£å™¨
+      else//è‹¥å¤´æŒ‡é’ˆç¬¦åˆç§»åŠ¨
+        break;//è·³å‡ºå¾ªç¯
+    --__last;//å°¾æŒ‡é’ˆå›æº¯
     while (true)
-      if (__first == __last)//Í·Ö¸ÕëµÈÓÚÎ²Ö¸Õë
-        return __first;//²Ù×÷½áÊø
-      else if (!__pred(*__last))//Î²Ö¸ÕëµÄÔªËØ·ûºÏ²»ÒÆ¶¯²Ù×÷
-        --__last;//ÖÁÒÆ¶¯µü´úÆ÷£¬²¢²»ÒÆ¶¯¾ßÌåÔªËØ
-      else//Î²Ö¸ÕëµÄÔªËØ·ûºÏÒÆ¶¯²Ù×÷
-        break;//Ìø³öÑ­»·
-    iter_swap(__first, __last);//Í·Î²Ö¸Õë½»»»ÔªËØ
-    ++__first;//×¼±¸ÏÂÒ»´ÎÑ­»·
+      if (__first == __last)//å¤´æŒ‡é’ˆç­‰äºå°¾æŒ‡é’ˆ
+        return __first;//æ“ä½œç»“æŸ
+      else if (!__pred(*__last))//å°¾æŒ‡é’ˆçš„å…ƒç´ ç¬¦åˆä¸ç§»åŠ¨æ“ä½œ
+        --__last;//è‡³ç§»åŠ¨è¿­ä»£å™¨ï¼Œå¹¶ä¸ç§»åŠ¨å…·ä½“å…ƒç´ 
+      else//å°¾æŒ‡é’ˆçš„å…ƒç´ ç¬¦åˆç§»åŠ¨æ“ä½œ
+        break;//è·³å‡ºå¾ªç¯
+    iter_swap(__first, __last);//å¤´å°¾æŒ‡é’ˆäº¤æ¢å…ƒç´ 
+    ++__first;//å‡†å¤‡ä¸‹ä¸€æ¬¡å¾ªç¯
   }
 }
-//½«Çø¼ä[first,last)µÄÔªËØ½øĞĞÅÅĞò£¬±»predÅĞ¶ÏÎªtrueµÄ·ÅÔÚÇø¼äµÄÇ°¶Î£¬ÅĞ¶¨ÎªfalseµÄ·ÅÔÚÇø¼äºó¶Î
-//¸ÃËãËã¿ÉÄÜ»áÊ¹ÔªËØµÄÔªËØÎ»ÖÃ·ÅÉú¸Ä±ä.
+//å°†åŒºé—´[first,last)çš„å…ƒç´ è¿›è¡Œæ’åºï¼Œè¢«predåˆ¤æ–­ä¸ºtrueçš„æ”¾åœ¨åŒºé—´çš„å‰æ®µï¼Œåˆ¤å®šä¸ºfalseçš„æ”¾åœ¨åŒºé—´åæ®µ
+//è¯¥ç®—ç®—å¯èƒ½ä¼šä½¿å…ƒç´ çš„å…ƒç´ ä½ç½®æ”¾ç”Ÿæ”¹å˜.
 /*
-Ëã·¨¹¦ÄÜ£ºRearranges the elements from the range [first,last), in such a way that all the elements
+ç®—æ³•åŠŸèƒ½ï¼šRearranges the elements from the range [first,last), in such a way that all the elements
 for which pred returns true precede all those for which it returns false. 
 The iterator returned points to the first element of the second group.
 
-Ëã·¨Ô­ĞÍ£º
+ç®—æ³•åŸå‹ï¼š
 	template <class BidirectionalIterator, class UnaryPredicate>
 	BidirectionalIterator partition (BidirectionalIterator first,
                                    BidirectionalIterator last, UnaryPredicate pred);
@@ -1701,10 +1701,10 @@ inline _ForwardIter partition(_ForwardIter __first,
   __STL_REQUIRES(_ForwardIter, _Mutable_ForwardIterator);
   __STL_UNARY_FUNCTION_CHECK(_Predicate, bool, 
         typename iterator_traits<_ForwardIter>::value_type);
-  //Ê×ÏÈİÍÈ¡³öµü´úÆ÷firstµÄÀàĞÍ£¬¸ù¾İµü´úÆ÷µÄÀàĞÍµ÷ÓÃ²»Í¬µÄº¯Êı
+  //é¦–å…ˆèƒå–å‡ºè¿­ä»£å™¨firstçš„ç±»å‹ï¼Œæ ¹æ®è¿­ä»£å™¨çš„ç±»å‹è°ƒç”¨ä¸åŒçš„å‡½æ•°
   return __partition(__first, __last, __pred, __ITERATOR_CATEGORY(__first));
 }
-//partitionº¯Êı¾ÙÀı£º
+//partitionå‡½æ•°ä¸¾ä¾‹ï¼š
 /*
 	#include <iostream>     // std::cout
 	#include <algorithm>    // std::partition
@@ -1820,31 +1820,31 @@ inline _ForwardIter stable_partition(_ForwardIter __first,
                                   __VALUE_TYPE(__first),
                                   __DISTANCE_TYPE(__first));
 }
-//ÕÒ³ö¿ìËÙÅÅĞòµÄÊàÅ¦Î»ÖÃ
-//°æ±¾Ò»²ÉÓÃoperator<
+//æ‰¾å‡ºå¿«é€Ÿæ’åºçš„æ¢çº½ä½ç½®
+//ç‰ˆæœ¬ä¸€é‡‡ç”¨operator<
 template <class _RandomAccessIter, class _Tp>
 _RandomAccessIter __unguarded_partition(_RandomAccessIter __first, 
                                         _RandomAccessIter __last, 
                                         _Tp __pivot) 
 {
-	//ÕÒ³öÊàÅ¦ÖáµÄÎ»ÖÃ
-	//ÁîÍ·¶Ëµü´úÆ÷ÏòÎ²¶Ë·½ÏòÒÆ¶¯£¬Î²¶Ëµü´úÆ÷ÏòÍ·¶ËÒÆ¶¯¡£
-	//µ±*first²»Ğ¡ÓÚÊàÅ¦ÖµÊ±£¬¾ÍÍ£ÏÂÀ´£¬µ±*last²»´óÓÚÊàÅ¦ÖµÊ±Ò²Í£ÏÂÀ´£¬È»ºó¼ì²âÁ½¸öµü´úÆ÷ÊÇ·ñ½»´í
-	//Èç¹ûfirstÈÔÈ»ÔÚ×ó²à¶ølastÈÔÈ»ÔÚÓÒ²à£¬¾Í½»»»Á½¸öÔªËØ£¬È»ºó¸÷×Ôµ÷ÕûÎ»ÖÃ£¬ÏòÖĞÑë±Æ½ü£¬ÔÙ¼ÌĞøÖ´ĞĞÏàÍ¬µÄĞĞÎª.
-	//Ö±µ½firstºÍlastÁ½¸öµü´úÆ÷½»´í£¬´ËÊ±±íÊ¾ÒÑÕÒµ½ÊàÅ¦ÖáÎ»ÖÃ¼´firstËùÔÚµÄÎ»ÖÃ
+	//æ‰¾å‡ºæ¢çº½è½´çš„ä½ç½®
+	//ä»¤å¤´ç«¯è¿­ä»£å™¨å‘å°¾ç«¯æ–¹å‘ç§»åŠ¨ï¼Œå°¾ç«¯è¿­ä»£å™¨å‘å¤´ç«¯ç§»åŠ¨ã€‚
+	//å½“*firstä¸å°äºæ¢çº½å€¼æ—¶ï¼Œå°±åœä¸‹æ¥ï¼Œå½“*lastä¸å¤§äºæ¢çº½å€¼æ—¶ä¹Ÿåœä¸‹æ¥ï¼Œç„¶åæ£€æµ‹ä¸¤ä¸ªè¿­ä»£å™¨æ˜¯å¦äº¤é”™
+	//å¦‚æœfirstä»ç„¶åœ¨å·¦ä¾§è€Œlastä»ç„¶åœ¨å³ä¾§ï¼Œå°±äº¤æ¢ä¸¤ä¸ªå…ƒç´ ï¼Œç„¶åå„è‡ªè°ƒæ•´ä½ç½®ï¼Œå‘ä¸­å¤®é€¼è¿‘ï¼Œå†ç»§ç»­æ‰§è¡Œç›¸åŒçš„è¡Œä¸º.
+	//ç›´åˆ°firstå’Œlastä¸¤ä¸ªè¿­ä»£å™¨äº¤é”™ï¼Œæ­¤æ—¶è¡¨ç¤ºå·²æ‰¾åˆ°æ¢çº½è½´ä½ç½®å³firstæ‰€åœ¨çš„ä½ç½®
   while (true) {
     while (*__first < __pivot)
-      ++__first;//firstÏòÎ²¶ËÒÆ¶¯£¬Ö±µ½Óöµ½²»Ğ¡ÓÚÊàÅ¦ÖµÊ±£¬Í£Ö¹
+      ++__first;//firstå‘å°¾ç«¯ç§»åŠ¨ï¼Œç›´åˆ°é‡åˆ°ä¸å°äºæ¢çº½å€¼æ—¶ï¼Œåœæ­¢
     --__last;
     while (__pivot < *__last)
-      --__last;//lastÏòÍ·¶ËÒÆ¶¯£¬Ö±µ½Óöµ½²»´óÓÚÊàÅ¦ÖµÊ±£¬Í£Ö¹
-    if (!(__first < __last))//¼ì²âÁ½¸öµü´úÆ÷ÊÇ·ñ½»´í
-      return __first;//½»´í£¬Ôò´ËÊ±ÒÑÕÒµ½£¬¼´Îªfirstµü´úÆ÷ËùÖ¸Î»ÖÃ
-    iter_swap(__first, __last);//·ñÔò½»»»µü´úÆ÷ËùÖ¸µÄÔªËØ
-    ++__first;//¼ÌĞøÖ´ĞĞÏàÍ¬ĞĞÎª
+      --__last;//lastå‘å¤´ç«¯ç§»åŠ¨ï¼Œç›´åˆ°é‡åˆ°ä¸å¤§äºæ¢çº½å€¼æ—¶ï¼Œåœæ­¢
+    if (!(__first < __last))//æ£€æµ‹ä¸¤ä¸ªè¿­ä»£å™¨æ˜¯å¦äº¤é”™
+      return __first;//äº¤é”™ï¼Œåˆ™æ­¤æ—¶å·²æ‰¾åˆ°ï¼Œå³ä¸ºfirstè¿­ä»£å™¨æ‰€æŒ‡ä½ç½®
+    iter_swap(__first, __last);//å¦åˆ™äº¤æ¢è¿­ä»£å™¨æ‰€æŒ‡çš„å…ƒç´ 
+    ++__first;//ç»§ç»­æ‰§è¡Œç›¸åŒè¡Œä¸º
   }
 }    
-//°æ±¾Ò»²ÉÓÃ__comp
+//ç‰ˆæœ¬ä¸€é‡‡ç”¨__comp
 template <class _RandomAccessIter, class _Tp, class _Compare>
 _RandomAccessIter __unguarded_partition(_RandomAccessIter __first, 
                                         _RandomAccessIter __last, 
@@ -1866,21 +1866,21 @@ _RandomAccessIter __unguarded_partition(_RandomAccessIter __first,
 const int __stl_threshold = 16;
 
 // sort() and its auxiliary functions. 
-//__insertion_sort°æ±¾Ò»µÄ¸¨Öúº¯Êı
+//__insertion_sortç‰ˆæœ¬ä¸€çš„è¾…åŠ©å‡½æ•°
 template <class _RandomAccessIter, class _Tp>
 void __unguarded_linear_insert(_RandomAccessIter __last, _Tp __val) {
   _RandomAccessIter __next = __last;
   --__next;
-  //__insertion_sortµÄÄÚÑ­»·
-  //×¢Òâ£ºÒ»µ©²»ÔÙ³öÏÖÄæ×ª¶Ô£¬Ñ­»·¾Í½áÊø
-  while (__val < *__next) {//´æÔÚÄæ×ª¶Ô
-    *__last = *__next;//µ÷ÕûÔªËØ
-    __last = __next;//µ÷Õûµü´úÆ÷
-    --__next;//×óÒÆÒ»¸öÎ»ÖÃ
+  //__insertion_sortçš„å†…å¾ªç¯
+  //æ³¨æ„ï¼šä¸€æ—¦ä¸å†å‡ºç°é€†è½¬å¯¹ï¼Œå¾ªç¯å°±ç»“æŸ
+  while (__val < *__next) {//å­˜åœ¨é€†è½¬å¯¹
+    *__last = *__next;//è°ƒæ•´å…ƒç´ 
+    __last = __next;//è°ƒæ•´è¿­ä»£å™¨
+    --__next;//å·¦ç§»ä¸€ä¸ªä½ç½®
   }
-  *__last = __val;//valueµÄÕıÈ·²åÈëÎ»ÖÃ
+  *__last = __val;//valueçš„æ­£ç¡®æ’å…¥ä½ç½®
 }
-//__insertion_sort°æ±¾¶şµÄ¸¨Öúº¯Êı
+//__insertion_sortç‰ˆæœ¬äºŒçš„è¾…åŠ©å‡½æ•°
 template <class _RandomAccessIter, class _Tp, class _Compare>
 void __unguarded_linear_insert(_RandomAccessIter __last, _Tp __val, 
                                _Compare __comp) {
@@ -1893,21 +1893,21 @@ void __unguarded_linear_insert(_RandomAccessIter __last, _Tp __val,
   }
   *__last = __val;
 }
-//__insertion_sort°æ±¾Ò»µÄ¸¨Öúº¯Êı
+//__insertion_sortç‰ˆæœ¬ä¸€çš„è¾…åŠ©å‡½æ•°
 template <class _RandomAccessIter, class _Tp>
 inline void __linear_insert(_RandomAccessIter __first, 
                             _RandomAccessIter __last, _Tp*) {
-  _Tp __val = *__last;//¼ÇÂ¼Î²ÔªËØ
-  if (__val < *__first) {//Î²ÔªËØ±ÈÍ·ÔªËØ»¹Ğ¡
-	  //½«Õû¸öÇø¼äÏòÓÒÒÆÒ»¸öÎ»ÖÃ
+  _Tp __val = *__last;//è®°å½•å°¾å…ƒç´ 
+  if (__val < *__first) {//å°¾å…ƒç´ æ¯”å¤´å…ƒç´ è¿˜å°
+	  //å°†æ•´ä¸ªåŒºé—´å‘å³ç§»ä¸€ä¸ªä½ç½®
     copy_backward(__first, __last, __last + 1);
-    *__first = __val;//ÁîÍ·ÔªËØµÈÓÚÔ­ÏÈµÄÎ²ÔªËØ
-	//ÒÔÉÏÁ½ĞĞÃüÁîµÄ¹¦ÄÜÏàµÈÓÚ½»»»Á½¸öÔªËØ
+    *__first = __val;//ä»¤å¤´å…ƒç´ ç­‰äºåŸå…ˆçš„å°¾å…ƒç´ 
+	//ä»¥ä¸Šä¸¤è¡Œå‘½ä»¤çš„åŠŸèƒ½ç›¸ç­‰äºäº¤æ¢ä¸¤ä¸ªå…ƒç´ 
   }
-  else//Î²ÔªËØ²»Ğ¡ÓÚÍ·ÔªËØ
+  else//å°¾å…ƒç´ ä¸å°äºå¤´å…ƒç´ 
     __unguarded_linear_insert(__last, __val);
 }
-//__insertion_sort°æ±¾¶şµÄ¸¨Öúº¯Êı
+//__insertion_sortç‰ˆæœ¬äºŒçš„è¾…åŠ©å‡½æ•°
 template <class _RandomAccessIter, class _Tp, class _Compare>
 inline void __linear_insert(_RandomAccessIter __first, 
                             _RandomAccessIter __last, _Tp*, _Compare __comp) {
@@ -1919,18 +1919,18 @@ inline void __linear_insert(_RandomAccessIter __first,
   else
     __unguarded_linear_insert(__last, __val, __comp);
 }
-//__insertion_sortÒÔË«²ãÑ­»·ĞÎÊ½½øĞĞ¡£ÍâÑ­»·±éÀúÕû¸öĞòÁĞ£¬Ã¿´Îµü´ú¾ö¶¨³öÒ»¸ö×ÓÇø¼ä£»
-//ÄÚÑ­»·±éÀú×ÓÇø¼ä£¬½«×ÓÇø¼äÄÚµÄÃ¿Ò»¸ö¡°Äæ×ª¶Ô¡±µ¹×ª¹ıÀ´£¬Èç¹ûÒ»µ©²»´æÔÚ¡°Äæ×ª¶Ô¡±£¬±íÊ¾ÅÅĞòÍê±Ï¡£
-//¡°Äæ×ª¶Ô¡±¸ÅÄî£ºÖ¸ÈÎºÎÁ½¸öµü´úÆ÷iºÍj£¬i<j,¶ø*i>*j.
-//°æ±¾Ò»
+//__insertion_sortä»¥åŒå±‚å¾ªç¯å½¢å¼è¿›è¡Œã€‚å¤–å¾ªç¯éå†æ•´ä¸ªåºåˆ—ï¼Œæ¯æ¬¡è¿­ä»£å†³å®šå‡ºä¸€ä¸ªå­åŒºé—´ï¼›
+//å†…å¾ªç¯éå†å­åŒºé—´ï¼Œå°†å­åŒºé—´å†…çš„æ¯ä¸€ä¸ªâ€œé€†è½¬å¯¹â€å€’è½¬è¿‡æ¥ï¼Œå¦‚æœä¸€æ—¦ä¸å­˜åœ¨â€œé€†è½¬å¯¹â€ï¼Œè¡¨ç¤ºæ’åºå®Œæ¯•ã€‚
+//â€œé€†è½¬å¯¹â€æ¦‚å¿µï¼šæŒ‡ä»»ä½•ä¸¤ä¸ªè¿­ä»£å™¨iå’Œjï¼Œi<j,è€Œ*i>*j.
+//ç‰ˆæœ¬ä¸€
 template <class _RandomAccessIter>
 void __insertion_sort(_RandomAccessIter __first, _RandomAccessIter __last) {
-  if (__first == __last) return; //ÈôÇø¼äÎª¿Õ£¬ÔòÍË³ö
-  for (_RandomAccessIter __i = __first + 1; __i != __last; ++__i)//ÍâÑ­»·£¬±éÀúÕû¸öÇø¼ä
-	  //[first,i)ĞÎ³ÉµÄ×Ó¿Õ¼ä
+  if (__first == __last) return; //è‹¥åŒºé—´ä¸ºç©ºï¼Œåˆ™é€€å‡º
+  for (_RandomAccessIter __i = __first + 1; __i != __last; ++__i)//å¤–å¾ªç¯ï¼Œéå†æ•´ä¸ªåŒºé—´
+	  //[first,i)å½¢æˆçš„å­ç©ºé—´
     __linear_insert(__first, __i, __VALUE_TYPE(__first));
 }
-//°æ±¾¶ş
+//ç‰ˆæœ¬äºŒ
 template <class _RandomAccessIter, class _Compare>
 void __insertion_sort(_RandomAccessIter __first,
                       _RandomAccessIter __last, _Compare __comp) {
@@ -1945,7 +1945,7 @@ void __unguarded_insertion_sort_aux(_RandomAccessIter __first,
   for (_RandomAccessIter __i = __first; __i != __last; ++__i)
     __unguarded_linear_insert(__i, _Tp(*__i));
 }
-//sort°æ±¾Ò»µÄ¸¨Öúº¯Êı
+//sortç‰ˆæœ¬ä¸€çš„è¾…åŠ©å‡½æ•°
 template <class _RandomAccessIter>
 inline void __unguarded_insertion_sort(_RandomAccessIter __first, 
                                 _RandomAccessIter __last) {
@@ -1967,16 +1967,16 @@ inline void __unguarded_insertion_sort(_RandomAccessIter __first,
   __unguarded_insertion_sort_aux(__first, __last, __VALUE_TYPE(__first),
                                  __comp);
 }
-//sort°æ±¾Ò»µÄ¸¨Öúº¯Êı
+//sortç‰ˆæœ¬ä¸€çš„è¾…åŠ©å‡½æ•°
 template <class _RandomAccessIter>
 void __final_insertion_sort(_RandomAccessIter __first, 
                             _RandomAccessIter __last) {
-  if (__last - __first > __stl_threshold) {//ÅĞ¶ÏÔªËØ¸öÊıÊÇ·ñ´óÓÚ16
-	  //Ôò°ÑÇø¼ä·Ö¸î³ÉÁ½¶Î£¬Ò»¶Ë³¤¶ÈÎª16£¬ÁíÒ»¶ËÎªÊ£ÓàµÄ³¤¶È
+  if (__last - __first > __stl_threshold) {//åˆ¤æ–­å…ƒç´ ä¸ªæ•°æ˜¯å¦å¤§äº16
+	  //åˆ™æŠŠåŒºé—´åˆ†å‰²æˆä¸¤æ®µï¼Œä¸€ç«¯é•¿åº¦ä¸º16ï¼Œå¦ä¸€ç«¯ä¸ºå‰©ä½™çš„é•¿åº¦
     __insertion_sort(__first, __first + __stl_threshold);
     __unguarded_insertion_sort(__first + __stl_threshold, __last);
   }
-  else//Èô²»´óÓÚ16£¬Ö±½Óµ÷ÓÃ²åÈëÅÅĞò
+  else//è‹¥ä¸å¤§äº16ï¼Œç›´æ¥è°ƒç”¨æ’å…¥æ’åº
     __insertion_sort(__first, __last);
 }
 
@@ -1990,38 +1990,38 @@ void __final_insertion_sort(_RandomAccessIter __first,
   else
     __insertion_sort(__first, __last, __comp);
 }
-//_lg()º¯ÊıÊÇÓÃÀ´¿ØÖÆ·Ö¸î¶ñ»¯µÄÇé¿ö
-//¸Ãº¯ÊıÕÒ³ö2^k <= n µÄ×î´óÖµk;
-//ÀıÈç£ºn=7,µÃk=2; n=20,µÃk=4; n=8,µÃk=3; 
+//_lg()å‡½æ•°æ˜¯ç”¨æ¥æ§åˆ¶åˆ†å‰²æ¶åŒ–çš„æƒ…å†µ
+//è¯¥å‡½æ•°æ‰¾å‡º2^k <= n çš„æœ€å¤§å€¼k;
+//ä¾‹å¦‚ï¼šn=7,å¾—k=2; n=20,å¾—k=4; n=8,å¾—k=3; 
 template <class _Size>
 inline _Size __lg(_Size __n) {
   _Size __k;
   for (__k = 0; __n != 1; __n >>= 1) ++__k;
   return __k;
 }
-//sort°æ±¾Ò»µÄ¸¨Öúº¯Êı
-//²ÎÊı__depth_limit±íÊ¾×î´óµÄ·Ö¸î²ãÊı
+//sortç‰ˆæœ¬ä¸€çš„è¾…åŠ©å‡½æ•°
+//å‚æ•°__depth_limitè¡¨ç¤ºæœ€å¤§çš„åˆ†å‰²å±‚æ•°
 template <class _RandomAccessIter, class _Tp, class _Size>
 void __introsort_loop(_RandomAccessIter __first,
                       _RandomAccessIter __last, _Tp*,
                       _Size __depth_limit)
 {
-	//__stl_thresholdÎªÈ«¾Ö³£Á¿£¬ÆäÖµÎª16
-  while (__last - __first > __stl_threshold) {//ÈôÇø¼ä³¤¶È´óÓÚ16
-    if (__depth_limit == 0) {//±íÊ¾·Ö¸î¶ñ»¯
-      partial_sort(__first, __last, __last);//×ª¶øµ÷ÓÃ¶ÑÅÅĞòheap_sort()
+	//__stl_thresholdä¸ºå…¨å±€å¸¸é‡ï¼Œå…¶å€¼ä¸º16
+  while (__last - __first > __stl_threshold) {//è‹¥åŒºé—´é•¿åº¦å¤§äº16
+    if (__depth_limit == 0) {//è¡¨ç¤ºåˆ†å‰²æ¶åŒ–
+      partial_sort(__first, __last, __last);//è½¬è€Œè°ƒç”¨å †æ’åºheap_sort()
       return;
     }
     --__depth_limit;
-	//¼ÆËã·Ö¸îµãcut£¬ÊàÅ¦ÖµÊÇ²ÉÓÃÊ×¡¢Î²¡¢ÖĞÑëÈı¸öµÄÖĞ¼äÖµ
+	//è®¡ç®—åˆ†å‰²ç‚¹cutï¼Œæ¢çº½å€¼æ˜¯é‡‡ç”¨é¦–ã€å°¾ã€ä¸­å¤®ä¸‰ä¸ªçš„ä¸­é—´å€¼
     _RandomAccessIter __cut =
       __unguarded_partition(__first, __last,
                             _Tp(__median(*__first,
                                          *(__first + (__last - __first)/2),
                                          *(__last - 1))));
-	//¶ÔÓÒ°ë²¿·Öµİ¹éµØ½øĞĞÅÅĞò
+	//å¯¹å³åŠéƒ¨åˆ†é€’å½’åœ°è¿›è¡Œæ’åº
     __introsort_loop(__cut, __last, (_Tp*) 0, __depth_limit);
-    __last = __cut;//½ÓÏÂÀ´¶Ô×ó°ë²¿·Öµİ¹éµØ½øĞĞÅÅĞò
+    __last = __cut;//æ¥ä¸‹æ¥å¯¹å·¦åŠéƒ¨åˆ†é€’å½’åœ°è¿›è¡Œæ’åº
   }
 }
 
@@ -2046,33 +2046,33 @@ void __introsort_loop(_RandomAccessIter __first,
     __last = __cut;
   }
 }
-//SGI STLµÄÅÅĞòËã·¨£¬µü´úÆ÷²ÎÊıµÄÀàĞÍ±ØĞëÊÇËæ»ú·ÃÎÊµü´úÆ÷_RandomAccessIter
+//SGI STLçš„æ’åºç®—æ³•ï¼Œè¿­ä»£å™¨å‚æ•°çš„ç±»å‹å¿…é¡»æ˜¯éšæœºè®¿é—®è¿­ä»£å™¨_RandomAccessIter
 /*
-º¯Êı¹¦ÄÜ£ºSorts the elements in the range [first,last) into ascending order.
-º¯ÊıÔ­ĞÍ£º
-default (1)	£º°æ±¾Ò»²ÉÓÃÄ¬ÈÏµÄoperator<
+å‡½æ•°åŠŸèƒ½ï¼šSorts the elements in the range [first,last) into ascending order.
+å‡½æ•°åŸå‹ï¼š
+default (1)	ï¼šç‰ˆæœ¬ä¸€é‡‡ç”¨é»˜è®¤çš„operator<
 	template <class RandomAccessIterator>
 	void sort (RandomAccessIterator first, RandomAccessIterator last);
-custom (2)	£º°æ±¾¶ş²ÉÓÃ·Âº¯Êıcomp
+custom (2)	ï¼šç‰ˆæœ¬äºŒé‡‡ç”¨ä»¿å‡½æ•°comp
 	template <class RandomAccessIterator, class Compare>
 	void sort (RandomAccessIterator first, RandomAccessIterator last, Compare comp);
  */
-//°æ±¾Ò»
+//ç‰ˆæœ¬ä¸€
 template <class _RandomAccessIter>
 inline void sort(_RandomAccessIter __first, _RandomAccessIter __last) {
   __STL_REQUIRES(_RandomAccessIter, _Mutable_RandomAccessIterator);
   __STL_REQUIRES(typename iterator_traits<_RandomAccessIter>::value_type,
                  _LessThanComparable);
-  //_lg()º¯ÊıÊÇÓÃÀ´¿ØÖÆ·Ö¸î¶ñ»¯µÄÇé¿ö
+  //_lg()å‡½æ•°æ˜¯ç”¨æ¥æ§åˆ¶åˆ†å‰²æ¶åŒ–çš„æƒ…å†µ
   if (__first != __last) {
     __introsort_loop(__first, __last,
                      __VALUE_TYPE(__first),
                      __lg(__last - __first) * 2);
-	//½øĞĞ²åÈëÅÅĞò
+	//è¿›è¡Œæ’å…¥æ’åº
     __final_insertion_sort(__first, __last);
   }
 }
-//°æ±¾¶ş
+//ç‰ˆæœ¬äºŒ
 template <class _RandomAccessIter, class _Compare>
 inline void sort(_RandomAccessIter __first, _RandomAccessIter __last,
                  _Compare __comp) {
@@ -2317,21 +2317,21 @@ inline void stable_sort(_RandomAccessIter __first,
 }
 
 // partial_sort, partial_sort_copy, and auxiliary functions.
-//ÖØĞÂ°²ÅÅĞòÁĞ[first,last)£¬Ê¹ĞòÁĞÇ°°ë²¿·Ömiddle-first¸ö×îĞ¡ÔªËØÒÔµİÔöË³ĞòÅÅĞò£¬²¢½«ÆäÖÃÓÚ[first,middle)
-//ÆäÓàlast-middle¸öÔªËØ²»Ö¸¶¨ÈÎºÎÅÅĞò£¬²¢½«ÆäÖÃÓÚ[middle,last)
-//×¢Òâ£ºµü´úÆ÷middleÊÇÔÚ[first,last)·¶Î§Ö®ÄÚ
+//é‡æ–°å®‰æ’åºåˆ—[first,last)ï¼Œä½¿åºåˆ—å‰åŠéƒ¨åˆ†middle-firstä¸ªæœ€å°å…ƒç´ ä»¥é€’å¢é¡ºåºæ’åºï¼Œå¹¶å°†å…¶ç½®äº[first,middle)
+//å…¶ä½™last-middleä¸ªå…ƒç´ ä¸æŒ‡å®šä»»ä½•æ’åºï¼Œå¹¶å°†å…¶ç½®äº[middle,last)
+//æ³¨æ„ï¼šè¿­ä»£å™¨middleæ˜¯åœ¨[first,last)èŒƒå›´ä¹‹å†…
 
 /*
-º¯Êı¹¦ÄÜ£ºRearranges the elements in the range [first,last), 
+å‡½æ•°åŠŸèƒ½ï¼šRearranges the elements in the range [first,last), 
 in such a way that the elements before middle are the smallest elements in the entire range 
 and are sorted in ascending order, while the remaining elements are left without any specific order.
 
-º¯ÊıÔ­ĞÍ£º
-default (1)	°æ±¾Ò» operator< 
+å‡½æ•°åŸå‹ï¼š
+default (1)	ç‰ˆæœ¬ä¸€ operator< 
 	template <class RandomAccessIterator>
 	void partial_sort (RandomAccessIterator first, RandomAccessIterator middle,
                      RandomAccessIterator last);
-custom (2) °æ±¾¶ş comp	
+custom (2) ç‰ˆæœ¬äºŒ comp	
 	template <class RandomAccessIterator, class Compare>
 	void partial_sort (RandomAccessIterator first, RandomAccessIterator middle,
                      RandomAccessIterator last, Compare comp);
@@ -2340,21 +2340,21 @@ custom (2) °æ±¾¶ş comp
 template <class _RandomAccessIter, class _Tp>
 void __partial_sort(_RandomAccessIter __first, _RandomAccessIter __middle,
                     _RandomAccessIter __last, _Tp*) {
-		//ÀûÓÃheapµÄÖªÊ¶£¬ÔÚSGI STLÖĞ£¬ÊÇ²ÉÓÃ×î´ó¶Ñ
-		//½«[first,middle)Çø¼äµÄÔªËØ´´½¨³É×î´ó¶Ñ
-		//ÔÙ¸ù¾İ×î´ó¶ÑµÄĞÔÖÊ£¬Ò»¸öÒ»¸öµ¯³ö¶Ñ£¬²¢½«Æä±£´æ£¬¼´¶ÑÅÅĞò
-  make_heap(__first, __middle);//´´½¨×î´ó¶Ñ£¬¶¨ÒåÓë<stl_heap.h>ÎÄ¼ş
-  //ÒÔÏÂÊÇÔÚÇø¼äÖĞ[first,last)ÕÒ³ömiddle-first¸ö×îĞ¡ÔªËØ
-  //ÕâÀïµÄÊÇ½«ºó°ë²¿·Ö[middle,last)µÄÔªËØÒÀ´ÎÓë×î´ó¶ÑµÄ¸ù½ÚµãÔªËØ(¼´¶ÑµÄ×î´óÔªËØ)±È½Ï
-  //ÈôĞ¡ÓÚ¶ÑµÄ×î´óÔªËØ£¬ÔòÓë¶ÑµÄ×î´óÔªËØ½»»»£¬²¢µ÷Õû¶Ñ£¬Ê¹ÆäÒÀ´Î³ÉÎª×î´ó¶Ñ
-  //Èô²»Ğ¡ÓÚ¶ÑµÄ×î´óÔªËØ£¬Ôò²»×÷ÈÎºÎ²Ù×÷
+		//åˆ©ç”¨heapçš„çŸ¥è¯†ï¼Œåœ¨SGI STLä¸­ï¼Œæ˜¯é‡‡ç”¨æœ€å¤§å †
+		//å°†[first,middle)åŒºé—´çš„å…ƒç´ åˆ›å»ºæˆæœ€å¤§å †
+		//å†æ ¹æ®æœ€å¤§å †çš„æ€§è´¨ï¼Œä¸€ä¸ªä¸€ä¸ªå¼¹å‡ºå †ï¼Œå¹¶å°†å…¶ä¿å­˜ï¼Œå³å †æ’åº
+  make_heap(__first, __middle);//åˆ›å»ºæœ€å¤§å †ï¼Œå®šä¹‰ä¸<stl_heap.h>æ–‡ä»¶
+  //ä»¥ä¸‹æ˜¯åœ¨åŒºé—´ä¸­[first,last)æ‰¾å‡ºmiddle-firstä¸ªæœ€å°å…ƒç´ 
+  //è¿™é‡Œçš„æ˜¯å°†ååŠéƒ¨åˆ†[middle,last)çš„å…ƒç´ ä¾æ¬¡ä¸æœ€å¤§å †çš„æ ¹èŠ‚ç‚¹å…ƒç´ (å³å †çš„æœ€å¤§å…ƒç´ )æ¯”è¾ƒ
+  //è‹¥å°äºå †çš„æœ€å¤§å…ƒç´ ï¼Œåˆ™ä¸å †çš„æœ€å¤§å…ƒç´ äº¤æ¢ï¼Œå¹¶è°ƒæ•´å †ï¼Œä½¿å…¶ä¾æ¬¡æˆä¸ºæœ€å¤§å †
+  //è‹¥ä¸å°äºå †çš„æœ€å¤§å…ƒç´ ï¼Œåˆ™ä¸ä½œä»»ä½•æ“ä½œ
   for (_RandomAccessIter __i = __middle; __i < __last; ++__i)
     if (*__i < *__first) 
       __pop_heap(__first, __middle, __i, _Tp(*__i),
                  __DISTANCE_TYPE(__first));
-  sort_heap(__first, __middle);//¶Ô×î´ó¶Ñ½øĞĞ¶ÑÅÅĞò
+  sort_heap(__first, __middle);//å¯¹æœ€å¤§å †è¿›è¡Œå †æ’åº
 }
-//°æ±¾Ò»
+//ç‰ˆæœ¬ä¸€
 template <class _RandomAccessIter>
 inline void partial_sort(_RandomAccessIter __first,
                          _RandomAccessIter __middle,
@@ -2375,7 +2375,7 @@ void __partial_sort(_RandomAccessIter __first, _RandomAccessIter __middle,
                  __DISTANCE_TYPE(__first));
   sort_heap(__first, __middle, __comp);
 }
-//°æ±¾¶ş
+//ç‰ˆæœ¬äºŒ
 template <class _RandomAccessIter, class _Compare>
 inline void partial_sort(_RandomAccessIter __first,
                          _RandomAccessIter __middle,
@@ -2386,7 +2386,7 @@ inline void partial_sort(_RandomAccessIter __first,
       typename iterator_traits<_RandomAccessIter>::value_type);
   __partial_sort(__first, __middle, __last, __VALUE_TYPE(__first), __comp);
 }
-//partial_sort_copyÓëpartial_sortµÄÊµÏÖ»úÖÆÊÇÏàÍ¬£¬Ö»ÊÇpartial_sort_copy½«ÔªËØÅÅĞòºó·ÅÔÚÒÔresultÆğÊ¼µÄÈİÆ÷ÖĞ
+//partial_sort_copyä¸partial_sortçš„å®ç°æœºåˆ¶æ˜¯ç›¸åŒï¼Œåªæ˜¯partial_sort_copyå°†å…ƒç´ æ’åºåæ”¾åœ¨ä»¥resultèµ·å§‹çš„å®¹å™¨ä¸­
 template <class _InputIter, class _RandomAccessIter, class _Distance,
           class _Tp>
 _RandomAccessIter __partial_sort_copy(_InputIter __first,
@@ -2477,31 +2477,31 @@ partial_sort_copy(_InputIter __first, _InputIter __last,
 }
 
 // nth_element() and its auxiliary functions.  
-//nth_element°æ±¾Ò»¸¨Öúº¯Êı
+//nth_elementç‰ˆæœ¬ä¸€è¾…åŠ©å‡½æ•°
 template <class _RandomAccessIter, class _Tp>
 void __nth_element(_RandomAccessIter __first, _RandomAccessIter __nth,
                    _RandomAccessIter __last, _Tp*) {
-  while (__last - __first > 3) {//Çø¼ä³¤¶È´óÓÚ3
-	  //»ñÈ¡·Ö¸îµãcut
+  while (__last - __first > 3) {//åŒºé—´é•¿åº¦å¤§äº3
+	  //è·å–åˆ†å‰²ç‚¹cut
     _RandomAccessIter __cut =
       __unguarded_partition(__first, __last,
                             _Tp(__median(*__first,
                                          *(__first + (__last - __first)/2),
                                          *(__last - 1))));
-    if (__cut <= __nth)//Èô·Ö¸îµãĞ¡ÓÚÖ¸¶¨Î»ÖÃ£¬ÔònthÎ»ÖÃÔÚÓÒ°ë¶Î
-      __first = __cut;//ÔÙ¶ÔÓÒ°ë¶Î½øĞĞ·Ö¸î
-    else //·ñÔò£¬¶Ô×ó°ë¶Î½øĞĞ·Ö¸î
+    if (__cut <= __nth)//è‹¥åˆ†å‰²ç‚¹å°äºæŒ‡å®šä½ç½®ï¼Œåˆ™nthä½ç½®åœ¨å³åŠæ®µ
+      __first = __cut;//å†å¯¹å³åŠæ®µè¿›è¡Œåˆ†å‰²
+    else //å¦åˆ™ï¼Œå¯¹å·¦åŠæ®µè¿›è¡Œåˆ†å‰²
       __last = __cut;
   }
   __insertion_sort(__first, __last);
 }
-//ÖØĞÂÅÅĞòĞòÁĞ[first,last)£¬Ê¹µü´úÆ÷nthËùÖ¸µÄÔªËØ£¬Óë¡°Õû¸ö[first,last)ĞòÁĞÍêÕûÅÅĞòºó£¬Í¬Ò»Î»ÖÃµÄÔªËØ¡±Í¬Öµ.
-//´ËÍâ£¬±ØĞë±£Ö¤[nth,last)ÄÚµÄËùÓĞÔªËØ²»Ğ¡ÓÚ[first,nth)ÄÚµÄÔªËØ£¬µ«ÊÇ¶ÔÓÚĞòÁĞ[first,nth)ºÍĞòÁĞ[nth,last)ÄÚµÄÔªËØµÄÅÅĞòË³Ğò²»ÄÜÈ·¶¨.
+//é‡æ–°æ’åºåºåˆ—[first,last)ï¼Œä½¿è¿­ä»£å™¨nthæ‰€æŒ‡çš„å…ƒç´ ï¼Œä¸â€œæ•´ä¸ª[first,last)åºåˆ—å®Œæ•´æ’åºåï¼ŒåŒä¸€ä½ç½®çš„å…ƒç´ â€åŒå€¼.
+//æ­¤å¤–ï¼Œå¿…é¡»ä¿è¯[nth,last)å†…çš„æ‰€æœ‰å…ƒç´ ä¸å°äº[first,nth)å†…çš„å…ƒç´ ï¼Œä½†æ˜¯å¯¹äºåºåˆ—[first,nth)å’Œåºåˆ—[nth,last)å†…çš„å…ƒç´ çš„æ’åºé¡ºåºä¸èƒ½ç¡®å®š.
 
 /*
-º¯Êı¹¦ÄÜ£ºRearranges the elements in the range [first,last), 
+å‡½æ•°åŠŸèƒ½ï¼šRearranges the elements in the range [first,last), 
 in such a way that the element at the nth position is the element that would be in that position in a sorted sequence.
-º¯ÊıÔ­ĞÍ£º
+å‡½æ•°åŸå‹ï¼š
 default (1)	
 	template <class RandomAccessIterator>
 	void nth_element (RandomAccessIterator first, RandomAccessIterator nth,
@@ -2511,7 +2511,7 @@ custom (2)
 	void nth_element (RandomAccessIterator first, RandomAccessIterator nth,
                     RandomAccessIterator last, Compare comp);
 */
-//nth_element°æ±¾Ò»
+//nth_elementç‰ˆæœ¬ä¸€
 template <class _RandomAccessIter>
 inline void nth_element(_RandomAccessIter __first, _RandomAccessIter __nth,
                         _RandomAccessIter __last) {
@@ -2558,42 +2558,42 @@ _ForwardIter __lower_bound(_ForwardIter __first, _ForwardIter __last,
                            const _Tp& __val, _Distance*) 
 {
   _Distance __len = 0;
-  distance(__first, __last, __len);//ÇóÈ¡Õû¸öÇø¼äµÄ³¤¶Èlen
+  distance(__first, __last, __len);//æ±‚å–æ•´ä¸ªåŒºé—´çš„é•¿åº¦len
   _Distance __half;
-  _ForwardIter __middle;//¶¨ÒåÇø¼äµÄÖĞ¼äµü´úÆ÷
+  _ForwardIter __middle;//å®šä¹‰åŒºé—´çš„ä¸­é—´è¿­ä»£å™¨
 
-  while (__len > 0) {//ÈôÇø¼ä²»Îª¿Õ£¬ÔòÔÚÇø¼ä[first,last)¿ªÊ¼²éÕÒvalueÖµ
-    __half = __len >> 1;//ÏòÓÒÒÆÒ»Î»£¬Ïàµ±ÓÚ³ıÒÔ2£¬¼´È¡Çø¼äµÄÖĞ¼äÖµ
-    __middle = __first;//middle³õÊ¼»¯ÎªÇø¼äµÄÆğÊ¼Î»ÖÃ
-    advance(__middle, __half);//middleÏòºóÒÆhalfÎ»£¬´ËÊ±middleÎªÇø¼äµÄÖĞ¼äÖµ
-    if (*__middle < __val) {//½«valueÖµÓëÖĞ¼äÖµ±È½Ï£¬¼´ÊÇ¶ş·Ö²éÕÒ,ÈôÖĞ¼äÖµĞ¡ÓÚvalue£¬Ôò¼ÌĞø²éÕÒÓÒ°ë²¿·Ö
-		//ÏÂÃæÁ½ĞĞÁîfirstÖ¸ÏòmiddleµÄÏÂÒ»¸öÎ»ÖÃ
+  while (__len > 0) {//è‹¥åŒºé—´ä¸ä¸ºç©ºï¼Œåˆ™åœ¨åŒºé—´[first,last)å¼€å§‹æŸ¥æ‰¾valueå€¼
+    __half = __len >> 1;//å‘å³ç§»ä¸€ä½ï¼Œç›¸å½“äºé™¤ä»¥2ï¼Œå³å–åŒºé—´çš„ä¸­é—´å€¼
+    __middle = __first;//middleåˆå§‹åŒ–ä¸ºåŒºé—´çš„èµ·å§‹ä½ç½®
+    advance(__middle, __half);//middleå‘åç§»halfä½ï¼Œæ­¤æ—¶middleä¸ºåŒºé—´çš„ä¸­é—´å€¼
+    if (*__middle < __val) {//å°†valueå€¼ä¸ä¸­é—´å€¼æ¯”è¾ƒï¼Œå³æ˜¯äºŒåˆ†æŸ¥æ‰¾,è‹¥ä¸­é—´å€¼å°äºvalueï¼Œåˆ™ç»§ç»­æŸ¥æ‰¾å³åŠéƒ¨åˆ†
+		//ä¸‹é¢ä¸¤è¡Œä»¤firstæŒ‡å‘middleçš„ä¸‹ä¸€ä¸ªä½ç½®
       __first = __middle;
       ++__first;
-      __len = __len - __half - 1;//µ÷Õû²éÕÒÇø¼äµÄ³¤¶È
+      __len = __len - __half - 1;//è°ƒæ•´æŸ¥æ‰¾åŒºé—´çš„é•¿åº¦
     }
     else
-      __len = __half;//·ñÔò²éÕÒ×ó°ë²¿·Ö
+      __len = __half;//å¦åˆ™æŸ¥æ‰¾å·¦åŠéƒ¨åˆ†
   }
   return __first;
 }
-//ÔÚÒÑÅÅĞòÇø¼ä[first,last)²éÕÒvalueÖµ
-//Èô¸ÃÇø¼ä´æÔÚÓëvalueÏàµÈµÄÔªËØ£¬Ôò·µ»ØÖ¸ÏòµÚÒ»¸öÓëvalueÏàµÈµÄµü´úÆ÷
-//Èô¸ÃÇø¼ä²»´æÔÚÓëvalueÏàµÈµÄÔªËØ£¬Ôò·µ»ØÖ¸ÏòµÚÒ»¸ö²»Ğ¡ÓÚvalueÖµµÄµü´úÆ÷
-//Èô¸ÃÇø¼äµÄÈÎºÎÔªËØ¶¼±ÈvalueÖµĞ¡£¬Ôò·µ»Ølast
+//åœ¨å·²æ’åºåŒºé—´[first,last)æŸ¥æ‰¾valueå€¼
+//è‹¥è¯¥åŒºé—´å­˜åœ¨ä¸valueç›¸ç­‰çš„å…ƒç´ ï¼Œåˆ™è¿”å›æŒ‡å‘ç¬¬ä¸€ä¸ªä¸valueç›¸ç­‰çš„è¿­ä»£å™¨
+//è‹¥è¯¥åŒºé—´ä¸å­˜åœ¨ä¸valueç›¸ç­‰çš„å…ƒç´ ï¼Œåˆ™è¿”å›æŒ‡å‘ç¬¬ä¸€ä¸ªä¸å°äºvalueå€¼çš„è¿­ä»£å™¨
+//è‹¥è¯¥åŒºé—´çš„ä»»ä½•å…ƒç´ éƒ½æ¯”valueå€¼å°ï¼Œåˆ™è¿”å›last
 /*
-º¯Êı¹¦ÄÜ£ºReturns an iterator pointing to the first element in the range [first,last) which does not compare less than val.
-º¯ÊıÔ­ĞÍ£º
-default (1)	£º°æ±¾Ò»²ÉÓÃoperator<±È½Ï
+å‡½æ•°åŠŸèƒ½ï¼šReturns an iterator pointing to the first element in the range [first,last) which does not compare less than val.
+å‡½æ•°åŸå‹ï¼š
+default (1)	ï¼šç‰ˆæœ¬ä¸€é‡‡ç”¨operator<æ¯”è¾ƒ
 	template <class ForwardIterator, class T>
 	ForwardIterator lower_bound (ForwardIterator first, ForwardIterator last,
                                const T& val);
-custom (2)	£º°æ±¾¶ş²ÉÓÃ·Âº¯Êıcomp±È½Ï¹æÔò
+custom (2)	ï¼šç‰ˆæœ¬äºŒé‡‡ç”¨ä»¿å‡½æ•°compæ¯”è¾ƒè§„åˆ™
 	template <class ForwardIterator, class T, class Compare>
 	ForwardIterator lower_bound (ForwardIterator first, ForwardIterator last,
                                const T& val, Compare comp);
 */
-//°æ±¾Ò»
+//ç‰ˆæœ¬ä¸€
 template <class _ForwardIter, class _Tp>
 inline _ForwardIter lower_bound(_ForwardIter __first, _ForwardIter __last,
 				const _Tp& __val) {
@@ -2610,26 +2610,26 @@ _ForwardIter __lower_bound(_ForwardIter __first, _ForwardIter __last,
                               const _Tp& __val, _Compare __comp, _Distance*)
 {
   _Distance __len = 0;
-  distance(__first, __last, __len);//ÇóÈ¡Õû¸öÇø¼äµÄ³¤¶Èlen
+  distance(__first, __last, __len);//æ±‚å–æ•´ä¸ªåŒºé—´çš„é•¿åº¦len
   _Distance __half;
-  _ForwardIter __middle;//¶¨ÒåÇø¼äµÄÖĞ¼äµü´úÆ÷
+  _ForwardIter __middle;//å®šä¹‰åŒºé—´çš„ä¸­é—´è¿­ä»£å™¨
 
-  while (__len > 0) {//ÈôÇø¼ä²»Îª¿Õ£¬ÔòÔÚÇø¼ä[first,last)¿ªÊ¼²éÕÒvalueÖµ
-    __half = __len >> 1;//ÏòÓÒÒÆÒ»Î»£¬Ïàµ±ÓÚ³ıÒÔ2£¬¼´È¡Çø¼äµÄÖĞ¼äÖµ
-    __middle = __first;//middle³õÊ¼»¯ÎªÇø¼äµÄÆğÊ¼Î»ÖÃ
-    advance(__middle, __half);//middleÏòºóÒÆhalfÎ»£¬´ËÊ±middleÎªÇø¼äµÄÖĞ¼äÖµ
-    if (__comp(*__middle, __val)) {//ÈôcompÅĞ¶ÏÎªtrue£¬Ôò¼ÌĞøÔÚÓÒ°ë²¿·Ö²éÕÒ
-		//ÏÂÃæÁ½ĞĞÁîfirstÖ¸ÏòmiddleµÄÏÂÒ»¸öÎ»ÖÃ
+  while (__len > 0) {//è‹¥åŒºé—´ä¸ä¸ºç©ºï¼Œåˆ™åœ¨åŒºé—´[first,last)å¼€å§‹æŸ¥æ‰¾valueå€¼
+    __half = __len >> 1;//å‘å³ç§»ä¸€ä½ï¼Œç›¸å½“äºé™¤ä»¥2ï¼Œå³å–åŒºé—´çš„ä¸­é—´å€¼
+    __middle = __first;//middleåˆå§‹åŒ–ä¸ºåŒºé—´çš„èµ·å§‹ä½ç½®
+    advance(__middle, __half);//middleå‘åç§»halfä½ï¼Œæ­¤æ—¶middleä¸ºåŒºé—´çš„ä¸­é—´å€¼
+    if (__comp(*__middle, __val)) {//è‹¥compåˆ¤æ–­ä¸ºtrueï¼Œåˆ™ç»§ç»­åœ¨å³åŠéƒ¨åˆ†æŸ¥æ‰¾
+		//ä¸‹é¢ä¸¤è¡Œä»¤firstæŒ‡å‘middleçš„ä¸‹ä¸€ä¸ªä½ç½®
       __first = __middle;
       ++__first;
-      __len = __len - __half - 1;//µ÷Õû²éÕÒÇø¼äµÄ³¤¶È
+      __len = __len - __half - 1;//è°ƒæ•´æŸ¥æ‰¾åŒºé—´çš„é•¿åº¦
     }
     else
-      __len = __half;//·ñÔò²éÕÒ×ó°ë²¿·Ö
+      __len = __half;//å¦åˆ™æŸ¥æ‰¾å·¦åŠéƒ¨åˆ†
   }
   return __first;
 }
-//°æ±¾¶ş£º
+//ç‰ˆæœ¬äºŒï¼š
 template <class _ForwardIter, class _Tp, class _Compare>
 inline _ForwardIter lower_bound(_ForwardIter __first, _ForwardIter __last,
                                 const _Tp& __val, _Compare __comp) {
@@ -2646,40 +2646,40 @@ _ForwardIter __upper_bound(_ForwardIter __first, _ForwardIter __last,
                            const _Tp& __val, _Distance*)
 {
   _Distance __len = 0;
-  distance(__first, __last, __len);//ÇóÈ¡Õû¸öÇø¼äµÄ³¤¶Èlen
+  distance(__first, __last, __len);//æ±‚å–æ•´ä¸ªåŒºé—´çš„é•¿åº¦len
   _Distance __half;
-  _ForwardIter __middle;//¶¨ÒåÇø¼äµÄÖĞ¼äµü´úÆ÷
+  _ForwardIter __middle;//å®šä¹‰åŒºé—´çš„ä¸­é—´è¿­ä»£å™¨
 
-  while (__len > 0) {//ÈôÇø¼ä²»Îª¿Õ£¬ÔòÔÚÇø¼ä[first,last)¿ªÊ¼²éÕÒvalueÖµ
-    __half = __len >> 1;//ÏòÓÒÒÆÒ»Î»£¬Ïàµ±ÓÚ³ıÒÔ2£¬¼´È¡Çø¼äµÄÖĞ¼äÖµ
-    __middle = __first;//middle³õÊ¼»¯ÎªÇø¼äµÄÆğÊ¼Î»ÖÃ
-    advance(__middle, __half);//middleÏòºóÒÆhalfÎ»£¬´ËÊ±middleÎªÇø¼äµÄÖĞ¼äÖµ
-    if (__val < *__middle)//ÈôvalueĞ¡ÓÚÖĞ¼äÔªËØÖµ
-      __len = __half;//²éÕÒ×ó°ë²¿·Ö
+  while (__len > 0) {//è‹¥åŒºé—´ä¸ä¸ºç©ºï¼Œåˆ™åœ¨åŒºé—´[first,last)å¼€å§‹æŸ¥æ‰¾valueå€¼
+    __half = __len >> 1;//å‘å³ç§»ä¸€ä½ï¼Œç›¸å½“äºé™¤ä»¥2ï¼Œå³å–åŒºé—´çš„ä¸­é—´å€¼
+    __middle = __first;//middleåˆå§‹åŒ–ä¸ºåŒºé—´çš„èµ·å§‹ä½ç½®
+    advance(__middle, __half);//middleå‘åç§»halfä½ï¼Œæ­¤æ—¶middleä¸ºåŒºé—´çš„ä¸­é—´å€¼
+    if (__val < *__middle)//è‹¥valueå°äºä¸­é—´å…ƒç´ å€¼
+      __len = __half;//æŸ¥æ‰¾å·¦åŠéƒ¨åˆ†
     else {
-		//ÏÂÃæÁ½ĞĞÁîfirstÖ¸ÏòmiddleµÄÏÂÒ»¸öÎ»ÖÃ
+		//ä¸‹é¢ä¸¤è¡Œä»¤firstæŒ‡å‘middleçš„ä¸‹ä¸€ä¸ªä½ç½®
       __first = __middle;
       ++__first;
-      __len = __len - __half - 1;//¸üĞÂlenµÄÖµ
+      __len = __len - __half - 1;//æ›´æ–°lençš„å€¼
     }
   }
   return __first;
 }
-//ÔÚÒÑÅÅĞòÇø¼ä[first,last)²éÕÒvalueÖµ
-//·µ»Ø´óÓÚvalueÖµµÄµÚÒ»¸öÔªËØµÄµü´úÆ÷
+//åœ¨å·²æ’åºåŒºé—´[first,last)æŸ¥æ‰¾valueå€¼
+//è¿”å›å¤§äºvalueå€¼çš„ç¬¬ä¸€ä¸ªå…ƒç´ çš„è¿­ä»£å™¨
 /*
-º¯Êı¹¦ÄÜ£ºReturns an iterator pointing to the first element in the range [first,last) which compares greater than val.
-º¯ÊıÔ­ĞÍ£º
-default (1)	£º°æ±¾Ò»²ÉÓÃoperator<±È½Ï
+å‡½æ•°åŠŸèƒ½ï¼šReturns an iterator pointing to the first element in the range [first,last) which compares greater than val.
+å‡½æ•°åŸå‹ï¼š
+default (1)	ï¼šç‰ˆæœ¬ä¸€é‡‡ç”¨operator<æ¯”è¾ƒ
 	template <class ForwardIterator, class T>
 	ForwardIterator upper_bound (ForwardIterator first, ForwardIterator last,
                                const T& val);
-custom (2)	£º°æ±¾¶ş²ÉÓÃ·Âº¯Êıcomp±È½Ï¹æÔò
+custom (2)	ï¼šç‰ˆæœ¬äºŒé‡‡ç”¨ä»¿å‡½æ•°compæ¯”è¾ƒè§„åˆ™
 	template <class ForwardIterator, class T, class Compare>
 	ForwardIterator upper_bound (ForwardIterator first, ForwardIterator last,
                                const T& val, Compare comp);
 */
-//°æ±¾Ò»
+//ç‰ˆæœ¬ä¸€
 template <class _ForwardIter, class _Tp>
 inline _ForwardIter upper_bound(_ForwardIter __first, _ForwardIter __last,
                                 const _Tp& __val) {
@@ -2714,7 +2714,7 @@ _ForwardIter __upper_bound(_ForwardIter __first, _ForwardIter __last,
   }
   return __first;
 }
-//°æ±¾¶ş
+//ç‰ˆæœ¬äºŒ
 template <class _ForwardIter, class _Tp, class _Compare>
 inline _ForwardIter upper_bound(_ForwardIter __first, _ForwardIter __last,
                                 const _Tp& __val, _Compare __comp) {
@@ -2725,7 +2725,7 @@ inline _ForwardIter upper_bound(_ForwardIter __first, _ForwardIter __last,
   return __upper_bound(__first, __last, __val, __comp,
                        __DISTANCE_TYPE(__first));
 }
-//º¯Êı¾ÙÀı
+//å‡½æ•°ä¸¾ä¾‹
 /*
 	#include <iostream>     // std::cout
 	#include <algorithm>    // std::lower_bound, std::upper_bound, std::sort
@@ -2756,50 +2756,50 @@ __equal_range(_ForwardIter __first, _ForwardIter __last, const _Tp& __val,
               _Distance*)
 {
   _Distance __len = 0;
-  distance(__first, __last, __len);//¼ÆËãÇø¼äµÄ³¤¶Èlen
+  distance(__first, __last, __len);//è®¡ç®—åŒºé—´çš„é•¿åº¦len
   _Distance __half;
   _ForwardIter __middle, __left, __right;
 
-  while (__len > 0) {//ÈôÇø¼ä·Ç¿Õ
-    __half = __len >> 1;//lenÓÒÒÆÒ»Î»£¬ÏàµÈÓÚ³ıÒÔ2£¬¼´halfÎªÇø¼äµÄ³¤¶ÈµÄÒ»°ë
-    __middle = __first;//³õÊ¼»¯middleµÄÖµ
-    advance(__middle, __half);//Ç°½ømiddleÎ»ÖÃ£¬Ê¹ÆäÖ¸ÏòÇø¼äÖĞ¼äÎ»ÖÃ
-    if (*__middle < __val) {//ÈôÖ¸¶¨ÔªËØvalue´óÓÚÖĞ¼äÔªËØÖµ£¬ÔòÔÚÓÒ°ë²¿·Ö¼ÌĞø²éÕÒ
-		//ÏÂÃæÁ½ĞĞÊ¹firstÖ¸ÏòmiddleµÄÏÂÒ»¸öÎ»ÖÃ£¬¼´ÓÒ°ëÇø¼äµÄÆğÊ¼Î»ÖÃ
+  while (__len > 0) {//è‹¥åŒºé—´éç©º
+    __half = __len >> 1;//lenå³ç§»ä¸€ä½ï¼Œç›¸ç­‰äºé™¤ä»¥2ï¼Œå³halfä¸ºåŒºé—´çš„é•¿åº¦çš„ä¸€åŠ
+    __middle = __first;//åˆå§‹åŒ–middleçš„å€¼
+    advance(__middle, __half);//å‰è¿›middleä½ç½®ï¼Œä½¿å…¶æŒ‡å‘åŒºé—´ä¸­é—´ä½ç½®
+    if (*__middle < __val) {//è‹¥æŒ‡å®šå…ƒç´ valueå¤§äºä¸­é—´å…ƒç´ å€¼ï¼Œåˆ™åœ¨å³åŠéƒ¨åˆ†ç»§ç»­æŸ¥æ‰¾
+		//ä¸‹é¢ä¸¤è¡Œä½¿firstæŒ‡å‘middleçš„ä¸‹ä¸€ä¸ªä½ç½®ï¼Œå³å³åŠåŒºé—´çš„èµ·å§‹ä½ç½®
       __first = __middle;
       ++__first;
-      __len = __len - __half - 1;//¸üĞÂ´ı²éÕÒÇø¼äµÄ³¤¶È
+      __len = __len - __half - 1;//æ›´æ–°å¾…æŸ¥æ‰¾åŒºé—´çš„é•¿åº¦
     }
-    else if (__val < *__middle)//ÈôÖ¸¶¨ÔªËØvalueĞ¡ÓÚÖĞ¼äÔªËØÖµ£¬ÔòÔÚ×ó°ë²¿·Ö¼ÌĞø²éÕÒ
-      __len = __half;//¸üĞÂ´ı²éÕÒÇø¼äµÄ³¤¶È
-    else {//ÈôÖ¸¶¨ÔªËØvalueµÈÓÚÖĞ¼äÔªËØÖµ
-		//ÔÚÇ°°ë²¿·ÖÕÒlower_boundÎ»ÖÃ
+    else if (__val < *__middle)//è‹¥æŒ‡å®šå…ƒç´ valueå°äºä¸­é—´å…ƒç´ å€¼ï¼Œåˆ™åœ¨å·¦åŠéƒ¨åˆ†ç»§ç»­æŸ¥æ‰¾
+      __len = __half;//æ›´æ–°å¾…æŸ¥æ‰¾åŒºé—´çš„é•¿åº¦
+    else {//è‹¥æŒ‡å®šå…ƒç´ valueç­‰äºä¸­é—´å…ƒç´ å€¼
+		//åœ¨å‰åŠéƒ¨åˆ†æ‰¾lower_boundä½ç½®
       __left = lower_bound(__first, __middle, __val);
       advance(__first, __len);
-	  //ÔÚºó°ë²¿·ÖÕÒupper_bound
+	  //åœ¨ååŠéƒ¨åˆ†æ‰¾upper_bound
       __right = upper_bound(++__middle, __first, __val);
-      return pair<_ForwardIter, _ForwardIter>(__left, __right);//·µ»Øpair¶ÔÏó£¬µÚÒ»¸öµü´úÆ÷Îªleft£¬µÚ¶ş¸öµü´úÆ÷Îªright
+      return pair<_ForwardIter, _ForwardIter>(__left, __right);//è¿”å›pairå¯¹è±¡ï¼Œç¬¬ä¸€ä¸ªè¿­ä»£å™¨ä¸ºleftï¼Œç¬¬äºŒä¸ªè¿­ä»£å™¨ä¸ºright
     }
   }
   return pair<_ForwardIter, _ForwardIter>(__first, __first);
 }
-//²éÕÒÇø¼äÓëvalueÏàµÈµÄÏàÁÚÖØ¸´ÔªËØµÄÆğÊ¼Î»ÖÃºÍ½áÊøÎ»ÖÃ
-//×¢Òâ£º[first,last)ÊÇÒÑÅÅĞò£¬Ë¼Ïë»¹ÊÇ²ÉÓÃ¶ş·Ö²éÕÒ·¨
-//Í¬ÑùÒ²ÓĞÁ½¸ö°æ±¾
+//æŸ¥æ‰¾åŒºé—´ä¸valueç›¸ç­‰çš„ç›¸é‚»é‡å¤å…ƒç´ çš„èµ·å§‹ä½ç½®å’Œç»“æŸä½ç½®
+//æ³¨æ„ï¼š[first,last)æ˜¯å·²æ’åºï¼Œæ€æƒ³è¿˜æ˜¯é‡‡ç”¨äºŒåˆ†æŸ¥æ‰¾æ³•
+//åŒæ ·ä¹Ÿæœ‰ä¸¤ä¸ªç‰ˆæœ¬
 /*
-º¯Êı¹¦ÄÜ£ºReturns the bounds of the subrange that includes all the elements of the range [first,last) with values equivalent to val.
-º¯ÊıÔ­ĞÍ£º
-default (1)	£º°æ±¾Ò»Ä¬ÈÏoperator<
+å‡½æ•°åŠŸèƒ½ï¼šReturns the bounds of the subrange that includes all the elements of the range [first,last) with values equivalent to val.
+å‡½æ•°åŸå‹ï¼š
+default (1)	ï¼šç‰ˆæœ¬ä¸€é»˜è®¤operator<
 	template <class ForwardIterator, class T>
 		pair<ForwardIterator,ForwardIterator>
     equal_range (ForwardIterator first, ForwardIterator last, const T& val);
-custom (2)	£º°æ±¾¶ş²ÉÓÃ·Âº¯Êıcomp
+custom (2)	ï¼šç‰ˆæœ¬äºŒé‡‡ç”¨ä»¿å‡½æ•°comp
 	template <class ForwardIterator, class T, class Compare>
 		pair<ForwardIterator,ForwardIterator>
     equal_range (ForwardIterator first, ForwardIterator last, const T& val,
                   Compare comp);
 */
-//°æ±¾Ò»
+//ç‰ˆæœ¬ä¸€
 template <class _ForwardIter, class _Tp>
 inline pair<_ForwardIter, _ForwardIter>
 equal_range(_ForwardIter __first, _ForwardIter __last, const _Tp& __val) {
@@ -2841,7 +2841,7 @@ __equal_range(_ForwardIter __first, _ForwardIter __last, const _Tp& __val,
   }
   return pair<_ForwardIter, _ForwardIter>(__first, __first);
 }           
-//°æ±¾¶ş
+//ç‰ˆæœ¬äºŒ
 template <class _ForwardIter, class _Tp, class _Compare>
 inline pair<_ForwardIter, _ForwardIter>
 equal_range(_ForwardIter __first, _ForwardIter __last, const _Tp& __val,
@@ -2853,7 +2853,7 @@ equal_range(_ForwardIter __first, _ForwardIter __last, const _Tp& __val,
   return __equal_range(__first, __last, __val, __comp,
                        __DISTANCE_TYPE(__first));
 } 
-//equal_rangeº¯Êı¾ÙÀı£º
+//equal_rangeå‡½æ•°ä¸¾ä¾‹ï¼š
 /*
 	#include <iostream>     // std::cout
 	#include <algorithm>    // std::equal_range, std::sort
@@ -2882,22 +2882,22 @@ equal_range(_ForwardIter __first, _ForwardIter __last, const _Tp& __val,
 
 	  return 0;
 	}
-	Output£º
+	Outputï¼š
 	bounds at positions 3 and 6
 	bounds at positions 2 and 5 
 */
 
-//¶ş·Ö²éÕÒ·¨
-//×¢Òâ£º[first,last)ÊÇÒÑÅÅĞò
-//Í¬ÑùÒ²ÓĞÁ½¸ö°æ±¾
+//äºŒåˆ†æŸ¥æ‰¾æ³•
+//æ³¨æ„ï¼š[first,last)æ˜¯å·²æ’åº
+//åŒæ ·ä¹Ÿæœ‰ä¸¤ä¸ªç‰ˆæœ¬
 /*
-º¯Êı¹¦ÄÜ£ºReturns true if any element in the range [first,last) is equivalent to val, and false otherwise.
-º¯ÊıÔ­ĞÍ£º
-default (1)	£º°æ±¾Ò»Ä¬ÈÏoperator<
+å‡½æ•°åŠŸèƒ½ï¼šReturns true if any element in the range [first,last) is equivalent to val, and false otherwise.
+å‡½æ•°åŸå‹ï¼š
+default (1)	ï¼šç‰ˆæœ¬ä¸€é»˜è®¤operator<
 	template <class ForwardIterator, class T>
 	bool binary_search (ForwardIterator first, ForwardIterator last,
                       const T& val);
-custom (2)	£º°æ±¾¶ş²ÉÓÃ·Âº¯Êıcomp
+custom (2)	ï¼šç‰ˆæœ¬äºŒé‡‡ç”¨ä»¿å‡½æ•°comp
 	template <class ForwardIterator, class T, class Compare>
 	bool binary_search (ForwardIterator first, ForwardIterator last,
                       const T& val, Compare comp);
@@ -2909,7 +2909,7 @@ bool binary_search(_ForwardIter __first, _ForwardIter __last,
   __STL_REQUIRES_SAME_TYPE(_Tp,
         typename iterator_traits<_ForwardIter>::value_type);
   __STL_REQUIRES(_Tp, _LessThanComparable);
-  _ForwardIter __i = lower_bound(__first, __last, __val);//µ÷ÓÃ¶ş·Ö²éÕÒº¯Êı£¬²¢·µ»Ø²»Ğ¡ÓÚvalueÖµµÄµÚÒ»¸öµü´úÆ÷Î»ÖÃi
+  _ForwardIter __i = lower_bound(__first, __last, __val);//è°ƒç”¨äºŒåˆ†æŸ¥æ‰¾å‡½æ•°ï¼Œå¹¶è¿”å›ä¸å°äºvalueå€¼çš„ç¬¬ä¸€ä¸ªè¿­ä»£å™¨ä½ç½®i
   return __i != __last && !(__val < *__i);
 }
 
@@ -2922,30 +2922,30 @@ bool binary_search(_ForwardIter __first, _ForwardIter __last,
   __STL_REQUIRES_SAME_TYPE(_Tp,
         typename iterator_traits<_ForwardIter>::value_type);
   __STL_BINARY_FUNCTION_CHECK(_Compare, bool, _Tp, _Tp);
-  _ForwardIter __i = lower_bound(__first, __last, __val, __comp);//µ÷ÓÃ¶ş·Ö²éÕÒº¯Êı£¬²¢·µ»Ø²»Ğ¡ÓÚvalueÖµµÄµÚÒ»¸öµü´úÆ÷Î»ÖÃi
+  _ForwardIter __i = lower_bound(__first, __last, __val, __comp);//è°ƒç”¨äºŒåˆ†æŸ¥æ‰¾å‡½æ•°ï¼Œå¹¶è¿”å›ä¸å°äºvalueå€¼çš„ç¬¬ä¸€ä¸ªè¿­ä»£å™¨ä½ç½®i
   return __i != __last && !__comp(__val, *__i);
 }
 
 // merge, with and without an explicitly supplied comparison function.
-//½«Á½¸öÒÑÅÅĞòµÄÇø¼ä[first1,last1)ºÍÇø¼ä[first2,last2)ºÏ²¢
+//å°†ä¸¤ä¸ªå·²æ’åºçš„åŒºé—´[first1,last1)å’ŒåŒºé—´[first2,last2)åˆå¹¶
 /*
-º¯Êı¹¦ÄÜ£ºCombines the elements in the sorted ranges [first1,last1) and [first2,last2), 
+å‡½æ•°åŠŸèƒ½ï¼šCombines the elements in the sorted ranges [first1,last1) and [first2,last2), 
 into a new range beginning at result with all its elements sorted.
 
-º¯ÊıÔ­ĞÍ£º
-default (1)	£º°æ±¾Ò»
+å‡½æ•°åŸå‹ï¼š
+default (1)	ï¼šç‰ˆæœ¬ä¸€
 	template <class InputIterator1, class InputIterator2, class OutputIterator>
 	OutputIterator merge (InputIterator1 first1, InputIterator1 last1,
                         InputIterator2 first2, InputIterator2 last2,
                         OutputIterator result);
-custom (2)	£º°æ±¾¶ş
+custom (2)	ï¼šç‰ˆæœ¬äºŒ
 	template <class InputIterator1, class InputIterator2,
           class OutputIterator, class Compare>
 	OutputIterator merge (InputIterator1 first1, InputIterator1 last1,
                         InputIterator2 first2, InputIterator2 last2,
                         OutputIterator result, Compare comp);
 */
-//°æ±¾Ò»£º
+//ç‰ˆæœ¬ä¸€ï¼š
 template <class _InputIter1, class _InputIter2, class _OutputIter>
 _OutputIter merge(_InputIter1 __first1, _InputIter1 __last1,
                   _InputIter2 __first2, _InputIter2 __last2,
@@ -2958,30 +2958,30 @@ _OutputIter merge(_InputIter1 __first1, _InputIter1 __last1,
           typename iterator_traits<_InputIter2>::value_type);
   __STL_REQUIRES(typename iterator_traits<_InputIter1>::value_type,
                  _LessThanComparable);
-  //Á½¸öĞòÁĞ¶¼ÉĞÎ´µ½´ïÎ²¶Ë£¬ÔòÖ´ĞĞwhileÑ­»·
+  //ä¸¤ä¸ªåºåˆ—éƒ½å°šæœªåˆ°è¾¾å°¾ç«¯ï¼Œåˆ™æ‰§è¡Œwhileå¾ªç¯
   /*
-  Çé¿ö1£ºÈôĞòÁĞ¶şÔªËØ½ÏĞ¡,Ôò¼ÇÂ¼µ½Ä¿±êÇø£¬ÇÒÒÆ¶¯ĞòÁĞ¶şµÄµü´úÆ÷£¬µ«ÊÇĞòÁĞÒ»µÄµü´úÆ÷²»±ä.
-  Çé¿ö2£ºÈôĞòÁĞÒ»ÔªËØ½ÏĞ¡»òÏàµÈ,Ôò¼ÇÂ¼µ½Ä¿±êÇø£¬ÇÒÒÆ¶¯ĞòÁĞÒ»µÄµü´úÆ÷£¬µ«ÊÇĞòÁĞ¶şµÄµü´úÆ÷²»±ä.
-  ×îºó£º°ÑÊ£ÓàÔªËØµÄĞòÁĞ¸´ÖÆµ½Ä¿±êÇø
+  æƒ…å†µ1ï¼šè‹¥åºåˆ—äºŒå…ƒç´ è¾ƒå°,åˆ™è®°å½•åˆ°ç›®æ ‡åŒºï¼Œä¸”ç§»åŠ¨åºåˆ—äºŒçš„è¿­ä»£å™¨ï¼Œä½†æ˜¯åºåˆ—ä¸€çš„è¿­ä»£å™¨ä¸å˜.
+  æƒ…å†µ2ï¼šè‹¥åºåˆ—ä¸€å…ƒç´ è¾ƒå°æˆ–ç›¸ç­‰,åˆ™è®°å½•åˆ°ç›®æ ‡åŒºï¼Œä¸”ç§»åŠ¨åºåˆ—ä¸€çš„è¿­ä»£å™¨ï¼Œä½†æ˜¯åºåˆ—äºŒçš„è¿­ä»£å™¨ä¸å˜.
+  æœ€åï¼šæŠŠå‰©ä½™å…ƒç´ çš„åºåˆ—å¤åˆ¶åˆ°ç›®æ ‡åŒº
   */
   while (__first1 != __last1 && __first2 != __last2) {
-	  //Çé¿ö1
-    if (*__first2 < *__first1) {//ÈôĞòÁĞ¶şÔªËØ½ÏĞ¡
-      *__result = *__first2;//½«ÔªËØ¼ÇÂ¼µ½Ä¿±êÇø
-      ++__first2;//ÒÆ¶¯µü´úÆ÷
+	  //æƒ…å†µ1
+    if (*__first2 < *__first1) {//è‹¥åºåˆ—äºŒå…ƒç´ è¾ƒå°
+      *__result = *__first2;//å°†å…ƒç´ è®°å½•åˆ°ç›®æ ‡åŒº
+      ++__first2;//ç§»åŠ¨è¿­ä»£å™¨
     }
-	//Çé¿ö2
-    else {//ÈôĞòÁĞÒ»ÔªËØ½ÏĞ¡»òÏàµÈ
-      *__result = *__first1;//½«ÔªËØ¼ÇÂ¼µ½Ä¿±êÇø
-      ++__first1;//ÒÆ¶¯µü´úÆ÷
+	//æƒ…å†µ2
+    else {//è‹¥åºåˆ—ä¸€å…ƒç´ è¾ƒå°æˆ–ç›¸ç­‰
+      *__result = *__first1;//å°†å…ƒç´ è®°å½•åˆ°ç›®æ ‡åŒº
+      ++__first1;//ç§»åŠ¨è¿­ä»£å™¨
     }
-    ++__result;//¸üĞÂÄ¿±êÇøÎ»ÖÃ£¬ÒÔ±ãÏÂ´Î¼ÇÂ¼Êı¾İ
+    ++__result;//æ›´æ–°ç›®æ ‡åŒºä½ç½®ï¼Œä»¥ä¾¿ä¸‹æ¬¡è®°å½•æ•°æ®
   }
-  //ÈôÓĞĞòÁĞµ½´ïÎ²¶Ë£¬Ôò°ÑÃ»µ½´ïÎ²¶ËµÄĞòÁĞÊ£ÓàÔªËØ¸´ÖÆµ½Ä¿±êÇø
-  //´ËÊ±£¬Çø¼ä[first1,last1)ºÍÇø¼ä[first2,last2)ÖÁÉÙÒ»¸ö±Ø¶¨Îª¿Õ
+  //è‹¥æœ‰åºåˆ—åˆ°è¾¾å°¾ç«¯ï¼Œåˆ™æŠŠæ²¡åˆ°è¾¾å°¾ç«¯çš„åºåˆ—å‰©ä½™å…ƒç´ å¤åˆ¶åˆ°ç›®æ ‡åŒº
+  //æ­¤æ—¶ï¼ŒåŒºé—´[first1,last1)å’ŒåŒºé—´[first2,last2)è‡³å°‘ä¸€ä¸ªå¿…å®šä¸ºç©º
   return copy(__first2, __last2, copy(__first1, __last1, __result));
 }
-//°æ±¾¶ş
+//ç‰ˆæœ¬äºŒ
 template <class _InputIter1, class _InputIter2, class _OutputIter,
           class _Compare>
 _OutputIter merge(_InputIter1 __first1, _InputIter1 __last1,
@@ -3009,7 +3009,7 @@ _OutputIter merge(_InputIter1 __first1, _InputIter1 __last1,
   }
   return copy(__first2, __last2, copy(__first1, __last1, __result));
 }
-//mergeº¯Êı¾ÙÀı£º
+//mergeå‡½æ•°ä¸¾ä¾‹ï¼š
 /*
 	#include <iostream>     // std::cout
 	#include <algorithm>    // std::merge, std::sort
@@ -3036,7 +3036,7 @@ _OutputIter merge(_InputIter1 __first1, _InputIter1 __last1,
 */
 
 // inplace_merge and its auxiliary functions. 
-//°æ±¾Ò»µÄ¸¨Öúº¯Êı£¬ÎŞ»º³åÇøµÄ²Ù×÷
+//ç‰ˆæœ¬ä¸€çš„è¾…åŠ©å‡½æ•°ï¼Œæ— ç¼“å†²åŒºçš„æ“ä½œ
 template <class _BidirectionalIter, class _Distance>
 void __merge_without_buffer(_BidirectionalIter __first,
                             _BidirectionalIter __middle,
@@ -3109,7 +3109,7 @@ void __merge_without_buffer(_BidirectionalIter __first,
   __merge_without_buffer(__new_middle, __second_cut, __last, __len1 - __len11,
                          __len2 - __len22, __comp);
 }
-//°æ±¾Ò»µÄ¸¨Öúº¯Êı£¬ÓĞ»º³åÇøµÄ²Ù×÷
+//ç‰ˆæœ¬ä¸€çš„è¾…åŠ©å‡½æ•°ï¼Œæœ‰ç¼“å†²åŒºçš„æ“ä½œ
 template <class _BidirectionalIter1, class _BidirectionalIter2,
           class _Distance>
 _BidirectionalIter1 __rotate_adaptive(_BidirectionalIter1 __first,
@@ -3119,17 +3119,17 @@ _BidirectionalIter1 __rotate_adaptive(_BidirectionalIter1 __first,
                                       _BidirectionalIter2 __buffer,
                                       _Distance __buffer_size) {
   _BidirectionalIter2 __buffer_end;
-  if (__len1 > __len2 && __len2 <= __buffer_size) {//»º³åÇø×ã¹»·ÅÖÃĞòÁĞ¶ş
+  if (__len1 > __len2 && __len2 <= __buffer_size) {//ç¼“å†²åŒºè¶³å¤Ÿæ”¾ç½®åºåˆ—äºŒ
     __buffer_end = copy(__middle, __last, __buffer);
     copy_backward(__first, __middle, __last);
     return copy(__buffer, __buffer_end, __first);
   }
-  else if (__len1 <= __buffer_size) {//»º³åÇø×ã¹»·ÅÖÃĞòÁĞÒ»
+  else if (__len1 <= __buffer_size) {//ç¼“å†²åŒºè¶³å¤Ÿæ”¾ç½®åºåˆ—ä¸€
     __buffer_end = copy(__first, __middle, __buffer);
     copy(__middle, __last, __first);
     return copy_backward(__buffer, __buffer_end, __last);
   }
-  else//Èô»º³åÇøÈÔÈ»²»¹»£¬Ôòµ÷ÓÃSTLËã·¨rotate£¬²»Ê¹ÓÃ»º³åÇø
+  else//è‹¥ç¼“å†²åŒºä»ç„¶ä¸å¤Ÿï¼Œåˆ™è°ƒç”¨STLç®—æ³•rotateï¼Œä¸ä½¿ç”¨ç¼“å†²åŒº
     return rotate(__first, __middle, __last);
 }
 
@@ -3191,7 +3191,7 @@ _BidirectionalIter3 __merge_backward(_BidirectionalIter1 __first1,
     }
   }
 }
-//°æ±¾Ò»µÄ¸¨Öúº¯Êı£¬ÓĞ»º³åÇøµÄ²Ù×÷
+//ç‰ˆæœ¬ä¸€çš„è¾…åŠ©å‡½æ•°ï¼Œæœ‰ç¼“å†²åŒºçš„æ“ä½œ
 template <class _BidirectionalIter, class _Distance, class _Pointer>
 void __merge_adaptive(_BidirectionalIter __first,
                       _BidirectionalIter __middle, 
@@ -3199,44 +3199,44 @@ void __merge_adaptive(_BidirectionalIter __first,
                       _Distance __len1, _Distance __len2,
                       _Pointer __buffer, _Distance __buffer_size) {
   if (__len1 <= __len2 && __len1 <= __buffer_size) {
-	  //case1£º°ÑĞòÁĞÒ»·ÅÔÚ»º³åÇø
+	  //case1ï¼šæŠŠåºåˆ—ä¸€æ”¾åœ¨ç¼“å†²åŒº
     _Pointer __buffer_end = copy(__first, __middle, __buffer);
-	//Ö±½Óµ÷ÓÃ¹é²¢º¯Êımerge
+	//ç›´æ¥è°ƒç”¨å½’å¹¶å‡½æ•°merge
     merge(__buffer, __buffer_end, __middle, __last, __first);
   }
   else if (__len2 <= __buffer_size) {
-	  //case2£º°ÑĞòÁĞ¶ş·ÅÔÚ»º³åÇø
+	  //case2ï¼šæŠŠåºåˆ—äºŒæ”¾åœ¨ç¼“å†²åŒº
     _Pointer __buffer_end = copy(__middle, __last, __buffer);
     __merge_backward(__first, __middle, __buffer, __buffer_end, __last);
   }
-  else {//case3£º»º³åÇø²»×ã·ÅÖÃÈÎºÎÒ»¸öĞòÁĞ
+  else {//case3ï¼šç¼“å†²åŒºä¸è¶³æ”¾ç½®ä»»ä½•ä¸€ä¸ªåºåˆ—
     _BidirectionalIter __first_cut = __first;
     _BidirectionalIter __second_cut = __middle;
     _Distance __len11 = 0;
     _Distance __len22 = 0;
-    if (__len1 > __len2) {//ÈôĞòÁĞÒ»±È½Ï³¤
-      __len11 = __len1 / 2;//¼ÆËãĞòÁĞÒ»µÄÒ»°ë
-      advance(__first_cut, __len11);//ÈÃfirst_cutÖ¸ÏòĞòÁĞÒ»µÄÖĞ¼äÎ»ÖÃ
-	  //ÕÒ³ö*__first_cutÔÚ[middle,last)Çø¼äÖĞµÄµÚÒ»¸ö²»Ğ¡ÓÚ*__first_cutµÄÔªËØÎ»ÖÃ
+    if (__len1 > __len2) {//è‹¥åºåˆ—ä¸€æ¯”è¾ƒé•¿
+      __len11 = __len1 / 2;//è®¡ç®—åºåˆ—ä¸€çš„ä¸€åŠ
+      advance(__first_cut, __len11);//è®©first_cutæŒ‡å‘åºåˆ—ä¸€çš„ä¸­é—´ä½ç½®
+	  //æ‰¾å‡º*__first_cutåœ¨[middle,last)åŒºé—´ä¸­çš„ç¬¬ä¸€ä¸ªä¸å°äº*__first_cutçš„å…ƒç´ ä½ç½®
       __second_cut = lower_bound(__middle, __last, *__first_cut);
-	  //¼ÆËãmiddleµ½__second_cutÖ®¼äµÄ¾àÀë£¬±£´æÔÚ__len22
+	  //è®¡ç®—middleåˆ°__second_cutä¹‹é—´çš„è·ç¦»ï¼Œä¿å­˜åœ¨__len22
       distance(__middle, __second_cut, __len22); 
     }
-    else {//ÈôĞòÁĞ¶ş±È½Ï³¤
-      __len22 = __len2 / 2;//¼ÆËãĞòÁĞ¶şµÄÒ»°ë
-      advance(__second_cut, __len22);//ÈÃ__second_cutÖ¸ÏòĞòÁĞ¶şµÄÖĞ¼äÎ»ÖÃ
-	  //ÕÒ³ö*__second_cutÔÚ[first,middle)Çø¼äÖĞµÄµÚÒ»¸ö´óÓÚ*__second_cutµÄÔªËØÎ»ÖÃ
+    else {//è‹¥åºåˆ—äºŒæ¯”è¾ƒé•¿
+      __len22 = __len2 / 2;//è®¡ç®—åºåˆ—äºŒçš„ä¸€åŠ
+      advance(__second_cut, __len22);//è®©__second_cutæŒ‡å‘åºåˆ—äºŒçš„ä¸­é—´ä½ç½®
+	  //æ‰¾å‡º*__second_cutåœ¨[first,middle)åŒºé—´ä¸­çš„ç¬¬ä¸€ä¸ªå¤§äº*__second_cutçš„å…ƒç´ ä½ç½®
       __first_cut = upper_bound(__first, __middle, *__second_cut);
-	  //¼ÆËã__firstµ½__first_cutÖ®¼äµÄ¾àÀë£¬±£´æÔÚ__len11
+	  //è®¡ç®—__firståˆ°__first_cutä¹‹é—´çš„è·ç¦»ï¼Œä¿å­˜åœ¨__len11
       distance(__first, __first_cut, __len11);
     }
     _BidirectionalIter __new_middle =
       __rotate_adaptive(__first_cut, __middle, __second_cut, __len1 - __len11,
                         __len22, __buffer, __buffer_size);
-	//¶Ô×ó°ë¶Îµİ¹éµ÷ÓÃ
+	//å¯¹å·¦åŠæ®µé€’å½’è°ƒç”¨
     __merge_adaptive(__first, __first_cut, __new_middle, __len11,
                      __len22, __buffer, __buffer_size);
-	//¶ÔÓÒ°ë¶Îµİ¹éµ÷ÓÃ
+	//å¯¹å³åŠæ®µé€’å½’è°ƒç”¨
     __merge_adaptive(__new_middle, __second_cut, __last, __len1 - __len11,
                      __len2 - __len22, __buffer, __buffer_size);
   }
@@ -3285,23 +3285,23 @@ void __merge_adaptive(_BidirectionalIter __first,
                      __len2 - __len22, __buffer, __buffer_size, __comp);
   }
 }
-//°æ±¾Ò»µÄ¸¨Öúº¯Êı
+//ç‰ˆæœ¬ä¸€çš„è¾…åŠ©å‡½æ•°
 template <class _BidirectionalIter, class _Tp, class _Distance>
 inline void __inplace_merge_aux(_BidirectionalIter __first,
                                 _BidirectionalIter __middle,
                                 _BidirectionalIter __last, _Tp*, _Distance*) {
   _Distance __len1 = 0;
-  distance(__first, __middle, __len1);//¼ÆËãĞòÁĞÒ»µÄ³¤¶È
+  distance(__first, __middle, __len1);//è®¡ç®—åºåˆ—ä¸€çš„é•¿åº¦
   _Distance __len2 = 0;
-  distance(__middle, __last, __len2);//¼ÆËãĞòÁĞ¶şµÄ³¤¶È
+  distance(__middle, __last, __len2);//è®¡ç®—åºåˆ—äºŒçš„é•¿åº¦
 
-  //Ê¹ÓÃÔİÊ±»º³åÇø
+  //ä½¿ç”¨æš‚æ—¶ç¼“å†²åŒº
   _Temporary_buffer<_BidirectionalIter, _Tp> __buf(__first, __last);
-  if (__buf.begin() == 0)//Èô»º³åÇøÅäÖÃÊ§°Ü
-	  //Ôòµ÷ÓÃ²»Ê¹ÓÃ»º³åÇøµÄºÏ²¢²Ù×÷
+  if (__buf.begin() == 0)//è‹¥ç¼“å†²åŒºé…ç½®å¤±è´¥
+	  //åˆ™è°ƒç”¨ä¸ä½¿ç”¨ç¼“å†²åŒºçš„åˆå¹¶æ“ä½œ
     __merge_without_buffer(__first, __middle, __last, __len1, __len2);
-  else//Èô·ÖÅä³É¹¦
-	  //Ôòµ÷ÓÃ¾ßÓĞ»º³åÇøµÄºÏ²¢²Ù×÷
+  else//è‹¥åˆ†é…æˆåŠŸ
+	  //åˆ™è°ƒç”¨å…·æœ‰ç¼“å†²åŒºçš„åˆå¹¶æ“ä½œ
     __merge_adaptive(__first, __middle, __last, __len1, __len2,
                      __buf.begin(), _Distance(__buf.size()));
 }
@@ -3325,22 +3325,22 @@ inline void __inplace_merge_aux(_BidirectionalIter __first,
                      __buf.begin(), _Distance(__buf.size()),
                      __comp);
 }
-//½«Á½¸öÒÑÅÅĞòµÄĞòÁĞ[first,middle)ºÍ[middle,last)ºÏ²¢³Éµ¥Ò»ÓĞĞòĞòÁĞ.
-//ÈôÔ­À´ÊÇÔöĞò£¬ÏÖÔÚÒ²ÊÇµİÔöÅÅĞò£¬ÈôÔ­À´ÊÇµİ¼õÅÅĞò£¬ÏÖÔÚÒ²ÊÇµİ¼õÅÅĞò
+//å°†ä¸¤ä¸ªå·²æ’åºçš„åºåˆ—[first,middle)å’Œ[middle,last)åˆå¹¶æˆå•ä¸€æœ‰åºåºåˆ—.
+//è‹¥åŸæ¥æ˜¯å¢åºï¼Œç°åœ¨ä¹Ÿæ˜¯é€’å¢æ’åºï¼Œè‹¥åŸæ¥æ˜¯é€’å‡æ’åºï¼Œç°åœ¨ä¹Ÿæ˜¯é€’å‡æ’åº
 /*
-º¯Êı¹¦ÄÜ£ºMerges two consecutive sorted ranges: [first,middle) and [middle,last), 
+å‡½æ•°åŠŸèƒ½ï¼šMerges two consecutive sorted ranges: [first,middle) and [middle,last), 
 putting the result into the combined sorted range [first,last).
-º¯ÊıÔ­ĞÍ£º
-default (1)	£º°æ±¾Ò»
+å‡½æ•°åŸå‹ï¼š
+default (1)	ï¼šç‰ˆæœ¬ä¸€
 	template <class BidirectionalIterator>
 	void inplace_merge (BidirectionalIterator first, BidirectionalIterator middle,
                       BidirectionalIterator last);
-custom (2)	£º°æ±¾¶ş
+custom (2)	ï¼šç‰ˆæœ¬äºŒ
 	template <class BidirectionalIterator, class Compare>
 	void inplace_merge (BidirectionalIterator first, BidirectionalIterator middle,
                       BidirectionalIterator last, Compare comp);
 */
-//°æ±¾Ò»
+//ç‰ˆæœ¬ä¸€
 template <class _BidirectionalIter>
 inline void inplace_merge(_BidirectionalIter __first,
                           _BidirectionalIter __middle,
@@ -3348,12 +3348,12 @@ inline void inplace_merge(_BidirectionalIter __first,
   __STL_REQUIRES(_BidirectionalIter, _Mutable_BidirectionalIterator);
   __STL_REQUIRES(typename iterator_traits<_BidirectionalIter>::value_type,
                  _LessThanComparable);
-  if (__first == __middle || __middle == __last)//ÈôÓĞ¿ÕĞòÁĞ£¬ÔòÖ®¼ä·µ»Ø
+  if (__first == __middle || __middle == __last)//è‹¥æœ‰ç©ºåºåˆ—ï¼Œåˆ™ä¹‹é—´è¿”å›
     return;
   __inplace_merge_aux(__first, __middle, __last,
                       __VALUE_TYPE(__first), __DISTANCE_TYPE(__first));
 }
-//°æ±¾¶ş
+//ç‰ˆæœ¬äºŒ
 template <class _BidirectionalIter, class _Compare>
 inline void inplace_merge(_BidirectionalIter __first,
                           _BidirectionalIter __middle,
@@ -3368,7 +3368,7 @@ inline void inplace_merge(_BidirectionalIter __first,
                       __VALUE_TYPE(__first), __DISTANCE_TYPE(__first),
                       __comp);
 }
-//inplace_mergeº¯Êı¾ÙÀı£º
+//inplace_mergeå‡½æ•°ä¸¾ä¾‹ï¼š
 /*
 	#include <iostream>     // std::cout
 	#include <algorithm>    // std::inplace_merge, std::sort, std::copy
@@ -3395,7 +3395,7 @@ inline void inplace_merge(_BidirectionalIter __first,
 
 	  return 0;
 	}
-	Output£º
+	Outputï¼š
 	The resulting vector contains: 5 10 10 15 20 20 25 30 40 50
 */
 
@@ -3405,11 +3405,11 @@ inline void inplace_merge(_BidirectionalIter __first,
 // ranges are sorted.
 
 /*
-ÏÂÃæÊÇ¼ÆËãset¼¯ºÏµÄÏà¹ØËã·¨£¬·Ö±ğÊÇ²¢¼¯set_union£¬²î¼¯set_difference£¬½»¼¯set_intersection
-ºÍ¶Ô³Æ²î¼¯set_symmetric_difference£¬ÕâÊÇ¸öº¯Êı¶¼Ìá¹©ÁËÁ½¸ö°æ±¾µÄº¯ÊıÔ­ĞÍ
-µÚÒ»¸ö°æ±¾ÊÇ²ÉÓÃÄ¬ÈÏµÄÅÅĞò±È½Ï·½Ê½ operator<
-µÚ¶ş¸ö°æ±¾ÊÇÓÃ»§Í¨¹ıcomp×ÔĞĞÖ¸¶¨ÅÅĞò·½Ê½
-×¢Òâ£ºÕâËÄ¸öËã·¨½ÓÊÜµÄÊäÈëÇø¼ä¶¼ÊÇÓĞĞòµÄ£¬Êä³öÒ²ÊÇÓĞĞòµÄ
+ä¸‹é¢æ˜¯è®¡ç®—seté›†åˆçš„ç›¸å…³ç®—æ³•ï¼Œåˆ†åˆ«æ˜¯å¹¶é›†set_unionï¼Œå·®é›†set_differenceï¼Œäº¤é›†set_intersection
+å’Œå¯¹ç§°å·®é›†set_symmetric_differenceï¼Œè¿™æ˜¯ä¸ªå‡½æ•°éƒ½æä¾›äº†ä¸¤ä¸ªç‰ˆæœ¬çš„å‡½æ•°åŸå‹
+ç¬¬ä¸€ä¸ªç‰ˆæœ¬æ˜¯é‡‡ç”¨é»˜è®¤çš„æ’åºæ¯”è¾ƒæ–¹å¼ operator<
+ç¬¬äºŒä¸ªç‰ˆæœ¬æ˜¯ç”¨æˆ·é€šè¿‡compè‡ªè¡ŒæŒ‡å®šæ’åºæ–¹å¼
+æ³¨æ„ï¼šè¿™å››ä¸ªç®—æ³•æ¥å—çš„è¾“å…¥åŒºé—´éƒ½æ˜¯æœ‰åºçš„ï¼Œè¾“å‡ºä¹Ÿæ˜¯æœ‰åºçš„
 */
 
 // Set algorithms: includes, set_union, set_intersection, set_difference,
@@ -3417,8 +3417,8 @@ inline void inplace_merge(_BidirectionalIter __first,
 // that their input ranges are sorted and the postcondition that their output
 // ranges are sorted.
 
-// ÅĞ¶Ï[first1, last1)ÊÇ·ñ°üº¬[first2, last2),  
-// ×¢Òâ: Á½¸öÇø¼äÒª±£Ö¤ÓĞĞò,Ä¬ÈÏÅÅĞò·½Ê½ÊÇoperator<£¬ÈôÒª×ÔĞĞ¶¨ÒåÅÅĞò·½Ê½£¬Ôòµ÷ÓÃµÚ¶ş°æ±¾;
+// åˆ¤æ–­[first1, last1)æ˜¯å¦åŒ…å«[first2, last2),  
+// æ³¨æ„: ä¸¤ä¸ªåŒºé—´è¦ä¿è¯æœ‰åº,é»˜è®¤æ’åºæ–¹å¼æ˜¯operator<ï¼Œè‹¥è¦è‡ªè¡Œå®šä¹‰æ’åºæ–¹å¼ï¼Œåˆ™è°ƒç”¨ç¬¬äºŒç‰ˆæœ¬;
 template <class _InputIter1, class _InputIter2>
 bool includes(_InputIter1 __first1, _InputIter1 __last1,
               _InputIter2 __first2, _InputIter2 __last2) {
@@ -3429,18 +3429,18 @@ bool includes(_InputIter1 __first1, _InputIter1 __last1,
        typename iterator_traits<_InputIter2>::value_type);
   __STL_REQUIRES(typename iterator_traits<_InputIter1>::value_type,
                  _LessThanComparable);
-  while (__first1 != __last1 && __first2 != __last2)//±éÀúÁ½¸öÇø¼ä
-    if (*__first2 < *__first1)//first2Ğ¡ÓÚfirst1±íÊ¾²»°üº¬
-      return false;//·µ»ØFALSE
-    else if(*__first1 < *__first2)//Èôfirst1Ğ¡ÓÚfirst2 
-      ++__first1;//Ñ°ÕÒµÚÒ»¸öÇø¼äÏÂÒ»¸öÎ»ÖÃ
+  while (__first1 != __last1 && __first2 != __last2)//éå†ä¸¤ä¸ªåŒºé—´
+    if (*__first2 < *__first1)//first2å°äºfirst1è¡¨ç¤ºä¸åŒ…å«
+      return false;//è¿”å›FALSE
+    else if(*__first1 < *__first2)//è‹¥first1å°äºfirst2 
+      ++__first1;//å¯»æ‰¾ç¬¬ä¸€ä¸ªåŒºé—´ä¸‹ä¸€ä¸ªä½ç½®
     else
-      ++__first1, ++__first2;//Èôfirst2µÈÓÚfirst1,±éÀúÁ½Çø¼äµÄÏÂÒ»Î»ÖÃ
+      ++__first1, ++__first2;//è‹¥first2ç­‰äºfirst1,éå†ä¸¤åŒºé—´çš„ä¸‹ä¸€ä½ç½®
 
-  return __first2 == __last2;//ÈôµÚ¶ş¸öÇø¼äÏÈµ½´ïÎ²¶Ë£¬Ôò·µ»ØTRUE
+  return __first2 == __last2;//è‹¥ç¬¬äºŒä¸ªåŒºé—´å…ˆåˆ°è¾¾å°¾ç«¯ï¼Œåˆ™è¿”å›TRUE
 }
 
-//°æ±¾¶ş£ºÓÃ»§Í¨¹ıcomp×ÔĞĞÖ¸¶¨ÅÅĞò·½Ê½
+//ç‰ˆæœ¬äºŒï¼šç”¨æˆ·é€šè¿‡compè‡ªè¡ŒæŒ‡å®šæ’åºæ–¹å¼
 template <class _InputIter1, class _InputIter2, class _Compare>
 bool includes(_InputIter1 __first1, _InputIter1 __last1,
               _InputIter2 __first2, _InputIter2 __last2, _Compare __comp) {
@@ -3463,23 +3463,23 @@ bool includes(_InputIter1 __first1, _InputIter1 __last1,
   return __first2 == __last2;
 }
 
-//Á½¸ö¼¯ºÏÇø¼äµÄ²¢¼¯£¬Í¬ÑùÒ²ÓĞÁ½¸ö°æ±¾
-//Çó´æÔÚÓÚ[first1, last1)»ò´æÔÚÓÚ[first2, last2)ÄÚµÄËùÓĞÔªËØ
-//×¢Òâ£ºÊäÈëÇø¼ä±ØĞëÊÇÒÑÅÅĞò
+//ä¸¤ä¸ªé›†åˆåŒºé—´çš„å¹¶é›†ï¼ŒåŒæ ·ä¹Ÿæœ‰ä¸¤ä¸ªç‰ˆæœ¬
+//æ±‚å­˜åœ¨äº[first1, last1)æˆ–å­˜åœ¨äº[first2, last2)å†…çš„æ‰€æœ‰å…ƒç´ 
+//æ³¨æ„ï¼šè¾“å…¥åŒºé—´å¿…é¡»æ˜¯å·²æ’åº
 /*
-default (1)	:Ä¬ÈÏÊÇoperator<²Ù×÷µÄÅÅĞò·½Ê½
+default (1)	:é»˜è®¤æ˜¯operator<æ“ä½œçš„æ’åºæ–¹å¼
 	template <class InputIterator1, class InputIterator2, class OutputIterator>
 	OutputIterator set_union (InputIterator1 first1, InputIterator1 last1,
                             InputIterator2 first2, InputIterator2 last2,
                             OutputIterator result);
-custom (2)	:ÓÃ»§Ö¸¶¨µÄÅÅĞò·½Ê½
+custom (2)	:ç”¨æˆ·æŒ‡å®šçš„æ’åºæ–¹å¼
 	template <class InputIterator1, class InputIterator2,
           class OutputIterator, class Compare>
 	OutputIterator set_union (InputIterator1 first1, InputIterator1 last1,
                             InputIterator2 first2, InputIterator2 last2,
                             OutputIterator result, Compare comp);
 */
-//°æ±¾Ò»£ºÄ¬ÈÏÊÇoperator<²Ù×÷µÄÅÅĞò·½Ê½
+//ç‰ˆæœ¬ä¸€ï¼šé»˜è®¤æ˜¯operator<æ“ä½œçš„æ’åºæ–¹å¼
 template <class _InputIter1, class _InputIter2, class _OutputIter>
 _OutputIter set_union(_InputIter1 __first1, _InputIter1 __last1,
                       _InputIter2 __first2, _InputIter2 __last2,
@@ -3492,38 +3492,38 @@ _OutputIter set_union(_InputIter1 __first1, _InputIter1 __last1,
        typename iterator_traits<_InputIter2>::value_type);
   __STL_REQUIRES(typename iterator_traits<_InputIter1>::value_type,
                  _LessThanComparable);
-  //Á½¸öÇø¼ä¶¼ÉĞÎ´µ½´ïÇø¼äÎ²¶Ë£¬Ö´ĞĞÒÔÏÂ²Ù×÷
+  //ä¸¤ä¸ªåŒºé—´éƒ½å°šæœªåˆ°è¾¾åŒºé—´å°¾ç«¯ï¼Œæ‰§è¡Œä»¥ä¸‹æ“ä½œ
   while (__first1 != __last1 && __first2 != __last2) {
 	  /*
-	  ÔÚÁ½Çø¼äÄÚ·Ö±ğÒÆ¶¯µü´úÆ÷£¬Ê×ÏÈ½«ÔªËØ½ÏĞ¡Õß(¼ÙÉèÎªAÇø)¼ÇÂ¼ÔÚÄ¿±êÇøresult
-	  ÒÆ¶¯AÇøµü´úÆ÷Ê¹ÆäÇ°½ø£»Í¬Ê±ÁíÒ»¸öÇøµÄµü´úÆ÷²»±ä¡£È»ºó½øĞĞÒ»´ÎĞÂµÄ±È½Ï£¬
-	  ¼ÇÂ¼½ÏĞ¡Öµ£¬ÒÆ¶¯µü´úÆ÷...Ö±µ½Á½Çø¼äÖĞÓĞÒ»¸öµ½´ïÎ²¶Ë¡£ÈôÁ½Çø¼ä´æÔÚÔªËØÏàµÈ£¬
-	  Ä¬ÈÏ¼ÇÂ¼µÚÒ»Çø¼äµÄÔªËØµ½Ä¿±êÇøresult.
+	  åœ¨ä¸¤åŒºé—´å†…åˆ†åˆ«ç§»åŠ¨è¿­ä»£å™¨ï¼Œé¦–å…ˆå°†å…ƒç´ è¾ƒå°è€…(å‡è®¾ä¸ºAåŒº)è®°å½•åœ¨ç›®æ ‡åŒºresult
+	  ç§»åŠ¨AåŒºè¿­ä»£å™¨ä½¿å…¶å‰è¿›ï¼›åŒæ—¶å¦ä¸€ä¸ªåŒºçš„è¿­ä»£å™¨ä¸å˜ã€‚ç„¶åè¿›è¡Œä¸€æ¬¡æ–°çš„æ¯”è¾ƒï¼Œ
+	  è®°å½•è¾ƒå°å€¼ï¼Œç§»åŠ¨è¿­ä»£å™¨...ç›´åˆ°ä¸¤åŒºé—´ä¸­æœ‰ä¸€ä¸ªåˆ°è¾¾å°¾ç«¯ã€‚è‹¥ä¸¤åŒºé—´å­˜åœ¨å…ƒç´ ç›¸ç­‰ï¼Œ
+	  é»˜è®¤è®°å½•ç¬¬ä¸€åŒºé—´çš„å…ƒç´ åˆ°ç›®æ ‡åŒºresult.
 	  */
-    if (*__first1 < *__first2) {//first1Ğ¡ÓÚfirst2
-      *__result = *__first1;//Ôòresult³õÊ¼ÖµÎªfirst1
-      ++__first1;//¼ÌĞøµÚÒ»¸öÇø¼äµÄÏÂÒ»¸öÔªËØÎ»ÖÃ
+    if (*__first1 < *__first2) {//first1å°äºfirst2
+      *__result = *__first1;//åˆ™resultåˆå§‹å€¼ä¸ºfirst1
+      ++__first1;//ç»§ç»­ç¬¬ä¸€ä¸ªåŒºé—´çš„ä¸‹ä¸€ä¸ªå…ƒç´ ä½ç½®
     }
-    else if (*__first2 < *__first1) {//first2Ğ¡ÓÚfirst1
-      *__result = *__first2;//µÚ¶şÇø¼äÔªËØÖµ¼ÇÂ¼µ½Ä¿±êÇø
-      ++__first2;//ÒÆ¶¯µÚ¶şÇø¼äµÄµü´úÆ÷
+    else if (*__first2 < *__first1) {//first2å°äºfirst1
+      *__result = *__first2;//ç¬¬äºŒåŒºé—´å…ƒç´ å€¼è®°å½•åˆ°ç›®æ ‡åŒº
+      ++__first2;//ç§»åŠ¨ç¬¬äºŒåŒºé—´çš„è¿­ä»£å™¨
     }
-    else {//ÈôÁ½Çø¼ä´æÔÚÏàµÈµÄÔªËØ£¬°ÑµÚÒ»Çø¼äÔªËØ¼ÇÂ¼µ½Ä¿±êÇø
-		//Í¬Ê±ÒÆ¶¯Á½¸öÇø¼äµÄµü´úÆ÷
+    else {//è‹¥ä¸¤åŒºé—´å­˜åœ¨ç›¸ç­‰çš„å…ƒç´ ï¼ŒæŠŠç¬¬ä¸€åŒºé—´å…ƒç´ è®°å½•åˆ°ç›®æ ‡åŒº
+		//åŒæ—¶ç§»åŠ¨ä¸¤ä¸ªåŒºé—´çš„è¿­ä»£å™¨
       *__result = *__first1;
       ++__first1;
       ++__first2;
     }
-    ++__result;//¸üĞÂÄ¿±êÇøÎ»ÖÃ£¬ÒÔ±¸½øÈëÏÂÒ»´Î¼ÇÂ¼²Ù×÷²Ù×÷
+    ++__result;//æ›´æ–°ç›®æ ‡åŒºä½ç½®ï¼Œä»¥å¤‡è¿›å…¥ä¸‹ä¸€æ¬¡è®°å½•æ“ä½œæ“ä½œ
   }
   /*
-  Ö»ÒªÁ½Çø¼äÖ®ÖĞÓĞÒ»¸öÇø¼äµ½´ïÎ²¶Ë£¬¾Í½áÊøÉÏÃæµÄwhileÑ­»·
-  ÒÔÏÂ½«ÉĞÎ´µ½´ïÎ²¶ËµÄÇø¼äÊ£ÓàµÄÔªËØ¿½±´µ½Ä¿±êÇø
-  ´Ë¿Ì£¬[first1, last1)ºÍ[first2, last2)ÖÁÉÙÓĞÒ»¸öÊÇ¿ÕÇø¼ä
+  åªè¦ä¸¤åŒºé—´ä¹‹ä¸­æœ‰ä¸€ä¸ªåŒºé—´åˆ°è¾¾å°¾ç«¯ï¼Œå°±ç»“æŸä¸Šé¢çš„whileå¾ªç¯
+  ä»¥ä¸‹å°†å°šæœªåˆ°è¾¾å°¾ç«¯çš„åŒºé—´å‰©ä½™çš„å…ƒç´ æ‹·è´åˆ°ç›®æ ‡åŒº
+  æ­¤åˆ»ï¼Œ[first1, last1)å’Œ[first2, last2)è‡³å°‘æœ‰ä¸€ä¸ªæ˜¯ç©ºåŒºé—´
   */
   return copy(__first2, __last2, copy(__first1, __last1, __result));
 }
-//°æ±¾¶ş£ºÓÃ»§¸ù¾İ·Âº¯ÊıcompÖ¸¶¨ÅÅĞò¹æÔò
+//ç‰ˆæœ¬äºŒï¼šç”¨æˆ·æ ¹æ®ä»¿å‡½æ•°compæŒ‡å®šæ’åºè§„åˆ™
 template <class _InputIter1, class _InputIter2, class _OutputIter,
           class _Compare>
 _OutputIter set_union(_InputIter1 __first1, _InputIter1 __last1,
@@ -3556,7 +3556,7 @@ _OutputIter set_union(_InputIter1 __first1, _InputIter1 __last1,
   }
   return copy(__first2, __last2, copy(__first1, __last1, __result));
 }
-/*Àı×Ó:
+/*ä¾‹å­:
 	#include <iostream>     // std::cout
 	#include <algorithm>    // std::set_union, std::sort
 	#include <vector>       // std::vector
@@ -3586,25 +3586,25 @@ _OutputIter set_union(_InputIter1 __first1, _InputIter1 __last1,
 	5 10 15 20 25 30 40 50
 */
 
- //Á½¸ö¼¯ºÏÇø¼äµÄ½»¼¯£¬Í¬ÑùÒ²ÓĞÁ½¸ö°æ±¾
-//Çó´æÔÚÓÚ[first1, last1)ÇÒ´æÔÚÓÚ[first2, last2)ÄÚµÄËùÓĞÔªËØ
-//×¢Òâ£ºÊäÈëÇø¼ä±ØĞëÊÇÒÑÅÅĞò£¬Êä³öÇø¼äµÄÃ¿¸öÔªËØµÄÏà¶ÔÅÅĞòºÍµÚÒ»¸öÇø¼äÏà¶ÔÅÅĞòÏàÍ¬
+ //ä¸¤ä¸ªé›†åˆåŒºé—´çš„äº¤é›†ï¼ŒåŒæ ·ä¹Ÿæœ‰ä¸¤ä¸ªç‰ˆæœ¬
+//æ±‚å­˜åœ¨äº[first1, last1)ä¸”å­˜åœ¨äº[first2, last2)å†…çš„æ‰€æœ‰å…ƒç´ 
+//æ³¨æ„ï¼šè¾“å…¥åŒºé—´å¿…é¡»æ˜¯å·²æ’åºï¼Œè¾“å‡ºåŒºé—´çš„æ¯ä¸ªå…ƒç´ çš„ç›¸å¯¹æ’åºå’Œç¬¬ä¸€ä¸ªåŒºé—´ç›¸å¯¹æ’åºç›¸åŒ
 /*
-default (1)	:Ä¬ÈÏÊÇoperator<²Ù×÷µÄÅÅĞò·½Ê½
+default (1)	:é»˜è®¤æ˜¯operator<æ“ä½œçš„æ’åºæ–¹å¼
 		template <class InputIterator1, class InputIterator2, class OutputIterator>
 		OutputIterator set_intersection (InputIterator1 first1, InputIterator1 last1,
                                    InputIterator2 first2, InputIterator2 last2,
                                    OutputIterator result);
 
 
-custom (2)	:ÓÃ»§Ö¸¶¨µÄÅÅĞò·½Ê½
+custom (2)	:ç”¨æˆ·æŒ‡å®šçš„æ’åºæ–¹å¼
 		template <class InputIterator1, class InputIterator2,
           class OutputIterator, class Compare>
 		OutputIterator set_intersection (InputIterator1 first1, InputIterator1 last1,
                                    InputIterator2 first2, InputIterator2 last2,
                                    OutputIterator result, Compare comp);
 */
-//°æ±¾Ò»£ºÄ¬ÈÏÊÇoperator<²Ù×÷µÄÅÅĞò·½Ê½
+//ç‰ˆæœ¬ä¸€ï¼šé»˜è®¤æ˜¯operator<æ“ä½œçš„æ’åºæ–¹å¼
 template <class _InputIter1, class _InputIter2, class _OutputIter>
 _OutputIter set_intersection(_InputIter1 __first1, _InputIter1 __last1,
                              _InputIter2 __first2, _InputIter2 __last2,
@@ -3617,27 +3617,27 @@ _OutputIter set_intersection(_InputIter1 __first1, _InputIter1 __last1,
        typename iterator_traits<_InputIter2>::value_type);
   __STL_REQUIRES(typename iterator_traits<_InputIter1>::value_type,
                  _LessThanComparable);
-  //ÈôÁ½¸öÇø¼ä¶¼ÉĞÎ´µ½´ïÎ²¶Ë£¬ÔòÖ´ĞĞÒÔÏÂ²Ù×÷
+  //è‹¥ä¸¤ä¸ªåŒºé—´éƒ½å°šæœªåˆ°è¾¾å°¾ç«¯ï¼Œåˆ™æ‰§è¡Œä»¥ä¸‹æ“ä½œ
   while (__first1 != __last1 && __first2 != __last2) 
-	//ÔÚÁ½¸öÇø¼ä·Ö±ğÒÆ¶¯µü´úÆ÷£¬Ö±µ½Óöµ½ÏàµÈÔªËØ£¬¼ÇÂ¼µ½Ä¿±êÇø
-	//¼ÌĞøÒÆ¶¯µü´úÆ÷...Ö±µ½Á½Çø¼äÖ®ÖĞÓĞµ½´ïÎ²¶Ë
-    if (*__first1 < *__first2) //µÚÒ»¸öÇø¼äÔªËØĞ¡ÓÚµÚ¶şÇø¼äÔªËØ
-      ++__first1;//ÒÆ¶¯µÚÒ»Çø¼äµÄµü´úÆ÷£¬´ËÊ±µÚ¶şÇø¼äµÄµü´úÆ÷²»±ä
-    else if (*__first2 < *__first1) //µÚ¶şÇø¼äµÄÔªËØĞ¡ÓÚµÚÒ»Çø¼äÔªËØ
-      ++__first2;//ÒÆ¶¯µÚ¶şÇø¼äÔªËØ£¬´ËÊ±µÚÒ»Çø¼äµÄµü´úÆ÷²»±ä
-    else {//ÈôµÚÒ»Çø¼äÔªËØµÈÓÚµÚ¶şÇø¼äÔªËØ
-      *__result = *__first1;//°´µÚÒ»Çø¼äµÄÏà¶ÔÅÅĞò¼ÇÂ¼µ½Ä¿±êÇø
-	  //·Ö±ğÒÆ¶¯Á½Çø¼äµÄµü´úÆ÷
+	//åœ¨ä¸¤ä¸ªåŒºé—´åˆ†åˆ«ç§»åŠ¨è¿­ä»£å™¨ï¼Œç›´åˆ°é‡åˆ°ç›¸ç­‰å…ƒç´ ï¼Œè®°å½•åˆ°ç›®æ ‡åŒº
+	//ç»§ç»­ç§»åŠ¨è¿­ä»£å™¨...ç›´åˆ°ä¸¤åŒºé—´ä¹‹ä¸­æœ‰åˆ°è¾¾å°¾ç«¯
+    if (*__first1 < *__first2) //ç¬¬ä¸€ä¸ªåŒºé—´å…ƒç´ å°äºç¬¬äºŒåŒºé—´å…ƒç´ 
+      ++__first1;//ç§»åŠ¨ç¬¬ä¸€åŒºé—´çš„è¿­ä»£å™¨ï¼Œæ­¤æ—¶ç¬¬äºŒåŒºé—´çš„è¿­ä»£å™¨ä¸å˜
+    else if (*__first2 < *__first1) //ç¬¬äºŒåŒºé—´çš„å…ƒç´ å°äºç¬¬ä¸€åŒºé—´å…ƒç´ 
+      ++__first2;//ç§»åŠ¨ç¬¬äºŒåŒºé—´å…ƒç´ ï¼Œæ­¤æ—¶ç¬¬ä¸€åŒºé—´çš„è¿­ä»£å™¨ä¸å˜
+    else {//è‹¥ç¬¬ä¸€åŒºé—´å…ƒç´ ç­‰äºç¬¬äºŒåŒºé—´å…ƒç´ 
+      *__result = *__first1;//æŒ‰ç¬¬ä¸€åŒºé—´çš„ç›¸å¯¹æ’åºè®°å½•åˆ°ç›®æ ‡åŒº
+	  //åˆ†åˆ«ç§»åŠ¨ä¸¤åŒºé—´çš„è¿­ä»£å™¨
       ++__first1;
       ++__first2;
-	  //¸üĞÂÄ¿±êÇøµü´úÆ÷£¬ÒÔ±ã¼ÌĞø¼ÇÂ¼ÔªËØ
+	  //æ›´æ–°ç›®æ ‡åŒºè¿­ä»£å™¨ï¼Œä»¥ä¾¿ç»§ç»­è®°å½•å…ƒç´ 
       ++__result;
     }
-	//ÈôÓĞÇø¼äµ½´ïÎ²²¿£¬ÔòÍ£Ö¹whileÑ­»·
-	//´ËÊ±£¬·µ»ØÄ¿±êÇø
+	//è‹¥æœ‰åŒºé—´åˆ°è¾¾å°¾éƒ¨ï¼Œåˆ™åœæ­¢whileå¾ªç¯
+	//æ­¤æ—¶ï¼Œè¿”å›ç›®æ ‡åŒº
   return __result;
 }
-//°æ±¾¶ş£ºÓÃ»§¸ù¾İ·Âº¯ÊıcompÖ¸¶¨ÅÅĞò¹æÔò
+//ç‰ˆæœ¬äºŒï¼šç”¨æˆ·æ ¹æ®ä»¿å‡½æ•°compæŒ‡å®šæ’åºè§„åˆ™
 template <class _InputIter1, class _InputIter2, class _OutputIter,
           class _Compare>
 _OutputIter set_intersection(_InputIter1 __first1, _InputIter1 __last1,
@@ -3666,7 +3666,7 @@ _OutputIter set_intersection(_InputIter1 __first1, _InputIter1 __last1,
     }
   return __result;
 }
-/*Àı×Ó£º
+/*ä¾‹å­ï¼š
 	#include <iostream>     // std::cout
 	#include <algorithm>    // std::set_intersection, std::sort
 	#include <vector>       // std::vector
@@ -3696,11 +3696,11 @@ _OutputIter set_intersection(_InputIter1 __first1, _InputIter1 __last1,
 	10 20
 */
 
- //Á½¸ö¼¯ºÏÇø¼äµÄ²î¼¯£¬Í¬ÑùÒ²ÓĞÁ½¸ö°æ±¾
-//Çó´æÔÚÓÚ[first1, last1)µ«²»´æÔÚÓÚ[first2, last2)ÄÚµÄËùÓĞÔªËØ
-//×¢Òâ£ºÊäÈëÇø¼ä±ØĞëÊÇÒÑÅÅĞò£¬Êä³öÇø¼äµÄÃ¿¸öÔªËØµÄÏà¶ÔÅÅĞòºÍµÚÒ»¸öÇø¼äÏà¶ÔÅÅĞòÏàÍ¬
+ //ä¸¤ä¸ªé›†åˆåŒºé—´çš„å·®é›†ï¼ŒåŒæ ·ä¹Ÿæœ‰ä¸¤ä¸ªç‰ˆæœ¬
+//æ±‚å­˜åœ¨äº[first1, last1)ä½†ä¸å­˜åœ¨äº[first2, last2)å†…çš„æ‰€æœ‰å…ƒç´ 
+//æ³¨æ„ï¼šè¾“å…¥åŒºé—´å¿…é¡»æ˜¯å·²æ’åºï¼Œè¾“å‡ºåŒºé—´çš„æ¯ä¸ªå…ƒç´ çš„ç›¸å¯¹æ’åºå’Œç¬¬ä¸€ä¸ªåŒºé—´ç›¸å¯¹æ’åºç›¸åŒ
 /*
-default (1)	:Ä¬ÈÏÊÇoperator<²Ù×÷µÄÅÅĞò·½Ê½
+default (1)	:é»˜è®¤æ˜¯operator<æ“ä½œçš„æ’åºæ–¹å¼
 		template <class InputIterator1, class InputIterator2, class OutputIterator>
 		OutputIterator set_difference (InputIterator1 first1, InputIterator1 last1,
                                  InputIterator2 first2, InputIterator2 last2,
@@ -3708,14 +3708,14 @@ default (1)	:Ä¬ÈÏÊÇoperator<²Ù×÷µÄÅÅĞò·½Ê½
 
 
 
-custom (2)	:ÓÃ»§Ö¸¶¨µÄÅÅĞò·½Ê½
+custom (2)	:ç”¨æˆ·æŒ‡å®šçš„æ’åºæ–¹å¼
 		template <class InputIterator1, class InputIterator2,
           class OutputIterator, class Compare>
 		OutputIterator set_difference (InputIterator1 first1, InputIterator1 last1,
                                  InputIterator2 first2, InputIterator2 last2,
                                  OutputIterator result, Compare comp);
 */
-//°æ±¾Ò»£ºÄ¬ÈÏÊÇoperator<²Ù×÷µÄÅÅĞò·½Ê½
+//ç‰ˆæœ¬ä¸€ï¼šé»˜è®¤æ˜¯operator<æ“ä½œçš„æ’åºæ–¹å¼
 template <class _InputIter1, class _InputIter2, class _OutputIter>
 _OutputIter set_difference(_InputIter1 __first1, _InputIter1 __last1,
                            _InputIter2 __first2, _InputIter2 __last2,
@@ -3728,30 +3728,30 @@ _OutputIter set_difference(_InputIter1 __first1, _InputIter1 __last1,
        typename iterator_traits<_InputIter2>::value_type);
   __STL_REQUIRES(typename iterator_traits<_InputIter1>::value_type,
                  _LessThanComparable);
-  //ÈôÁ½¸öÇø¼ä¶¼ÉĞÎ´µ½´ïÎ²¶Ë£¬ÔòÖ´ĞĞÒÔÏÂ²Ù×÷
+  //è‹¥ä¸¤ä¸ªåŒºé—´éƒ½å°šæœªåˆ°è¾¾å°¾ç«¯ï¼Œåˆ™æ‰§è¡Œä»¥ä¸‹æ“ä½œ
   while (__first1 != __last1 && __first2 != __last2)
 	 /*
-	 ÔÚÁ½¸öÇø¼ä·Ö±ğÒÆ¶¯µü´úÆ÷£¬µ±µÚÒ»Çø¼äÔªËØµÈÓÚµÚ¶şÇø¼äÔªËØÊ±£¬±íÊ¾Á½Çø¼ä¹²Í¬´æÔÚ¸ÃÔªËØ
-	 ÔòÍ¬Ê±ÒÆ¶¯µü´úÆ÷£»
-	 µ±µÚÒ»Çø¼äÔªËØ´óÓÚµÚ¶şÇø¼äÔªËØÊ±£¬¾ÍÈÃµÚ¶şÇø¼äµü´úÆ÷Ç°½ø£»
-	 µÚÒ»Çø¼äÔªËØĞ¡ÓÚµÚ¶şÇø¼äÔªËØÊ±£¬°ÑµÚÒ»Çø¼äÔªËØ¼ÇÂ¼µ½Ä¿±êÇø
-	¼ÌĞøÒÆ¶¯µü´úÆ÷...Ö±µ½Á½Çø¼äÖ®ÖĞÓĞµ½´ïÎ²¶Ë
+	 åœ¨ä¸¤ä¸ªåŒºé—´åˆ†åˆ«ç§»åŠ¨è¿­ä»£å™¨ï¼Œå½“ç¬¬ä¸€åŒºé—´å…ƒç´ ç­‰äºç¬¬äºŒåŒºé—´å…ƒç´ æ—¶ï¼Œè¡¨ç¤ºä¸¤åŒºé—´å…±åŒå­˜åœ¨è¯¥å…ƒç´ 
+	 åˆ™åŒæ—¶ç§»åŠ¨è¿­ä»£å™¨ï¼›
+	 å½“ç¬¬ä¸€åŒºé—´å…ƒç´ å¤§äºç¬¬äºŒåŒºé—´å…ƒç´ æ—¶ï¼Œå°±è®©ç¬¬äºŒåŒºé—´è¿­ä»£å™¨å‰è¿›ï¼›
+	 ç¬¬ä¸€åŒºé—´å…ƒç´ å°äºç¬¬äºŒåŒºé—´å…ƒç´ æ—¶ï¼ŒæŠŠç¬¬ä¸€åŒºé—´å…ƒç´ è®°å½•åˆ°ç›®æ ‡åŒº
+	ç»§ç»­ç§»åŠ¨è¿­ä»£å™¨...ç›´åˆ°ä¸¤åŒºé—´ä¹‹ä¸­æœ‰åˆ°è¾¾å°¾ç«¯
 	*/
-    if (*__first1 < *__first2) {//µÚÒ»Çø¼äÔªËØĞ¡ÓÚµÚ¶şÇø¼äÔªËØ
-      *__result = *__first1;//°ÑµÚÒ»Çø¼äÔªËØ¼ÇÂ¼µ½Ä¿±êÇø
-      ++__first1;//ÒÆ¶¯µÚÒ»Çø¼äµü´úÆ÷
-      ++__result;//¸úĞÂÄ¿±êÇø£¬ÒÔ±ã¼ÌĞø¼ÇÂ¼Êı¾İ
+    if (*__first1 < *__first2) {//ç¬¬ä¸€åŒºé—´å…ƒç´ å°äºç¬¬äºŒåŒºé—´å…ƒç´ 
+      *__result = *__first1;//æŠŠç¬¬ä¸€åŒºé—´å…ƒç´ è®°å½•åˆ°ç›®æ ‡åŒº
+      ++__first1;//ç§»åŠ¨ç¬¬ä¸€åŒºé—´è¿­ä»£å™¨
+      ++__result;//è·Ÿæ–°ç›®æ ‡åŒºï¼Œä»¥ä¾¿ç»§ç»­è®°å½•æ•°æ®
     }
-    else if (*__first2 < *__first1)//µ±µÚÒ»Çø¼äµÄÔªËØ´óÓÚµÚ¶şÇø¼äµÄÔªËØ
-      ++__first2;//ÒÆ¶¯µÚ¶şÇø¼äµü´úÆ÷,×¢Òâ£ºÕâÀï²»¼ÇÂ¼ÈÎºÎÔªËØ
-    else {//ÈôÁ½Çø¼äµÄÔªËØÏàµÈÊ±,Í¬Ê±ÒÆ¶¯Á½Çø¼äµÄµü´úÆ÷
+    else if (*__first2 < *__first1)//å½“ç¬¬ä¸€åŒºé—´çš„å…ƒç´ å¤§äºç¬¬äºŒåŒºé—´çš„å…ƒç´ 
+      ++__first2;//ç§»åŠ¨ç¬¬äºŒåŒºé—´è¿­ä»£å™¨,æ³¨æ„ï¼šè¿™é‡Œä¸è®°å½•ä»»ä½•å…ƒç´ 
+    else {//è‹¥ä¸¤åŒºé—´çš„å…ƒç´ ç›¸ç­‰æ—¶,åŒæ—¶ç§»åŠ¨ä¸¤åŒºé—´çš„è¿­ä»£å™¨
       ++__first1;
       ++__first2;
     }
-	//ÈôµÚ¶şÇø¼äÏÈµ½´ïÎ²¶Ë£¬Ôò°ÑµÚÒ»Çø¼äÊ£ÓàµÄÔªËØ¸´ÖÆµ½Ä¿±êÇø
+	//è‹¥ç¬¬äºŒåŒºé—´å…ˆåˆ°è¾¾å°¾ç«¯ï¼Œåˆ™æŠŠç¬¬ä¸€åŒºé—´å‰©ä½™çš„å…ƒç´ å¤åˆ¶åˆ°ç›®æ ‡åŒº
   return copy(__first1, __last1, __result);
 }
-//°æ±¾¶ş£ºÓÃ»§¸ù¾İ·Âº¯ÊıcompÖ¸¶¨ÅÅĞò¹æÔò
+//ç‰ˆæœ¬äºŒï¼šç”¨æˆ·æ ¹æ®ä»¿å‡½æ•°compæŒ‡å®šæ’åºè§„åˆ™
 template <class _InputIter1, class _InputIter2, class _OutputIter, 
           class _Compare>
 _OutputIter set_difference(_InputIter1 __first1, _InputIter1 __last1,
@@ -3781,7 +3781,7 @@ _OutputIter set_difference(_InputIter1 __first1, _InputIter1 __last1,
     }
   return copy(__first1, __last1, __result);
 }
-/*Àı×Ó£º
+/*ä¾‹å­ï¼š
 	#include <iostream>     // std::cout
 	#include <algorithm>    // std::set_difference, std::sort
 	#include <vector>       // std::vector
@@ -3806,30 +3806,30 @@ _OutputIter set_difference(_InputIter1 __first1, _InputIter1 __last1,
 
 	  return 0;
 	}
-	Output£º
+	Outputï¼š
 	The difference has 3 elements:
 	5 15 25
 */
 
- //Á½¸ö¼¯ºÏÇø¼äµÄ¶Ô³Æ²î¼¯£¬Í¬ÑùÒ²ÓĞÁ½¸ö°æ±¾
-//Çó´æÔÚÓÚ[first1, last1)µ«²»´æÔÚÓÚ[first2, last2)ÄÚµÄËùÓĞÔªËØÒÔ¼°³öÏÖÔÚ[first2, last2)µ«²»³öÏÖÔÚ[first1, last1)
-//×¢Òâ£ºÊäÈëÇø¼ä±ØĞëÊÇÒÑÅÅĞò
+ //ä¸¤ä¸ªé›†åˆåŒºé—´çš„å¯¹ç§°å·®é›†ï¼ŒåŒæ ·ä¹Ÿæœ‰ä¸¤ä¸ªç‰ˆæœ¬
+//æ±‚å­˜åœ¨äº[first1, last1)ä½†ä¸å­˜åœ¨äº[first2, last2)å†…çš„æ‰€æœ‰å…ƒç´ ä»¥åŠå‡ºç°åœ¨[first2, last2)ä½†ä¸å‡ºç°åœ¨[first1, last1)
+//æ³¨æ„ï¼šè¾“å…¥åŒºé—´å¿…é¡»æ˜¯å·²æ’åº
 /*
-default (1)	:Ä¬ÈÏÊÇoperator<²Ù×÷µÄÅÅĞò·½Ê½
+default (1)	:é»˜è®¤æ˜¯operator<æ“ä½œçš„æ’åºæ–¹å¼
 		template <class InputIterator1, class InputIterator2, class OutputIterator>
 		OutputIterator set_symmetric_difference (InputIterator1 first1, InputIterator1 last1,
                                            InputIterator2 first2, InputIterator2 last2,
                                            OutputIterator result);
 
 
-custom (2)	:ÓÃ»§Ö¸¶¨µÄÅÅĞò·½Ê½
+custom (2)	:ç”¨æˆ·æŒ‡å®šçš„æ’åºæ–¹å¼
 		template <class InputIterator1, class InputIterator2,
           class OutputIterator, class Compare>
 		OutputIterator set_symmetric_difference (InputIterator1 first1, InputIterator1 last1,
                                            InputIterator2 first2, InputIterator2 last2,
                                            OutputIterator result, Compare comp);
 */
-//°æ±¾Ò»£ºÄ¬ÈÏÊÇoperator<²Ù×÷µÄÅÅĞò·½Ê½
+//ç‰ˆæœ¬ä¸€ï¼šé»˜è®¤æ˜¯operator<æ“ä½œçš„æ’åºæ–¹å¼
 template <class _InputIter1, class _InputIter2, class _OutputIter>
 _OutputIter 
 set_symmetric_difference(_InputIter1 __first1, _InputIter1 __last1,
@@ -3843,37 +3843,37 @@ set_symmetric_difference(_InputIter1 __first1, _InputIter1 __last1,
        typename iterator_traits<_InputIter2>::value_type);
   __STL_REQUIRES(typename iterator_traits<_InputIter1>::value_type,
                  _LessThanComparable);
-  //ÈôÁ½¸öÇø¼ä¶¼ÉĞÎ´µ½´ïÎ²¶Ë£¬ÔòÖ´ĞĞÏÂÃæµÄ²Ù×÷
+  //è‹¥ä¸¤ä¸ªåŒºé—´éƒ½å°šæœªåˆ°è¾¾å°¾ç«¯ï¼Œåˆ™æ‰§è¡Œä¸‹é¢çš„æ“ä½œ
   while (__first1 != __last1 && __first2 != __last2)
 	  /*
-	  Çé¿ö1£ºÈôÁ½Çø¼äÔªËØÏàµÈ£¬ÔòÍ¬Ê±ÒÆ¶¯Á½Çø¼äµÄµü´úÆ÷.
-	  Çé¿ö2£ºÈôµÚÒ»Çø¼äµÄÔªËØĞ¡ÓÚµÚ¶şÇø¼äÔªËØ£¬Ôò°ÑµÚÒ»Çø¼äÔªËØ¼ÇÂ¼µ½Ä¿±êÇø£¬ÇÒÒÆ¶¯µÚÒ»Çø¼äµü´úÆ÷.
-	  Çé¿ö3£ºÈôµÚÒ»Çø¼äµÄÔªËØ´óÓÚµÚ¶şÇø¼äÔªËØ£¬Ôò°ÑµÚ¶şÇø¼äÔªËØ¼ÇÂ¼µ½Ä¿±êÇø£¬ÇÒÒÆ¶¯µÚ¶şÇø¼äµü´úÆ÷.
+	  æƒ…å†µ1ï¼šè‹¥ä¸¤åŒºé—´å…ƒç´ ç›¸ç­‰ï¼Œåˆ™åŒæ—¶ç§»åŠ¨ä¸¤åŒºé—´çš„è¿­ä»£å™¨.
+	  æƒ…å†µ2ï¼šè‹¥ç¬¬ä¸€åŒºé—´çš„å…ƒç´ å°äºç¬¬äºŒåŒºé—´å…ƒç´ ï¼Œåˆ™æŠŠç¬¬ä¸€åŒºé—´å…ƒç´ è®°å½•åˆ°ç›®æ ‡åŒºï¼Œä¸”ç§»åŠ¨ç¬¬ä¸€åŒºé—´è¿­ä»£å™¨.
+	  æƒ…å†µ3ï¼šè‹¥ç¬¬ä¸€åŒºé—´çš„å…ƒç´ å¤§äºç¬¬äºŒåŒºé—´å…ƒç´ ï¼Œåˆ™æŠŠç¬¬äºŒåŒºé—´å…ƒç´ è®°å½•åˆ°ç›®æ ‡åŒºï¼Œä¸”ç§»åŠ¨ç¬¬äºŒåŒºé—´è¿­ä»£å™¨.
 	  */
-    if (*__first1 < *__first2) {//ÊôÓÚÇé¿ö2
-      *__result = *__first1;//°ÑµÚÒ»Çø¼äÔªËØ¼ÇÂ¼µ½Ä¿±êÇø
-      ++__first1;//ÒÆ¶¯µÚÒ»Çø¼äµü´úÆ÷.´ËÊ±µÚ¶şÇø¼äµü´úÆ÷²»±ä
+    if (*__first1 < *__first2) {//å±äºæƒ…å†µ2
+      *__result = *__first1;//æŠŠç¬¬ä¸€åŒºé—´å…ƒç´ è®°å½•åˆ°ç›®æ ‡åŒº
+      ++__first1;//ç§»åŠ¨ç¬¬ä¸€åŒºé—´è¿­ä»£å™¨.æ­¤æ—¶ç¬¬äºŒåŒºé—´è¿­ä»£å™¨ä¸å˜
       ++__result;
     }
-    else if (*__first2 < *__first1) {//ÊôÓÚÇé¿ö3
-      *__result = *__first2;//°ÑµÚ¶şÇø¼äÔªËØ¼ÇÂ¼µ½Ä¿±êÇø
-      ++__first2;//ÒÆ¶¯µÚ¶şÇø¼äµü´úÆ÷.´ËÊ±µÚÒ»Çø¼äµü´úÆ÷²»±ä
+    else if (*__first2 < *__first1) {//å±äºæƒ…å†µ3
+      *__result = *__first2;//æŠŠç¬¬äºŒåŒºé—´å…ƒç´ è®°å½•åˆ°ç›®æ ‡åŒº
+      ++__first2;//ç§»åŠ¨ç¬¬äºŒåŒºé—´è¿­ä»£å™¨.æ­¤æ—¶ç¬¬ä¸€åŒºé—´è¿­ä»£å™¨ä¸å˜
       ++__result;
     }
-    else {//ÊôÓÚÇé¿ö1
-		//Í¬Ê±ÒÆ¶¯Á½Çø¼äµÄµü´úÆ÷
+    else {//å±äºæƒ…å†µ1
+		//åŒæ—¶ç§»åŠ¨ä¸¤åŒºé—´çš„è¿­ä»£å™¨
       ++__first1;
       ++__first2;
     }
 	 /*
-  Ö»ÒªÁ½Çø¼äÖ®ÖĞÓĞÒ»¸öÇø¼äµ½´ïÎ²¶Ë£¬¾Í½áÊøÉÏÃæµÄwhileÑ­»·
-  ÒÔÏÂ½«ÉĞÎ´µ½´ïÎ²¶ËµÄÇø¼äÊ£ÓàµÄÔªËØ¿½±´µ½Ä¿±êÇø
-  ´Ë¿Ì£¬[first1, last1)ºÍ[first2, last2)ÖÁÉÙÓĞÒ»¸öÊÇ¿ÕÇø¼ä
+  åªè¦ä¸¤åŒºé—´ä¹‹ä¸­æœ‰ä¸€ä¸ªåŒºé—´åˆ°è¾¾å°¾ç«¯ï¼Œå°±ç»“æŸä¸Šé¢çš„whileå¾ªç¯
+  ä»¥ä¸‹å°†å°šæœªåˆ°è¾¾å°¾ç«¯çš„åŒºé—´å‰©ä½™çš„å…ƒç´ æ‹·è´åˆ°ç›®æ ‡åŒº
+  æ­¤åˆ»ï¼Œ[first1, last1)å’Œ[first2, last2)è‡³å°‘æœ‰ä¸€ä¸ªæ˜¯ç©ºåŒºé—´
   */
   return copy(__first2, __last2, copy(__first1, __last1, __result));
 }
 
-//°æ±¾¶ş£ºÓÃ»§¸ù¾İ·Âº¯ÊıcompÖ¸¶¨ÅÅĞò¹æÔò
+//ç‰ˆæœ¬äºŒï¼šç”¨æˆ·æ ¹æ®ä»¿å‡½æ•°compæŒ‡å®šæ’åºè§„åˆ™
 template <class _InputIter1, class _InputIter2, class _OutputIter,
           class _Compare>
 _OutputIter 
@@ -3907,7 +3907,7 @@ set_symmetric_difference(_InputIter1 __first1, _InputIter1 __last1,
     }
   return copy(__first2, __last2, copy(__first1, __last1, __result));
 }
-/*Àı×Ó£º
+/*ä¾‹å­ï¼š
 	#include <iostream>     // std::cout
 	#include <algorithm>    // std::set_symmetric_difference, std::sort
 	#include <vector>       // std::vector
@@ -3932,37 +3932,37 @@ set_symmetric_difference(_InputIter1 __first1, _InputIter1 __last1,
 
 	  return 0;
 	}
-	Output£º
+	Outputï¼š
 	The symmetric difference has 6 elements:
 	5 15 25 30 40 50
 */
 
 // min_element and max_element, with and without an explicitly supplied
 // comparison function.
-//·µ»ØĞòÁĞ[first,last)ÖĞ×î´óÔªËØµÄÎ»ÖÃ
+//è¿”å›åºåˆ—[first,last)ä¸­æœ€å¤§å…ƒç´ çš„ä½ç½®
 /*
-default (1):°æ±¾Ò»	
+default (1):ç‰ˆæœ¬ä¸€	
 	template <class ForwardIterator>
 	ForwardIterator max_element (ForwardIterator first, ForwardIterator last);
-custom (2):°æ±¾¶ş	
+custom (2):ç‰ˆæœ¬äºŒ	
 	template <class ForwardIterator, class Compare>
 	ForwardIterator max_element (ForwardIterator first, ForwardIterator last,
                                Compare comp);
 */
-//°æ±¾Ò»£º
+//ç‰ˆæœ¬ä¸€ï¼š
 template <class _ForwardIter>
 _ForwardIter max_element(_ForwardIter __first, _ForwardIter __last) {
   __STL_REQUIRES(_ForwardIter, _ForwardIterator);
   __STL_REQUIRES(typename iterator_traits<_ForwardIter>::value_type,
                  _LessThanComparable);
-  if (__first == __last) return __first;//ÈôÎª¿Õ£¬Ö±½Ó·µ»Ø
-  _ForwardIter __result = __first;//Èô²»Îª¿Õ£¬´ÓµÚÒ»¸öÔªËØ¿ªÊ¼£¬¼´°ÑµÚÒ»¸öÔªËØÔİÊ±±£´æÎª×î´óÖµ
-  while (++__first != __last) //°´Ë³Ğò²éÕÒ×î´óÖµ
-    if (*__result < *__first)//ÈôÓĞ¸ü´óµÄÖµ
-      __result = __first;//Ôò¸üĞÂ×î´óÖµÎ»ÖÃ
-  return __result;//·µ»Ø×î´óÖµÎ»ÖÃ
+  if (__first == __last) return __first;//è‹¥ä¸ºç©ºï¼Œç›´æ¥è¿”å›
+  _ForwardIter __result = __first;//è‹¥ä¸ä¸ºç©ºï¼Œä»ç¬¬ä¸€ä¸ªå…ƒç´ å¼€å§‹ï¼Œå³æŠŠç¬¬ä¸€ä¸ªå…ƒç´ æš‚æ—¶ä¿å­˜ä¸ºæœ€å¤§å€¼
+  while (++__first != __last) //æŒ‰é¡ºåºæŸ¥æ‰¾æœ€å¤§å€¼
+    if (*__result < *__first)//è‹¥æœ‰æ›´å¤§çš„å€¼
+      __result = __first;//åˆ™æ›´æ–°æœ€å¤§å€¼ä½ç½®
+  return __result;//è¿”å›æœ€å¤§å€¼ä½ç½®
 }
-//°æ±¾¶ş
+//ç‰ˆæœ¬äºŒ
 template <class _ForwardIter, class _Compare>
 _ForwardIter max_element(_ForwardIter __first, _ForwardIter __last,
 			 _Compare __comp) {
@@ -3976,30 +3976,30 @@ _ForwardIter max_element(_ForwardIter __first, _ForwardIter __last,
     if (__comp(*__result, *__first)) __result = __first;
   return __result;
 }
-//·µ»ØĞòÁĞ[first,last)ÖĞ×îĞ¡ÔªËØµÄÎ»ÖÃ
+//è¿”å›åºåˆ—[first,last)ä¸­æœ€å°å…ƒç´ çš„ä½ç½®
 /*
-default (1):°æ±¾Ò»	
+default (1):ç‰ˆæœ¬ä¸€	
 	template <class ForwardIterator>
 	ForwardIterator min_element (ForwardIterator first, ForwardIterator last);
-custom (2):°æ±¾¶ş	
+custom (2):ç‰ˆæœ¬äºŒ	
 	template <class ForwardIterator, class Compare>
 	ForwardIterator min_element (ForwardIterator first, ForwardIterator last,
                                Compare comp);
 */
-//°æ±¾Ò»£º
+//ç‰ˆæœ¬ä¸€ï¼š
 template <class _ForwardIter>
 _ForwardIter min_element(_ForwardIter __first, _ForwardIter __last) {
   __STL_REQUIRES(_ForwardIter, _ForwardIterator);
   __STL_REQUIRES(typename iterator_traits<_ForwardIter>::value_type,
                  _LessThanComparable);
-  if (__first == __last) return __first;//ÈôÎª¿Õ£¬Ö±½Ó·µ»Ø
-  _ForwardIter __result = __first;//Èô²»Îª¿Õ£¬´ÓµÚÒ»¸öÔªËØ¿ªÊ¼£¬¼´°ÑµÚÒ»¸öÔªËØÔİÊ±±£´æÎª×îĞ¡Öµ
-  while (++__first != __last) //°´Ë³Ğò²éÕÒ×îĞ¡Öµ
-    if (*__first < *__result)//Èô´æÔÚ¸üĞ¡µÄÖµ
-      __result = __first;//Ôò¸üĞÂ×îĞ¡ÖµÎ»ÖÃ
-  return __result;//·µ»Ø×îĞ¡ÖµÎ»ÖÃ
+  if (__first == __last) return __first;//è‹¥ä¸ºç©ºï¼Œç›´æ¥è¿”å›
+  _ForwardIter __result = __first;//è‹¥ä¸ä¸ºç©ºï¼Œä»ç¬¬ä¸€ä¸ªå…ƒç´ å¼€å§‹ï¼Œå³æŠŠç¬¬ä¸€ä¸ªå…ƒç´ æš‚æ—¶ä¿å­˜ä¸ºæœ€å°å€¼
+  while (++__first != __last) //æŒ‰é¡ºåºæŸ¥æ‰¾æœ€å°å€¼
+    if (*__first < *__result)//è‹¥å­˜åœ¨æ›´å°çš„å€¼
+      __result = __first;//åˆ™æ›´æ–°æœ€å°å€¼ä½ç½®
+  return __result;//è¿”å›æœ€å°å€¼ä½ç½®
 }
-//°æ±¾¶ş
+//ç‰ˆæœ¬äºŒ
 template <class _ForwardIter, class _Compare>
 _ForwardIter min_element(_ForwardIter __first, _ForwardIter __last,
 			 _Compare __comp) {
@@ -4014,7 +4014,7 @@ _ForwardIter min_element(_ForwardIter __first, _ForwardIter __last,
       __result = __first;
   return __result;
 }
-//max_elementºÍmin_elementº¯Êı¾ÙÀı
+//max_elementå’Œmin_elementå‡½æ•°ä¸¾ä¾‹
 /*
 	#include <iostream>     // std::cout
 	#include <algorithm>    // std::min_element, std::max_element
@@ -4053,58 +4053,58 @@ _ForwardIter min_element(_ForwardIter __first, _ForwardIter __last,
 
 // next_permutation and prev_permutation, with and without an explicitly 
 // supplied comparison function.
-//next_permutation»ñÈ¡[first,last)Çø¼äËù±êÊ¾ĞòÁĞµÄÏÂÒ»¸öÅÅÁĞ×éºÏ£¬Èô¹ûÃ»ÓĞÏÂÒ»¸öÅÅĞò×éºÏ£¬Ôò·µ»Øfalse;·ñÔò·µ»Øtrue;
+//next_permutationè·å–[first,last)åŒºé—´æ‰€æ ‡ç¤ºåºåˆ—çš„ä¸‹ä¸€ä¸ªæ’åˆ—ç»„åˆï¼Œè‹¥æœæ²¡æœ‰ä¸‹ä¸€ä¸ªæ’åºç»„åˆï¼Œåˆ™è¿”å›false;å¦åˆ™è¿”å›true;
 /*
-º¯Êı¹¦ÄÜ£ºRearranges the elements in the range [first,last) into the next lexicographically greater permutation.
-º¯ÊıÔ­ĞÍ£º
-default (1)	£º°æ±¾Ò»²ÉÓÃless-than²Ù×÷·û
+å‡½æ•°åŠŸèƒ½ï¼šRearranges the elements in the range [first,last) into the next lexicographically greater permutation.
+å‡½æ•°åŸå‹ï¼š
+default (1)	ï¼šç‰ˆæœ¬ä¸€é‡‡ç”¨less-thanæ“ä½œç¬¦
 	template <class BidirectionalIterator>
 	bool next_permutation (BidirectionalIterator first,
                          BidirectionalIterator last);
-custom (2)	£º°æ±¾¶ş²ÉÓÃ·Âº¯Êıcomp¾ö¶¨
+custom (2)	ï¼šç‰ˆæœ¬äºŒé‡‡ç”¨ä»¿å‡½æ•°compå†³å®š
 	template <class BidirectionalIterator, class Compare>
 	bool next_permutation (BidirectionalIterator first,
                          BidirectionalIterator last, Compare comp);
 */
-//°æ±¾Ò»
+//ç‰ˆæœ¬ä¸€
 template <class _BidirectionalIter>
 bool next_permutation(_BidirectionalIter __first, _BidirectionalIter __last) {
   __STL_REQUIRES(_BidirectionalIter, _BidirectionalIterator);
   __STL_REQUIRES(typename iterator_traits<_BidirectionalIter>::value_type,
                  _LessThanComparable);
   if (__first == __last)
-    return false;//ÈôÎª¿Õ£¬Ôò·µ»Øfalse
+    return false;//è‹¥ä¸ºç©ºï¼Œåˆ™è¿”å›false
   _BidirectionalIter __i = __first;
   ++__i;
-  if (__i == __last)//Çø¼äÖ»ÓĞÒ»¸öÔªËØ
+  if (__i == __last)//åŒºé—´åªæœ‰ä¸€ä¸ªå…ƒç´ 
     return false;
-  //ÈôÇø¼äÔªËØ¸öÊı²»Ğ¡ÓÚÁ½¸ö
-  __i = __last;//iÖ¸ÏòÎ²¶Ë
-  --__i;//²»¶ÏºóÒÆ
+  //è‹¥åŒºé—´å…ƒç´ ä¸ªæ•°ä¸å°äºä¸¤ä¸ª
+  __i = __last;//iæŒ‡å‘å°¾ç«¯
+  --__i;//ä¸æ–­åç§»
 
   for(;;) {
-	  //ÏÂÃæÁ½ĞĞÊÇÈÃiiºÍi³ÉÎªÏàÁÚµÄÔªËØ
-	  //ÆäÖĞiÎªµÚÒ»¸öÔªËØ£¬iiÎªµÚ¶ş¸öÔªËØ
+	  //ä¸‹é¢ä¸¤è¡Œæ˜¯è®©iiå’Œiæˆä¸ºç›¸é‚»çš„å…ƒç´ 
+	  //å…¶ä¸­iä¸ºç¬¬ä¸€ä¸ªå…ƒç´ ï¼Œiiä¸ºç¬¬äºŒä¸ªå…ƒç´ 
     _BidirectionalIter __ii = __i;//
     --__i;
-	//ÒÔÏÂÔÚÏàÁÚÔªËØÅĞ¶Ï
-    if (*__i < *__ii) {//ÈôÇ°Ò»¸öÔªËØĞ¡ÓÚºóÒ»¸öÔªËØ£¬
-		//ÔòÔÙ´Ó×îÎ²¶Ë¿ªÊ¼ÍùÇ°¼ì²é£¬ÕÒ³öµÚÒ»¸ö´óÓÚ*iµÄÔªËØ£¬Áî¸ÃÔªËØÎª*j£¬½«*iºÍ*j½»»»
-		//ÔÙ½«iiÖ®ºóµÄËùÓĞÔªËØµßµ¹ÅÅĞò
-      _BidirectionalIter __j = __last;//ÁîjÖ¸Ïò×îÎ²¶Ë
-      while (!(*__i < *--__j))//ÓÉÎ²¶ËÍùÇ°¼ì²é£¬Ö±µ½Óöµ½±È*i´óµÄÔªËØ
+	//ä»¥ä¸‹åœ¨ç›¸é‚»å…ƒç´ åˆ¤æ–­
+    if (*__i < *__ii) {//è‹¥å‰ä¸€ä¸ªå…ƒç´ å°äºåä¸€ä¸ªå…ƒç´ ï¼Œ
+		//åˆ™å†ä»æœ€å°¾ç«¯å¼€å§‹å¾€å‰æ£€æŸ¥ï¼Œæ‰¾å‡ºç¬¬ä¸€ä¸ªå¤§äº*içš„å…ƒç´ ï¼Œä»¤è¯¥å…ƒç´ ä¸º*jï¼Œå°†*iå’Œ*jäº¤æ¢
+		//å†å°†iiä¹‹åçš„æ‰€æœ‰å…ƒç´ é¢ å€’æ’åº
+      _BidirectionalIter __j = __last;//ä»¤jæŒ‡å‘æœ€å°¾ç«¯
+      while (!(*__i < *--__j))//ç”±å°¾ç«¯å¾€å‰æ£€æŸ¥ï¼Œç›´åˆ°é‡åˆ°æ¯”*iå¤§çš„å…ƒç´ 
         {}
-      iter_swap(__i, __j);//½»»»µü´úÆ÷iºÍµü´úÆ÷jËùÖ¸µÄÔªËØ
-      reverse(__ii, __last);//½«iiÖ®ºóµÄÔªËØÈ«²¿ÄæÏòÖØÅÅ
+      iter_swap(__i, __j);//äº¤æ¢è¿­ä»£å™¨iå’Œè¿­ä»£å™¨jæ‰€æŒ‡çš„å…ƒç´ 
+      reverse(__ii, __last);//å°†iiä¹‹åçš„å…ƒç´ å…¨éƒ¨é€†å‘é‡æ’
       return true;
     }
-    if (__i == __first) {//½øĞĞµ½×îÇ°Ãæ
-      reverse(__first, __last);//Õû¸öÇø¼äÈ«²¿ÄæÏòÖØÅÅ
+    if (__i == __first) {//è¿›è¡Œåˆ°æœ€å‰é¢
+      reverse(__first, __last);//æ•´ä¸ªåŒºé—´å…¨éƒ¨é€†å‘é‡æ’
       return false;
     }
   }
 }
-//°æ±¾¶ş
+//ç‰ˆæœ¬äºŒ
 template <class _BidirectionalIter, class _Compare>
 bool next_permutation(_BidirectionalIter __first, _BidirectionalIter __last,
                       _Compare __comp) {
@@ -4138,7 +4138,7 @@ bool next_permutation(_BidirectionalIter __first, _BidirectionalIter __last,
     }
   }
 }
-//next_permutationº¯Êı¾ÙÀı£º
+//next_permutationå‡½æ•°ä¸¾ä¾‹ï¼š
 /*
 	#include <iostream>     // std::cout
 	#include <algorithm>    // std::next_permutation, std::sort
@@ -4187,58 +4187,58 @@ bool next_permutation(_BidirectionalIter __first, _BidirectionalIter __last,
 	After loop: 1 2 3 4
 */
 
-//prev_permutation»ñÈ¡[first,last)Çø¼äËù±êÊ¾ĞòÁĞµÄÉÏÒ»¸öÅÅÁĞ×éºÏ£¬Èô¹ûÃ»ÓĞÉÏÒ»¸öÅÅĞò×éºÏ£¬Ôò·µ»Øfalse;·ñÔò·µ»Øtrue;
+//prev_permutationè·å–[first,last)åŒºé—´æ‰€æ ‡ç¤ºåºåˆ—çš„ä¸Šä¸€ä¸ªæ’åˆ—ç»„åˆï¼Œè‹¥æœæ²¡æœ‰ä¸Šä¸€ä¸ªæ’åºç»„åˆï¼Œåˆ™è¿”å›false;å¦åˆ™è¿”å›true;
 /*
-º¯Êı¹¦ÄÜ£ºRearranges the elements in the range [first,last) into the previous lexicographically-ordered permutation.
-º¯ÊıÔ­ĞÍ£º
-default (1)	£º°æ±¾Ò»²ÉÓÃless-than²Ù×÷·û
+å‡½æ•°åŠŸèƒ½ï¼šRearranges the elements in the range [first,last) into the previous lexicographically-ordered permutation.
+å‡½æ•°åŸå‹ï¼š
+default (1)	ï¼šç‰ˆæœ¬ä¸€é‡‡ç”¨less-thanæ“ä½œç¬¦
 	template <class BidirectionalIterator>
 	bool prev_permutation (BidirectionalIterator first,
                          BidirectionalIterator last );
-custom (2)	£º°æ±¾¶ş²ÉÓÃ·Âº¯Êıcomp
+custom (2)	ï¼šç‰ˆæœ¬äºŒé‡‡ç”¨ä»¿å‡½æ•°comp
 	template <class BidirectionalIterator, class Compare>
 	bool prev_permutation (BidirectionalIterator first,
                          BidirectionalIterator last, Compare comp);
 */
-//°æ±¾Ò»
+//ç‰ˆæœ¬ä¸€
 template <class _BidirectionalIter>
 bool prev_permutation(_BidirectionalIter __first, _BidirectionalIter __last) {
   __STL_REQUIRES(_BidirectionalIter, _BidirectionalIterator);
   __STL_REQUIRES(typename iterator_traits<_BidirectionalIter>::value_type,
                  _LessThanComparable);
   if (__first == __last)
-    return false;//ÈôÇø¼äÎª¿Õ£¬·µ»Øfalse
+    return false;//è‹¥åŒºé—´ä¸ºç©ºï¼Œè¿”å›false
   _BidirectionalIter __i = __first;
   ++__i;
-  if (__i == __last)//Çø¼äÖ»ÓĞÒ»¸öÔªËØ
-    return false;//·µ»Øfalse
-  //ÈôÇø¼äÔªËØ¸öÊı²»Ğ¡ÓÚÁ½¸ö
+  if (__i == __last)//åŒºé—´åªæœ‰ä¸€ä¸ªå…ƒç´ 
+    return false;//è¿”å›false
+  //è‹¥åŒºé—´å…ƒç´ ä¸ªæ•°ä¸å°äºä¸¤ä¸ª
   __i = __last;
   --__i;
 
   for(;;) {
-	  //ÏÂÃæÁ½ĞĞÊÇÈÃiiºÍi³ÉÎªÏàÁÚµÄÔªËØ
-	  //ÆäÖĞiÎªµÚÒ»¸öÔªËØ£¬iiÎªµÚ¶ş¸öÔªËØ
+	  //ä¸‹é¢ä¸¤è¡Œæ˜¯è®©iiå’Œiæˆä¸ºç›¸é‚»çš„å…ƒç´ 
+	  //å…¶ä¸­iä¸ºç¬¬ä¸€ä¸ªå…ƒç´ ï¼Œiiä¸ºç¬¬äºŒä¸ªå…ƒç´ 
     _BidirectionalIter __ii = __i;
     --__i;
-	//ÒÔÏÂÔÚÏàÁÚÔªËØÅĞ¶Ï
-    if (*__ii < *__i) {//ÈôÇ°Ò»¸öÔªËØ´óÓÚºóÒ»¸öÔªËØ£¬
-		//ÔòÔÙ´Ó×îÎ²¶Ë¿ªÊ¼ÍùÇ°¼ì²é£¬ÕÒ³öµÚÒ»¸öĞ¡ÓÚ*iµÄÔªËØ£¬Áî¸ÃÔªËØÎª*j£¬½«*iºÍ*j½»»»
-		//ÔÙ½«iiÖ®ºóµÄËùÓĞÔªËØµßµ¹ÅÅĞò
-      _BidirectionalIter __j = __last;//ÁîjÖ¸Ïò×îÎ²¶Ë      
-      while (!(*--__j < *__i))//ÓÉÎ²¶ËÍùÇ°¼ì²é£¬Ö±µ½Óöµ½±È*iĞ¡µÄÔªËØ
+	//ä»¥ä¸‹åœ¨ç›¸é‚»å…ƒç´ åˆ¤æ–­
+    if (*__ii < *__i) {//è‹¥å‰ä¸€ä¸ªå…ƒç´ å¤§äºåä¸€ä¸ªå…ƒç´ ï¼Œ
+		//åˆ™å†ä»æœ€å°¾ç«¯å¼€å§‹å¾€å‰æ£€æŸ¥ï¼Œæ‰¾å‡ºç¬¬ä¸€ä¸ªå°äº*içš„å…ƒç´ ï¼Œä»¤è¯¥å…ƒç´ ä¸º*jï¼Œå°†*iå’Œ*jäº¤æ¢
+		//å†å°†iiä¹‹åçš„æ‰€æœ‰å…ƒç´ é¢ å€’æ’åº
+      _BidirectionalIter __j = __last;//ä»¤jæŒ‡å‘æœ€å°¾ç«¯      
+      while (!(*--__j < *__i))//ç”±å°¾ç«¯å¾€å‰æ£€æŸ¥ï¼Œç›´åˆ°é‡åˆ°æ¯”*iå°çš„å…ƒç´ 
         {}
-      iter_swap(__i, __j); //½»»»µü´úÆ÷iºÍµü´úÆ÷jËùÖ¸µÄÔªËØ
-      reverse(__ii, __last);//½«iiÖ®ºóµÄÔªËØÈ«²¿ÄæÏòÖØÅÅ
+      iter_swap(__i, __j); //äº¤æ¢è¿­ä»£å™¨iå’Œè¿­ä»£å™¨jæ‰€æŒ‡çš„å…ƒç´ 
+      reverse(__ii, __last);//å°†iiä¹‹åçš„å…ƒç´ å…¨éƒ¨é€†å‘é‡æ’
       return true;
     }
-    if (__i == __first) {//½øĞĞµ½×îÇ°Ãæ
-      reverse(__first, __last);//°ÑÇø¼äËùÓĞÔªËØÄæÏòÖØÅÅ
+    if (__i == __first) {//è¿›è¡Œåˆ°æœ€å‰é¢
+      reverse(__first, __last);//æŠŠåŒºé—´æ‰€æœ‰å…ƒç´ é€†å‘é‡æ’
       return false;
     }
   }
 }
-//°æ±¾¶ş
+//ç‰ˆæœ¬äºŒ
 template <class _BidirectionalIter, class _Compare>
 bool prev_permutation(_BidirectionalIter __first, _BidirectionalIter __last,
                       _Compare __comp) {
@@ -4272,7 +4272,7 @@ bool prev_permutation(_BidirectionalIter __first, _BidirectionalIter __last,
     }
   }
 }
-//prev_permutationº¯Êı¾ÙÀı
+//prev_permutationå‡½æ•°ä¸¾ä¾‹
 /*
 	#include <iostream>     // std::cout
 	#include <algorithm>    // std::next_permutation, std::sort, std::reverse
@@ -4304,25 +4304,25 @@ bool prev_permutation(_BidirectionalIter __first, _BidirectionalIter __last,
 */
 
 // find_first_of, with and without an explicitly supplied comparison function.
-//ÒÔ[first2,last2)Çø¼äÄÚµÄÄ³Ğ©ÔªËØÎª²éÕÒÄ¿±ê£¬Ñ°ÕÒËûÃÇÔÚ[first1,last1)Çø¼äÊ×´Î³öÏÖµÄÎ»ÖÃ
-//find_first_ofº¯ÊıÓĞÁ½¸ö°æ±¾£º
-//°æ±¾Ò»£ºÌá¹©Ä¬ÈÏµÄequality²Ù×÷operator==
-//°æ±¾¶ş£ºÌá¹©ÓÃ»§×ÔĞĞÖ¸¶¨µÄ²Ù×÷¹æÔòcomp
+//ä»¥[first2,last2)åŒºé—´å†…çš„æŸäº›å…ƒç´ ä¸ºæŸ¥æ‰¾ç›®æ ‡ï¼Œå¯»æ‰¾ä»–ä»¬åœ¨[first1,last1)åŒºé—´é¦–æ¬¡å‡ºç°çš„ä½ç½®
+//find_first_ofå‡½æ•°æœ‰ä¸¤ä¸ªç‰ˆæœ¬ï¼š
+//ç‰ˆæœ¬ä¸€ï¼šæä¾›é»˜è®¤çš„equalityæ“ä½œoperator==
+//ç‰ˆæœ¬äºŒï¼šæä¾›ç”¨æˆ·è‡ªè¡ŒæŒ‡å®šçš„æ“ä½œè§„åˆ™comp
 /*
-º¯Êı¹¦ÄÜ£ºReturns an iterator to the first element in the range [first1,last1) that matches any of the elements in [first2,last2). 
+å‡½æ•°åŠŸèƒ½ï¼šReturns an iterator to the first element in the range [first1,last1) that matches any of the elements in [first2,last2). 
 If no such element is found, the function returns last1.
-º¯ÊıÔ­ĞÍ£º
-equality (1)£º°æ±¾Ò»	
+å‡½æ•°åŸå‹ï¼š
+equality (1)ï¼šç‰ˆæœ¬ä¸€	
 	template <class ForwardIterator1, class ForwardIterator2>
 	ForwardIterator1 find_first_of (ForwardIterator1 first1, ForwardIterator1 last1,
                                    ForwardIterator2 first2, ForwardIterator2 last2);
-predicate (2)£º°æ±¾¶ş	
+predicate (2)ï¼šç‰ˆæœ¬äºŒ	
 	template <class ForwardIterator1, class ForwardIterator2, class BinaryPredicate>
 	ForwardIterator1 find_first_of (ForwardIterator1 first1, ForwardIterator1 last1,
                                    ForwardIterator2 first2, ForwardIterator2 last2,
                                    BinaryPredicate pred);
 */
-//°æ±¾Ò»£ºÌá¹©Ä¬ÈÏµÄequality²Ù×÷operator==
+//ç‰ˆæœ¬ä¸€ï¼šæä¾›é»˜è®¤çš„equalityæ“ä½œoperator==
 template <class _InputIter, class _ForwardIter>
 _InputIter find_first_of(_InputIter __first1, _InputIter __last1,
                          _ForwardIter __first2, _ForwardIter __last2)
@@ -4333,14 +4333,14 @@ _InputIter find_first_of(_InputIter __first1, _InputIter __last1,
      typename iterator_traits<_InputIter>::value_type,
      typename iterator_traits<_ForwardIter>::value_type);
 
-  for ( ; __first1 != __last1; ++__first1) //ÈôĞòÁĞÒ»²»Îª¿Õ£¬Ôò±éÀúĞòÁĞÒ»£¬Ã¿´ÎÖ¸¶¨Ò»¸öÔªËØ
-	  //ÒÔÏÂ£¬¸ù¾İĞòÁĞ¶şµÄÃ¿¸öÔªËØ
+  for ( ; __first1 != __last1; ++__first1) //è‹¥åºåˆ—ä¸€ä¸ä¸ºç©ºï¼Œåˆ™éå†åºåˆ—ä¸€ï¼Œæ¯æ¬¡æŒ‡å®šä¸€ä¸ªå…ƒç´ 
+	  //ä»¥ä¸‹ï¼Œæ ¹æ®åºåˆ—äºŒçš„æ¯ä¸ªå…ƒç´ 
     for (_ForwardIter __iter = __first2; __iter != __last2; ++__iter)
-      if (*__first1 == *__iter)//ÈôĞòÁĞÒ»µÄÔªËØµÈÓÚĞòÁĞ¶şµÄÔªËØ£¬Ôò±íÊ¾ÕÒµ½
-        return __first1;//·µ»ØÕÒµ½µÄÎ»ÖÃ
-  return __last1;//·ñÔòÃ»ÕÒµ½
+      if (*__first1 == *__iter)//è‹¥åºåˆ—ä¸€çš„å…ƒç´ ç­‰äºåºåˆ—äºŒçš„å…ƒç´ ï¼Œåˆ™è¡¨ç¤ºæ‰¾åˆ°
+        return __first1;//è¿”å›æ‰¾åˆ°çš„ä½ç½®
+  return __last1;//å¦åˆ™æ²¡æ‰¾åˆ°
 }
-//°æ±¾¶ş£ºÌá¹©ÓÃ»§×ÔĞĞÖ¸¶¨µÄ²Ù×÷¹æÔòcomp
+//ç‰ˆæœ¬äºŒï¼šæä¾›ç”¨æˆ·è‡ªè¡ŒæŒ‡å®šçš„æ“ä½œè§„åˆ™comp
 template <class _InputIter, class _ForwardIter, class _BinaryPredicate>
 _InputIter find_first_of(_InputIter __first1, _InputIter __last1,
                          _ForwardIter __first2, _ForwardIter __last2,
@@ -4358,7 +4358,7 @@ _InputIter find_first_of(_InputIter __first1, _InputIter __last1,
         return __first1;
   return __last1;
 }
-//find_first_ofº¯Êı¾ÙÀı£º
+//find_first_ofå‡½æ•°ä¸¾ä¾‹ï¼š
 /*
 	#include <iostream>     // std::cout
 	#include <algorithm>    // std::find_first_of
@@ -4402,33 +4402,33 @@ _InputIter find_first_of(_InputIter __first1, _InputIter __last1,
 // is much faster than for forward iterators.
 
 // find_end for forward iterators. 
-//ÈôİÍÈ¡³öÀ´µÄµü´úÆ÷ÀàĞÍÎªÕıÏòµü´úÆ÷forward_iterator_tag£¬Ôòµ÷ÓÃ´Ëº¯Êı
+//è‹¥èƒå–å‡ºæ¥çš„è¿­ä»£å™¨ç±»å‹ä¸ºæ­£å‘è¿­ä»£å™¨forward_iterator_tagï¼Œåˆ™è°ƒç”¨æ­¤å‡½æ•°
 template <class _ForwardIter1, class _ForwardIter2>
 _ForwardIter1 __find_end(_ForwardIter1 __first1, _ForwardIter1 __last1,
                          _ForwardIter2 __first2, _ForwardIter2 __last2,
                          forward_iterator_tag, forward_iterator_tag)
 {
-  if (__first2 == __last2)//ÈôµÚ¶ş¸öÇø¼äÎª¿Õ
-    return __last1;//ÔòÖ±½Ó·µ»ØµÚÒ»¸öÇø¼äµÄÎ²¶Ë
+  if (__first2 == __last2)//è‹¥ç¬¬äºŒä¸ªåŒºé—´ä¸ºç©º
+    return __last1;//åˆ™ç›´æ¥è¿”å›ç¬¬ä¸€ä¸ªåŒºé—´çš„å°¾ç«¯
   else {
     _ForwardIter1 __result = __last1;
     while (1) {
-		//ÒÔÏÂÀûÓÃsearchº¯Êı²éÕÒ³öÄ³¸ö×ÓĞòÁĞµÄÊ×´Î³öÏÖµã£»ÈôÕÒ²»µ½Ö±½Ó·µ»Ølast1
+		//ä»¥ä¸‹åˆ©ç”¨searchå‡½æ•°æŸ¥æ‰¾å‡ºæŸä¸ªå­åºåˆ—çš„é¦–æ¬¡å‡ºç°ç‚¹ï¼›è‹¥æ‰¾ä¸åˆ°ç›´æ¥è¿”å›last1
       _ForwardIter1 __new_result
 
         = search(__first1, __last1, __first2, __last2);
-      if (__new_result == __last1)//Èô·µ»ØµÄÎ»ÖÃÎªÎ²¶Ë£¬Ôò±íÊ¾Ã»ÕÒµ½
-        return __result;//·µ»Ølast1
-      else {//ÈôÔÚ[first1,last1)ÖĞÕÒµ½[first2,last2)Ê×´Î³öÏÖµÄÎ»ÖÃ£¬¼ÌĞø×¼±¸ÏÂÒ»´Î²éÕÒ
+      if (__new_result == __last1)//è‹¥è¿”å›çš„ä½ç½®ä¸ºå°¾ç«¯ï¼Œåˆ™è¡¨ç¤ºæ²¡æ‰¾åˆ°
+        return __result;//è¿”å›last1
+      else {//è‹¥åœ¨[first1,last1)ä¸­æ‰¾åˆ°[first2,last2)é¦–æ¬¡å‡ºç°çš„ä½ç½®ï¼Œç»§ç»­å‡†å¤‡ä¸‹ä¸€æ¬¡æŸ¥æ‰¾
 		  
-        __result = __new_result;//¸üĞÂ·µ»ØµÄÎ»ÖÃ
-        __first1 = __new_result;//¸üĞÂ²éÕÒµÄÆğÊ¼Î»ÖÃ
-        ++__first1;//È·¶¨ÕıÈ·²éÕÒÆğÊ¼Î»ÖÃ
+        __result = __new_result;//æ›´æ–°è¿”å›çš„ä½ç½®
+        __first1 = __new_result;//æ›´æ–°æŸ¥æ‰¾çš„èµ·å§‹ä½ç½®
+        ++__first1;//ç¡®å®šæ­£ç¡®æŸ¥æ‰¾èµ·å§‹ä½ç½®
       }
     }
   }
 }
-//°æ±¾¶ş£ºÖ¸¶¨¹æÔò
+//ç‰ˆæœ¬äºŒï¼šæŒ‡å®šè§„åˆ™
 template <class _ForwardIter1, class _ForwardIter2,
           class _BinaryPredicate>
 _ForwardIter1 __find_end(_ForwardIter1 __first1, _ForwardIter1 __last1,
@@ -4456,7 +4456,7 @@ _ForwardIter1 __find_end(_ForwardIter1 __first1, _ForwardIter1 __last1,
 
 // find_end for bidirectional iterators.  Requires partial specialization.
 #ifdef __STL_CLASS_PARTIAL_SPECIALIZATION
-//ÈôİÍÈ¡³öÀ´µÄµü´úÆ÷ÀàĞÍÎªË«Ïòµü´úÆ÷bidirectional_iterator_tag£¬Ôòµ÷ÓÃ´Ëº¯Êı
+//è‹¥èƒå–å‡ºæ¥çš„è¿­ä»£å™¨ç±»å‹ä¸ºåŒå‘è¿­ä»£å™¨bidirectional_iterator_tagï¼Œåˆ™è°ƒç”¨æ­¤å‡½æ•°
 template <class _BidirectionalIter1, class _BidirectionalIter2>
 _BidirectionalIter1
 __find_end(_BidirectionalIter1 __first1, _BidirectionalIter1 __last1,
@@ -4465,25 +4465,25 @@ __find_end(_BidirectionalIter1 __first1, _BidirectionalIter1 __last1,
 {
   __STL_REQUIRES(_BidirectionalIter1, _BidirectionalIterator);
   __STL_REQUIRES(_BidirectionalIter2, _BidirectionalIterator);
-  //ÀûÓÃ·´Ïòµü´úÆ÷ºÜ¿ì¾Í¿ÉÒÔÕÒµ½
+  //åˆ©ç”¨åå‘è¿­ä»£å™¨å¾ˆå¿«å°±å¯ä»¥æ‰¾åˆ°
   typedef reverse_iterator<_BidirectionalIter1> _RevIter1;
   typedef reverse_iterator<_BidirectionalIter2> _RevIter2;
 
   _RevIter1 __rlast1(__first1);
   _RevIter2 __rlast2(__first2);
-  //²éÕÒÊ±½«ĞòÁĞÒ»ºÍĞòÁĞ¶şÄæ·½Ïò
+  //æŸ¥æ‰¾æ—¶å°†åºåˆ—ä¸€å’Œåºåˆ—äºŒé€†æ–¹å‘
   _RevIter1 __rresult = search(_RevIter1(__last1), __rlast1,
                                _RevIter2(__last2), __rlast2);
 
-  if (__rresult == __rlast1)//±íÊ¾Ã»ÕÒµ½
+  if (__rresult == __rlast1)//è¡¨ç¤ºæ²¡æ‰¾åˆ°
     return __last1;
-  else {//ÕÒµ½ÁË
-    _BidirectionalIter1 __result = __rresult.base();//×ª»áÕı³£µü´úÆ÷
-    advance(__result, -distance(__first2, __last2));//µ÷Õû»Øµ½×ÓĞòÁĞµÄÆğÊ¼Î»ÖÃ
+  else {//æ‰¾åˆ°äº†
+    _BidirectionalIter1 __result = __rresult.base();//è½¬ä¼šæ­£å¸¸è¿­ä»£å™¨
+    advance(__result, -distance(__first2, __last2));//è°ƒæ•´å›åˆ°å­åºåˆ—çš„èµ·å§‹ä½ç½®
     return __result;
   }
 }
-//°æ±¾¶ş£ºÖ¸¶¨¹æÔòcomp
+//ç‰ˆæœ¬äºŒï¼šæŒ‡å®šè§„åˆ™comp
 template <class _BidirectionalIter1, class _BidirectionalIter2,
           class _BinaryPredicate>
 _BidirectionalIter1
@@ -4514,24 +4514,24 @@ __find_end(_BidirectionalIter1 __first1, _BidirectionalIter1 __last1,
 #endif /* __STL_CLASS_PARTIAL_SPECIALIZATION */
 
 // Dispatching functions for find_end.
-//find_endº¯ÊıÓĞÁ½¸ö°æ±¾£º
-//°æ±¾Ò»£ºÌá¹©Ä¬ÈÏµÄequality²Ù×÷operator==
-//°æ±¾¶ş£ºÌá¹©ÓÃ»§×ÔĞĞÖ¸¶¨µÄ²Ù×÷¹æÔòcomp
-//×¢Òâ£ºÕâÀïÒ²ÓĞÆ«ÌØ»¯µÄÖªÊ¶
-/*º¯Êı¹¦ÄÜ£ºSearches the range [first1,last1) for the last occurrence of the sequence defined by [first2,last2), 
+//find_endå‡½æ•°æœ‰ä¸¤ä¸ªç‰ˆæœ¬ï¼š
+//ç‰ˆæœ¬ä¸€ï¼šæä¾›é»˜è®¤çš„equalityæ“ä½œoperator==
+//ç‰ˆæœ¬äºŒï¼šæä¾›ç”¨æˆ·è‡ªè¡ŒæŒ‡å®šçš„æ“ä½œè§„åˆ™comp
+//æ³¨æ„ï¼šè¿™é‡Œä¹Ÿæœ‰åç‰¹åŒ–çš„çŸ¥è¯†
+/*å‡½æ•°åŠŸèƒ½ï¼šSearches the range [first1,last1) for the last occurrence of the sequence defined by [first2,last2), 
 and returns an iterator to its first element, or last1 if no occurrences are found.
-º¯ÊıÔ­ĞÍ£º
-equality (1)£º°æ±¾Ò»	
+å‡½æ•°åŸå‹ï¼š
+equality (1)ï¼šç‰ˆæœ¬ä¸€	
 	template <class ForwardIterator1, class ForwardIterator2>
 	ForwardIterator1 find_end (ForwardIterator1 first1, ForwardIterator1 last1,
                               ForwardIterator2 first2, ForwardIterator2 last2);
-predicate (2)£º°æ±¾¶ş
+predicate (2)ï¼šç‰ˆæœ¬äºŒ
 	template <class ForwardIterator1, class ForwardIterator2, class BinaryPredicate>
 	ForwardIterator1 find_end (ForwardIterator1 first1, ForwardIterator1 last1,
                               ForwardIterator2 first2, ForwardIterator2 last2,
                               BinaryPredicate pred);
 */
-//¶ÔÍâ½Ó¿ÚµÄ°æ±¾Ò»
+//å¯¹å¤–æ¥å£çš„ç‰ˆæœ¬ä¸€
 template <class _ForwardIter1, class _ForwardIter2>
 inline _ForwardIter1 
 find_end(_ForwardIter1 __first1, _ForwardIter1 __last1, 
@@ -4542,13 +4542,13 @@ find_end(_ForwardIter1 __first1, _ForwardIter1 __last1,
   __STL_REQUIRES_BINARY_OP(_OP_EQUAL, bool,
    typename iterator_traits<_ForwardIter1>::value_type,
    typename iterator_traits<_ForwardIter2>::value_type);
-  //Ê×ÏÈÍ¨¹ıiterator_traitsİÍÈ¡³öfirst1ºÍfirst2µÄµü´úÆ÷ÀàĞÍ
-  //¸ù¾İ²»Í¬µÄµü´úÆ÷ÀàĞÍµ÷ÓÃ²»Í¬µÄº¯Êı
+  //é¦–å…ˆé€šè¿‡iterator_traitsèƒå–å‡ºfirst1å’Œfirst2çš„è¿­ä»£å™¨ç±»å‹
+  //æ ¹æ®ä¸åŒçš„è¿­ä»£å™¨ç±»å‹è°ƒç”¨ä¸åŒçš„å‡½æ•°
   return __find_end(__first1, __last1, __first2, __last2,
                     __ITERATOR_CATEGORY(__first1),
                     __ITERATOR_CATEGORY(__first2));
 }
-//¶ÔÍâ½Ó¿ÚµÄ°æ±¾Ò»
+//å¯¹å¤–æ¥å£çš„ç‰ˆæœ¬ä¸€
 template <class _ForwardIter1, class _ForwardIter2, 
           class _BinaryPredicate>
 inline _ForwardIter1 
@@ -4561,14 +4561,14 @@ find_end(_ForwardIter1 __first1, _ForwardIter1 __last1,
   __STL_BINARY_FUNCTION_CHECK(_BinaryPredicate, bool,
    typename iterator_traits<_ForwardIter1>::value_type,
    typename iterator_traits<_ForwardIter2>::value_type);
-  //Ê×ÏÈÍ¨¹ıiterator_traitsİÍÈ¡³öfirst1ºÍfirst2µÄµü´úÆ÷ÀàĞÍ
-  //¸ù¾İ²»Í¬µÄµü´úÆ÷ÀàĞÍµ÷ÓÃ²»Í¬µÄº¯Êı
+  //é¦–å…ˆé€šè¿‡iterator_traitsèƒå–å‡ºfirst1å’Œfirst2çš„è¿­ä»£å™¨ç±»å‹
+  //æ ¹æ®ä¸åŒçš„è¿­ä»£å™¨ç±»å‹è°ƒç”¨ä¸åŒçš„å‡½æ•°
   return __find_end(__first1, __last1, __first2, __last2,
                     __ITERATOR_CATEGORY(__first1),
                     __ITERATOR_CATEGORY(__first2),
                     __comp);
 }
-//find_endº¯Êı¾ÙÀı£º
+//find_endå‡½æ•°ä¸¾ä¾‹ï¼š
 /*
 	#include <iostream>     // std::cout
 	#include <algorithm>    // std::find_end

@@ -4,10 +4,10 @@
 // Hashtable class, used to implement the hashed associative containers
 // hash_set, hash_map, hash_multiset, and hash_multimap.
 
-//SGI STLµÄhashtableµÄÊµÏÖ·½·¨ÊÇÀ­Á´·¨.
-//À­Á´·¨¿ÉÒÔ±ÜÃâhashtableµÄ³åÍ»ÎÊÌâ,¼´²»Í¬Êı¾İÓ³Éäµ½Í¬Ò»µÄhashÖµ
+//SGI STLçš„hashtableçš„å®ç°æ–¹æ³•æ˜¯æ‹‰é“¾æ³•.
+//æ‹‰é“¾æ³•å¯ä»¥é¿å…hashtableçš„å†²çªé—®é¢˜,å³ä¸åŒæ•°æ®æ˜ å°„åˆ°åŒä¸€çš„hashå€¼
 
-//ÓĞ¹ØhashtableµÄ½éÉÜ¼ûÇ°ÎÄ:
+//æœ‰å…³hashtableçš„ä»‹ç»è§å‰æ–‡:
 //http://blog.csdn.net/chenhanzhun/article/details/38091431
 
 #include <stl_algobase.h>
@@ -22,16 +22,16 @@
 
 __STL_BEGIN_NAMESPACE
 
-//hashtableÖĞÁ´±íµÄ½Úµã½á¹¹
-//ÀàËÆÓÚµ¥Á´±íµÄ½Úµã½á¹¹
+//hashtableä¸­é“¾è¡¨çš„èŠ‚ç‚¹ç»“æ„
+//ç±»ä¼¼äºå•é“¾è¡¨çš„èŠ‚ç‚¹ç»“æ„
 template <class _Val>
 struct _Hashtable_node
 {
-  _Hashtable_node* _M_next;//Ö¸ÏòÏÂÒ»½Úµã
-  _Val _M_val;//½ÚµãÔªËØÖµ
+  _Hashtable_node* _M_next;//æŒ‡å‘ä¸‹ä¸€èŠ‚ç‚¹
+  _Val _M_val;//èŠ‚ç‚¹å…ƒç´ å€¼
 };  
 
-//ÕâÀïÊ¹ÓÃÇ°ÖÃÉùÃ÷, ±ÜÃâÔÚºóÃæ½»²æÒıÓÃ»áµ¼ÖÂ±àÒë´íÎó
+//è¿™é‡Œä½¿ç”¨å‰ç½®å£°æ˜, é¿å…åœ¨åé¢äº¤å‰å¼•ç”¨ä¼šå¯¼è‡´ç¼–è¯‘é”™è¯¯
 template <class _Val, class _Key, class _HashFcn,
           class _ExtractKey, class _EqualKey, class _Alloc = alloc>
 class hashtable;
@@ -44,13 +44,13 @@ template <class _Val, class _Key, class _HashFcn,
           class _ExtractKey, class _EqualKey, class _Alloc>
 struct _Hashtable_const_iterator;
 
-//hashtableµü´úÆ÷¶¨Òå
-//×¢Òâ£ºhash tableµü´úÆ÷Ã»ÓĞÌá¹©ºóÍË²Ù×÷operator--
-//Ò²Ã»ÓÃÌá¹©ÄæÏòµü´úÆ÷reverse iterator
+//hashtableè¿­ä»£å™¨å®šä¹‰
+//æ³¨æ„ï¼šhash tableè¿­ä»£å™¨æ²¡æœ‰æä¾›åé€€æ“ä½œoperator--
+//ä¹Ÿæ²¡ç”¨æä¾›é€†å‘è¿­ä»£å™¨reverse iterator
 template <class _Val, class _Key, class _HashFcn,
           class _ExtractKey, class _EqualKey, class _Alloc>
 struct _Hashtable_iterator {
-	//ÄÚÇ¶ÀàĞÍ±ğÃû
+	//å†…åµŒç±»å‹åˆ«å
   typedef hashtable<_Val,_Key,_HashFcn,_ExtractKey,_EqualKey,_Alloc>
           _Hashtable;
   typedef _Hashtable_iterator<_Val, _Key, _HashFcn, 
@@ -61,28 +61,28 @@ struct _Hashtable_iterator {
           const_iterator;
   typedef _Hashtable_node<_Val> _Node;
 
-  typedef forward_iterator_tag iterator_category;//²ÉÓÃÕıÏòµü´úÆ÷
+  typedef forward_iterator_tag iterator_category;//é‡‡ç”¨æ­£å‘è¿­ä»£å™¨
   typedef _Val value_type;
   typedef ptrdiff_t difference_type;
   typedef size_t size_type;
   typedef _Val& reference;
   typedef _Val* pointer;
 
-  _Node* _M_cur;//µ±Ç°µü´úÆ÷ËùÖ¸Î»ÖÃ
-  _Hashtable* _M_ht;//hashtableÖĞµÄÎ»ÖÃ,¿ØÖÆ·ÃÎÊÍ°×ÓÁ¬ĞøĞÔ
+  _Node* _M_cur;//å½“å‰è¿­ä»£å™¨æ‰€æŒ‡ä½ç½®
+  _Hashtable* _M_ht;//hashtableä¸­çš„ä½ç½®,æ§åˆ¶è®¿é—®æ¡¶å­è¿ç»­æ€§
 
   _Hashtable_iterator(_Node* __n, _Hashtable* __tab) 
     : _M_cur(__n), _M_ht(__tab) {}
   _Hashtable_iterator() {}
-  //·µ»Øµ±Ç°½ÚµãÔªËØÖµµÄÒıÓÃ
+  //è¿”å›å½“å‰èŠ‚ç‚¹å…ƒç´ å€¼çš„å¼•ç”¨
   reference operator*() const { return _M_cur->_M_val; }
 #ifndef __SGI_STL_NO_ARROW_OPERATOR
   pointer operator->() const { return &(operator*()); }
 #endif /* __SGI_STL_NO_ARROW_OPERATOR */
-  //²Ù×÷·ûÖØÔØ¶¨ÒåÔÚºóÃæ¶¨Òå
+  //æ“ä½œç¬¦é‡è½½å®šä¹‰åœ¨åé¢å®šä¹‰
   iterator& operator++();
   iterator operator++(int);
-  //±È½ÏÁ½¸öµü´úÆ÷ÊÇ·ñÖ¸ÏòÍ¬Ò»¸ö½Úµã
+  //æ¯”è¾ƒä¸¤ä¸ªè¿­ä»£å™¨æ˜¯å¦æŒ‡å‘åŒä¸€ä¸ªèŠ‚ç‚¹
   bool operator==(const iterator& __it) const
     { return _M_cur == __it._M_cur; }
   bool operator!=(const iterator& __it) const
@@ -90,7 +90,7 @@ struct _Hashtable_iterator {
 };
 
 
-//ÏÂÃæÊÇconst iteratorµÄ¶¨Òå£¬»ù±¾ºÍÉÏÃæÏàÍ¬
+//ä¸‹é¢æ˜¯const iteratorçš„å®šä¹‰ï¼ŒåŸºæœ¬å’Œä¸Šé¢ç›¸åŒ
 template <class _Val, class _Key, class _HashFcn,
           class _ExtractKey, class _EqualKey, class _Alloc>
 struct _Hashtable_const_iterator {
@@ -132,8 +132,8 @@ struct _Hashtable_const_iterator {
 };
 
 // Note: assumes long is at least 32 bits.
-// ×¢Òâ£º¼ÙÉèlongÖÁÉÙÎª32-bits, ¿ÉÒÔ¸ù¾İ×Ô¼ºĞèÒªĞŞ¸Ä
-//¶¨Òå28¸öËØÊıÓÃ×÷hashtableµÄ´óĞ¡ 
+// æ³¨æ„ï¼šå‡è®¾longè‡³å°‘ä¸º32-bits, å¯ä»¥æ ¹æ®è‡ªå·±éœ€è¦ä¿®æ”¹
+//å®šä¹‰28ä¸ªç´ æ•°ç”¨ä½œhashtableçš„å¤§å° 
 enum { __stl_num_primes = 28 };
 
 static const unsigned long __stl_prime_list[__stl_num_primes] =
@@ -146,32 +146,32 @@ static const unsigned long __stl_prime_list[__stl_num_primes] =
   1610612741ul, 3221225473ul, 4294967291ul
 };
 
-//·µ»Ø´óÓÚnµÄ×îĞ¡ËØÊı
+//è¿”å›å¤§äºnçš„æœ€å°ç´ æ•°
 inline unsigned long __stl_next_prime(unsigned long __n)
 {
   const unsigned long* __first = __stl_prime_list;
   const unsigned long* __last = __stl_prime_list + (int)__stl_num_primes;
   const unsigned long* pos = lower_bound(__first, __last, __n);
   /*
-  ÉÏÃæµÄlower_boundµ÷ÓÃµÄÊÇSTLÖĞµÄËã·¨lower_bound();
+  ä¸Šé¢çš„lower_boundè°ƒç”¨çš„æ˜¯STLä¸­çš„ç®—æ³•lower_bound();
 
-  ¸ÃËã·¨µÄ¹¦ÄÜ£º
+  è¯¥ç®—æ³•çš„åŠŸèƒ½ï¼š
   Returns an iterator pointing to the first element in the range [first,last) which does not compare less than val.
   The elements in the range shall already be sorted according to this same criterion (operator< or comp)
-  ¼´·µ»ØÔÚ[first,last)·¶Î§ÄÚµÚÒ»¸ö²»Ğ¡ÓÚvalµÄÎ»ÖÃ
-  ×¢Òâ£ºµ÷ÓÃ¸ÃËã·¨Ö®Ç°£¬[first,last)·¶Î§ÀïÃæµÄÔªËØ±ØĞëÒÑÅÅĞò
+  å³è¿”å›åœ¨[first,last)èŒƒå›´å†…ç¬¬ä¸€ä¸ªä¸å°äºvalçš„ä½ç½®
+  æ³¨æ„ï¼šè°ƒç”¨è¯¥ç®—æ³•ä¹‹å‰ï¼Œ[first,last)èŒƒå›´é‡Œé¢çš„å…ƒç´ å¿…é¡»å·²æ’åº
 
-  ¸ÃËã·¨µÄÔ­ĞÍÈçÏÂ£º
-  µÚÒ»¸ö°æ±¾£º²ÉÓÃÄ¬ÈÏ±È½Ï×¼Ôòoperator<
+  è¯¥ç®—æ³•çš„åŸå‹å¦‚ä¸‹ï¼š
+  ç¬¬ä¸€ä¸ªç‰ˆæœ¬ï¼šé‡‡ç”¨é»˜è®¤æ¯”è¾ƒå‡†åˆ™operator<
 	template <class ForwardIterator, class T>
 	ForwardIterator lower_bound (ForwardIterator first, ForwardIterator last,
                                const T& val);
-  µÚ¶ş°æ±¾£º²ÉÓÃÓÃ»§Ö¸¶¨µÄ±È½Ïº¯Êıcomp
+  ç¬¬äºŒç‰ˆæœ¬ï¼šé‡‡ç”¨ç”¨æˆ·æŒ‡å®šçš„æ¯”è¾ƒå‡½æ•°comp
 	template <class ForwardIterator, class T, class Compare>
 	ForwardIterator lower_bound (ForwardIterator first, ForwardIterator last,
                                const T& val, Compare comp);
 
-	ÆäÊµ¸ÃËã·¨µÄÊµÏÖ»úÖÆÊ¹ÓÃ¶ş·Ö²éÕÒ·¨½øĞĞ²éÕÒÔªËØval£º
+	å…¶å®è¯¥ç®—æ³•çš„å®ç°æœºåˆ¶ä½¿ç”¨äºŒåˆ†æŸ¥æ‰¾æ³•è¿›è¡ŒæŸ¥æ‰¾å…ƒç´ valï¼š
 	template <class ForwardIterator, class T>
 	ForwardIterator lower_bound (ForwardIterator first, ForwardIterator last, const T& val)
 	{
@@ -189,7 +189,7 @@ inline unsigned long __stl_next_prime(unsigned long __n)
 	  }
 	  return first;
 	}
-	ÏÂÃæ¸ø³öÀı×Ó£ºlower_bound/upper_bound example
+	ä¸‹é¢ç»™å‡ºä¾‹å­ï¼šlower_bound/upper_bound example
 	#include <iostream>     // std::cout
 	#include <algorithm>    // std::lower_bound, std::upper_bound, std::sort
 	#include <vector>       // std::vector
@@ -234,17 +234,17 @@ bool operator==(const hashtable<_Val,_Key,_HF,_Ex,_Eq,_All>& __ht1,
 //  Additionally, a base class wouldn't serve any other purposes; it 
 //  wouldn't, for example, simplify the exception-handling code.
 
-//hash tableµÄ¶¨Òå
-//Ä£°å²ÎÊı¶¨Òå
+//hash tableçš„å®šä¹‰
+//æ¨¡æ¿å‚æ•°å®šä¹‰
 /* 
-Value£º ½ÚµãµÄÊµÖµÀàĞÍ 
-Key£º   ½ÚµãµÄ¼üÖµÀàĞÍ 
-HashFcn£º hash functionµÄÀàĞÍ 
-ExtractKey£º´Ó½ÚµãÖĞÈ¡³ö¼üÖµµÄ·½·¨£¨º¯Êı»ò·Âº¯Êı£© 
-EqualKey£ºÅĞ¶Ï¼üÖµÊÇ·ñÏàÍ¬µÄ·½·¨£¨º¯Êı»ò·Âº¯Êı£© 
-Alloc£º¿Õ¼äÅäÖÃÆ÷
+Valueï¼š èŠ‚ç‚¹çš„å®å€¼ç±»å‹ 
+Keyï¼š   èŠ‚ç‚¹çš„é”®å€¼ç±»å‹ 
+HashFcnï¼š hash functionçš„ç±»å‹ 
+ExtractKeyï¼šä»èŠ‚ç‚¹ä¸­å–å‡ºé”®å€¼çš„æ–¹æ³•ï¼ˆå‡½æ•°æˆ–ä»¿å‡½æ•°ï¼‰ 
+EqualKeyï¼šåˆ¤æ–­é”®å€¼æ˜¯å¦ç›¸åŒçš„æ–¹æ³•ï¼ˆå‡½æ•°æˆ–ä»¿å‡½æ•°ï¼‰ 
+Allocï¼šç©ºé—´é…ç½®å™¨
 */ 
-//hash tableµÄÏßĞÔ±íÊÇÓÃvectorÈİÆ÷Î¬»¤
+//hash tableçš„çº¿æ€§è¡¨æ˜¯ç”¨vectorå®¹å™¨ç»´æŠ¤
 template <class _Val, class _Key, class _HashFcn,
           class _ExtractKey, class _EqualKey, class _Alloc>
 class hashtable {
@@ -287,13 +287,13 @@ private:
 # define __HASH_ALLOC_INIT(__a)
 #endif /* __STL_USE_STD_ALLOCATORS */
 
-//ÒÔÏÂÊÇhash tableµÄ³ÉÔ±±äÁ¿
+//ä»¥ä¸‹æ˜¯hash tableçš„æˆå‘˜å˜é‡
 private:
   hasher                _M_hash;
   key_equal             _M_equals;
   _ExtractKey           _M_get_key;
-  vector<_Node*,_Alloc> _M_buckets;//ÓÃvectorÎ¬»¤buckets
-  size_type             _M_num_elements;//hashtableÖĞlist½Úµã¸öÊı
+  vector<_Node*,_Alloc> _M_buckets;//ç”¨vectorç»´æŠ¤buckets
+  size_type             _M_num_elements;//hashtableä¸­listèŠ‚ç‚¹ä¸ªæ•°
 
 public:
   typedef _Hashtable_iterator<_Val,_Key,_HashFcn,_ExtractKey,_EqualKey,_Alloc>
@@ -308,7 +308,7 @@ public:
   _Hashtable_const_iterator<_Val,_Key,_HashFcn,_ExtractKey,_EqualKey,_Alloc>;
 
 public:
-	//¹¹Ôìº¯Êı
+	//æ„é€ å‡½æ•°
   hashtable(size_type __n,
             const _HashFcn&    __hf,
             const _EqualKey&   __eql,
@@ -321,8 +321,8 @@ public:
       _M_buckets(__a),
       _M_num_elements(0)
   {
-    _M_initialize_buckets(__n);//Ô¤Áô¿Õ¼ä,²¢½«Æä³õÊ¼»¯Îª¿Õ0
-	//Ô¤Áô¿Õ¼ä´óĞ¡Îª´óÓÚnµÄ×îĞ¡ËØÊı
+    _M_initialize_buckets(__n);//é¢„ç•™ç©ºé—´,å¹¶å°†å…¶åˆå§‹åŒ–ä¸ºç©º0
+	//é¢„ç•™ç©ºé—´å¤§å°ä¸ºå¤§äºnçš„æœ€å°ç´ æ•°
   }
 
   hashtable(size_type __n,
@@ -339,7 +339,7 @@ public:
     _M_initialize_buckets(__n);
   }
 
-  //¿½±´¹¹Ôìº¯Êı
+  //æ‹·è´æ„é€ å‡½æ•°
   hashtable(const hashtable& __ht)
     : __HASH_ALLOC_INIT(__ht.get_allocator())
       _M_hash(__ht._M_hash),
@@ -348,12 +348,12 @@ public:
       _M_buckets(__ht.get_allocator()),
       _M_num_elements(0)
   {
-    _M_copy_from(__ht);//¸´ÖÆhashtableÄÚÈİ
+    _M_copy_from(__ht);//å¤åˆ¶hashtableå†…å®¹
   }
 
 #undef __HASH_ALLOC_INIT
 
-  //¿ÉÒÔÍ¨¹ıoperator=³õÊ¼»¯hashtable¶ÔÏó
+  //å¯ä»¥é€šè¿‡operator=åˆå§‹åŒ–hashtableå¯¹è±¡
   hashtable& operator= (const hashtable& __ht)
   {
     if (&__ht != this) {
@@ -368,12 +368,12 @@ public:
 
   ~hashtable() { clear(); }
 
-  //·µ»ØhashtableÔªËØµÄ¸öÊı
+  //è¿”å›hashtableå…ƒç´ çš„ä¸ªæ•°
   size_type size() const { return _M_num_elements; }
   size_type max_size() const { return size_type(-1); }
   bool empty() const { return size() == 0; }
 
-  //½»»»Á½¸öhashtableµÄÄÚÈİ
+  //äº¤æ¢ä¸¤ä¸ªhashtableçš„å†…å®¹
   void swap(hashtable& __ht)
   {
     __STD::swap(_M_hash, __ht._M_hash);
@@ -386,12 +386,12 @@ public:
   iterator begin()
   { 
     for (size_type __n = 0; __n < _M_buckets.size(); ++__n)
-      if (_M_buckets[__n])//ÈôhashtableÖĞµÄÍ°×Ó_M_bucketsÓĞÁ´±ílist
-        return iterator(_M_buckets[__n], this);//·µ»ØÁ´±íµÄµÚÒ»¸ö½ÚµãÎ»ÖÃ
-    return end();//ÈôlistÁ´±íÎª¿Õ,Ôò·µ»ØÎ²¶Ëend(),ÆäÊµÕâÀïÎ²¶ËºÍÆğÊ¼¶ËÒ»Ñù
+      if (_M_buckets[__n])//è‹¥hashtableä¸­çš„æ¡¶å­_M_bucketsæœ‰é“¾è¡¨list
+        return iterator(_M_buckets[__n], this);//è¿”å›é“¾è¡¨çš„ç¬¬ä¸€ä¸ªèŠ‚ç‚¹ä½ç½®
+    return end();//è‹¥listé“¾è¡¨ä¸ºç©º,åˆ™è¿”å›å°¾ç«¯end(),å…¶å®è¿™é‡Œå°¾ç«¯å’Œèµ·å§‹ç«¯ä¸€æ ·
   }
 
-  iterator end() { return iterator(0, this); }//·µ»ØÍ°×ÓlistÁ´±íµÄnullÖ¸Õë,¼´Î²¶Ë
+  iterator end() { return iterator(0, this); }//è¿”å›æ¡¶å­listé“¾è¡¨çš„nullæŒ‡é’ˆ,å³å°¾ç«¯
 
   const_iterator begin() const
   {
@@ -414,14 +414,14 @@ public:
 
 public:
 
-  //·µ»ØÍ°×Ó¸öÊı,¼´ÏßĞÔ±íÖĞ½ÚµãÊı
+  //è¿”å›æ¡¶å­ä¸ªæ•°,å³çº¿æ€§è¡¨ä¸­èŠ‚ç‚¹æ•°
   size_type bucket_count() const { return _M_buckets.size(); }
 
-  //ÏßĞÔ±í×î¶à·ÖÅä½ÚµãÊı
+  //çº¿æ€§è¡¨æœ€å¤šåˆ†é…èŠ‚ç‚¹æ•°
   size_type max_bucket_count() const
     { return __stl_prime_list[(int)__stl_num_primes - 1]; } 
 
-  //Ö¸¶¨Í°×Ó¼üÖµkeyÖĞlistÁ´±íµÄÔªËØ¸öÊı
+  //æŒ‡å®šæ¡¶å­é”®å€¼keyä¸­listé“¾è¡¨çš„å…ƒç´ ä¸ªæ•°
   size_type elems_in_bucket(size_type __bucket) const
   {
     size_type __result = 0;
@@ -430,23 +430,23 @@ public:
     return __result;
   }
 
-  //²åÈëÔªËØ½Úµã,²»ÔÊĞí´æÔÚÖØ¸´ÔªËØ
+  //æ’å…¥å…ƒç´ èŠ‚ç‚¹,ä¸å…è®¸å­˜åœ¨é‡å¤å…ƒç´ 
   pair<iterator, bool> insert_unique(const value_type& __obj)
   {
-    //ÅĞ¶ÏÈİÁ¿ÊÇ·ñ¹»ÓÃ, ·ñÔò¾ÍÖØĞÂÅäÖÃ 
+    //åˆ¤æ–­å®¹é‡æ˜¯å¦å¤Ÿç”¨, å¦åˆ™å°±é‡æ–°é…ç½® 
 	resize(_M_num_elements + 1);
-	//²åÈëÔªËØ,²»ÔÊĞí´æÔÚÖØ¸´ÔªËØ
+	//æ’å…¥å…ƒç´ ,ä¸å…è®¸å­˜åœ¨é‡å¤å…ƒç´ 
     return insert_unique_noresize(__obj);
   }
 
-   //²åÈëÔªËØ½Úµã,ÔÊĞí´æÔÚÖØ¸´ÔªËØ
+   //æ’å…¥å…ƒç´ èŠ‚ç‚¹,å…è®¸å­˜åœ¨é‡å¤å…ƒç´ 
   iterator insert_equal(const value_type& __obj)
-  {//ÅĞ¶ÏÈİÁ¿ÊÇ·ñ¹»ÓÃ, ·ñÔò¾ÍÖØĞÂÅäÖÃ
+  {//åˆ¤æ–­å®¹é‡æ˜¯å¦å¤Ÿç”¨, å¦åˆ™å°±é‡æ–°é…ç½®
     resize(_M_num_elements + 1);
-	//²åÈëÔªËØ,ÔÊĞí´æÔÚÖØ¸´ÔªËØ
+	//æ’å…¥å…ƒç´ ,å…è®¸å­˜åœ¨é‡å¤å…ƒç´ 
     return insert_equal_noresize(__obj);
   }
-  //¾ßÌå¶¨Òå¼ûhashtableÀàÍâºóÃæµÄÆÊÎö
+  //å…·ä½“å®šä¹‰è§hashtableç±»å¤–åé¢çš„å‰–æ
   pair<iterator, bool> insert_unique_noresize(const value_type& __obj);
   iterator insert_equal_noresize(const value_type& __obj);
  
@@ -538,10 +538,10 @@ public:
 #endif /*__STL_MEMBER_TEMPLATES */
 
   reference find_or_insert(const value_type& __obj);
-  //²éÕÒÖ¸¶¨¼üÖµµÄÔªËØ
+  //æŸ¥æ‰¾æŒ‡å®šé”®å€¼çš„å…ƒç´ 
   iterator find(const key_type& __key) 
   {
-    size_type __n = _M_bkt_num_key(__key);//»ñÈ¡¼üÖµ
+    size_type __n = _M_bkt_num_key(__key);//è·å–é”®å€¼
     _Node* __first;
     for ( __first = _M_buckets[__n];
           __first && !_M_equals(_M_get_key(__first->_M_val), __key);
@@ -561,7 +561,7 @@ public:
     return const_iterator(__first, this);
   } 
 
-  //·µ»Ø¼üÖµÎªkeyµÄÔªËØµÄ¸öÊı
+  //è¿”å›é”®å€¼ä¸ºkeyçš„å…ƒç´ çš„ä¸ªæ•°
   size_type count(const key_type& __key) const
   {
     const size_type __n = _M_bkt_num_key(__key);
@@ -579,7 +579,7 @@ public:
   pair<const_iterator, const_iterator> 
   equal_range(const key_type& __key) const;
 
-  //²Á³ıÔªËØ
+  //æ“¦é™¤å…ƒç´ 
   size_type erase(const key_type& __key);
   void erase(const iterator& __it);
   void erase(iterator __first, iterator __last);
@@ -591,34 +591,34 @@ public:
   void clear();
 
 private:
-	//·µ»Ø´óÓÚnµÄ×îĞ¡ËØÊı
-	//Êµ¼ÊÉÏµ÷ÓÃ__stl_next_prime(__n); 
+	//è¿”å›å¤§äºnçš„æœ€å°ç´ æ•°
+	//å®é™…ä¸Šè°ƒç”¨__stl_next_prime(__n); 
   size_type _M_next_size(size_type __n) const
     { return __stl_next_prime(__n); }
 
-  //Ô¤Áô¿Õ¼ä,²¢½«Æä³õÊ¼»¯Îª0
+  //é¢„ç•™ç©ºé—´,å¹¶å°†å…¶åˆå§‹åŒ–ä¸º0
   void _M_initialize_buckets(size_type __n)
   {
-    //·µ»Ø´óÓÚnµÄ×îĞ¡ËØÊı__n_buckets
+    //è¿”å›å¤§äºnçš„æœ€å°ç´ æ•°__n_buckets
 	 const size_type __n_buckets = _M_next_size(__n);
-	 //ÕâÀïµ÷ÓÃvectorµÄ³ÉÔ±º¯Êıreserve
-	 //reserve¸Ãº¯Êı¹¦ÄÜÊÇ¸Ä±ä¿ÉÓÃ¿Õ¼äµÄ´óĞ¡
+	 //è¿™é‡Œè°ƒç”¨vectorçš„æˆå‘˜å‡½æ•°reserve
+	 //reserveè¯¥å‡½æ•°åŠŸèƒ½æ˜¯æ”¹å˜å¯ç”¨ç©ºé—´çš„å¤§å°
 	 //Requests that the vector capacity be at least enough to contain __n_buckets elements.
     _M_buckets.reserve(__n_buckets);
-	//µ÷ÓÃvectorµÄ²åÈëº¯Êıinsert
-	//ÔÚÔ­Ê¼endºóÃæÁ¬Ğø²åÈë__n_buckets¸ö0
+	//è°ƒç”¨vectorçš„æ’å…¥å‡½æ•°insert
+	//åœ¨åŸå§‹endåé¢è¿ç»­æ’å…¥__n_bucketsä¸ª0
     _M_buckets.insert(_M_buckets.end(), __n_buckets, (_Node*) 0);
     _M_num_elements = 0;
   }
 
-  //»ñÈ¡¼üÖµkeyÔÚÍ°×ÓµÄÎ»ÖÃ
+  //è·å–é”®å€¼keyåœ¨æ¡¶å­çš„ä½ç½®
   size_type _M_bkt_num_key(const key_type& __key) const
   {
     return _M_bkt_num_key(__key, _M_buckets.size());
   }
 
-  //»ñÈ¡ÔÚÍ°×ÓµÄĞòºÅ£¬Ò²¾ÍÊÇ¼üÖµ
-  //ÊäÈë²ÎÊıÊÇÊµÖµvalue
+  //è·å–åœ¨æ¡¶å­çš„åºå·ï¼Œä¹Ÿå°±æ˜¯é”®å€¼
+  //è¾“å…¥å‚æ•°æ˜¯å®å€¼value
   size_type _M_bkt_num(const value_type& __obj) const
   {
     return _M_bkt_num_key(_M_get_key(__obj));
@@ -626,7 +626,7 @@ private:
 
   size_type _M_bkt_num_key(const key_type& __key, size_t __n) const
   {
-    return _M_hash(__key) % __n;//²ÉÓÃ³ı·¨È¡Óàhashº¯Êı
+    return _M_hash(__key) % __n;//é‡‡ç”¨é™¤æ³•å–ä½™hashå‡½æ•°
   }
 
   size_type _M_bkt_num(const value_type& __obj, size_t __n) const
@@ -634,7 +634,7 @@ private:
     return _M_bkt_num_key(_M_get_key(__obj), __n);
   }
 
-  //·ÖÅä½Úµã¿Õ¼ä£¬²¢¹¹Ôì¶ÔÏó
+  //åˆ†é…èŠ‚ç‚¹ç©ºé—´ï¼Œå¹¶æ„é€ å¯¹è±¡
   _Node* _M_new_node(const value_type& __obj)
   {
     _Node* __n = _M_get_node();
@@ -646,7 +646,7 @@ private:
     __STL_UNWIND(_M_put_node(__n));
   }
   
-  //Îö¹¹¶ÔÏó£¬²¢ÊÍ·Å¿Õ¼ä
+  //ææ„å¯¹è±¡ï¼Œå¹¶é‡Šæ”¾ç©ºé—´
   void _M_delete_node(_Node* __n)
   {
     destroy(&__n->_M_val);
@@ -660,17 +660,17 @@ private:
 
 };
 
-//Ç°×ºoperator++ÖØÔØ£¬Ç°½øÒ»¸ölist½Úµã
+//å‰ç¼€operator++é‡è½½ï¼Œå‰è¿›ä¸€ä¸ªlistèŠ‚ç‚¹
 template <class _Val, class _Key, class _HF, class _ExK, class _EqK, 
           class _All>
 _Hashtable_iterator<_Val,_Key,_HF,_ExK,_EqK,_All>&
 _Hashtable_iterator<_Val,_Key,_HF,_ExK,_EqK,_All>::operator++()
 {
   const _Node* __old = _M_cur;
-  _M_cur = _M_cur->_M_next;//Èô´æÔÚ£¬Ôò·µ»Ø
-  //Èôµ±Ç°½ÚµãÎª¿Õ£¬ÔòĞèÇ°½øµ½ÏÂÒ»¸öÍ°×ÓµÄ½Úµã
+  _M_cur = _M_cur->_M_next;//è‹¥å­˜åœ¨ï¼Œåˆ™è¿”å›
+  //è‹¥å½“å‰èŠ‚ç‚¹ä¸ºç©ºï¼Œåˆ™éœ€å‰è¿›åˆ°ä¸‹ä¸€ä¸ªæ¡¶å­çš„èŠ‚ç‚¹
   if (!_M_cur) {
-	  //¸ù¾İÔªËØÖµ£¬¶¨Î»³öÏÂÒ»¸öbucketµÄÎ»ÖÃ£¬ÆäÆğÊ¼Î»ÖÃ¾ÍÊÇÎÒÃÇµÄÄ¿µÄµØ
+	  //æ ¹æ®å…ƒç´ å€¼ï¼Œå®šä½å‡ºä¸‹ä¸€ä¸ªbucketçš„ä½ç½®ï¼Œå…¶èµ·å§‹ä½ç½®å°±æ˜¯æˆ‘ä»¬çš„ç›®çš„åœ°
     size_type __bucket = _M_ht->_M_bkt_num(__old->_M_val);
     while (!_M_cur && ++__bucket < _M_ht->_M_buckets.size())
       _M_cur = _M_ht->_M_buckets[__bucket];
@@ -678,7 +678,7 @@ _Hashtable_iterator<_Val,_Key,_HF,_ExK,_EqK,_All>::operator++()
   return *this;
 }
 
-//ºó×ºoperator++ÖØÔØ
+//åç¼€operator++é‡è½½
 
 template <class _Val, class _Key, class _HF, class _ExK, class _EqK, 
           class _All>
@@ -686,7 +686,7 @@ inline _Hashtable_iterator<_Val,_Key,_HF,_ExK,_EqK,_All>
 _Hashtable_iterator<_Val,_Key,_HF,_ExK,_EqK,_All>::operator++(int)
 {
   iterator __tmp = *this;
-  ++*this;//µ÷ÓÃoperator++
+  ++*this;//è°ƒç”¨operator++
   return __tmp;
 }
 
@@ -804,24 +804,24 @@ inline void swap(hashtable<_Val, _Key, _HF, _Extract, _EqKey, _All>& __ht1,
 
 #endif /* __STL_FUNCTION_TMPL_PARTIAL_ORDER */
 
-//²åÈëÔªËØ£¬²»ĞèÒªÖØĞÂµ÷ÕûÄÚ´æ¿Õ¼ä,²»ÔÊĞí´æÔÚÖØ¸´ÔªËØ
+//æ’å…¥å…ƒç´ ï¼Œä¸éœ€è¦é‡æ–°è°ƒæ•´å†…å­˜ç©ºé—´,ä¸å…è®¸å­˜åœ¨é‡å¤å…ƒç´ 
 template <class _Val, class _Key, class _HF, class _Ex, class _Eq, class _All>
 pair<typename hashtable<_Val,_Key,_HF,_Ex,_Eq,_All>::iterator, bool> 
 hashtable<_Val,_Key,_HF,_Ex,_Eq,_All>
   ::insert_unique_noresize(const value_type& __obj)
 {
-  //»ñÈ¡´ı²åÈëÔªËØÔÚhashtableÖĞµÄÍ°×ÓÎ»ÖÃ
+  //è·å–å¾…æ’å…¥å…ƒç´ åœ¨hashtableä¸­çš„æ¡¶å­ä½ç½®
   const size_type __n = _M_bkt_num(__obj);
   _Node* __first = _M_buckets[__n];
 
-  //ÅĞ¶ÏhashtableÖĞÊÇ·ñ´æÔÚÓëÖ®ÏàµÈµÄ¼üÖµÔªËØ
-  //Èô´æÔÚÔò²»²åÈë
-  //·ñÔò²åÈë¸ÃÔªËØ
+  //åˆ¤æ–­hashtableä¸­æ˜¯å¦å­˜åœ¨ä¸ä¹‹ç›¸ç­‰çš„é”®å€¼å…ƒç´ 
+  //è‹¥å­˜åœ¨åˆ™ä¸æ’å…¥
+  //å¦åˆ™æ’å…¥è¯¥å…ƒç´ 
   for (_Node* __cur = __first; __cur; __cur = __cur->_M_next) 
     if (_M_equals(_M_get_key(__cur->_M_val), _M_get_key(__obj)))
       return pair<iterator, bool>(iterator(__cur, this), false);
 
-  //°ÑÔªËØ²åÈëµ½µÚÒ»¸ö½ÚµãÎ»ÖÃ
+  //æŠŠå…ƒç´ æ’å…¥åˆ°ç¬¬ä¸€ä¸ªèŠ‚ç‚¹ä½ç½®
   _Node* __tmp = _M_new_node(__obj);
   __tmp->_M_next = __first;
   _M_buckets[__n] = __tmp;
@@ -829,32 +829,32 @@ hashtable<_Val,_Key,_HF,_Ex,_Eq,_All>
   return pair<iterator, bool>(iterator(__tmp, this), true);
 }
 
-//²åÈëÔªËØ£¬ÔÊĞíÖØ¸´,²»ĞèÒª·ÖÅäĞÂµÄ¿Õ¼ä
-//Ò²¾ÍÊÇËµÓĞ×ã¹»µÄ¿Õ¼ä
+//æ’å…¥å…ƒç´ ï¼Œå…è®¸é‡å¤,ä¸éœ€è¦åˆ†é…æ–°çš„ç©ºé—´
+//ä¹Ÿå°±æ˜¯è¯´æœ‰è¶³å¤Ÿçš„ç©ºé—´
 template <class _Val, class _Key, class _HF, class _Ex, class _Eq, class _All>
 typename hashtable<_Val,_Key,_HF,_Ex,_Eq,_All>::iterator 
 hashtable<_Val,_Key,_HF,_Ex,_Eq,_All>
   ::insert_equal_noresize(const value_type& __obj)
 {
-	//»ñÈ¡´ı²åÈëÔªËØÔÚhashtableÖĞµÄÍ°×ÓÎ»ÖÃ
+	//è·å–å¾…æ’å…¥å…ƒç´ åœ¨hashtableä¸­çš„æ¡¶å­ä½ç½®
   const size_type __n = _M_bkt_num(__obj);
   _Node* __first = _M_buckets[__n];
 
   for (_Node* __cur = __first; __cur; __cur = __cur->_M_next) 
-	  //Èô´æÔÚ¼üÖµÏàÍ¬µÄÔªËØ£¬Ôò²åÔÚÏàÍ¬ÔªËØÏÂÒ»¸öÎ»ÖÃ
+	  //è‹¥å­˜åœ¨é”®å€¼ç›¸åŒçš„å…ƒç´ ï¼Œåˆ™æ’åœ¨ç›¸åŒå…ƒç´ ä¸‹ä¸€ä¸ªä½ç½®
     if (_M_equals(_M_get_key(__cur->_M_val), _M_get_key(__obj))) {
-      _Node* __tmp = _M_new_node(__obj);//´´½¨ĞÂ½Úµã
-      __tmp->_M_next = __cur->_M_next;//½«ĞÂ½Úµã²åÔÚµ±Ç°½ÚµãÖ®ºó
+      _Node* __tmp = _M_new_node(__obj);//åˆ›å»ºæ–°èŠ‚ç‚¹
+      __tmp->_M_next = __cur->_M_next;//å°†æ–°èŠ‚ç‚¹æ’åœ¨å½“å‰èŠ‚ç‚¹ä¹‹å
       __cur->_M_next = __tmp;
-      ++_M_num_elements;//½ÚµãÊı¼Ó1
-      return iterator(__tmp, this);//·µ»ØÖ¸ÏòĞÂÔö½Úµãµü´úÆ÷
+      ++_M_num_elements;//èŠ‚ç‚¹æ•°åŠ 1
+      return iterator(__tmp, this);//è¿”å›æŒ‡å‘æ–°å¢èŠ‚ç‚¹è¿­ä»£å™¨
     }
-	//Èô²»´æÔÚÏàÍ¬¼üÖµµÄÔªËØ,Ôò²åÔÚµÚÒ»¸öÎ»ÖÃ
-  _Node* __tmp = _M_new_node(__obj);//´´½¨ĞÂ½Úµã
-  __tmp->_M_next = __first;//²åÈëÔÚÁ´±í±íÍ·
+	//è‹¥ä¸å­˜åœ¨ç›¸åŒé”®å€¼çš„å…ƒç´ ,åˆ™æ’åœ¨ç¬¬ä¸€ä¸ªä½ç½®
+  _Node* __tmp = _M_new_node(__obj);//åˆ›å»ºæ–°èŠ‚ç‚¹
+  __tmp->_M_next = __first;//æ’å…¥åœ¨é“¾è¡¨è¡¨å¤´
   _M_buckets[__n] = __tmp;
-  ++_M_num_elements;//½ÚµãÊı¼Ó1
-  return iterator(__tmp, this);//·µ»ØÖ¸ÏòĞÂÔö½ÚµãµÄµü´úÆ÷
+  ++_M_num_elements;//èŠ‚ç‚¹æ•°åŠ 1
+  return iterator(__tmp, this);//è¿”å›æŒ‡å‘æ–°å¢èŠ‚ç‚¹çš„è¿­ä»£å™¨
 }
 
 template <class _Val, class _Key, class _HF, class _Ex, class _Eq, class _All>
@@ -1034,39 +1034,39 @@ hashtable<_Val,_Key,_HF,_Ex,_Eq,_All>::erase(const const_iterator& __it)
                  const_cast<hashtable*>(__it._M_ht)));
 }
 
-//µ÷ÕûhashtableµÄÈİÁ¿
-//ĞÂµÄÈİÁ¿´óĞ¡Îª__num_elements_hint
+//è°ƒæ•´hashtableçš„å®¹é‡
+//æ–°çš„å®¹é‡å¤§å°ä¸º__num_elements_hint
 template <class _Val, class _Key, class _HF, class _Ex, class _Eq, class _All>
 void hashtable<_Val,_Key,_HF,_Ex,_Eq,_All>
   ::resize(size_type __num_elements_hint)
 {
-  //hashtableÔ­Ê¼´óĞ¡
+  //hashtableåŸå§‹å¤§å°
   const size_type __old_n = _M_buckets.size();
-  if (__num_elements_hint > __old_n) {//ÈôĞÂµÄÈİÁ¿´óĞ¡±ÈÔ­Ê¼µÄ´ó
-	  //²éÕÒ²»µÍÓÚ__num_elements_hintµÄ×îĞ¡ËØÊı
+  if (__num_elements_hint > __old_n) {//è‹¥æ–°çš„å®¹é‡å¤§å°æ¯”åŸå§‹çš„å¤§
+	  //æŸ¥æ‰¾ä¸ä½äº__num_elements_hintçš„æœ€å°ç´ æ•°
     const size_type __n = _M_next_size(__num_elements_hint);
     if (__n > __old_n) {
-		//´´½¨ĞÂµÄÏßĞÔ±í,ÈİÁ¿Îª__n£¬Ö»ÊÇÆğµ½ÖĞ½é×÷ÓÃ
+		//åˆ›å»ºæ–°çš„çº¿æ€§è¡¨,å®¹é‡ä¸º__nï¼Œåªæ˜¯èµ·åˆ°ä¸­ä»‹ä½œç”¨
       vector<_Node*, _All> __tmp(__n, (_Node*)(0),
                                  _M_buckets.get_allocator());
-      __STL_TRY {//ÒÔÏÂÊÇ¸´ÖÆÊı¾İ
+      __STL_TRY {//ä»¥ä¸‹æ˜¯å¤åˆ¶æ•°æ®
         for (size_type __bucket = 0; __bucket < __old_n; ++__bucket) {
           _Node* __first = _M_buckets[__bucket];
           while (__first) {
-			  //»ñÈ¡ÊµÖµÔÚĞÂÍ°×ÓµÄ¼üÖµÎ»ÖÃ
+			  //è·å–å®å€¼åœ¨æ–°æ¡¶å­çš„é”®å€¼ä½ç½®
             size_type __new_bucket = _M_bkt_num(__first->_M_val, __n);
-			//Õâ¸öÖ»ÊÇÎªÁË·½±ãwhileÑ­»·ÀïÃæ__firstµÄµü´ú
+			//è¿™ä¸ªåªæ˜¯ä¸ºäº†æ–¹ä¾¿whileå¾ªç¯é‡Œé¢__firstçš„è¿­ä»£
             _M_buckets[__bucket] = __first->_M_next;
-			//½«µ±Ç°½Úµã²åÈëµ½ĞÂµÄÍ°×Ó__new_bucketÀïÃæ,³ÉÎªlistµÄµÚÒ»¸ö½Úµã
-            __first->_M_next = __tmp[__new_bucket];//__first->_M_nextÖ¸ÏònullÖ¸Õë,ÒòÎªĞÂÍ°×ÓÊÇ¿ÕµÄ
-            __tmp[__new_bucket] = __first;//ĞÂÍ°×Ó¶ÔÓ¦¼üÖµÖ¸ÏòµÚÒ»¸ö½Úµã
-            __first = _M_buckets[__bucket];//¸üĞÂµ±Ç°Ö¸Õë          
+			//å°†å½“å‰èŠ‚ç‚¹æ’å…¥åˆ°æ–°çš„æ¡¶å­__new_bucketé‡Œé¢,æˆä¸ºlistçš„ç¬¬ä¸€ä¸ªèŠ‚ç‚¹
+            __first->_M_next = __tmp[__new_bucket];//__first->_M_nextæŒ‡å‘nullæŒ‡é’ˆ,å› ä¸ºæ–°æ¡¶å­æ˜¯ç©ºçš„
+            __tmp[__new_bucket] = __first;//æ–°æ¡¶å­å¯¹åº”é”®å€¼æŒ‡å‘ç¬¬ä¸€ä¸ªèŠ‚ç‚¹
+            __first = _M_buckets[__bucket];//æ›´æ–°å½“å‰æŒ‡é’ˆ          
           }
         }
-        _M_buckets.swap(__tmp);//½»»»ÄÚÈİ
+        _M_buckets.swap(__tmp);//äº¤æ¢å†…å®¹
       }
 #         ifdef __STL_USE_EXCEPTIONS
-      catch(...) {//ÊÍ·ÅÁÙÊ±hashtableµÄÏßĞÔ±ítmp
+      catch(...) {//é‡Šæ”¾ä¸´æ—¶hashtableçš„çº¿æ€§è¡¨tmp
         for (size_type __bucket = 0; __bucket < __tmp.size(); ++__bucket) {
           while (__tmp[__bucket]) {
             _Node* __next = __tmp[__bucket]->_M_next;
@@ -1117,44 +1117,44 @@ void hashtable<_Val,_Key,_HF,_Ex,_Eq,_All>
   }
 }
 
-//Çå¿Õhashtable£¬µ«ÊÇÃ»ÓĞÊÍ·Åbucket vector¿Õ¼ä
+//æ¸…ç©ºhashtableï¼Œä½†æ˜¯æ²¡æœ‰é‡Šæ”¾bucket vectorç©ºé—´
 template <class _Val, class _Key, class _HF, class _Ex, class _Eq, class _All>
 void hashtable<_Val,_Key,_HF,_Ex,_Eq,_All>::clear()
 {
-  for (size_type __i = 0; __i < _M_buckets.size(); ++__i) {//±éÀúÃ¿¸öÍ°×Ó
-    _Node* __cur = _M_buckets[__i];//µ±Ç°½ÚµãÎªÍ°×ÓµÄµÚÒ»¸ö½Úµã
-    while (__cur != 0) {//±éÀúÍ°×ÓÎ¬»¤µÄÁ´±í£¬²¢ÊÍ·ÅÃ¿¸öÁ´±í½Úµã
+  for (size_type __i = 0; __i < _M_buckets.size(); ++__i) {//éå†æ¯ä¸ªæ¡¶å­
+    _Node* __cur = _M_buckets[__i];//å½“å‰èŠ‚ç‚¹ä¸ºæ¡¶å­çš„ç¬¬ä¸€ä¸ªèŠ‚ç‚¹
+    while (__cur != 0) {//éå†æ¡¶å­ç»´æŠ¤çš„é“¾è¡¨ï¼Œå¹¶é‡Šæ”¾æ¯ä¸ªé“¾è¡¨èŠ‚ç‚¹
       _Node* __next = __cur->_M_next;
       _M_delete_node(__cur);
       __cur = __next;
     }
-    _M_buckets[__i] = 0;//Í°×ÓÁ´±íÎª¿Õ
+    _M_buckets[__i] = 0;//æ¡¶å­é“¾è¡¨ä¸ºç©º
   }
-  _M_num_elements = 0;//Á´±í½ÚµãÊıÎª0
+  _M_num_elements = 0;//é“¾è¡¨èŠ‚ç‚¹æ•°ä¸º0
 }
 
     
-//¿½±´hashtable¶ÔÏó
-//ÊµÏÖ»úÖÆ£ºÊ×ÏÈ°ÑÔ­Ê¼¶ÔÏóÇå¿Õ£¬ÔÙ°Ñ¿Õ¼ä±ä³É±»¸´ÖÆ¶ÔÏó__htÒ»ÑùµÄ´óĞ¡
-//×îºó°Ñ__htµÄÄÚÈİ¸´ÖÆµ½Ä¿±ê¶ÔÏó
+//æ‹·è´hashtableå¯¹è±¡
+//å®ç°æœºåˆ¶ï¼šé¦–å…ˆæŠŠåŸå§‹å¯¹è±¡æ¸…ç©ºï¼Œå†æŠŠç©ºé—´å˜æˆè¢«å¤åˆ¶å¯¹è±¡__htä¸€æ ·çš„å¤§å°
+//æœ€åæŠŠ__htçš„å†…å®¹å¤åˆ¶åˆ°ç›®æ ‡å¯¹è±¡
 template <class _Val, class _Key, class _HF, class _Ex, class _Eq, class _All>
 void hashtable<_Val,_Key,_HF,_Ex,_Eq,_All>
   ::_M_copy_from(const hashtable& __ht)
-{//_M_bucketsÊÇvectorÎ¬»¤µÄ£¬¿ÉÒÔµ÷ÓÃvectorµÄ³ÉÔ±º¯Êı
-  _M_buckets.clear();//Çå¿ÕÏßĞÔ±íµ÷ÓÃvector::clear()
-  _M_buckets.reserve(__ht._M_buckets.size());//°ÑÏßĞÔ±íÄÚ´æ¿Õ¼ä±ä³ÉÓë__htÒ»Ñù´ó
-  //ÔÚ_M_buckets vectorÎ²¶Ë²åÈësize¸öÔªËØ£¬³õÊ¼ÖµÎª¿ÕÖ¸Õë
-  //×¢Òâ£º´ËÊ±_M_buckets vectorÎª¿Õ£¬¼´Î²¶ËÒ²ÊÇÆğÊ¼¶Ë
+{//_M_bucketsæ˜¯vectorç»´æŠ¤çš„ï¼Œå¯ä»¥è°ƒç”¨vectorçš„æˆå‘˜å‡½æ•°
+  _M_buckets.clear();//æ¸…ç©ºçº¿æ€§è¡¨è°ƒç”¨vector::clear()
+  _M_buckets.reserve(__ht._M_buckets.size());//æŠŠçº¿æ€§è¡¨å†…å­˜ç©ºé—´å˜æˆä¸__htä¸€æ ·å¤§
+  //åœ¨_M_buckets vectorå°¾ç«¯æ’å…¥sizeä¸ªå…ƒç´ ï¼Œåˆå§‹å€¼ä¸ºç©ºæŒ‡é’ˆ
+  //æ³¨æ„ï¼šæ­¤æ—¶_M_buckets vectorä¸ºç©ºï¼Œå³å°¾ç«¯ä¹Ÿæ˜¯èµ·å§‹ç«¯
   _M_buckets.insert(_M_buckets.end(), __ht._M_buckets.size(), (_Node*) 0);
-  __STL_TRY {//¿ªÊ¼¸´ÖÆ²Ù×÷
+  __STL_TRY {//å¼€å§‹å¤åˆ¶æ“ä½œ
     for (size_type __i = 0; __i < __ht._M_buckets.size(); ++__i) {
-		//¸´ÖÆvectorµÄÃ¿Ò»¸öÔªËØ(ÊÇÖ¸Ïòhashtable½ÚµãÖ¸Õë)
+		//å¤åˆ¶vectorçš„æ¯ä¸€ä¸ªå…ƒç´ (æ˜¯æŒ‡å‘hashtableèŠ‚ç‚¹æŒ‡é’ˆ)
       const _Node* __cur = __ht._M_buckets[__i];
       if (__cur) {
         _Node* __copy = _M_new_node(__cur->_M_val);
         _M_buckets[__i] = __copy;
 
-        //Õë¶ÔÃ¿Ò»¸öhashtable½Úµã¶ÔÓ¦µÄlist£¬¸´ÖÆlistµÄÃ¿Ò»¸ö½Úµã
+        //é’ˆå¯¹æ¯ä¸€ä¸ªhashtableèŠ‚ç‚¹å¯¹åº”çš„listï¼Œå¤åˆ¶listçš„æ¯ä¸€ä¸ªèŠ‚ç‚¹
 		for (_Node* __next = __cur->_M_next; 
              __next; 
              __cur = __next, __next = __cur->_M_next) {
@@ -1163,7 +1163,7 @@ void hashtable<_Val,_Key,_HF,_Ex,_Eq,_All>
         }
       }
     }
-    _M_num_elements = __ht._M_num_elements;//¸üĞÂ½Úµã¸öÊı
+    _M_num_elements = __ht._M_num_elements;//æ›´æ–°èŠ‚ç‚¹ä¸ªæ•°
   }
   __STL_UNWIND(clear());
 }

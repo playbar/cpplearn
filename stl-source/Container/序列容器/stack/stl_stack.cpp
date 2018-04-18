@@ -6,7 +6,7 @@
 __STL_BEGIN_NAMESPACE
 
 // Forward declarations of operators == and <, needed for friend declaration.
-//ÕâÀïÄ¬ÈÏµÄµ×²ãÈİÆ÷ÀàĞÍÊÇdequeÈİÆ÷
+//è¿™é‡Œé»˜è®¤çš„åº•å±‚å®¹å™¨ç±»å‹æ˜¯dequeå®¹å™¨
 template <class _Tp, 
           class _Sequence __STL_DEPENDENT_DEFAULT_TMPL(deque<_Tp>) >
 class stack;
@@ -44,7 +44,7 @@ class stack {
 #endif /* __STL_MEMBER_TEMPLATES */
 
 public:
-	// ÓÉÓÚstack½öÖ§³Ö¶ÔÕ»¶¥ÔªËØµÄ²Ù×÷, ËùÒÔ²»¶¨ÒåSTLÒªÇóµÄ  
+	// ç”±äºstackä»…æ”¯æŒå¯¹æ ˆé¡¶å…ƒç´ çš„æ“ä½œ, æ‰€ä»¥ä¸å®šä¹‰STLè¦æ±‚çš„  
 	// pointer, iterator, difference_type 
   typedef typename _Sequence::value_type      value_type;
   typedef typename _Sequence::size_type       size_type;
@@ -53,26 +53,26 @@ public:
   typedef typename _Sequence::reference       reference;
   typedef typename _Sequence::const_reference const_reference;
 protected:
-  _Sequence c;//µ×²ãÈİÆ÷ÀàĞÍ£¬Ä¬ÈÏÎªdequeÈİÆ÷
+  _Sequence c;//åº•å±‚å®¹å™¨ç±»å‹ï¼Œé»˜è®¤ä¸ºdequeå®¹å™¨
 public:
-	//ÏÂÃæ¶ÔstackµÄÎ¬»¤ÍêÈ«ÒÀÀµÓÚµ×²ãÈİÆ÷µÄ²Ù×÷
+	//ä¸‹é¢å¯¹stackçš„ç»´æŠ¤å®Œå…¨ä¾èµ–äºåº•å±‚å®¹å™¨çš„æ“ä½œ
   stack() : c() {}
   explicit stack(const _Sequence& __s) : c(__s) {}
 
-  //ÅĞ¶ÏÈİÆ÷ÊÇ·ñÎª¿Õ
+  //åˆ¤æ–­å®¹å™¨æ˜¯å¦ä¸ºç©º
   bool empty() const { return c.empty(); }
-  //»ñÈ¡ÈİÆ÷µÄ´óĞ¡£¬¼´ÈİÆ÷ÖĞÔªËØµÄ¸öÊı
+  //è·å–å®¹å™¨çš„å¤§å°ï¼Œå³å®¹å™¨ä¸­å…ƒç´ çš„ä¸ªæ•°
   size_type size() const { return c.size(); }
-  //·µ»ØÕ»¶¥ÔªËØµÄÒıÓÃ
+  //è¿”å›æ ˆé¡¶å…ƒç´ çš„å¼•ç”¨
   reference top() { return c.back(); }
   const_reference top() const { return c.back(); }
-  //ÔÚÕ»¶¥×·¼ÓÔªËØ
+  //åœ¨æ ˆé¡¶è¿½åŠ å…ƒç´ 
   void push(const value_type& __x) { c.push_back(__x); }
-  //µ¯³öÕ»¶¥µÄÔªËØ£¬µ«²»·µ»ØÈÎºÎÄÚÈİ
+  //å¼¹å‡ºæ ˆé¡¶çš„å…ƒç´ ï¼Œä½†ä¸è¿”å›ä»»ä½•å†…å®¹
   void pop() { c.pop_back(); }
 };
 
-//ÏÂÃæÊÇÒÀÀµÓÚµ×²ãÈİÆ÷µÄ²Ù×÷ÔËËã·û
+//ä¸‹é¢æ˜¯ä¾èµ–äºåº•å±‚å®¹å™¨çš„æ“ä½œè¿ç®—ç¬¦
 template <class _Tp, class _Seq>
 bool operator==(const stack<_Tp,_Seq>& __x, const stack<_Tp,_Seq>& __y)
 {

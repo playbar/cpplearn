@@ -10,15 +10,15 @@ __STL_BEGIN_NAMESPACE
 #pragma set woff 1375
 #endif
 
-//multisetµÄÌØĞÔ¼°ÆäÓÃ·¨ºÍsetÍêÈ«ÏàÍ¬£¬Î¨Ò»µÄÇø±ğ¾ÍÊÇmultisetÔÊĞí¼üÖµkeyÖØ¸´
-//Òò´ËmultisetµÄ²åÈë²Ù×÷²ÉÓÃµÄÊÇµ×²ãRB-TreeµÄinsert_equal()¶ø·Çinsert_unique()
-//ÓĞ¹ØsetÈİÆ÷µÄÆÊÎö¼ûÇ°Ãæ²©ÎÄ
+//multisetçš„ç‰¹æ€§åŠå…¶ç”¨æ³•å’Œsetå®Œå…¨ç›¸åŒï¼Œå”¯ä¸€çš„åŒºåˆ«å°±æ˜¯multisetå…è®¸é”®å€¼keyé‡å¤
+//å› æ­¤multisetçš„æ’å…¥æ“ä½œé‡‡ç”¨çš„æ˜¯åº•å±‚RB-Treeçš„insert_equal()è€Œéinsert_unique()
+//æœ‰å…³setå®¹å™¨çš„å‰–æè§å‰é¢åšæ–‡
 
 // Forward declaration of operators < and ==, needed for friend declaration.
 
-//multisetÄÚ²¿ÔªËØÄ¬ÈÏÊ¹ÓÃµİÔöÅÅĞòless
-//ÓÃ»§¿É×ÔĞĞÖÆ¶¨±È½ÏÀàĞÍ
-//ÄÚ²¿Î¬»¤µÄÊı¾İ½á¹¹ÊÇºìºÚÊ÷, ¾ßÓĞ·Ç³£ÓÅĞãµÄ×î»µÇé¿öµÄÊ±¼ä¸´ÔÓ¶È 
+//multisetå†…éƒ¨å…ƒç´ é»˜è®¤ä½¿ç”¨é€’å¢æ’åºless
+//ç”¨æˆ·å¯è‡ªè¡Œåˆ¶å®šæ¯”è¾ƒç±»å‹
+//å†…éƒ¨ç»´æŠ¤çš„æ•°æ®ç»“æ„æ˜¯çº¢é»‘æ ‘, å…·æœ‰éå¸¸ä¼˜ç§€çš„æœ€åæƒ…å†µçš„æ—¶é—´å¤æ‚åº¦ 
 template <class _Key, class _Compare __STL_DEPENDENT_DEFAULT_TMPL(less<_Key>),
           class _Alloc = __STL_DEFAULT_ALLOCATOR(_Key) >
 class multiset;
@@ -42,13 +42,13 @@ public:
 
   // typedefs:
 
-  //ÒÔÏÂµÄ¶¨ÒåÓësetÏàÍ¬
+  //ä»¥ä¸‹çš„å®šä¹‰ä¸setç›¸åŒ
   typedef _Key     key_type;
   typedef _Key     value_type;
   typedef _Compare key_compare;
   typedef _Compare value_compare;
 private:
-	//µ×²ã»úÖÆÊÇ²ÉÓÃRB-Tree
+	//åº•å±‚æœºåˆ¶æ˜¯é‡‡ç”¨RB-Tree
   typedef _Rb_tree<key_type, value_type, 
                   _Identity<value_type>, key_compare, _Alloc> _Rep_type;
   _Rep_type _M_t;  // red-black tree representing multiset
@@ -67,7 +67,7 @@ public:
 
   // allocation/deallocation
   /*
-  ¹¹Ôìº¯Êı
+  æ„é€ å‡½æ•°
 		multiset();
 		explicit multiset (const key_compare& comp = key_compare(),
 					   const allocator_type& alloc = allocator_type());
@@ -87,7 +87,7 @@ public:
 
 #ifdef __STL_MEMBER_TEMPLATES
 
-  //multisetµÄ²åÈë²Ù×÷²ÉÓÃµÄÊÇµ×²ãRB-TreeµÄinsert_equal()¶ø·Çinsert_unique()
+  //multisetçš„æ’å…¥æ“ä½œé‡‡ç”¨çš„æ˜¯åº•å±‚RB-Treeçš„insert_equal()è€Œéinsert_unique()
   template <class _InputIterator>
   multiset(_InputIterator __first, _InputIterator __last)
     : _M_t(_Compare(), allocator_type())
@@ -124,16 +124,16 @@ public:
   multiset(const multiset<_Key,_Compare,_Alloc>& __x) : _M_t(__x._M_t) {}
   multiset<_Key,_Compare,_Alloc>&
   operator=(const multiset<_Key,_Compare,_Alloc>& __x) {
-    _M_t = __x._M_t;//µ÷ÓÃÁËµ×²ãºìºÚÊ÷µÄoperator=²Ù×÷º¯Êı 
+    _M_t = __x._M_t;//è°ƒç”¨äº†åº•å±‚çº¢é»‘æ ‘çš„operator=æ“ä½œå‡½æ•° 
     return *this;
   }
 
-  //ÒÔÏÂËùÓĞµÄmultiset²Ù×÷ĞĞÎª£¬RB-tree¶¼ÒÑÌá¹©£¬ËùÒÔmultisetÖ»Òªµ÷ÓÃ¼´¿É 
+  //ä»¥ä¸‹æ‰€æœ‰çš„multisetæ“ä½œè¡Œä¸ºï¼ŒRB-treeéƒ½å·²æä¾›ï¼Œæ‰€ä»¥multisetåªè¦è°ƒç”¨å³å¯ 
   // accessors:
 
-  //·µ»ØÓÃÓÚkey±È½ÏµÄº¯Êı,µ÷ÓÃRB-TreeµÄkey_comp()
+  //è¿”å›ç”¨äºkeyæ¯”è¾ƒçš„å‡½æ•°,è°ƒç”¨RB-Treeçš„key_comp()
   key_compare key_comp() const { return _M_t.key_comp(); }
-   //ÓÉÓÚmultisetµÄĞÔÖÊ, valueºÍkeyÊ¹ÓÃÍ¬Ò»¸ö±È½Ïº¯Êı
+   //ç”±äºmultisetçš„æ€§è´¨, valueå’Œkeyä½¿ç”¨åŒä¸€ä¸ªæ¯”è¾ƒå‡½æ•°
   value_compare value_comp() const { return _M_t.key_comp(); }
   allocator_type get_allocator() const { return _M_t.get_allocator(); }
 
@@ -144,12 +144,12 @@ public:
   bool empty() const { return _M_t.empty(); }
   size_type size() const { return _M_t.size(); }
   size_type max_size() const { return _M_t.max_size(); }
-  //ÕâÀïµ÷ÓÃµÄswap()º¯ÊıÊÇ×¨ÊôÓÚRB-TreeµÄswap()£¬²¢²»ÊÇSTLµÄswap()Ëã·¨
+  //è¿™é‡Œè°ƒç”¨çš„swap()å‡½æ•°æ˜¯ä¸“å±äºRB-Treeçš„swap()ï¼Œå¹¶ä¸æ˜¯STLçš„swap()ç®—æ³•
   void swap(multiset<_Key,_Compare,_Alloc>& __x) { _M_t.swap(__x._M_t); }
 
   // insert/erase
   /*
-  ²åÈë½Úµã
+  æ’å…¥èŠ‚ç‚¹
 	iterator insert (const value_type& val);
 	
 	iterator insert (iterator position, const value_type& val);
@@ -157,11 +157,11 @@ public:
 	template <class InputIterator>
 	void insert (InputIterator first, InputIterator last);
   */
-  //²åÈëÊı¾İ½Úµã
+  //æ’å…¥æ•°æ®èŠ‚ç‚¹
   iterator insert(const value_type& __x) { 
     return _M_t.insert_equal(__x);
   }
-  //ÔÚÖ¸¶¨Î»ÖÃ²åÈë½Úµã
+  //åœ¨æŒ‡å®šä½ç½®æ’å…¥èŠ‚ç‚¹
   iterator insert(iterator __position, const value_type& __x) {
     typedef typename _Rep_type::iterator _Rep_iterator;
     return _M_t.insert_equal((_Rep_iterator&)__position, __x);
@@ -180,28 +180,28 @@ public:
     _M_t.insert_equal(__first, __last);
   }
 #endif /* __STL_MEMBER_TEMPLATES */
-  //²Á³ıÖ¸¶¨Î»ÖÃµÄÔªËØ
+  //æ“¦é™¤æŒ‡å®šä½ç½®çš„å…ƒç´ 
   void erase(iterator __position) { 
     typedef typename _Rep_type::iterator _Rep_iterator;
     _M_t.erase((_Rep_iterator&)__position); 
   }
-  //²Á³ıÔªËØÖµÎªxµÄ½Úµã
+  //æ“¦é™¤å…ƒç´ å€¼ä¸ºxçš„èŠ‚ç‚¹
   size_type erase(const key_type& __x) { 
     return _M_t.erase(__x); 
   }
-  //²Á³ıÖ¸¶¨Çø¼äµÄ½Úµã
+  //æ“¦é™¤æŒ‡å®šåŒºé—´çš„èŠ‚ç‚¹
   void erase(iterator __first, iterator __last) { 
     typedef typename _Rep_type::iterator _Rep_iterator;
     _M_t.erase((_Rep_iterator&)__first, (_Rep_iterator&)__last); 
   }
-  //Çå³ımultiset
+  //æ¸…é™¤multiset
   void clear() { _M_t.clear(); }
 
   // multiset operations:
 
-  //²éÕÒÔªËØÖµÎªxµÄ½Úµã
+  //æŸ¥æ‰¾å…ƒç´ å€¼ä¸ºxçš„èŠ‚ç‚¹
   iterator find(const key_type& __x) const { return _M_t.find(__x); }
-  //·µ»ØÖ¸¶¨ÔªËØµÄ¸öÊı
+  //è¿”å›æŒ‡å®šå…ƒç´ çš„ä¸ªæ•°
   size_type count(const key_type& __x) const { return _M_t.count(__x); }
   //Returns an iterator pointing to the first element in the container 
   //whose key is not considered to go before k (i.e., either it is equivalent or goes after).
@@ -220,7 +220,7 @@ public:
     return _M_t.equal_range(__x);
   }
 
-  //ÒÔÏÂÊÇ²Ù×÷·ûµÄÖØÔØ
+  //ä»¥ä¸‹æ˜¯æ“ä½œç¬¦çš„é‡è½½
 
 #ifdef __STL_TEMPLATE_FRIENDS
   template <class _K1, class _C1, class _A1>

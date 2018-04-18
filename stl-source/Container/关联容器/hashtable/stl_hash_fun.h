@@ -5,12 +5,12 @@
 
 __STL_BEGIN_NAMESPACE
 
-//hash function ÊÇ¼ÆËãÔªËØÎ»ÖÃµÄº¯Êı
-//ÕâĞ©º¯Êı¿ÉÒÔ¶Ôhashtable½øĞĞÈ¡Ä£ÔËËã
-//ÕâÊÇhashtableËùÌá¹©µÄÉ¢ÁĞº¯ÊıÊÇÈ¡Ä£ÔËËã¾ö¶¨µÄ
+//hash function æ˜¯è®¡ç®—å…ƒç´ ä½ç½®çš„å‡½æ•°
+//è¿™äº›å‡½æ•°å¯ä»¥å¯¹hashtableè¿›è¡Œå–æ¨¡è¿ç®—
+//è¿™æ˜¯hashtableæ‰€æä¾›çš„æ•£åˆ—å‡½æ•°æ˜¯å–æ¨¡è¿ç®—å†³å®šçš„
 
 /*
-SGI hashtableÒÔÏÂÓĞÏŞµÄ¶¨ÒåÀàĞÍ£º
+SGI hashtableä»¥ä¸‹æœ‰é™çš„å®šä¹‰ç±»å‹ï¼š
 	struct hash<char*>
 	struct hash<const char*>
 	struct hash<char> 
@@ -22,18 +22,18 @@ SGI hashtableÒÔÏÂÓĞÏŞµÄ¶¨ÒåÀàĞÍ£º
 	struct hash<unsigned int>
 	struct hash<long> 
 	struct hash<unsigned long>
-²»ÔÚÕâÀï¶¨ÒåµÄÀàĞÍ£¬²»ÄÜÊ¹ÓÃ£¬ÈôÓÃ»§ÏëÒªÊ¹ÓÃ£¬Ôò±ØĞë×Ô¼º¶¨Òå¡£ÀıÈç£ºstring£¬double£¬float
+ä¸åœ¨è¿™é‡Œå®šä¹‰çš„ç±»å‹ï¼Œä¸èƒ½ä½¿ç”¨ï¼Œè‹¥ç”¨æˆ·æƒ³è¦ä½¿ç”¨ï¼Œåˆ™å¿…é¡»è‡ªå·±å®šä¹‰ã€‚ä¾‹å¦‚ï¼šstringï¼Œdoubleï¼Œfloat
 */
-/*¶¨Òå×Ô¼ºµÄ¹şÏ£º¯ÊıÊ±Òª×¢ÒâÒÔÏÂ¼¸µã£º
-	[1]Ê¹ÓÃstruct£¬È»ºóÖØÔØoperator().
-	[2]·µ»ØÊÇsize_t
-	[3]²ÎÊıÊÇÄãÒªhashµÄkeyµÄÀàĞÍ¡£
-	[4]º¯ÊıÊÇconstÀàĞÍµÄ¡£
+/*å®šä¹‰è‡ªå·±çš„å“ˆå¸Œå‡½æ•°æ—¶è¦æ³¨æ„ä»¥ä¸‹å‡ ç‚¹ï¼š
+	[1]ä½¿ç”¨structï¼Œç„¶åé‡è½½operator().
+	[2]è¿”å›æ˜¯size_t
+	[3]å‚æ•°æ˜¯ä½ è¦hashçš„keyçš„ç±»å‹ã€‚
+	[4]å‡½æ•°æ˜¯constç±»å‹çš„ã€‚
 */
 
 template <class _Key> struct hash { };
 
-//¶Ôconst char* Ìá¹©×Ö·û´®×ª»»º¯Êı
+//å¯¹const char* æä¾›å­—ç¬¦ä¸²è½¬æ¢å‡½æ•°
 inline size_t __stl_hash_string(const char* __s)
 {
   unsigned long __h = 0; 
@@ -53,9 +53,9 @@ __STL_TEMPLATE_NULL struct hash<const char*>
   size_t operator()(const char* __s) const { return __stl_hash_string(__s); }
 };
 
-//ÏÂÃæµÄhashº¯Êı¶¼ÊÇÖ±½Ó·µ»ØÔ­Öµ
-//¶ÔÓÚchar,unsigned char,signed char,int,unsigned int, 
-//short, unsigned short, long,unsigned long¶¼Ö»ÊÇ·µ»ØÊıÖµ±¾Éí
+//ä¸‹é¢çš„hashå‡½æ•°éƒ½æ˜¯ç›´æ¥è¿”å›åŸå€¼
+//å¯¹äºchar,unsigned char,signed char,int,unsigned int, 
+//short, unsigned short, long,unsigned longéƒ½åªæ˜¯è¿”å›æ•°å€¼æœ¬èº«
 __STL_TEMPLATE_NULL struct hash<char> {
   size_t operator()(char __x) const { return __x; }
 };

@@ -20,34 +20,34 @@ relinked into its place, rather than copied, so that the only
 iterators invalidated are those referring to the deleted node.
 
 */
-//ÏÂÃæÕâ¶Î»°ÊÇºî½İÀÏÊ¦¶ÔÉÏÃæËµÃ÷µÄ·­Òë.
+//ä¸‹é¢è¿™æ®µè¯æ˜¯ä¾¯æ·è€å¸ˆå¯¹ä¸Šé¢è¯´æ˜çš„ç¿»è¯‘.
 /*
 
-ÕâÕÂ½²½âRed-black tree£¨ºìºÚÊ÷£©class,ÓÃÀ´µ±×öSLT¹ØÏµÊ½ÈİÆ÷£¨Èçset,multiset,map, 
-multimap£©.ÀïÃæËùÓÃµÄinsertionºÍdeletion·½·¨ÒÔCormen, Leiserson ºÍ RivesetËùÖøµÄ 
-¡¶Introduction to Algorithms¡·Ò»ÊéÎª»ù´¡,µ«ÊÇÓĞÒÔÏÂÁ½µã²»Í¬: 
+è¿™ç« è®²è§£Red-black treeï¼ˆçº¢é»‘æ ‘ï¼‰class,ç”¨æ¥å½“åšSLTå…³ç³»å¼å®¹å™¨ï¼ˆå¦‚set,multiset,map, 
+multimapï¼‰.é‡Œé¢æ‰€ç”¨çš„insertionå’Œdeletionæ–¹æ³•ä»¥Cormen, Leiserson å’Œ Rivesetæ‰€è‘—çš„ 
+ã€ŠIntroduction to Algorithmsã€‹ä¸€ä¹¦ä¸ºåŸºç¡€,ä½†æ˜¯æœ‰ä»¥ä¸‹ä¸¤ç‚¹ä¸åŒ: 
  
-(1)header²»½öÖ¸Ïòroot,Ò²Ö¸ÏòºìºÚÊ÷µÄ×î×ó½Úµã,ÒÔ±ãÓÃ³£ÊıÊ±¼äÊµÏÖbegin(),²¢ÇÒÒ²Ö¸ÏòºìºÚÊ÷µÄ×îÓÒ±ß½Úµã,ÒÔ±ã 
-setÏà¹Ø·ºĞÍËã·¨£¨Èçset_unionµÈµÈ£©¿ÉÒÔÓĞÏßĞÔÊ±¼ä±íÏÖ.
+(1)headerä¸ä»…æŒ‡å‘root,ä¹ŸæŒ‡å‘çº¢é»‘æ ‘çš„æœ€å·¦èŠ‚ç‚¹,ä»¥ä¾¿ç”¨å¸¸æ•°æ—¶é—´å®ç°begin(),å¹¶ä¸”ä¹ŸæŒ‡å‘çº¢é»‘æ ‘çš„æœ€å³è¾¹èŠ‚ç‚¹,ä»¥ä¾¿ 
+setç›¸å…³æ³›å‹ç®—æ³•ï¼ˆå¦‚set_unionç­‰ç­‰ï¼‰å¯ä»¥æœ‰çº¿æ€§æ—¶é—´è¡¨ç°.
 
-(2)µ±Ò»¸ö¼´½«±»É¾³ıµÄ½ÚµãÓĞÁ½¸öº¢×Ó½ÚµãÊ±,ËüµÄsuccessor£¨ºó¼Ì£©node is relinked into its place, ranther than copied, 
-Èç´ËÒ»À´Î¨Ò»Ê§Ğ§µÄ£¨invalidated£©µÄµü´úÆ÷¾ÍÖ»ÊÇÄÇĞ©referring to the deleted node.  
+(2)å½“ä¸€ä¸ªå³å°†è¢«åˆ é™¤çš„èŠ‚ç‚¹æœ‰ä¸¤ä¸ªå­©å­èŠ‚ç‚¹æ—¶,å®ƒçš„successorï¼ˆåç»§ï¼‰node is relinked into its place, ranther than copied, 
+å¦‚æ­¤ä¸€æ¥å”¯ä¸€å¤±æ•ˆçš„ï¼ˆinvalidatedï¼‰çš„è¿­ä»£å™¨å°±åªæ˜¯é‚£äº›referring to the deleted node.  
 */
 
 /*	
-	SGI STLÖĞµÄRB-TreeÊµÏÖ»úÖÆÓĞÒ»¶¨µÄ¼¼ÇÉ,¶¨ÒåÁËÒ»¸öÖ¸Ïò¸ù½ÚµãµÄ½ÚµãÖ¸Õëheader,
-²¢ÇÒ,headerºÍ¸ù½Úµãroot»¥Îª¶Ô·½µÄ¸¸½Úµã,headerµÄ×ó×Ó½ÚµãÖ¸ÏòRB-TreeµÄ×îĞ¡½Úµã,
-headerµÄÓÒ×Ó½ÚµãÖ¸ÏòRB-TreeµÄ×î´ó½Úµã.
+	SGI STLä¸­çš„RB-Treeå®ç°æœºåˆ¶æœ‰ä¸€å®šçš„æŠ€å·§,å®šä¹‰äº†ä¸€ä¸ªæŒ‡å‘æ ¹èŠ‚ç‚¹çš„èŠ‚ç‚¹æŒ‡é’ˆheader,
+å¹¶ä¸”,headerå’Œæ ¹èŠ‚ç‚¹rootäº’ä¸ºå¯¹æ–¹çš„çˆ¶èŠ‚ç‚¹,headerçš„å·¦å­èŠ‚ç‚¹æŒ‡å‘RB-Treeçš„æœ€å°èŠ‚ç‚¹,
+headerçš„å³å­èŠ‚ç‚¹æŒ‡å‘RB-Treeçš„æœ€å¤§èŠ‚ç‚¹.
 */
 
 /*
-RB-TreeÊÇÒ»¿Ã¶ş²æ²éÕÒÊ÷,²¢ÇÒ¾ß±¸ÓĞÒÔÏÂĞÔÖÊ:
-ºìºÚÊ÷µÄĞÔÖÊ£º
-	(1)Ã¿¸ö½Úµã»òÊÇºìÉ«µÄ,»òÊÇºÚÉ«µÄ.
-	(2)¸ù½ÚµãÊÇºÚÉ«µÄ.
-	(3)Ã¿¸öÒ¶½Úµã£¨NULL£©ÊÇºÚÉ«µÄ.
-	(4)Èç¹ûÒ»¸ö½ÚµãÊÇºìÉ«µÄ£¬ÔòËüµÄÁ½¸öº¢×Ó½Úµã¶¼ÊÇºÚÉ«µÄ.
-	(5)¶ÔÃ¿¸ö½Úµã£¬´Ó¸Ã½Úµãµ½ÆäËùÓĞºó´úÒ¶½ÚµãµÄ¼òµ¥Â·¾¶ÉÏ£¬¾ù°üº¬ÏàÍ¬ÊıÄ¿µÄºÚÉ«½Úµã.
+RB-Treeæ˜¯ä¸€æ£µäºŒå‰æŸ¥æ‰¾æ ‘,å¹¶ä¸”å…·å¤‡æœ‰ä»¥ä¸‹æ€§è´¨:
+çº¢é»‘æ ‘çš„æ€§è´¨ï¼š
+	(1)æ¯ä¸ªèŠ‚ç‚¹æˆ–æ˜¯çº¢è‰²çš„,æˆ–æ˜¯é»‘è‰²çš„.
+	(2)æ ¹èŠ‚ç‚¹æ˜¯é»‘è‰²çš„.
+	(3)æ¯ä¸ªå¶èŠ‚ç‚¹ï¼ˆNULLï¼‰æ˜¯é»‘è‰²çš„.
+	(4)å¦‚æœä¸€ä¸ªèŠ‚ç‚¹æ˜¯çº¢è‰²çš„ï¼Œåˆ™å®ƒçš„ä¸¤ä¸ªå­©å­èŠ‚ç‚¹éƒ½æ˜¯é»‘è‰²çš„.
+	(5)å¯¹æ¯ä¸ªèŠ‚ç‚¹ï¼Œä»è¯¥èŠ‚ç‚¹åˆ°å…¶æ‰€æœ‰åä»£å¶èŠ‚ç‚¹çš„ç®€å•è·¯å¾„ä¸Šï¼Œå‡åŒ…å«ç›¸åŒæ•°ç›®çš„é»‘è‰²èŠ‚ç‚¹.
 */
 #include <stl_algobase.h>
 #include <stl_alloc.h>
@@ -60,22 +60,22 @@ __STL_BEGIN_NAMESPACE
 #pragma set woff 1375
 #endif
 
-typedef bool _Rb_tree_Color_type;//½ÚµãÑÕÉ«ÀàĞÍ£¬·Çºì¼´ºÚ
-const _Rb_tree_Color_type _S_rb_tree_red = false;//ºìÉ«Îª0
-const _Rb_tree_Color_type _S_rb_tree_black = true;//ºÚÉ«Îª1
+typedef bool _Rb_tree_Color_type;//èŠ‚ç‚¹é¢œè‰²ç±»å‹ï¼Œéçº¢å³é»‘
+const _Rb_tree_Color_type _S_rb_tree_red = false;//çº¢è‰²ä¸º0
+const _Rb_tree_Color_type _S_rb_tree_black = true;//é»‘è‰²ä¸º1
 
-//RB-Tree½Úµã»ù±¾½á¹¹
+//RB-TreeèŠ‚ç‚¹åŸºæœ¬ç»“æ„
 struct _Rb_tree_node_base
 {
-  typedef _Rb_tree_Color_type _Color_type;//½ÚµãÑÕÉ«ÀàĞÍ
-  typedef _Rb_tree_node_base* _Base_ptr;//»ù±¾½ÚµãÖ¸Õë
+  typedef _Rb_tree_Color_type _Color_type;//èŠ‚ç‚¹é¢œè‰²ç±»å‹
+  typedef _Rb_tree_node_base* _Base_ptr;//åŸºæœ¬èŠ‚ç‚¹æŒ‡é’ˆ
 
-  _Color_type _M_color; //½ÚµãÑÕÉ«
-  _Base_ptr _M_parent;//Ö¸Ïò¸¸½Úµã
-  _Base_ptr _M_left;//Ö¸Ïò×óº¢×Ó½Úµã
-  _Base_ptr _M_right;//Ö¸ÏòÓÒº¢×Ó½Úµã
+  _Color_type _M_color; //èŠ‚ç‚¹é¢œè‰²
+  _Base_ptr _M_parent;//æŒ‡å‘çˆ¶èŠ‚ç‚¹
+  _Base_ptr _M_left;//æŒ‡å‘å·¦å­©å­èŠ‚ç‚¹
+  _Base_ptr _M_right;//æŒ‡å‘å³å­©å­èŠ‚ç‚¹
 
-  //RB-Tree×îĞ¡½Úµã,¼´×î×ó½Úµã
+  //RB-Treeæœ€å°èŠ‚ç‚¹,å³æœ€å·¦èŠ‚ç‚¹
   static _Base_ptr _S_minimum(_Base_ptr __x)
   {
     
@@ -83,104 +83,104 @@ struct _Rb_tree_node_base
     return __x;
   }
 
-  //RB-Tree×î´ó½Úµã,¼´×îÓÒ½Úµã
+  //RB-Treeæœ€å¤§èŠ‚ç‚¹,å³æœ€å³èŠ‚ç‚¹
   static _Base_ptr _S_maximum(_Base_ptr __x)
   {
-    //Ò»Ö±ÍùRB-TreeµÄÓÒ±ß×ß,×îÓÒµÄ½Úµã¼´ÊÇ×î´ó½Úµã
-	//ÕâÊÇ¶ş²æ²éÕÒÊ÷µÄĞÔÖÊ
+    //ä¸€ç›´å¾€RB-Treeçš„å³è¾¹èµ°,æœ€å³çš„èŠ‚ç‚¹å³æ˜¯æœ€å¤§èŠ‚ç‚¹
+	//è¿™æ˜¯äºŒå‰æŸ¥æ‰¾æ ‘çš„æ€§è´¨
 	while (__x->_M_right != 0) __x = __x->_M_right;
     return __x;
   }
 };
 
-//RB-Tree½Úµã½á¹¹
-//¼Ì³Ğ½Úµã»ù±¾½á¹¹_Rb_tree_node_baseµÄ½ÚµãĞÅÏ¢
+//RB-TreeèŠ‚ç‚¹ç»“æ„
+//ç»§æ‰¿èŠ‚ç‚¹åŸºæœ¬ç»“æ„_Rb_tree_node_baseçš„èŠ‚ç‚¹ä¿¡æ¯
 template <class _Value>
 struct _Rb_tree_node : public _Rb_tree_node_base
 {
-  typedef _Rb_tree_node<_Value>* _Link_type;//½ÚµãÖ¸Õë,Ö¸ÏòÊı¾İ½Úµã
-  _Value _M_value_field;//½ÚµãÊı¾İÓò,¼´¹Ø¼ü×Ö
+  typedef _Rb_tree_node<_Value>* _Link_type;//èŠ‚ç‚¹æŒ‡é’ˆ,æŒ‡å‘æ•°æ®èŠ‚ç‚¹
+  _Value _M_value_field;//èŠ‚ç‚¹æ•°æ®åŸŸ,å³å…³é”®å­—
 };
 
 
-//RB-TreeµÄµü´úÆ÷iterator»ù±¾½á¹¹
-//iteratorµü´úÆ÷µÄÀàĞÍÎªË«Ïòµü´úÆ÷bidirectional_iterator
+//RB-Treeçš„è¿­ä»£å™¨iteratoråŸºæœ¬ç»“æ„
+//iteratorè¿­ä»£å™¨çš„ç±»å‹ä¸ºåŒå‘è¿­ä»£å™¨bidirectional_iterator
 struct _Rb_tree_base_iterator
 {
-  typedef _Rb_tree_node_base::_Base_ptr _Base_ptr;//½ÚµãÖ¸Õë
-  typedef bidirectional_iterator_tag iterator_category;//µü´úÆ÷ÀàĞÍ
+  typedef _Rb_tree_node_base::_Base_ptr _Base_ptr;//èŠ‚ç‚¹æŒ‡é’ˆ
+  typedef bidirectional_iterator_tag iterator_category;//è¿­ä»£å™¨ç±»å‹
   typedef ptrdiff_t difference_type;
-  _Base_ptr _M_node;//½ÚµãÖ¸Õë,Á¬½ÓÈİÆ÷
+  _Base_ptr _M_node;//èŠ‚ç‚¹æŒ‡é’ˆ,è¿æ¥å®¹å™¨
 
 	/* 
-    ÖØÔØÔËËã·û++ºÍ--;Ä¿µÄÊÇÕÒµ½Ç°ÇıºÍºó¼Ì½Úµã. 
+    é‡è½½è¿ç®—ç¬¦++å’Œ--;ç›®çš„æ˜¯æ‰¾åˆ°å‰é©±å’Œåç»§èŠ‚ç‚¹. 
 	*/  
-  //ÏÂÃæÖ»ÊÇÎªÁËÊµÏÖoprerator++µÄ,ÆäËûµØ·½²»»áµ÷ÓÃ.  
-  //RB-TreeµÄºó¼Ì½Úµã
+  //ä¸‹é¢åªæ˜¯ä¸ºäº†å®ç°oprerator++çš„,å…¶ä»–åœ°æ–¹ä¸ä¼šè°ƒç”¨.  
+  //RB-Treeçš„åç»§èŠ‚ç‚¹
   void _M_increment()
   {
     //the right subtree of node x is not empty
-	  //¡¾Çé¿ö1¡¿:´æÔÚÓÒ×ÓÊ÷£¬ÔòÕÒ³öÓÒ×ÓÊ÷µÄ×îĞ¡½Úµã
-	if (_M_node->_M_right != 0) {//Èç¹ûÓĞÓÒ×ÓÊ÷
-      _M_node = _M_node->_M_right;//ÏòÓÒ±ß×ß
-      while (_M_node->_M_left != 0)//ÍùÓÒ×ÓÊ÷ÖĞµÄ×ó±ßÒ»Ö±×ßµ½µ×
-        _M_node = _M_node->_M_left;//×î×ó½Úµã¾ÍÊÇºó¼Ì½áµã
+	  //ã€æƒ…å†µ1ã€‘:å­˜åœ¨å³å­æ ‘ï¼Œåˆ™æ‰¾å‡ºå³å­æ ‘çš„æœ€å°èŠ‚ç‚¹
+	if (_M_node->_M_right != 0) {//å¦‚æœæœ‰å³å­æ ‘
+      _M_node = _M_node->_M_right;//å‘å³è¾¹èµ°
+      while (_M_node->_M_left != 0)//å¾€å³å­æ ‘ä¸­çš„å·¦è¾¹ä¸€ç›´èµ°åˆ°åº•
+        _M_node = _M_node->_M_left;//æœ€å·¦èŠ‚ç‚¹å°±æ˜¯åç»§ç»“ç‚¹
     }
 	//the right subtree of node x is empty,and the node of x has a successor node y 
-	//Ã»ÓĞÓÒ×ÓÊ÷£¬µ«ÊÇRB-TreeÖĞ½Úµãnode´æÔÚºó¼Ì½áµã
+	//æ²¡æœ‰å³å­æ ‘ï¼Œä½†æ˜¯RB-Treeä¸­èŠ‚ç‚¹nodeå­˜åœ¨åç»§ç»“ç‚¹
     else {
-      _Base_ptr __y = _M_node->_M_parent;//ÑØÆä¸¸½ÚµãÉÏËİ
-      while (_M_node == __y->_M_right) { //¡¾Çé¿ö2¡¿:Èô½ÚµãÊÇÆä¸¸½ÚµãµÄÓÒº¢×Ó,ÔòÉÏËİ
-        _M_node = __y;					//Ò»Ö±ÉÏËİ,Ö±µ½¡°Ä³½Úµã²»ÊÇÆä¸¸½ÚµãµÄÓÒº¢×Ó¡±ÎªÖ¹
+      _Base_ptr __y = _M_node->_M_parent;//æ²¿å…¶çˆ¶èŠ‚ç‚¹ä¸Šæº¯
+      while (_M_node == __y->_M_right) { //ã€æƒ…å†µ2ã€‘:è‹¥èŠ‚ç‚¹æ˜¯å…¶çˆ¶èŠ‚ç‚¹çš„å³å­©å­,åˆ™ä¸Šæº¯
+        _M_node = __y;					//ä¸€ç›´ä¸Šæº¯,ç›´åˆ°â€œæŸèŠ‚ç‚¹ä¸æ˜¯å…¶çˆ¶èŠ‚ç‚¹çš„å³å­©å­â€ä¸ºæ­¢
         __y = __y->_M_parent;
       }
 	  /* 
-        Èô´ËÊ±µÄÓÒ×Ó½Úµã²»µÈÓÚ´ËÊ±µÄ¸¸½Úµã,´ËÊ±µÄ¸¸½Úµã¼´Îª½â´ğ,·ñÔò´ËÊ±µÄnodeÎª½â´ğ.
-		ÒòÎªSGI STLÖĞµÄRB-Tree¼ÓÈëµÄheader½Úµã£¬ËùÒÔĞè¿¼ÂÇÌØÊâÇé¿ö;
-        ÕâÑù×öÊÇÎªÁËÓ¦¸¶Ò»ÖÖÌØÊâÇé¿ö£ºÎÒÃÇÓûÑ°ÕÒ¸ù½ÚµãµÄÏÂÒ»¸ö½Úµã£¬¶øÇ¡ÇÉ¸ù½ÚµãÎŞÓÒº¢×Ó¡£ 
-        µ±È»£¬ÒÔÉÏÌØÊâ×ö·¨±ØĞëÅäºÏRB-tree¸ù½ÚµãÓëÌØÊâheaderÖ®¼äµÄÌØÊâ¹ØÏµ
+        è‹¥æ­¤æ—¶çš„å³å­èŠ‚ç‚¹ä¸ç­‰äºæ­¤æ—¶çš„çˆ¶èŠ‚ç‚¹,æ­¤æ—¶çš„çˆ¶èŠ‚ç‚¹å³ä¸ºè§£ç­”,å¦åˆ™æ­¤æ—¶çš„nodeä¸ºè§£ç­”.
+		å› ä¸ºSGI STLä¸­çš„RB-TreeåŠ å…¥çš„headerèŠ‚ç‚¹ï¼Œæ‰€ä»¥éœ€è€ƒè™‘ç‰¹æ®Šæƒ…å†µ;
+        è¿™æ ·åšæ˜¯ä¸ºäº†åº”ä»˜ä¸€ç§ç‰¹æ®Šæƒ…å†µï¼šæˆ‘ä»¬æ¬²å¯»æ‰¾æ ¹èŠ‚ç‚¹çš„ä¸‹ä¸€ä¸ªèŠ‚ç‚¹ï¼Œè€Œæ°å·§æ ¹èŠ‚ç‚¹æ— å³å­©å­ã€‚ 
+        å½“ç„¶ï¼Œä»¥ä¸Šç‰¹æ®Šåšæ³•å¿…é¡»é…åˆRB-treeæ ¹èŠ‚ç‚¹ä¸ç‰¹æ®Šheaderä¹‹é—´çš„ç‰¹æ®Šå…³ç³»
       */
-	  //ÒÔÏÂÇé¿ö3ºÍÇé¿ö4ÊÇÕë¶Ôheader½ÚµãµÄÊ¹ÓÃ,ÒòÎª¸ù½ÚµãºÍheader½ÚµãÊÇ»¥Îª¸¸½Úµã
-      if (_M_node->_M_right != __y)//¡¾Çé¿ö3¡¿:Èô´ËÊ±µÄÓÒ×Ó½Úµã²»µÈÓÚ´ËÊ±µÄ¸¸½Úµã
-        _M_node = __y;//´ËÊ±µÄ¸¸½Úµã¼´Îª½â´ğ
-						//¡¾Çé¿ö4¡¿£º·ñÔò´ËÊ±µÄnodeÎª½â´ğ 
+	  //ä»¥ä¸‹æƒ…å†µ3å’Œæƒ…å†µ4æ˜¯é’ˆå¯¹headerèŠ‚ç‚¹çš„ä½¿ç”¨,å› ä¸ºæ ¹èŠ‚ç‚¹å’ŒheaderèŠ‚ç‚¹æ˜¯äº’ä¸ºçˆ¶èŠ‚ç‚¹
+      if (_M_node->_M_right != __y)//ã€æƒ…å†µ3ã€‘:è‹¥æ­¤æ—¶çš„å³å­èŠ‚ç‚¹ä¸ç­‰äºæ­¤æ—¶çš„çˆ¶èŠ‚ç‚¹
+        _M_node = __y;//æ­¤æ—¶çš„çˆ¶èŠ‚ç‚¹å³ä¸ºè§£ç­”
+						//ã€æƒ…å†µ4ã€‘ï¼šå¦åˆ™æ­¤æ—¶çš„nodeä¸ºè§£ç­” 
     }
   }
 
-  //ÏÂÃæÖ»ÊÇÎªÁËÊµÏÖoprerator--µÄ,ÆäËûµØ·½²»»áµ÷ÓÃ.  
-  //RB-TreeµÄÇ°Çı½Úµã
+  //ä¸‹é¢åªæ˜¯ä¸ºäº†å®ç°oprerator--çš„,å…¶ä»–åœ°æ–¹ä¸ä¼šè°ƒç”¨.  
+  //RB-Treeçš„å‰é©±èŠ‚ç‚¹
   void _M_decrement()
   {
-    if (_M_node->_M_color == _S_rb_tree_red &&// Èç¹ûÊÇºì½Úµã£¬ÇÒ
-        _M_node->_M_parent->_M_parent == _M_node)// ¸¸½ÚµãµÄ¸¸½ÚµãµÈÓÚ×Ô¼º
-      _M_node = _M_node->_M_right;			 //¡¾Çé¿ö1¡¿£ºÓÒ×Ó½Úµã¼´Îª½â´ğ¡£
+    if (_M_node->_M_color == _S_rb_tree_red &&// å¦‚æœæ˜¯çº¢èŠ‚ç‚¹ï¼Œä¸”
+        _M_node->_M_parent->_M_parent == _M_node)// çˆ¶èŠ‚ç‚¹çš„çˆ¶èŠ‚ç‚¹ç­‰äºè‡ªå·±
+      _M_node = _M_node->_M_right;			 //ã€æƒ…å†µ1ã€‘ï¼šå³å­èŠ‚ç‚¹å³ä¸ºè§£ç­”ã€‚
 	/* 
-      ÒÔÉÏÇé¿ö·¢ÉúÓÚnodeÎªheaderÊ±£¨Òà¼´nodeÎªend()Ê±£©¡£×¢Òâ£¬headerÖ®ÓÒº¢×Ó¼´ 
-      mostright£¬Ö¸ÏòÕû¿ÃÊ÷µÄmax½Úµã¡£ 
+      ä»¥ä¸Šæƒ…å†µå‘ç”Ÿäºnodeä¸ºheaderæ—¶ï¼ˆäº¦å³nodeä¸ºend()æ—¶ï¼‰ã€‚æ³¨æ„ï¼Œheaderä¹‹å³å­©å­å³ 
+      mostrightï¼ŒæŒ‡å‘æ•´æ£µæ ‘çš„maxèŠ‚ç‚¹ã€‚ 
       */ 
-    else if (_M_node->_M_left != 0) {//ÈôÓĞ×óº¢×Ó½Úµã¡£¡¾Çé¿ö2¡¿:×ó×ÓÊ÷µÄ×î´óÖµ¼´ÎªÇ°Çı½Úµã
-      _Base_ptr __y = _M_node->_M_left;//Ïò×ó±ß×ß,¼´ÁîyÖ¸Ïò×óº¢×Ó
-      while (__y->_M_right != 0)//y´æÔÚÓÒº¢×Ó,
-        __y = __y->_M_right;//Ò»Ö±ÍùÓÒ×ßµ½µ×
-      _M_node = __y;//×îºó¼´Îª½â´ğ
+    else if (_M_node->_M_left != 0) {//è‹¥æœ‰å·¦å­©å­èŠ‚ç‚¹ã€‚ã€æƒ…å†µ2ã€‘:å·¦å­æ ‘çš„æœ€å¤§å€¼å³ä¸ºå‰é©±èŠ‚ç‚¹
+      _Base_ptr __y = _M_node->_M_left;//å‘å·¦è¾¹èµ°,å³ä»¤yæŒ‡å‘å·¦å­©å­
+      while (__y->_M_right != 0)//yå­˜åœ¨å³å­©å­,
+        __y = __y->_M_right;//ä¸€ç›´å¾€å³èµ°åˆ°åº•
+      _M_node = __y;//æœ€åå³ä¸ºè§£ç­”
     }
-    else {//¼´·Ç¸ù½Úµã,ÇÒÃ»ÓĞ×óº¢×Ó½Úµã,¡¾Çé¿ö3¡¿
-      _Base_ptr __y = _M_node->_M_parent;//ÕÒ³ö¸¸½Úµã
-      while (_M_node == __y->_M_left) {//node½ÚµãÊÇÆä¸¸½ÚµãµÄ×óº¢×Ó
-        _M_node = __y;//Ò»Ö±½»ÌæÉÏËİ
-        __y = __y->_M_parent;//Ö±µ½²»Îª×óº¢×Ó½áµã
+    else {//å³éæ ¹èŠ‚ç‚¹,ä¸”æ²¡æœ‰å·¦å­©å­èŠ‚ç‚¹,ã€æƒ…å†µ3ã€‘
+      _Base_ptr __y = _M_node->_M_parent;//æ‰¾å‡ºçˆ¶èŠ‚ç‚¹
+      while (_M_node == __y->_M_left) {//nodeèŠ‚ç‚¹æ˜¯å…¶çˆ¶èŠ‚ç‚¹çš„å·¦å­©å­
+        _M_node = __y;//ä¸€ç›´äº¤æ›¿ä¸Šæº¯
+        __y = __y->_M_parent;//ç›´åˆ°ä¸ä¸ºå·¦å­©å­ç»“ç‚¹
       }
-      _M_node = __y;//´ËÊ±¸¸½Úµã¼´Îª½â´ğ
+      _M_node = __y;//æ­¤æ—¶çˆ¶èŠ‚ç‚¹å³ä¸ºè§£ç­”
     }
   }
 };
 
-//RB-TreeµÄµü´úÆ÷iterator½á¹¹
-//¼Ì³Ğ»ùÀàµü´úÆ÷Rb_tree_base_iterator
+//RB-Treeçš„è¿­ä»£å™¨iteratorç»“æ„
+//ç»§æ‰¿åŸºç±»è¿­ä»£å™¨Rb_tree_base_iterator
 template <class _Value, class _Ref, class _Ptr>
 struct _Rb_tree_iterator : public _Rb_tree_base_iterator
 {
-  //µü´úÆ÷µÄÄÚÇ¶ÀàĞÍ
+  //è¿­ä»£å™¨çš„å†…åµŒç±»å‹
   typedef _Value value_type;
   typedef _Ref reference;
   typedef _Ptr pointer;
@@ -190,33 +190,33 @@ struct _Rb_tree_iterator : public _Rb_tree_base_iterator
     const_iterator;
   typedef _Rb_tree_iterator<_Value, _Ref, _Ptr>                   
     _Self;
-  typedef _Rb_tree_node<_Value>* _Link_type;//½ÚµãÖ¸Õë
+  typedef _Rb_tree_node<_Value>* _Link_type;//èŠ‚ç‚¹æŒ‡é’ˆ
 
-  //¹¹Ôìº¯Êı
+  //æ„é€ å‡½æ•°
   _Rb_tree_iterator() {}
   _Rb_tree_iterator(_Link_type __x) { _M_node = __x; }
   _Rb_tree_iterator(const iterator& __it) { _M_node = __it._M_node; }
 
   /*
-  ÒÔÏÂÊÇ²Ù×÷·ûÖØÔØ
+  ä»¥ä¸‹æ˜¯æ“ä½œç¬¦é‡è½½
   */
   reference operator*() const { return _Link_type(_M_node)->_M_value_field; }
 #ifndef __SGI_STL_NO_ARROW_OPERATOR
   pointer operator->() const { return &(operator*()); }
 #endif /* __SGI_STL_NO_ARROW_OPERATOR */
 
-  //Ç°×ºoperator++ÕÒ³öºó¼Ì½Úµã,µ÷ÓÃ»ùÀàµÄ_M_increment()
+  //å‰ç¼€operator++æ‰¾å‡ºåç»§èŠ‚ç‚¹,è°ƒç”¨åŸºç±»çš„_M_increment()
   _Self& operator++() { _M_increment(); return *this; }
-  //ºó×ºoperator++ÕÒ³öºó¼Ì½Úµã,µ÷ÓÃ»ùÀàµÄ_M_increment()
+  //åç¼€operator++æ‰¾å‡ºåç»§èŠ‚ç‚¹,è°ƒç”¨åŸºç±»çš„_M_increment()
   _Self operator++(int) {
     _Self __tmp = *this;
     _M_increment();
     return __tmp;
   }
     
-  //Ç°×ºoperator--ÕÒ³öÇ°Çı½Úµã,µ÷ÓÃ»ùÀàµÄ_M_decrement()
+  //å‰ç¼€operator--æ‰¾å‡ºå‰é©±èŠ‚ç‚¹,è°ƒç”¨åŸºç±»çš„_M_decrement()
   _Self& operator--() { _M_decrement(); return *this; }
-  //ºó×ºoperator--ÕÒ³öÇ°Çı½Úµã,µ÷ÓÃ»ùÀàµÄ_M_decrement()
+  //åç¼€operator--æ‰¾å‡ºå‰é©±èŠ‚ç‚¹,è°ƒç”¨åŸºç±»çš„_M_decrement()
   _Self operator--(int) {
     _Self __tmp = *this;
     _M_decrement();
@@ -224,7 +224,7 @@ struct _Rb_tree_iterator : public _Rb_tree_base_iterator
   }
 };
 
-//Á½¸öµü´úÆ÷ÏàµÈ£¬ÒâÎ¶×ÅÖ¸ÏòRB-TreeµÄÍ¬Ò»¸ö½Úµã
+//ä¸¤ä¸ªè¿­ä»£å™¨ç›¸ç­‰ï¼Œæ„å‘³ç€æŒ‡å‘RB-Treeçš„åŒä¸€ä¸ªèŠ‚ç‚¹
 inline bool operator==(const _Rb_tree_base_iterator& __x,
                        const _Rb_tree_base_iterator& __y) {
   return __x._M_node == __y._M_node;
@@ -233,7 +233,7 @@ inline bool operator==(const _Rb_tree_base_iterator& __x,
 inline bool operator!=(const _Rb_tree_base_iterator& __x,
                        const _Rb_tree_base_iterator& __y) {
   return __x._M_node != __y._M_node;
-  //Á½¸öµü´úÆ÷²»ÏàµÈ£¬ÒâÎ¶×ÅËùÖ¸ÏòµÄ½Úµã²»Í¬
+  //ä¸¤ä¸ªè¿­ä»£å™¨ä¸ç›¸ç­‰ï¼Œæ„å‘³ç€æ‰€æŒ‡å‘çš„èŠ‚ç‚¹ä¸åŒ
 }
 
 #ifndef __STL_CLASS_PARTIAL_SPECIALIZATION
@@ -255,137 +255,137 @@ inline _Value* value_type(const _Rb_tree_iterator<_Value, _Ref, _Ptr>&) {
 
 #endif /* __STL_CLASS_PARTIAL_SPECIALIZATION */
 
-// ÒÔÏÂ¶¼ÊÇÈ«Óòº¯Ê½£º__rb_tree_rotate_left(), __rb_tree_rotate_right(),  
+// ä»¥ä¸‹éƒ½æ˜¯å…¨åŸŸå‡½å¼ï¼š__rb_tree_rotate_left(), __rb_tree_rotate_right(),  
 // __rb_tree_rebalance(), __rb_tree_rebalance_for_erase()  
   
-//ĞÂ½Úµã±ØĞëÎªºìÉ«½Úµã¡£Èç¹û°²²å´¦µÄ¸¸½ÚµãÎªºìÉ«£¬¾ÍÎ¥·´ÁËºìºÚÉ«¹æÔò
-//´ËÊ±ÒªĞı×ªºÍ¸Ä±äÑÕÉ« 
+//æ–°èŠ‚ç‚¹å¿…é¡»ä¸ºçº¢è‰²èŠ‚ç‚¹ã€‚å¦‚æœå®‰æ’å¤„çš„çˆ¶èŠ‚ç‚¹ä¸ºçº¢è‰²ï¼Œå°±è¿åäº†çº¢é»‘è‰²è§„åˆ™
+//æ­¤æ—¶è¦æ—‹è½¬å’Œæ”¹å˜é¢œè‰² 
 
-//×óĞı×ª
-//½ÚµãxÎª×óĞı×ªµã
+//å·¦æ—‹è½¬
+//èŠ‚ç‚¹xä¸ºå·¦æ—‹è½¬ç‚¹
 inline void 
 _Rb_tree_rotate_left(_Rb_tree_node_base* __x, _Rb_tree_node_base*& __root)
 {
-  _Rb_tree_node_base* __y = __x->_M_right;//»ñÈ¡×óĞı×ª½ÚµãxµÄÓÒº¢×Óy
-  __x->_M_right = __y->_M_left;//°Ñy½ÚµãµÄ×óº¢×Ó×÷ÎªĞı×ª½ÚµãxµÄÓÒº¢×Ó
+  _Rb_tree_node_base* __y = __x->_M_right;//è·å–å·¦æ—‹è½¬èŠ‚ç‚¹xçš„å³å­©å­y
+  __x->_M_right = __y->_M_left;//æŠŠyèŠ‚ç‚¹çš„å·¦å­©å­ä½œä¸ºæ—‹è½¬èŠ‚ç‚¹xçš„å³å­©å­
   if (__y->_M_left !=0)
-    __y->_M_left->_M_parent = __x;//¸üĞÂ½Úµãy×óº¢×Ó¸¸½ÚµãÖ¸Õë£¬Ö¸ÏòĞÂµÄ¸¸½Úµãx
-  __y->_M_parent = __x->_M_parent;//y½ÚµãÌæ»»x½ÚµãµÄÎ»ÖÃ
+    __y->_M_left->_M_parent = __x;//æ›´æ–°èŠ‚ç‚¹yå·¦å­©å­çˆ¶èŠ‚ç‚¹æŒ‡é’ˆï¼ŒæŒ‡å‘æ–°çš„çˆ¶èŠ‚ç‚¹x
+  __y->_M_parent = __x->_M_parent;//yèŠ‚ç‚¹æ›¿æ¢xèŠ‚ç‚¹çš„ä½ç½®
 
-  //ÁîyÍêÈ«¶¥ÌæxµÄµØÎ»£¨±ØĞë½«x¶ÔÆä¸¸½ÚµãµÄ¹ØÏµÍêÈ«½ÓÊÕ¹ıÀ´£©
-  if (__x == __root)//ÈôÔ­Ê¼Î»ÖÃ½ÚµãxÊÇ¸ù½Úµã
-    __root = __y;//ÔòyÎªĞÂµÄ¸ù½Úµã
-  //·ñÔò£¬Èôx½ÚµãÊÇÆä¸¸½ÚµãµÄ×óº¢×Ó
+  //ä»¤yå®Œå…¨é¡¶æ›¿xçš„åœ°ä½ï¼ˆå¿…é¡»å°†xå¯¹å…¶çˆ¶èŠ‚ç‚¹çš„å…³ç³»å®Œå…¨æ¥æ”¶è¿‡æ¥ï¼‰
+  if (__x == __root)//è‹¥åŸå§‹ä½ç½®èŠ‚ç‚¹xæ˜¯æ ¹èŠ‚ç‚¹
+    __root = __y;//åˆ™yä¸ºæ–°çš„æ ¹èŠ‚ç‚¹
+  //å¦åˆ™ï¼Œè‹¥xèŠ‚ç‚¹æ˜¯å…¶çˆ¶èŠ‚ç‚¹çš„å·¦å­©å­
   else if (__x == __x->_M_parent->_M_left)
-    __x->_M_parent->_M_left = __y;//Ôò¸üĞÂ½ÚµãyÎªÔ­Ê¼x¸¸½ÚµãµÄ×óº¢×Ó
-  else//Èôx½ÚµãÊÇÆä¸¸½ÚµãµÄÓÒº¢×Ó
-    __x->_M_parent->_M_right = __y;//Ôò¸üĞÂ½ÚµãyÎªÔ­Ê¼x¸¸½ÚµãµÄÓÒº¢×Ó
-  __y->_M_left = __x;//Ğı×ªºóĞı×ª½Úµãx×÷Îª½ÚµãyµÄ×óº¢×Ó
-  __x->_M_parent = __y;//¸üĞÂx½ÚµãµÄ¸¸½ÚµãÖ¸Õë
+    __x->_M_parent->_M_left = __y;//åˆ™æ›´æ–°èŠ‚ç‚¹yä¸ºåŸå§‹xçˆ¶èŠ‚ç‚¹çš„å·¦å­©å­
+  else//è‹¥xèŠ‚ç‚¹æ˜¯å…¶çˆ¶èŠ‚ç‚¹çš„å³å­©å­
+    __x->_M_parent->_M_right = __y;//åˆ™æ›´æ–°èŠ‚ç‚¹yä¸ºåŸå§‹xçˆ¶èŠ‚ç‚¹çš„å³å­©å­
+  __y->_M_left = __x;//æ—‹è½¬åæ—‹è½¬èŠ‚ç‚¹xä½œä¸ºèŠ‚ç‚¹yçš„å·¦å­©å­
+  __x->_M_parent = __y;//æ›´æ–°xèŠ‚ç‚¹çš„çˆ¶èŠ‚ç‚¹æŒ‡é’ˆ
 }
 
-//ÓÒĞı×ª
-//½ÚµãxÎªÓÒĞı×ªµã
+//å³æ—‹è½¬
+//èŠ‚ç‚¹xä¸ºå³æ—‹è½¬ç‚¹
 inline void 
 _Rb_tree_rotate_right(_Rb_tree_node_base* __x, _Rb_tree_node_base*& __root)
 {
-  _Rb_tree_node_base* __y = __x->_M_left;//»ñÈ¡ÓÒĞı×ª½ÚµãxµÄ×óº¢×Óy
-  __x->_M_left = __y->_M_right;//°Ñy½ÚµãµÄÓÒº¢×Ó×÷ÎªĞı×ª½ÚµãxµÄ×óº¢×Ó
+  _Rb_tree_node_base* __y = __x->_M_left;//è·å–å³æ—‹è½¬èŠ‚ç‚¹xçš„å·¦å­©å­y
+  __x->_M_left = __y->_M_right;//æŠŠyèŠ‚ç‚¹çš„å³å­©å­ä½œä¸ºæ—‹è½¬èŠ‚ç‚¹xçš„å·¦å­©å­
   if (__y->_M_right != 0)
-    __y->_M_right->_M_parent = __x;//¸üĞÂ½ÚµãyÓÒº¢×Ó¸¸½ÚµãÖ¸Õë£¬Ö¸ÏòĞÂµÄ¸¸½Úµãx
-  __y->_M_parent = __x->_M_parent;//y½ÚµãÌæ»»x½ÚµãµÄÎ»ÖÃ
+    __y->_M_right->_M_parent = __x;//æ›´æ–°èŠ‚ç‚¹yå³å­©å­çˆ¶èŠ‚ç‚¹æŒ‡é’ˆï¼ŒæŒ‡å‘æ–°çš„çˆ¶èŠ‚ç‚¹x
+  __y->_M_parent = __x->_M_parent;//yèŠ‚ç‚¹æ›¿æ¢xèŠ‚ç‚¹çš„ä½ç½®
 
-  //ÁîyÍêÈ«¶¥ÌæxµÄµØÎ»£¨±ØĞë½«x¶ÔÆä¸¸½ÚµãµÄ¹ØÏµÍêÈ«½ÓÊÕ¹ıÀ´£©
-  if (__x == __root)//ÈôÔ­Ê¼Î»ÖÃ½ÚµãxÊÇ¸ù½Úµã
-    __root = __y;//ÔòyÎªĞÂµÄ¸ù½Úµã
-  //·ñÔò£¬Èôx½ÚµãÊÇÆä¸¸½ÚµãµÄÓÒº¢×Ó
+  //ä»¤yå®Œå…¨é¡¶æ›¿xçš„åœ°ä½ï¼ˆå¿…é¡»å°†xå¯¹å…¶çˆ¶èŠ‚ç‚¹çš„å…³ç³»å®Œå…¨æ¥æ”¶è¿‡æ¥ï¼‰
+  if (__x == __root)//è‹¥åŸå§‹ä½ç½®èŠ‚ç‚¹xæ˜¯æ ¹èŠ‚ç‚¹
+    __root = __y;//åˆ™yä¸ºæ–°çš„æ ¹èŠ‚ç‚¹
+  //å¦åˆ™ï¼Œè‹¥xèŠ‚ç‚¹æ˜¯å…¶çˆ¶èŠ‚ç‚¹çš„å³å­©å­
   else if (__x == __x->_M_parent->_M_right)
-    __x->_M_parent->_M_right = __y;//Ôò¸üĞÂ½ÚµãyÎªÔ­Ê¼x¸¸½ÚµãµÄÓÒº¢×Ó
-  else//Èôx½ÚµãÊÇÆä¸¸½ÚµãµÄ×óº¢×Ó
-    __x->_M_parent->_M_left = __y;//Ôò¸üĞÂ½ÚµãyÎªÔ­Ê¼x¸¸½ÚµãµÄ×óº¢×Ó
-  __y->_M_right = __x;//Ğı×ªºóĞı×ª½Úµãx×÷Îª½ÚµãyµÄÓÒº¢×Ó
-  __x->_M_parent = __y;//¸üĞÂx½ÚµãµÄ¸¸½ÚµãÖ¸Õë
+    __x->_M_parent->_M_right = __y;//åˆ™æ›´æ–°èŠ‚ç‚¹yä¸ºåŸå§‹xçˆ¶èŠ‚ç‚¹çš„å³å­©å­
+  else//è‹¥xèŠ‚ç‚¹æ˜¯å…¶çˆ¶èŠ‚ç‚¹çš„å·¦å­©å­
+    __x->_M_parent->_M_left = __y;//åˆ™æ›´æ–°èŠ‚ç‚¹yä¸ºåŸå§‹xçˆ¶èŠ‚ç‚¹çš„å·¦å­©å­
+  __y->_M_right = __x;//æ—‹è½¬åæ—‹è½¬èŠ‚ç‚¹xä½œä¸ºèŠ‚ç‚¹yçš„å³å­©å­
+  __x->_M_parent = __y;//æ›´æ–°xèŠ‚ç‚¹çš„çˆ¶èŠ‚ç‚¹æŒ‡é’ˆ
 }
 
-//ÖØĞÂÁîRB-treeÆ½ºâ£¨¸Ä±äÑÕÉ«ºÍĞı×ª£©
-//²ÎÊıÒ»ÎªĞÂÔö½Úµãx£¬²ÎÊı¶şÎªroot½Úµã
+//é‡æ–°ä»¤RB-treeå¹³è¡¡ï¼ˆæ”¹å˜é¢œè‰²å’Œæ—‹è½¬ï¼‰
+//å‚æ•°ä¸€ä¸ºæ–°å¢èŠ‚ç‚¹xï¼Œå‚æ•°äºŒä¸ºrootèŠ‚ç‚¹
 inline void 
 _Rb_tree_rebalance(_Rb_tree_node_base* __x, _Rb_tree_node_base*& __root)
 {
-  __x->_M_color = _S_rb_tree_red;//ĞÂ²åÈëµÄ½Úµã±ØĞëÎªºìÉ«,ÕâÑù²»»áÎ¥·´ĞÔÖÊ5.
-  //ÈôĞÂ²åÈë½Úµã²»ÊÇÎªRB-TreeµÄ¸ù½Úµã£¬ÇÒÆä¸¸½ÚµãcolorÊôĞÔÒ²ÊÇºìÉ«,¼´Î¥·´ÁËĞÔÖÊ4.
-  //Ôò½øÈëwhileÑ­»·.
-  //´ËÊ±¸ù¾İ½ÚµãxµÄ¸¸½Úµãx->parentÊÇÆä×æ¸¸½Úµãx->parent->parentµÄ×óº¢×Ó»¹ÊÇÓÒº¢×Ó½øĞĞÌÖÂÛ,
-  //µ«ÊÇ×óÓÒº¢×ÓÖ®¼äÊÇ¶Ô³ÆµÄ£¬ËùÒÔË¼ÏëÊÇÀàËÆµÄ.
+  __x->_M_color = _S_rb_tree_red;//æ–°æ’å…¥çš„èŠ‚ç‚¹å¿…é¡»ä¸ºçº¢è‰²,è¿™æ ·ä¸ä¼šè¿åæ€§è´¨5.
+  //è‹¥æ–°æ’å…¥èŠ‚ç‚¹ä¸æ˜¯ä¸ºRB-Treeçš„æ ¹èŠ‚ç‚¹ï¼Œä¸”å…¶çˆ¶èŠ‚ç‚¹colorå±æ€§ä¹Ÿæ˜¯çº¢è‰²,å³è¿åäº†æ€§è´¨4.
+  //åˆ™è¿›å…¥whileå¾ªç¯.
+  //æ­¤æ—¶æ ¹æ®èŠ‚ç‚¹xçš„çˆ¶èŠ‚ç‚¹x->parentæ˜¯å…¶ç¥–çˆ¶èŠ‚ç‚¹x->parent->parentçš„å·¦å­©å­è¿˜æ˜¯å³å­©å­è¿›è¡Œè®¨è®º,
+  //ä½†æ˜¯å·¦å³å­©å­ä¹‹é—´æ˜¯å¯¹ç§°çš„ï¼Œæ‰€ä»¥æ€æƒ³æ˜¯ç±»ä¼¼çš„.
   while (__x != __root && __x->_M_parent->_M_color == _S_rb_tree_red) {
-	//case1£º½ÚµãxµÄ¸¸½Úµãx->parentÊÇÆä×æ¸¸½Úµãx->parent->parentµÄ×óº¢×Ó
+	//case1ï¼šèŠ‚ç‚¹xçš„çˆ¶èŠ‚ç‚¹x->parentæ˜¯å…¶ç¥–çˆ¶èŠ‚ç‚¹x->parent->parentçš„å·¦å­©å­
     if (__x->_M_parent == __x->_M_parent->_M_parent->_M_left) {
-		//½ÚµãyÎªx½ÚµãµÄÊåÊå½Úµã,¼´ÊÇ½Úµãx¸¸½Úµãx->parentµÄĞÖµÜ
+		//èŠ‚ç‚¹yä¸ºxèŠ‚ç‚¹çš„å”å”èŠ‚ç‚¹,å³æ˜¯èŠ‚ç‚¹xçˆ¶èŠ‚ç‚¹x->parentçš„å…„å¼Ÿ
       _Rb_tree_node_base* __y = __x->_M_parent->_M_parent->_M_right;
-      if (__y && __y->_M_color == _S_rb_tree_red) {//Çé¿ö1£ºÈôÆäÊåÊå½Úµãy´æÔÚ,ÇÒÎªºìÉ«
+      if (__y && __y->_M_color == _S_rb_tree_red) {//æƒ…å†µ1ï¼šè‹¥å…¶å”å”èŠ‚ç‚¹yå­˜åœ¨,ä¸”ä¸ºçº¢è‰²
 		  /*
-		  ´ËÊ±x->parentºÍy¶¼ÊÇºìÉ«µÄ£¬½â¾ö°ì·¨ÊÇ½«xµÄ¸¸½Úµãx->parentºÍÊåÊå½áµãy¶¼×ÅÎªºÚÉ«£¬
-		  ¶ø½«xµÄ×æ¸¸½áµãx->parent->parent×ÅÎªºìÉ«£¬
-		  È»ºó´Ó×æ¸¸½áµãx->parent->parent¼ÌĞøÏòÉÏÅĞ¶ÏÊÇ·ñÆÆ»µºìºÚÊ÷µÄĞÔÖÊ¡£
+		  æ­¤æ—¶x->parentå’Œyéƒ½æ˜¯çº¢è‰²çš„ï¼Œè§£å†³åŠæ³•æ˜¯å°†xçš„çˆ¶èŠ‚ç‚¹x->parentå’Œå”å”ç»“ç‚¹yéƒ½ç€ä¸ºé»‘è‰²ï¼Œ
+		  è€Œå°†xçš„ç¥–çˆ¶ç»“ç‚¹x->parent->parentç€ä¸ºçº¢è‰²ï¼Œ
+		  ç„¶åä»ç¥–çˆ¶ç»“ç‚¹x->parent->parentç»§ç»­å‘ä¸Šåˆ¤æ–­æ˜¯å¦ç ´åçº¢é»‘æ ‘çš„æ€§è´¨ã€‚
 		  */
-        __x->_M_parent->_M_color = _S_rb_tree_black;//½«Æä¸¸½Úµãx->parent¸Ä±ä³ÉºÚÉ«
-        __y->_M_color = _S_rb_tree_black;//½«ÆäÊåÊå½Úµãy¸Ä±ä³ÉºÚÉ«
-        __x->_M_parent->_M_parent->_M_color = _S_rb_tree_red;//½«Æä×æ¸¸½Úµã±ä³ÉºìÉ«
-		//°Ñ×æ¸¸½Úµã×÷Îªµ±Ç°½Úµã,Ò»Ö±ÉÏËİ,¼ÌĞøÅĞ¶ÏÊÇ·ñÆÆ»µRB-TreeĞÔÖÊ.
+        __x->_M_parent->_M_color = _S_rb_tree_black;//å°†å…¶çˆ¶èŠ‚ç‚¹x->parentæ”¹å˜æˆé»‘è‰²
+        __y->_M_color = _S_rb_tree_black;//å°†å…¶å”å”èŠ‚ç‚¹yæ”¹å˜æˆé»‘è‰²
+        __x->_M_parent->_M_parent->_M_color = _S_rb_tree_red;//å°†å…¶ç¥–çˆ¶èŠ‚ç‚¹å˜æˆçº¢è‰²
+		//æŠŠç¥–çˆ¶èŠ‚ç‚¹ä½œä¸ºå½“å‰èŠ‚ç‚¹,ä¸€ç›´ä¸Šæº¯,ç»§ç»­åˆ¤æ–­æ˜¯å¦ç ´åRB-Treeæ€§è´¨.
         __x = __x->_M_parent->_M_parent;
       }
-      else {//ÈôÎŞÊåÊå½Úµã»òÕßÆäÊåÊå½ÚµãyÎªºÚÉ«
+      else {//è‹¥æ— å”å”èŠ‚ç‚¹æˆ–è€…å…¶å”å”èŠ‚ç‚¹yä¸ºé»‘è‰²
 		  /*
-		  Çé¿ö2£ºxµÄÊåÊå½ÚµãyÊÇºÚÉ«ÇÒxÊÇÒ»¸öÓÒº¢×Ó
-		  Çé¿ö3£ºxµÄÊåÊå½ÚµãyÊÇºÚÉ«ÇÒxÊÇÒ»¸ö×óº¢×Ó
+		  æƒ…å†µ2ï¼šxçš„å”å”èŠ‚ç‚¹yæ˜¯é»‘è‰²ä¸”xæ˜¯ä¸€ä¸ªå³å­©å­
+		  æƒ…å†µ3ç°’çš„å”å”èŠ‚ç‚¹yæ˜¯é»‘è‰²ä¸”xæ˜¯ä¸€ä¸ªå·¦å­©å­
 
-		 Çé¿ö2ºÍÇé¿ö3ÖĞy¶¼ÊÇºÚÉ«µÄ£¬Í¨¹ıxÊÇparent[x]µÄ×óº¢×Ó»¹ÊÇÓÒº¢×Ó½øĞĞÇø·ÖµÄ¡£
-		 Çé¿ö2ÖĞxÊÇÓÒº¢×Ó£¬¿ÉÒÔÔÚparent[x]½áµã½«Çé¿ö2Í¨¹ı×óĞı×ªÎªÇé¿ö3£¬Ê¹µÃx±äÎª×óº¢×Ó¡£
-		 ÎŞÂÛÊÇ¼ä½Ó»¹ÊÇÖ±½ÓµÄÍ¨¹ıÇé¿ö2½øÈëµ½Çé¿ö3£¬xµÄÊåÊåy×ÜÊÇºÚÉ«µÄ¡£
-		 ÔÚÇé¿ö3ÖĞ£¬½«parent[x]×ÅÎªºÚÉ«£¬parent[parent[x]]×ÅÎªºìÉ«£¬È»ºó´Óparent[parent[x]]´¦½øĞĞÒ»´ÎÓÒĞı×ª¡£
-		 Çé¿ö2¡¢3ĞŞÕıÁË¶ÔĞÔÖÊ4µÄÎ¥·´£¬ĞŞÕı¹ı³Ì²»»áµ¼ÖÂÆäËûµÄºìºÚĞÔÖÊ±»ÆÆ»µ¡£
+		 æƒ…å†µ2å’Œæƒ…å†µ3ä¸­yéƒ½æ˜¯é»‘è‰²çš„ï¼Œé€šè¿‡xæ˜¯parent[x]çš„å·¦å­©å­è¿˜æ˜¯å³å­©å­è¿›è¡ŒåŒºåˆ†çš„ã€‚
+		 æƒ…å†µ2ä¸­xæ˜¯å³å­©å­ï¼Œå¯ä»¥åœ¨parent[x]ç»“ç‚¹å°†æƒ…å†µ2é€šè¿‡å·¦æ—‹è½¬ä¸ºæƒ…å†µ3ï¼Œä½¿å¾—xå˜ä¸ºå·¦å­©å­ã€‚
+		 æ— è®ºæ˜¯é—´æ¥è¿˜æ˜¯ç›´æ¥çš„é€šè¿‡æƒ…å†µ2è¿›å…¥åˆ°æƒ…å†µ3ï¼Œxçš„å”å”yæ€»æ˜¯é»‘è‰²çš„ã€‚
+		 åœ¨æƒ…å†µ3ä¸­ï¼Œå°†parent[x]ç€ä¸ºé»‘è‰²ï¼Œparent[parent[x]]ç€ä¸ºçº¢è‰²ï¼Œç„¶åä»parent[parent[x]]å¤„è¿›è¡Œä¸€æ¬¡å³æ—‹è½¬ã€‚
+		 æƒ…å†µ2ã€3ä¿®æ­£äº†å¯¹æ€§è´¨4çš„è¿åï¼Œä¿®æ­£è¿‡ç¨‹ä¸ä¼šå¯¼è‡´å…¶ä»–çš„çº¢é»‘æ€§è´¨è¢«ç ´åã€‚
 		  */
-        if (__x == __x->_M_parent->_M_right) {//Èô½ÚµãxÎªÆä¸¸½Úµãx->parentµÄÓÒº¢×Ó
-			//ÔòÒÔÆä¸¸½Úµã×÷ÎªĞı×ª½Úµã
-			//½øĞĞÒ»´Î×óĞı×ª
+        if (__x == __x->_M_parent->_M_right) {//è‹¥èŠ‚ç‚¹xä¸ºå…¶çˆ¶èŠ‚ç‚¹x->parentçš„å³å­©å­
+			//åˆ™ä»¥å…¶çˆ¶èŠ‚ç‚¹ä½œä¸ºæ—‹è½¬èŠ‚ç‚¹
+			//è¿›è¡Œä¸€æ¬¡å·¦æ—‹è½¬
           __x = __x->_M_parent;
           _Rb_tree_rotate_left(__x, __root);
-		  //Ğı×ªÖ®ºó,½Úµãx±ä³ÉÆä¸¸½ÚµãµÄ×óº¢×Ó
+		  //æ—‹è½¬ä¹‹å,èŠ‚ç‚¹xå˜æˆå…¶çˆ¶èŠ‚ç‚¹çš„å·¦å­©å­
         }
-        __x->_M_parent->_M_color = _S_rb_tree_black;//¸Ä±äÆä¸¸½Úµãx->parentÑÕÉ«
-        __x->_M_parent->_M_parent->_M_color = _S_rb_tree_red;//¸Ä±äÆä×æ¸¸½Úµãx->parent->parentÑÕÉ«
-        _Rb_tree_rotate_right(__x->_M_parent->_M_parent, __root);//¶ÔÆä×æ¸¸½Úµã½øĞĞÒ»´ÎÓÒĞı×ª
+        __x->_M_parent->_M_color = _S_rb_tree_black;//æ”¹å˜å…¶çˆ¶èŠ‚ç‚¹x->parenté¢œè‰²
+        __x->_M_parent->_M_parent->_M_color = _S_rb_tree_red;//æ”¹å˜å…¶ç¥–çˆ¶èŠ‚ç‚¹x->parent->parenté¢œè‰²
+        _Rb_tree_rotate_right(__x->_M_parent->_M_parent, __root);//å¯¹å…¶ç¥–çˆ¶èŠ‚ç‚¹è¿›è¡Œä¸€æ¬¡å³æ—‹è½¬
       }
     }
-	//case2£º½ÚµãxµÄ¸¸½Úµãx->parentÊÇÆä×æ¸¸½Úµãx->parent->parentµÄÓÒº¢×Ó
-	//ÕâÖÖÇé¿öÊÇ¸úÉÏÃæµÄÇé¿ö(¸¸½ÚµãÎªÆä×æ¸¸½ÚµãµÄ×óº¢×Ó)ÊÇ¶Ô³ÆµÄ.
+	//case2ï¼šèŠ‚ç‚¹xçš„çˆ¶èŠ‚ç‚¹x->parentæ˜¯å…¶ç¥–çˆ¶èŠ‚ç‚¹x->parent->parentçš„å³å­©å­
+	//è¿™ç§æƒ…å†µæ˜¯è·Ÿä¸Šé¢çš„æƒ…å†µ(çˆ¶èŠ‚ç‚¹ä¸ºå…¶ç¥–çˆ¶èŠ‚ç‚¹çš„å·¦å­©å­)æ˜¯å¯¹ç§°çš„.
     else {
-		//½ÚµãyÎªx½ÚµãµÄÊåÊå½Úµã,¼´ÊÇ½Úµãx¸¸½Úµãx->parentµÄĞÖµÜ
+		//èŠ‚ç‚¹yä¸ºxèŠ‚ç‚¹çš„å”å”èŠ‚ç‚¹,å³æ˜¯èŠ‚ç‚¹xçˆ¶èŠ‚ç‚¹x->parentçš„å…„å¼Ÿ
       _Rb_tree_node_base* __y = __x->_M_parent->_M_parent->_M_left;
-      if (__y && __y->_M_color == _S_rb_tree_red) {//ÈôÊåÊå½Úµã´æÔÚ,ÇÒÎªºìÉ«
-        __x->_M_parent->_M_color = _S_rb_tree_black;//¸Ä±ä¸¸½ÚµãÑÕÉ«
-        __y->_M_color = _S_rb_tree_black;//¸Ä±äÊåÊå½ÚµãÑÕÉ«
-        __x->_M_parent->_M_parent->_M_color = _S_rb_tree_red;//¸Ä±ä×æ¸¸½ÚµãÑÕÉ«
-        __x = __x->_M_parent->_M_parent;//ÉÏËİ×æ¸¸½Úµã,ÅĞ¶ÏÊÇ·ñÎ¥±³RB-TreeµÄĞÔÖÊ
+      if (__y && __y->_M_color == _S_rb_tree_red) {//è‹¥å”å”èŠ‚ç‚¹å­˜åœ¨,ä¸”ä¸ºçº¢è‰²
+        __x->_M_parent->_M_color = _S_rb_tree_black;//æ”¹å˜çˆ¶èŠ‚ç‚¹é¢œè‰²
+        __y->_M_color = _S_rb_tree_black;//æ”¹å˜å”å”èŠ‚ç‚¹é¢œè‰²
+        __x->_M_parent->_M_parent->_M_color = _S_rb_tree_red;//æ”¹å˜ç¥–çˆ¶èŠ‚ç‚¹é¢œè‰²
+        __x = __x->_M_parent->_M_parent;//ä¸Šæº¯ç¥–çˆ¶èŠ‚ç‚¹,åˆ¤æ–­æ˜¯å¦è¿èƒŒRB-Treeçš„æ€§è´¨
       }
-      else {//ÈôÊåÊå½Úµã²»´æÔÚ»òÊåÊå½ÚµãÎªºÚÉ«
-        if (__x == __x->_M_parent->_M_left) {//ĞÂ½ÚµãxÎªÆä¸¸½ÚµãµÄ×óº¢×Ó
-			//¶ÔÆä¸¸½Úµã½øĞĞÒ»´ÎÓÒĞı×ª
+      else {//è‹¥å”å”èŠ‚ç‚¹ä¸å­˜åœ¨æˆ–å”å”èŠ‚ç‚¹ä¸ºé»‘è‰²
+        if (__x == __x->_M_parent->_M_left) {//æ–°èŠ‚ç‚¹xä¸ºå…¶çˆ¶èŠ‚ç‚¹çš„å·¦å­©å­
+			//å¯¹å…¶çˆ¶èŠ‚ç‚¹è¿›è¡Œä¸€æ¬¡å³æ—‹è½¬
           __x = __x->_M_parent;
           _Rb_tree_rotate_right(__x, __root);
         }
-        __x->_M_parent->_M_color = _S_rb_tree_black;//¸Ä±ä¸¸½ÚµãÑÕÉ«
-        __x->_M_parent->_M_parent->_M_color = _S_rb_tree_red;//¸Ä±ä×æ¸¸½ÚµãÑÕÉ«
-        _Rb_tree_rotate_left(__x->_M_parent->_M_parent, __root);//½øĞĞÒ»´Î×óĞı×ª
+        __x->_M_parent->_M_color = _S_rb_tree_black;//æ”¹å˜çˆ¶èŠ‚ç‚¹é¢œè‰²
+        __x->_M_parent->_M_parent->_M_color = _S_rb_tree_red;//æ”¹å˜ç¥–çˆ¶èŠ‚ç‚¹é¢œè‰²
+        _Rb_tree_rotate_left(__x->_M_parent->_M_parent, __root);//è¿›è¡Œä¸€æ¬¡å·¦æ—‹è½¬
       }
     }
   }
-  //ÈôĞÂ²åÈë½ÚµãÎª¸ù½Úµã,ÔòÎ¥·´ĞÔÖÊ2
-  //Ö»Ğè½«ÆäÖØĞÂ¸³ÖµÎªºÚÉ«¼´¿É
+  //è‹¥æ–°æ’å…¥èŠ‚ç‚¹ä¸ºæ ¹èŠ‚ç‚¹,åˆ™è¿åæ€§è´¨2
+  //åªéœ€å°†å…¶é‡æ–°èµ‹å€¼ä¸ºé»‘è‰²å³å¯
   __root->_M_color = _S_rb_tree_black;
 }
 
-//É¾³ı½Úµã
+//åˆ é™¤èŠ‚ç‚¹
 inline _Rb_tree_node_base*
 _Rb_tree_rebalance_for_erase(_Rb_tree_node_base* __z,
                              _Rb_tree_node_base*& __root,
@@ -523,7 +523,7 @@ _Rb_tree_rebalance_for_erase(_Rb_tree_node_base* __z,
 // having an empty base class, we arbitrarily move one of rb_tree's
 // data members into the base class.
 
-//ÒÔÏÂÊÇ¶ÔÄÚ´æ·ÖÅäµÄ¹ÜÀí
+//ä»¥ä¸‹æ˜¯å¯¹å†…å­˜åˆ†é…çš„ç®¡ç†
 #ifdef __STL_USE_STD_ALLOCATORS
 
 // _Base for general standard-conforming allocators.
@@ -531,7 +531,7 @@ template <class _Tp, class _Alloc, bool _S_instanceless>
 class _Rb_tree_alloc_base {
 public:
   typedef typename _Alloc_traits<_Tp, _Alloc>::allocator_type allocator_type;
-  allocator_type get_allocator() const { return _M_node_allocator; }//¿Õ¼äÅäÖÃÆ÷µÄÀàĞÍ
+  allocator_type get_allocator() const { return _M_node_allocator; }//ç©ºé—´é…ç½®å™¨çš„ç±»å‹
 
   _Rb_tree_alloc_base(const allocator_type& __a)
     : _M_node_allocator(__a), _M_header(0) {}
@@ -539,11 +539,11 @@ public:
 protected:
   typename _Alloc_traits<_Rb_tree_node<_Tp>, _Alloc>::allocator_type
            _M_node_allocator;
-  _Rb_tree_node<_Tp>* _M_header;//¶¨ÒåÍ·Ö¸Õë£¬Ö¸ÏòRb_treeµÄ¸ù½Úµã
+  _Rb_tree_node<_Tp>* _M_header;//å®šä¹‰å¤´æŒ‡é’ˆï¼ŒæŒ‡å‘Rb_treeçš„æ ¹èŠ‚ç‚¹
 
-  _Rb_tree_node<_Tp>* _M_get_node() //·ÖÅäÒ»¸ö½Úµã¿Õ¼ä
+  _Rb_tree_node<_Tp>* _M_get_node() //åˆ†é…ä¸€ä¸ªèŠ‚ç‚¹ç©ºé—´
     { return _M_node_allocator.allocate(1); }
-  void _M_put_node(_Rb_tree_node<_Tp>* __p) //ÊÍ·ÅÒ»¸ö½Úµã¿Õ¼ä
+  void _M_put_node(_Rb_tree_node<_Tp>* __p) //é‡Šæ”¾ä¸€ä¸ªèŠ‚ç‚¹ç©ºé—´
     { _M_node_allocator.deallocate(__p, 1); }
 };
 
@@ -568,7 +568,7 @@ protected:
     { _Alloc_type::deallocate(__p, 1); }
 };
 
-//RB-Tree»ù±¾½á¹¹,¼´»ùÀà,¼Ì³Ğ_Rb_tree_alloc_base
+//RB-TreeåŸºæœ¬ç»“æ„,å³åŸºç±»,ç»§æ‰¿_Rb_tree_alloc_base
 template <class _Tp, class _Alloc>
 struct _Rb_tree_base
   : public _Rb_tree_alloc_base<_Tp, _Alloc,
@@ -587,7 +587,7 @@ struct _Rb_tree_base
 
 #else /* __STL_USE_STD_ALLOCATORS */
 
-//RB-Tree»ù±¾½á¹¹,¼´»ùÀà,Ã»ÓĞ¼Ì³Ğ_Rb_tree_alloc_base
+//RB-TreeåŸºæœ¬ç»“æ„,å³åŸºç±»,æ²¡æœ‰ç»§æ‰¿_Rb_tree_alloc_base
 template <class _Tp, class _Alloc>
 struct _Rb_tree_base
 {
@@ -599,7 +599,7 @@ struct _Rb_tree_base
   ~_Rb_tree_base() { _M_put_node(_M_header); }
 
 protected:
-  _Rb_tree_node<_Tp>* _M_header;//¶¨ÒåÍ·Ö¸Õë½Úµã£¬Ö¸Ïò¸ù½Úµã
+  _Rb_tree_node<_Tp>* _M_header;//å®šä¹‰å¤´æŒ‡é’ˆèŠ‚ç‚¹ï¼ŒæŒ‡å‘æ ¹èŠ‚ç‚¹
 
   typedef simple_alloc<_Rb_tree_node<_Tp>, _Alloc> _Alloc_type;
 
@@ -611,7 +611,7 @@ protected:
 
 #endif /* __STL_USE_STD_ALLOCATORS */
 
-//RB-TreeÀàµÄ¶¨Òå,¼Ì³Ğ»ùÀà_Rb_tree_base
+//RB-Treeç±»çš„å®šä¹‰,ç»§æ‰¿åŸºç±»_Rb_tree_base
 template <class _Key, class _Value, class _KeyOfValue, class _Compare,
           class _Alloc = __STL_DEFAULT_ALLOCATOR(_Value) >
 class _Rb_tree : protected _Rb_tree_base<_Value, _Alloc> {
@@ -638,23 +638,23 @@ protected:
 #ifdef __STL_USE_NAMESPACES
   using _Base::_M_get_node;
   using _Base::_M_put_node;
-  using _Base::_M_header;//ÕâÀïÊÇÖ¸Ïò¸ù½ÚµãµÄ½ÚµãÖ¸Õë
+  using _Base::_M_header;//è¿™é‡Œæ˜¯æŒ‡å‘æ ¹èŠ‚ç‚¹çš„èŠ‚ç‚¹æŒ‡é’ˆ
 #endif /* __STL_USE_NAMESPACES */
 
 protected:
 
-//´´½¨½Úµã²¢¶ÔÆä³õÊ¼»¯Îªx  
+//åˆ›å»ºèŠ‚ç‚¹å¹¶å¯¹å…¶åˆå§‹åŒ–ä¸ºx  
 _Link_type _M_create_node(const value_type& __x)
   {
-    _Link_type __tmp = _M_get_node();//·ÖÅäÒ»¸ö½Úµã¿Õ¼ä
+    _Link_type __tmp = _M_get_node();//åˆ†é…ä¸€ä¸ªèŠ‚ç‚¹ç©ºé—´
     __STL_TRY {
-      construct(&__tmp->_M_value_field, __x);//¹¹Ôì¶ÔÏó
+      construct(&__tmp->_M_value_field, __x);//æ„é€ å¯¹è±¡
     }
     __STL_UNWIND(_M_put_node(__tmp));
     return __tmp;
   }
 
-//¸´ÖÆ½ÚµãµÄÖµºÍÑÕÉ«
+//å¤åˆ¶èŠ‚ç‚¹çš„å€¼å’Œé¢œè‰²
   _Link_type _M_clone_node(_Link_type __x)
   {
     _Link_type __tmp = _M_create_node(__x->_M_value_field);
@@ -664,18 +664,18 @@ _Link_type _M_create_node(const value_type& __x)
     return __tmp;
   }
 
-  //ÊÍ·Å½Úµã
+  //é‡Šæ”¾èŠ‚ç‚¹
   void destroy_node(_Link_type __p)
   {
-    destroy(&__p->_M_value_field);//Îö¹¹¶ÔÏó
-    _M_put_node(__p);//ÊÍ·Å½Úµã¿Õ¼ä
+    destroy(&__p->_M_value_field);//ææ„å¯¹è±¡
+    _M_put_node(__p);//é‡Šæ”¾èŠ‚ç‚¹ç©ºé—´
   }
 
 protected:
   size_type _M_node_count; // keeps track of size of tree
-  _Compare _M_key_compare;	//½Úµã¼üÖµ±È½Ï×¼Ôò
+  _Compare _M_key_compare;	//èŠ‚ç‚¹é”®å€¼æ¯”è¾ƒå‡†åˆ™
 
-  //ÏÂÃæÈı¸öº¯ÊıÊÇÓÃÀ´»ñÈ¡headerµÄ³ÉÔ±
+  //ä¸‹é¢ä¸‰ä¸ªå‡½æ•°æ˜¯ç”¨æ¥è·å–headerçš„æˆå‘˜
   _Link_type& _M_root() const 
     { return (_Link_type&) _M_header->_M_parent; }
   _Link_type& _M_leftmost() const 
@@ -683,7 +683,7 @@ protected:
   _Link_type& _M_rightmost() const 
     { return (_Link_type&) _M_header->_M_right; }
 
-  //ÏÂÃæÁù¸öº¯Êı»ñÈ¡½ÚµãxµÄ³ÉÔ±
+  //ä¸‹é¢å…­ä¸ªå‡½æ•°è·å–èŠ‚ç‚¹xçš„æˆå‘˜
   static _Link_type& _S_left(_Link_type __x)
     { return (_Link_type&)(__x->_M_left); }
   static _Link_type& _S_right(_Link_type __x)
@@ -697,7 +697,7 @@ protected:
   static _Color_type& _S_color(_Link_type __x)
     { return (_Color_type&)(__x->_M_color); }
 
-  //¸úÉÏÃæÁù¸öº¯Êı¹¦ÄÜÏàÍ¬£¬²»Í¬µÄÊÇ²ÎÊıÀàĞÍ²»Í¬£¬Ò»¸öÊÇ»ùÀàÖ¸Õë£¬Ò»¸öÊÇÅÉÉúÀàÖ¸Õë  
+  //è·Ÿä¸Šé¢å…­ä¸ªå‡½æ•°åŠŸèƒ½ç›¸åŒï¼Œä¸åŒçš„æ˜¯å‚æ•°ç±»å‹ä¸åŒï¼Œä¸€ä¸ªæ˜¯åŸºç±»æŒ‡é’ˆï¼Œä¸€ä¸ªæ˜¯æ´¾ç”Ÿç±»æŒ‡é’ˆ  
   static _Link_type& _S_left(_Base_ptr __x)
     { return (_Link_type&)(__x->_M_left); }
   static _Link_type& _S_right(_Base_ptr __x)
@@ -711,16 +711,16 @@ protected:
   static _Color_type& _S_color(_Base_ptr __x)
     { return (_Color_type&)(_Link_type(__x)->_M_color); }
 
-  //RB-TreeµÄ¼«Ğ¡Öµ
+  //RB-Treeçš„æå°å€¼
   static _Link_type _S_minimum(_Link_type __x) 
     { return (_Link_type)  _Rb_tree_node_base::_S_minimum(__x); }
 
-   //RB-TreeµÄ¼«´óÖµ
+   //RB-Treeçš„æå¤§å€¼
   static _Link_type _S_maximum(_Link_type __x)
     { return (_Link_type) _Rb_tree_node_base::_S_maximum(__x); }
 
 public:
-	//µü´úÆ÷
+	//è¿­ä»£å™¨
   typedef _Rb_tree_iterator<value_type, reference, pointer> iterator;
   typedef _Rb_tree_iterator<value_type, const_reference, const_pointer> 
           const_iterator;
@@ -738,7 +738,7 @@ public:
 #endif /* __STL_CLASS_PARTIAL_SPECIALIZATION */ 
 
 private:
-	//ÀàµÄË½ÓĞ³ÉÔ±º¯Êı,ÔÚºóÃæ¶¨Òå
+	//ç±»çš„ç§æœ‰æˆå‘˜å‡½æ•°,åœ¨åé¢å®šä¹‰
   iterator _M_insert(_Base_ptr __x, _Base_ptr __y, const value_type& __v);
   _Link_type _M_copy(_Link_type __x, _Link_type __p);
   void _M_erase(_Link_type __x);
@@ -776,7 +776,7 @@ public:
   operator=(const _Rb_tree<_Key,_Value,_KeyOfValue,_Compare,_Alloc>& __x);
 
 private:
-	//³õÊ¼»¯header
+	//åˆå§‹åŒ–header
   void _M_empty_initialize() {
     _S_color(_M_header) = _S_rb_tree_red; // used to distinguish header from 
                                           // __root, in iterator.operator++
@@ -788,9 +788,9 @@ private:
 public:    
                                 // accessors:
   _Compare key_comp() const { return _M_key_compare; }
-  iterator begin() { return _M_leftmost(); }//RB-TreeµÄÆğÊ¼µü´úÆ÷Îª×îĞ¡½Úµã
+  iterator begin() { return _M_leftmost(); }//RB-Treeçš„èµ·å§‹è¿­ä»£å™¨ä¸ºæœ€å°èŠ‚ç‚¹
   const_iterator begin() const { return _M_leftmost(); }
-  iterator end() { return _M_header; }//RB-TreeµÄ½áÊøµü´úÆ÷Îªheader
+  iterator end() { return _M_header; }//RB-Treeçš„ç»“æŸè¿­ä»£å™¨ä¸ºheader
   const_iterator end() const { return _M_header; }
   reverse_iterator rbegin() { return reverse_iterator(end()); }
   const_reverse_iterator rbegin() const { 
@@ -800,14 +800,14 @@ public:
   const_reverse_iterator rend() const { 
     return const_reverse_iterator(begin());
   } 
-  //RB-TreeÊÇ·ñÎª¿Õ
+  //RB-Treeæ˜¯å¦ä¸ºç©º
   bool empty() const { return _M_node_count == 0; }
-  //RB-Tree½ÚµãÊı
+  //RB-TreeèŠ‚ç‚¹æ•°
   size_type size() const { return _M_node_count; }
   size_type max_size() const { return size_type(-1); }
 
-  //½»»»Á½¿ÃRB-TreeµÄÄÚÈİ
-  //RB-treeÖ»ÓĞÈı¸ö±íÏÖ³ÉÔ±£¬ËùÒÔÁ½¿ÃRB-Tree½»»»ÄÚÈİÊ±£¬Ö»Ğè»¥»»Õâ3¸ö³ÉÔ± 
+  //äº¤æ¢ä¸¤æ£µRB-Treeçš„å†…å®¹
+  //RB-treeåªæœ‰ä¸‰ä¸ªè¡¨ç°æˆå‘˜ï¼Œæ‰€ä»¥ä¸¤æ£µRB-Treeäº¤æ¢å†…å®¹æ—¶ï¼Œåªéœ€äº’æ¢è¿™3ä¸ªæˆå‘˜ 
   void swap(_Rb_tree<_Key,_Value,_KeyOfValue,_Compare,_Alloc>& __t) {
     __STD::swap(_M_header, __t._M_header);
     __STD::swap(_M_node_count, __t._M_node_count);
@@ -816,12 +816,12 @@ public:
     
 public:
                                 // insert/erase
-	//²åÈë½Úµã,µ«ÊÇ½ÚµãÖµ±ØĞëÎ¨Ò»
+	//æ’å…¥èŠ‚ç‚¹,ä½†æ˜¯èŠ‚ç‚¹å€¼å¿…é¡»å”¯ä¸€
   pair<iterator,bool> insert_unique(const value_type& __x);
-  //²åÈë½Úµã,½ÚµãÖµ¿ÉÒÔÓëµ±Ç°RB-Tree½ÚµãÖµÏàµÈ
+  //æ’å…¥èŠ‚ç‚¹,èŠ‚ç‚¹å€¼å¯ä»¥ä¸å½“å‰RB-TreeèŠ‚ç‚¹å€¼ç›¸ç­‰
   iterator insert_equal(const value_type& __x);
 
-  //ÔÚÖ¸¶¨Î»ÖÃ²åÈë½Úµã
+  //åœ¨æŒ‡å®šä½ç½®æ’å…¥èŠ‚ç‚¹
   iterator insert_unique(iterator __position, const value_type& __x);
   iterator insert_equal(iterator __position, const value_type& __x);
 
@@ -837,12 +837,12 @@ public:
   void insert_equal(const value_type* __first, const value_type* __last);
 #endif /* __STL_MEMBER_TEMPLATES */
 
-  //É¾³ı½Úµã
+  //åˆ é™¤èŠ‚ç‚¹
   void erase(iterator __position);
   size_type erase(const key_type& __x);
   void erase(iterator __first, iterator __last);
   void erase(const key_type* __first, const key_type* __last);
-  //Çå³ıRB-Tree
+  //æ¸…é™¤RB-Tree
   void clear() {
     if (_M_node_count != 0) {
       _M_erase(_M_root());
@@ -870,8 +870,8 @@ public:
   bool __rb_verify() const;
 };
 
-//ÒÔÏÂÊÇ²Ù×÷·ûÖØÔØ
-//ÖØÔØoperator==ÔËËã·û£¬Ê¹ÓÃµÄÊÇSTL·ºĞÍËã·¨
+//ä»¥ä¸‹æ˜¯æ“ä½œç¬¦é‡è½½
+//é‡è½½operator==è¿ç®—ç¬¦ï¼Œä½¿ç”¨çš„æ˜¯STLæ³›å‹ç®—æ³•
 template <class _Key, class _Value, class _KeyOfValue, 
           class _Compare, class _Alloc>
 inline bool 
@@ -879,10 +879,10 @@ operator==(const _Rb_tree<_Key,_Value,_KeyOfValue,_Compare,_Alloc>& __x,
            const _Rb_tree<_Key,_Value,_KeyOfValue,_Compare,_Alloc>& __y)
 {
   return __x.size() == __y.size() &&
-	  //STLµÄËã·¨equal(__x.begin(), __x.end(), __y.begin());
+	  //STLçš„ç®—æ³•equal(__x.begin(), __x.end(), __y.begin());
          equal(__x.begin(), __x.end(), __y.begin());
 }
- //ÖØÔØoperator<ÔËËã·û£¬Ê¹ÓÃµÄÊÇSTL·ºĞÍËã·¨
+ //é‡è½½operator<è¿ç®—ç¬¦ï¼Œä½¿ç”¨çš„æ˜¯STLæ³›å‹ç®—æ³•
 template <class _Key, class _Value, class _KeyOfValue, 
           class _Compare, class _Alloc>
 inline bool 
@@ -972,21 +972,21 @@ template <class _Key, class _Value, class _KeyOfValue,
 typename _Rb_tree<_Key,_Value,_KeyOfValue,_Compare,_Alloc>::iterator
 _Rb_tree<_Key,_Value,_KeyOfValue,_Compare,_Alloc>
   ::_M_insert(_Base_ptr __x_, _Base_ptr __y_, const _Value& __v)
-{//²ÎÊıx_ÎªĞÂÖµ²åÈëµã£¬²ÎÊıy_Îª²åÈëµãÖ®¸¸½Úµã£¬²ÎÊıv ÎªĞÂÖµ 
+{//å‚æ•°x_ä¸ºæ–°å€¼æ’å…¥ç‚¹ï¼Œå‚æ•°y_ä¸ºæ’å…¥ç‚¹ä¹‹çˆ¶èŠ‚ç‚¹ï¼Œå‚æ•°v ä¸ºæ–°å€¼ 
   _Link_type __x = (_Link_type) __x_;
   _Link_type __y = (_Link_type) __y_;
   _Link_type __z;
 
   if (__y == _M_header || __x != 0 || 
       _M_key_compare(_KeyOfValue()(__v), _S_key(__y))) {
-    __z = _M_create_node(__v);//´´½¨ÖµÎªvµÄ½Úµãz
+    __z = _M_create_node(__v);//åˆ›å»ºå€¼ä¸ºvçš„èŠ‚ç‚¹z
     _S_left(__y) = __z;               // also makes _M_leftmost() = __z 
                                       //    when __y == _M_header
     if (__y == _M_header) {
       _M_root() = __z;
       _M_rightmost() = __z;
     }
-    else if (__y == _M_leftmost())//ÈôyÎª×î×ó½Úµã
+    else if (__y == _M_leftmost())//è‹¥yä¸ºæœ€å·¦èŠ‚ç‚¹
       _M_leftmost() = __z;   // maintain _M_leftmost() pointing to min node
   }
   else {
@@ -995,12 +995,12 @@ _Rb_tree<_Key,_Value,_KeyOfValue,_Compare,_Alloc>
     if (__y == _M_rightmost())
       _M_rightmost() = __z;  // maintain _M_rightmost() pointing to max node
   }
-  _S_parent(__z) = __y;//Éè¶¨ĞÂ½ÚµãµÄ¸¸½Úµã
-  _S_left(__z) = 0;//Éè¶¨ĞÂ½ÚµãµÄ×óº¢×Ó
-  _S_right(__z) = 0;//Éè¶¨ĞÂ½ÚµãµÄÓÒº¢×Ó
-  _Rb_tree_rebalance(__z, _M_header->_M_parent);//µ÷ÕûRB-TreeÊ¹ÆäÂú×ãĞÔÖÊ
-  ++_M_node_count;//½ÚµãÊıÔö¼Ó1
-  return iterator(__z);//·µ»ØĞÂ½Úµãµü´úÆ÷
+  _S_parent(__z) = __y;//è®¾å®šæ–°èŠ‚ç‚¹çš„çˆ¶èŠ‚ç‚¹
+  _S_left(__z) = 0;//è®¾å®šæ–°èŠ‚ç‚¹çš„å·¦å­©å­
+  _S_right(__z) = 0;//è®¾å®šæ–°èŠ‚ç‚¹çš„å³å­©å­
+  _Rb_tree_rebalance(__z, _M_header->_M_parent);//è°ƒæ•´RB-Treeä½¿å…¶æ»¡è¶³æ€§è´¨
+  ++_M_node_count;//èŠ‚ç‚¹æ•°å¢åŠ 1
+  return iterator(__z);//è¿”å›æ–°èŠ‚ç‚¹è¿­ä»£å™¨
 }
 
 template <class _Key, class _Value, class _KeyOfValue, 
@@ -1010,10 +1010,10 @@ _Rb_tree<_Key,_Value,_KeyOfValue,_Compare,_Alloc>
   ::insert_equal(const _Value& __v)
 {
   _Link_type __y = _M_header;
-  _Link_type __x = _M_root();//´Ó¸ù½Úµã¿ªÊ¼
-  while (__x != 0) {//´Ó¸ù½Úµã¿ªÊ¼,ÍùÏÂÑ°ÕÒºÏÊÊ²åÈëµã
+  _Link_type __x = _M_root();//ä»æ ¹èŠ‚ç‚¹å¼€å§‹
+  while (__x != 0) {//ä»æ ¹èŠ‚ç‚¹å¼€å§‹,å¾€ä¸‹å¯»æ‰¾åˆé€‚æ’å…¥ç‚¹
     __y = __x;
-	//ÅĞ¶ÏĞÂ²åÈë½ÚµãÖµÓëµ±Ç°½ÚµãxÖµµÄ´óĞ¡,ÒÔ±ãÅĞ¶ÏÍùxµÄ×ó±ß×ß»¹ÊÇÍùÓÒ±ß×ß
+	//åˆ¤æ–­æ–°æ’å…¥èŠ‚ç‚¹å€¼ä¸å½“å‰èŠ‚ç‚¹xå€¼çš„å¤§å°,ä»¥ä¾¿åˆ¤æ–­å¾€xçš„å·¦è¾¹èµ°è¿˜æ˜¯å¾€å³è¾¹èµ°
     __x = _M_key_compare(_KeyOfValue()(__v), _S_key(__x)) ? 
             _S_left(__x) : _S_right(__x);
   }
@@ -1021,9 +1021,9 @@ _Rb_tree<_Key,_Value,_KeyOfValue,_Compare,_Alloc>
 }
 
 
-// °²²åĞÂÖµ£»½Úµã¼üÖµ²»ÔÊĞíÖØ¸´£¬ÈôÖØ¸´Ôò°²²åÎŞĞ§¡£  
-// ×¢Òâ£¬´«»ØÖµÊÇ¸öpair£¬µÚÒ»ÔªËØÊÇ¸ö RB-tree µü´úÆ÷£¬Ö¸ÏòĞÂÔö½Úµã£¬  
-// µÚ¶şÔªËØ±íÊ¾°²²å³É¹¦Óë·ñ¡£
+// å®‰æ’æ–°å€¼ï¼›èŠ‚ç‚¹é”®å€¼ä¸å…è®¸é‡å¤ï¼Œè‹¥é‡å¤åˆ™å®‰æ’æ— æ•ˆã€‚  
+// æ³¨æ„ï¼Œä¼ å›å€¼æ˜¯ä¸ªpairï¼Œç¬¬ä¸€å…ƒç´ æ˜¯ä¸ª RB-tree è¿­ä»£å™¨ï¼ŒæŒ‡å‘æ–°å¢èŠ‚ç‚¹ï¼Œ  
+// ç¬¬äºŒå…ƒç´ è¡¨ç¤ºå®‰æ’æˆåŠŸä¸å¦ã€‚
 template <class _Key, class _Value, class _KeyOfValue, 
           class _Compare, class _Alloc>
 pair<typename _Rb_tree<_Key,_Value,_KeyOfValue,_Compare,_Alloc>::iterator, 
@@ -1032,25 +1032,25 @@ _Rb_tree<_Key,_Value,_KeyOfValue,_Compare,_Alloc>
   ::insert_unique(const _Value& __v)
 {
   _Link_type __y = _M_header;
-  _Link_type __x = _M_root();//´Ó¸ù½Úµã¿ªÊ¼
+  _Link_type __x = _M_root();//ä»æ ¹èŠ‚ç‚¹å¼€å§‹
   bool __comp = true;
-  while (__x != 0) {//´Ó¸ù½Úµã¿ªÊ¼,ÍùÏÂÑ°ÕÒºÏÊÊ²åÈëµã
+  while (__x != 0) {//ä»æ ¹èŠ‚ç‚¹å¼€å§‹,å¾€ä¸‹å¯»æ‰¾åˆé€‚æ’å…¥ç‚¹
     __y = __x;
-	//ÅĞ¶ÏĞÂ²åÈë½ÚµãÖµÓëµ±Ç°½ÚµãxÖµµÄ´óĞ¡,ÒÔ±ãÅĞ¶ÏÍùxµÄ×ó±ß×ß»¹ÊÇÍùÓÒ±ß×ß
+	//åˆ¤æ–­æ–°æ’å…¥èŠ‚ç‚¹å€¼ä¸å½“å‰èŠ‚ç‚¹xå€¼çš„å¤§å°,ä»¥ä¾¿åˆ¤æ–­å¾€xçš„å·¦è¾¹èµ°è¿˜æ˜¯å¾€å³è¾¹èµ°
     __comp = _M_key_compare(_KeyOfValue()(__v), _S_key(__x));
     __x = __comp ? _S_left(__x) : _S_right(__x);
   }
-  //Àë¿ªwhileÑ­»·Ö®ºó£¬yËùÖ¸¼´Îª°²²åµãµÄ¸¸½Úµã£¬x±ØÎªÒ¶×Ó½Úµã
-  iterator __j = iterator(__y);//Áîµü´úÆ÷jÖ¸Ïò²åÈë½ÚµãÖ®¸¸½Úµãy   
-  if (__comp)//ÈôÎªÕæ
-    if (__j == begin())//Èô²åÈëµãÖ®¸¸½ÚµãÎª×î×ó½Úµã     
+  //ç¦»å¼€whileå¾ªç¯ä¹‹åï¼Œyæ‰€æŒ‡å³ä¸ºå®‰æ’ç‚¹çš„çˆ¶èŠ‚ç‚¹ï¼Œxå¿…ä¸ºå¶å­èŠ‚ç‚¹
+  iterator __j = iterator(__y);//ä»¤è¿­ä»£å™¨jæŒ‡å‘æ’å…¥èŠ‚ç‚¹ä¹‹çˆ¶èŠ‚ç‚¹y   
+  if (__comp)//è‹¥ä¸ºçœŸ
+    if (__j == begin())//è‹¥æ’å…¥ç‚¹ä¹‹çˆ¶èŠ‚ç‚¹ä¸ºæœ€å·¦èŠ‚ç‚¹     
       return pair<iterator,bool>(_M_insert(__x, __y, __v), true);
-    else//·ñÔò(²åÈëµãÖ®¸¸½Úµã²»ÔÚ×î×ó½Úµã)
-      --__j;//µ÷Õûj
-   // Ğ¡ÓÚĞÂÖµ£¨±íÊ¾Óö¡¸Ğ¡¡¹£¬½«°²²åÓÚÓÒ²à£©  
+    else//å¦åˆ™(æ’å…¥ç‚¹ä¹‹çˆ¶èŠ‚ç‚¹ä¸åœ¨æœ€å·¦èŠ‚ç‚¹)
+      --__j;//è°ƒæ•´j
+   // å°äºæ–°å€¼ï¼ˆè¡¨ç¤ºé‡ã€Œå°ã€ï¼Œå°†å®‰æ’äºå³ä¾§ï¼‰  
   if (_M_key_compare(_S_key(__j._M_node), _KeyOfValue()(__v)))
     return pair<iterator,bool>(_M_insert(__x, __y, __v), true);
-  //ÈôÔËĞĞµ½ÕâÀï£¬±íÊ¾¼üÖµÓĞÖØ¸´£¬²»Ó¦¸Ã²åÈë 
+  //è‹¥è¿è¡Œåˆ°è¿™é‡Œï¼Œè¡¨ç¤ºé”®å€¼æœ‰é‡å¤ï¼Œä¸åº”è¯¥æ’å…¥ 
   return pair<iterator,bool>(__j, false);
 }
 
@@ -1287,7 +1287,7 @@ _Rb_tree<_Key,_Value,_KeyOfValue,_Compare,_Alloc>::find(const _Key& __k)
      end() : __j;
 }
 
-//²éÕÒRBÊ÷ÖĞÊÇ·ñÓĞ¼üÖµÎªkµÄ½Úµã
+//æŸ¥æ‰¾RBæ ‘ä¸­æ˜¯å¦æœ‰é”®å€¼ä¸ºkçš„èŠ‚ç‚¹
 template <class _Key, class _Value, class _KeyOfValue, 
           class _Compare, class _Alloc>
 typename _Rb_tree<_Key,_Value,_KeyOfValue,_Compare,_Alloc>::const_iterator 
@@ -1297,7 +1297,7 @@ _Rb_tree<_Key,_Value,_KeyOfValue,_Compare,_Alloc>::find(const _Key& __k) const
   _Link_type __x = _M_root(); /* Current node. */
 
   while (__x != 0) {
-    if (!_M_key_compare(_S_key(__x), __k))//Èôk±Èµ±Ç°½Úµãx¼üÖµĞ¡
+    if (!_M_key_compare(_S_key(__x), __k))//è‹¥kæ¯”å½“å‰èŠ‚ç‚¹xé”®å€¼å°
       __y = __x, __x = _S_left(__x);
     else
       __x = _S_right(__x);
@@ -1307,7 +1307,7 @@ _Rb_tree<_Key,_Value,_KeyOfValue,_Compare,_Alloc>::find(const _Key& __k) const
     end() : __j;
 }
 
-//¼ÆËãRBÊ÷ÖĞ¼üÖµÎªkµÄ½ÚµãµÄ¸öÊı 
+//è®¡ç®—RBæ ‘ä¸­é”®å€¼ä¸ºkçš„èŠ‚ç‚¹çš„ä¸ªæ•° 
 template <class _Key, class _Value, class _KeyOfValue, 
           class _Compare, class _Alloc>
 typename _Rb_tree<_Key,_Value,_KeyOfValue,_Compare,_Alloc>::size_type 
@@ -1414,63 +1414,63 @@ _Rb_tree<_Key, _Value, _KoV, _Compare, _Alloc>
                                              upper_bound(__k));
 }
 
-//¼ÆËã´Ó node ÖÁ rootÂ·¾¶ÖĞµÄºÚ½ÚµãÊıÁ¿ 
+//è®¡ç®—ä» node è‡³ rootè·¯å¾„ä¸­çš„é»‘èŠ‚ç‚¹æ•°é‡ 
 inline int 
 __black_count(_Rb_tree_node_base* __node, _Rb_tree_node_base* __root)
 {
   if (__node == 0)
     return 0;
   else {
-    int __bc = __node->_M_color == _S_rb_tree_black ? 1 : 0;//Èô½ÚµãnodeÎªºÚÉ«,ÔòbcÎª1
-    if (__node == __root)//ÅĞ¶ÏnodeÊÇ·ñÎª¸ù½Úµã
+    int __bc = __node->_M_color == _S_rb_tree_black ? 1 : 0;//è‹¥èŠ‚ç‚¹nodeä¸ºé»‘è‰²,åˆ™bcä¸º1
+    if (__node == __root)//åˆ¤æ–­nodeæ˜¯å¦ä¸ºæ ¹èŠ‚ç‚¹
       return __bc;
     else
-      return __bc + __black_count(__node->_M_parent, __root);//µİ¹éµ÷ÓÃ
+      return __bc + __black_count(__node->_M_parent, __root);//é€’å½’è°ƒç”¨
   }
 }
 
-//ÑéÖ¤¼ºÉúÕâ¿ÃÊ÷ÊÇ·ñ·ûºÏRBÊ÷Ìõ¼ş
+//éªŒè¯å·±ç”Ÿè¿™æ£µæ ‘æ˜¯å¦ç¬¦åˆRBæ ‘æ¡ä»¶
 template <class _Key, class _Value, class _KeyOfValue, 
           class _Compare, class _Alloc>
 bool _Rb_tree<_Key,_Value,_KeyOfValue,_Compare,_Alloc>::__rb_verify() const
 {
-	//¿ÕÊ÷
+	//ç©ºæ ‘
   if (_M_node_count == 0 || begin() == end())
     return _M_node_count == 0 && begin() == end() &&
       _M_header->_M_left == _M_header && _M_header->_M_right == _M_header;
   
-  //×î×ó½Úµãµ½¸ù½ÚµãµÄºÚÉ«½ÚµãÊı
+  //æœ€å·¦èŠ‚ç‚¹åˆ°æ ¹èŠ‚ç‚¹çš„é»‘è‰²èŠ‚ç‚¹æ•°
   int __len = __black_count(_M_leftmost(), _M_root());
-  //Ò»ÏÂ×ß·ÃÕû¸öRBÊ÷£¬Õë¶ÔÃ¿¸ö½Úµã£¨´Ó×îĞ¡µ½×î´ó£©¡­¡­
+  //ä¸€ä¸‹èµ°è®¿æ•´ä¸ªRBæ ‘ï¼Œé’ˆå¯¹æ¯ä¸ªèŠ‚ç‚¹ï¼ˆä»æœ€å°åˆ°æœ€å¤§ï¼‰â€¦â€¦
   for (const_iterator __it = begin(); __it != end(); ++__it) {
     _Link_type __x = (_Link_type) __it._M_node;
     _Link_type __L = _S_left(__x);
     _Link_type __R = _S_right(__x);
 
-    if (__x->_M_color == _S_rb_tree_red)//Î¥±³ĞÔÖÊ4
-		//Èç¹ûÒ»¸ö½ÚµãÊÇºìÉ«µÄ£¬ÔòËüµÄÁ½¸öº¢×Ó½Úµã¶¼ÊÇºÚÉ«µÄ¡£
+    if (__x->_M_color == _S_rb_tree_red)//è¿èƒŒæ€§è´¨4
+		//å¦‚æœä¸€ä¸ªèŠ‚ç‚¹æ˜¯çº¢è‰²çš„ï¼Œåˆ™å®ƒçš„ä¸¤ä¸ªå­©å­èŠ‚ç‚¹éƒ½æ˜¯é»‘è‰²çš„ã€‚
       if ((__L && __L->_M_color == _S_rb_tree_red) ||
           (__R && __R->_M_color == _S_rb_tree_red))
         return false;
 
-    //ÒÔÏÂÊÇÎ¥±³¶ş²æ²éÕÒÊ÷ĞÔÖÊ
-	//½ÚµãµÄ×óº¢×Ó½Úµã¼üÖµĞ¡ÓÚ¸Ã½Úµã¼üÖµ
-	//½ÚµãµÄÓÒº¢×Ó½Úµã¼üÖµ´óÓÚ¸Ã½Úµã¼üÖµ
+    //ä»¥ä¸‹æ˜¯è¿èƒŒäºŒå‰æŸ¥æ‰¾æ ‘æ€§è´¨
+	//èŠ‚ç‚¹çš„å·¦å­©å­èŠ‚ç‚¹é”®å€¼å°äºè¯¥èŠ‚ç‚¹é”®å€¼
+	//èŠ‚ç‚¹çš„å³å­©å­èŠ‚ç‚¹é”®å€¼å¤§äºè¯¥èŠ‚ç‚¹é”®å€¼
 	if (__L && _M_key_compare(_S_key(__x), _S_key(__L)))
       return false;
     if (__R && _M_key_compare(_S_key(__R), _S_key(__x)))
       return false;
 
-	//[Ò¶×Ó½áµãµ½root]Â·¾¶ÄÚµÄºÚÉ«½ÚµãÊı£¬Óë[×î×ó½ÚµãÖÁroot]Â·¾¶ÄÚµÄºÚÉ«½Úµã²»Í¬¡£²»·ûºÏRBÊ÷ÒªÇó 
-	//Î¥±³ĞÔÖÊ5
+	//[å¶å­ç»“ç‚¹åˆ°root]è·¯å¾„å†…çš„é»‘è‰²èŠ‚ç‚¹æ•°ï¼Œä¸[æœ€å·¦èŠ‚ç‚¹è‡³root]è·¯å¾„å†…çš„é»‘è‰²èŠ‚ç‚¹ä¸åŒã€‚ä¸ç¬¦åˆRBæ ‘è¦æ±‚ 
+	//è¿èƒŒæ€§è´¨5
     if (!__L && !__R && __black_count(__x, _M_root()) != __len)
       return false;
   }
 
   if (_M_leftmost() != _Rb_tree_node_base::_S_minimum(_M_root()))
-    return false; // ×î×ó½Úµã²»Îª×îĞ¡½Úµã£¬²»·ûºÏ¶ş²æ²éÕÒÊ÷µÄÒªÇó
+    return false; // æœ€å·¦èŠ‚ç‚¹ä¸ä¸ºæœ€å°èŠ‚ç‚¹ï¼Œä¸ç¬¦åˆäºŒå‰æŸ¥æ‰¾æ ‘çš„è¦æ±‚
   if (_M_rightmost() != _Rb_tree_node_base::_S_maximum(_M_root()))
-    return false;// ×îÓÒ½Úµã²»Îª×î´ó½Úµã£¬²»·û²»·ûºÏ¶ş²æ²éÕÒÊ÷µÄÒªÇó
+    return false;// æœ€å³èŠ‚ç‚¹ä¸ä¸ºæœ€å¤§èŠ‚ç‚¹ï¼Œä¸ç¬¦ä¸ç¬¦åˆäºŒå‰æŸ¥æ‰¾æ ‘çš„è¦æ±‚
 
   return true;
 }

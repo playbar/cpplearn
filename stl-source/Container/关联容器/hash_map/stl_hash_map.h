@@ -9,7 +9,7 @@ __STL_BEGIN_NAMESPACE
 #pragma set woff 1174
 #pragma set woff 1375
 #endif
-//hash_mapµÄµ×²ãÊÇ»ùÓÚhash tableµÄ£¬hash tableÃ»ÓĞÌá¹©ÅÅĞò,ËùÒÔhash_mapÈİÆ÷ÀïÃæµÄÄÚÈİÊÇÃ»ÅÅĞòµÄ
+//hash_mapçš„åº•å±‚æ˜¯åŸºäºhash tableçš„ï¼Œhash tableæ²¡æœ‰æä¾›æ’åº,æ‰€ä»¥hash_mapå®¹å™¨é‡Œé¢çš„å†…å®¹æ˜¯æ²¡æ’åºçš„
 
 // Forward declaration of equality operator; needed for friend declaration.
 
@@ -35,7 +35,7 @@ class hash_map
   __STL_CLASS_BINARY_FUNCTION_CHECK(_EqualKey, bool, _Key, _Key);
 
 private:
-	//_Select1st<>È¡³ö¼üÖµkey,_Select1st<>¶¨ÒåÔÚ<stl_function.h>
+	//_Select1st<>å–å‡ºé”®å€¼key,_Select1st<>å®šä¹‰åœ¨<stl_function.h>
 	/*
 	template <class _Arg, class _Result>
 	struct unary_function {
@@ -51,10 +51,10 @@ private:
 	*/
   typedef hashtable<pair<const _Key,_Tp>,_Key,_HashFcn,
                     _Select1st<pair<const _Key,_Tp> >,_EqualKey,_Alloc> _Ht;
-  _Ht _M_ht;//µ×²ã»úÖÆÒÔhash tableÍê³É
+  _Ht _M_ht;//åº•å±‚æœºåˆ¶ä»¥hash tableå®Œæˆ
 
 public:
-	//ÒÔÏÂµÄÄÚÇ¶ÀàĞÍ¾ùÀ´ÊÇhash table
+	//ä»¥ä¸‹çš„å†…åµŒç±»å‹å‡æ¥æ˜¯hash table
   typedef typename _Ht::key_type key_type;
   typedef _Tp data_type;
   typedef _Tp mapped_type;
@@ -74,37 +74,37 @@ public:
 
   typedef typename _Ht::allocator_type allocator_type;
 
-  //·µ»ØhashÏà¹Øº¯Êı
+  //è¿”å›hashç›¸å…³å‡½æ•°
   hasher hash_funct() const { return _M_ht.hash_funct(); }
   key_equal key_eq() const { return _M_ht.key_eq(); }
   allocator_type get_allocator() const { return _M_ht.get_allocator(); }
 
 public:
-//¹¹Ôìº¯Êı
-//È±Ê¡Çé¿öÊ¹ÓÃ´óĞ¡Îª100,µ«ÊÇÊµ¼Ê·ÖÅäµÄ¿Õ¼ä´óĞ¡Îª²»Ğ¡ÓÚ100µÄ×îĞ¡ËØÊı
-//Ö»ÊÇ¿ÕµÄhash_map£¬²»´æ´¢ÔªËØ½Úµã
+//æ„é€ å‡½æ•°
+//ç¼ºçœæƒ…å†µä½¿ç”¨å¤§å°ä¸º100,ä½†æ˜¯å®é™…åˆ†é…çš„ç©ºé—´å¤§å°ä¸ºä¸å°äº100çš„æœ€å°ç´ æ•°
+//åªæ˜¯ç©ºçš„hash_mapï¼Œä¸å­˜å‚¨å…ƒç´ èŠ‚ç‚¹
   hash_map() : _M_ht(100, hasher(), key_equal(), allocator_type()) {}
-  //Ö¸¶¨´óĞ¡nµÄhash_map±í
+  //æŒ‡å®šå¤§å°nçš„hash_mapè¡¨
   explicit hash_map(size_type __n)
     : _M_ht(__n, hasher(), key_equal(), allocator_type()) {}
-  //Ö¸¶¨´óĞ¡Îªn£¬ÇÒÖ¸¶¨hashº¯ÊıµÄhash_map
+  //æŒ‡å®šå¤§å°ä¸ºnï¼Œä¸”æŒ‡å®šhashå‡½æ•°çš„hash_map
   hash_map(size_type __n, const hasher& __hf)
     : _M_ht(__n, __hf, key_equal(), allocator_type()) {}
-  //Ö¸¶¨´óĞ¡Îªn£¬ÇÒÖ¸¶¨hashº¯ÊıºÍ¼üÖµ±È½Ïº¯ÊıµÄhash_map
+  //æŒ‡å®šå¤§å°ä¸ºnï¼Œä¸”æŒ‡å®šhashå‡½æ•°å’Œé”®å€¼æ¯”è¾ƒå‡½æ•°çš„hash_map
   hash_map(size_type __n, const hasher& __hf, const key_equal& __eql,
            const allocator_type& __a = allocator_type())
     : _M_ht(__n, __hf, __eql, __a) {}
 
 #ifdef __STL_MEMBER_TEMPLATES
-  //ÒÔÏÂhash_mapµÄ²åÈë²Ù×÷Ê¹ÓÃhash tableµÄinsert_unique²åÈë
-  //²»ÔÊĞíÓĞÏàÍ¬µÄ¼üÖµ²åÈë
+  //ä»¥ä¸‹hash_mapçš„æ’å…¥æ“ä½œä½¿ç”¨hash tableçš„insert_uniqueæ’å…¥
+  //ä¸å…è®¸æœ‰ç›¸åŒçš„é”®å€¼æ’å…¥
 
-  //ÓÃÄ³¸ö·¶Î§µÄÔªËØ³õÊ¼»¯hash_map¶ÔÏó
-  //Ïàµ±ÓÚ°ÑÄ³¸ö·¶Î§[f,l)²åÈëµ½¿ÕµÄhash_map
+  //ç”¨æŸä¸ªèŒƒå›´çš„å…ƒç´ åˆå§‹åŒ–hash_mapå¯¹è±¡
+  //ç›¸å½“äºæŠŠæŸä¸ªèŒƒå›´[f,l)æ’å…¥åˆ°ç©ºçš„hash_map
   template <class _InputIterator>
   hash_map(_InputIterator __f, _InputIterator __l)
     : _M_ht(100, hasher(), key_equal(), allocator_type())
-    { _M_ht.insert_unique(__f, __l); }//µ÷ÓÃhash tableµÄ²åÈëº¯Êı
+    { _M_ht.insert_unique(__f, __l); }//è°ƒç”¨hash tableçš„æ’å…¥å‡½æ•°
   template <class _InputIterator>
   hash_map(_InputIterator __f, _InputIterator __l, size_type __n)
     : _M_ht(__n, hasher(), key_equal(), allocator_type())
@@ -156,15 +156,15 @@ public:
 #endif /*__STL_MEMBER_TEMPLATES */
 
 public:
-//ÒÔÏÂµÄº¯Êı²Ù×÷Ö»ÊÇµ÷ÓÃhash tableµÄ³ÉÔ±º¯Êı
-//·µ»Ø hash_map ÈİÆ÷ÖĞÔªËØµÄ¸öÊı.
+//ä»¥ä¸‹çš„å‡½æ•°æ“ä½œåªæ˜¯è°ƒç”¨hash tableçš„æˆå‘˜å‡½æ•°
+//è¿”å› hash_map å®¹å™¨ä¸­å…ƒç´ çš„ä¸ªæ•°.
   size_type size() const { return _M_ht.size(); }
-//·µ»Øhash_mapÈİÆ÷×î´ó´æ´¢ÔªËØµÄ¸öÊı.
+//è¿”å›hash_mapå®¹å™¨æœ€å¤§å­˜å‚¨å…ƒç´ çš„ä¸ªæ•°.
   size_type max_size() const { return _M_ht.max_size(); }
 //Returns a bool value indicating whether the hash_map container is empty,
 //i.e. whether its size is 0.
   bool empty() const { return _M_ht.empty(); }
-  //½»»»Á½¸ö´æ´¢ÏàÍ¬ÔªËØÀàĞÍµÄhash_mapÈİÆ÷ÄÚÈİ,µ«ÊÇhash_mapÈİÆ÷´óĞ¡¿ÉÒÔ²»Í¬
+  //äº¤æ¢ä¸¤ä¸ªå­˜å‚¨ç›¸åŒå…ƒç´ ç±»å‹çš„hash_mapå®¹å™¨å†…å®¹,ä½†æ˜¯hash_mapå®¹å™¨å¤§å°å¯ä»¥ä¸åŒ
   void swap(hash_map& __hs) { _M_ht.swap(__hs._M_ht); }
 
 #ifdef __STL_MEMBER_TEMPLATES
@@ -183,7 +183,7 @@ public:
   const_iterator end() const { return _M_ht.end(); }
 
 public:
-	//²åÈëÔªËØ
+	//æ’å…¥å…ƒç´ 
 	/*
 	(1)	
 	pair<iterator,bool> insert ( const value_type& val );
@@ -191,10 +191,10 @@ public:
 	template <class InputIterator>
 		void insert ( InputIterator first, InputIterator last );
 	*/
-	//²»ÔÊĞíÓĞÖØ¸´µÄ¼üÖµ
-	//·µ»ØpairµÚ¶ş¸ö²ÎÊısecondÈôÎªtrueÔò²åÈë³É¹¦
+	//ä¸å…è®¸æœ‰é‡å¤çš„é”®å€¼
+	//è¿”å›pairç¬¬äºŒä¸ªå‚æ•°secondè‹¥ä¸ºtrueåˆ™æ’å…¥æˆåŠŸ
   pair<iterator,bool> insert(const value_type& __obj)
-    { return _M_ht.insert_unique(__obj); }//µ÷ÓÃhash tableµÄinsert_unique()º¯Êı
+    { return _M_ht.insert_unique(__obj); }//è°ƒç”¨hash tableçš„insert_unique()å‡½æ•°
 #ifdef __STL_MEMBER_TEMPLATES
   template <class _InputIterator>
   void insert(_InputIterator __f, _InputIterator __l)
@@ -219,18 +219,18 @@ public:
     return _M_ht.find_or_insert(value_type(__key, _Tp())).second;
   }
   //Searches the container for elements whose key is k and returns the number of elements found. 
-  //ÓÉÓÚ²»´æÔÚÖØ¸´µÄ¼üÖµ,ËùÒÔ·µ»ØµÄ¸öÊı×î¶àÎª1¸ö
+  //ç”±äºä¸å­˜åœ¨é‡å¤çš„é”®å€¼,æ‰€ä»¥è¿”å›çš„ä¸ªæ•°æœ€å¤šä¸º1ä¸ª
   size_type count(const key_type& __key) const { return _M_ht.count(__key); }
   
  //Returns the bounds of a range that includes all the elements in the container with a key that compares equal to k
-  //ÓÉÓÚ²»´æÔÚÖØ¸´µÄ¼üÖµ,ËùÒÔ·µ»ØµÄÔªËØ×î¶àÎª1¸ö
+  //ç”±äºä¸å­˜åœ¨é‡å¤çš„é”®å€¼,æ‰€ä»¥è¿”å›çš„å…ƒç´ æœ€å¤šä¸º1ä¸ª
   pair<iterator, iterator> equal_range(const key_type& __key)
     { return _M_ht.equal_range(__key); }
   pair<const_iterator, const_iterator>
   equal_range(const key_type& __key) const
     { return _M_ht.equal_range(__key); }
 
-  //É¾³ıÔªËØ
+  //åˆ é™¤å…ƒç´ 
   /*
 	by position (1)	
 		iterator erase ( const_iterator position );
@@ -239,17 +239,17 @@ public:
 	range (3)	
 		iterator erase ( const_iterator first, const_iterator last );
   */
-  //²Á³ıÖ¸¶¨¼üÖµµÄÔªËØ£¬²¢·µ»Ø²Á³ıµÄ¸öÊı
-  //ÒòÎª¼üÖµÎ¨Ò»,Ôò¸Ã¼üÖµµÄÔªËØ×î¶àÎª1¸ö
+  //æ“¦é™¤æŒ‡å®šé”®å€¼çš„å…ƒç´ ï¼Œå¹¶è¿”å›æ“¦é™¤çš„ä¸ªæ•°
+  //å› ä¸ºé”®å€¼å”¯ä¸€,åˆ™è¯¥é”®å€¼çš„å…ƒç´ æœ€å¤šä¸º1ä¸ª
   size_type erase(const key_type& __key) {return _M_ht.erase(__key); }
-  //²Á³ıÖ¸¶¨Î»ÖÃµÄÔªËØ
+  //æ“¦é™¤æŒ‡å®šä½ç½®çš„å…ƒç´ 
   void erase(iterator __it) { _M_ht.erase(__it); }
-  //²Á³ıÖ¸¶¨·¶Î§µÄÔªËØ
+  //æ“¦é™¤æŒ‡å®šèŒƒå›´çš„å…ƒç´ 
   void erase(iterator __f, iterator __l) { _M_ht.erase(__f, __l); }
-  //Çå¿Õhash_mapÈİÆ÷
+  //æ¸…ç©ºhash_mapå®¹å™¨
   void clear() { _M_ht.clear(); }
 
-  //µ÷Õûhash_setÈİÆ÷µÄÈİÁ¿
+  //è°ƒæ•´hash_setå®¹å™¨çš„å®¹é‡
   void resize(size_type __hint) { _M_ht.resize(__hint); }
   //Returns the number of buckets in the hash_map container.
   size_type bucket_count() const { return _M_ht.bucket_count(); }
@@ -257,7 +257,7 @@ public:
   size_type max_bucket_count() const { return _M_ht.max_bucket_count(); }
   //Returns the number of elements in bucket n
   size_type elems_in_bucket(size_type __n) const
-    { return _M_ht.elems_in_bucket(__n); }//·µ»ØÖ¸¶¨Í°×Ó¼üÖµkeyÖĞlistÁ´±íµÄÔªËØ¸öÊı
+    { return _M_ht.elems_in_bucket(__n); }//è¿”å›æŒ‡å®šæ¡¶å­é”®å€¼keyä¸­listé“¾è¡¨çš„å…ƒç´ ä¸ªæ•°
 };
 
 template <class _Key, class _Tp, class _HashFcn, class _EqlKey, class _Alloc>
@@ -277,7 +277,7 @@ operator!=(const hash_map<_Key,_Tp,_HashFcn,_EqlKey,_Alloc>& __hm1,
   return !(__hm1 == __hm2);
 }
 
-//½»»»Á½¸öhash_mapÈİÆ÷µÄÄÚÈİ
+//äº¤æ¢ä¸¤ä¸ªhash_mapå®¹å™¨çš„å†…å®¹
 template <class _Key, class _Tp, class _HashFcn, class _EqlKey, class _Alloc>
 inline void 
 swap(hash_map<_Key,_Tp,_HashFcn,_EqlKey,_Alloc>& __hm1,
@@ -290,11 +290,11 @@ swap(hash_map<_Key,_Tp,_HashFcn,_EqlKey,_Alloc>& __hm1,
 
 // Forward declaration of equality operator; needed for friend declaration.
 
-//hash_multimapÓëhash_mapµÄ²î±ğ¾ÍÊÇ²åÈëº¯Êı£¬Ç°ÕßµÄ²åÈëº¯ÊıÊÇ²ÉÓÃµ×²ã»úÖÆhash tableµÄinsert_equal()
-//ºóÕßÔò²ÉÓÃinsert_unique()
-//ÆäËûµÄ¹¦ÄÜ¶¼ºÍhash_mapÀàËÆ
-//hash_multimapÔÊĞíkeyÖØ¸´
-//ÕâÀï¾Í²»ÔÙ½øĞĞ×¢ÊÍÁË£¬¿ÉÒÔ²Î¿¼hash_mapµÄ½âÎö
+//hash_multimapä¸hash_mapçš„å·®åˆ«å°±æ˜¯æ’å…¥å‡½æ•°ï¼Œå‰è€…çš„æ’å…¥å‡½æ•°æ˜¯é‡‡ç”¨åº•å±‚æœºåˆ¶hash tableçš„insert_equal()
+//åè€…åˆ™é‡‡ç”¨insert_unique()
+//å…¶ä»–çš„åŠŸèƒ½éƒ½å’Œhash_mapç±»ä¼¼
+//hash_multimapå…è®¸keyé‡å¤
+//è¿™é‡Œå°±ä¸å†è¿›è¡Œæ³¨é‡Šäº†ï¼Œå¯ä»¥å‚è€ƒhash_mapçš„è§£æ
 template <class _Key, class _Tp,
           class _HashFcn  __STL_DEPENDENT_DEFAULT_TMPL(hash<_Key>),
           class _EqualKey __STL_DEPENDENT_DEFAULT_TMPL(equal_to<_Key>),

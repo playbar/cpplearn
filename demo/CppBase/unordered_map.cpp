@@ -316,6 +316,6 @@ int test_unordered_map4()
 
 int main()
 {
-	test_unordered_map4();
+	test_unordered_map1();
 	return 0;
 }

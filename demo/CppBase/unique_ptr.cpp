@@ -31,6 +31,7 @@ int test_unique_ptr1()
 	{
 		std::unique_ptr<Foo> p2(std::move(p1));  // now p2 owns Foo
 		f(*p2);
+		p1->bar();
 
 		p1 = std::move(p2);  // ownership returns to p1
 		std::cout << "destroying p2...\n";
@@ -182,5 +183,11 @@ int test_unique_ptr6()
 	std::for_each(tmp.get(), tmp.get() + 100, [](int& n) {n = 66; });
 	std::cout << tmp[99] << std::endl;
 
+	return 0;
+}
+
+int main()
+{
+	test_unique_ptr1();
 	return 0;
 }

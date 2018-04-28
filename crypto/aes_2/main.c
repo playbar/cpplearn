@@ -50,8 +50,50 @@ char *FunDecode(char *str) {
     return desResult;
 }
 
+void test_crypto_file()
+{
+    FILE * pFile = fopen("style.json", "rb");
+    if( pFile == NULL )
+    {
+        return;
+    }
+    fseek(pFile, 0, SEEK_END);
+    int nFileSize = ftell(pFile);
+    fseek(pFile, 0, SEEK_SET);
 
-int main()
+    char *pdata =  (char *)malloc(nFileSize + 1);
+    fread(pdata, nFileSize, 1, pFile);
+    pdata[nFileSize] = 0;
+    fclose(pFile);
+
+    char *encodeData = FunEncode(pdata);
+    char *decodeData = FunDecode(encodeData);
+
+    FILE *pEncodeFile = fopen("style_encode.dat", "wb");
+    if( pEncodeFile != NULL ){
+        int len = strlen(encodeData);
+        fwrite(encodeData, len, 1, pEncodeFile);
+        fflush(pEncodeFile);
+        fclose(pEncodeFile);
+    }
+
+    FILE *pF = fopen("out.json", "wb");
+    if( pF != NULL )
+    {
+        int len = strlen(decodeData);
+        fwrite(decodeData, len, 1, pF);
+        fflush(pF);
+        fclose(pF);
+    }
+
+    free(encodeData);
+    free(decodeData);
+    free(pdata);
+    return;
+
+}
+
+void test_cryto_str()
 {
     char *str = "123abcABC*%!~#+_/中文测试";
     char *ecode = "SkiDk/JC5F/BXKf/np7rWNub7ibxzYMjKwkQ7A6AqPw=";
@@ -60,7 +102,11 @@ int main()
     printf("encode : %s", en);
     char *de = FunDecode(en);
     printf("decode :%s", de);
+}
 
+int main()
+{
+    test_crypto_file();
     return 0;
 
 }

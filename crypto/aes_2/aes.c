@@ -34,6 +34,7 @@ NOTE:   String length must be evenly divisible by 16byte (str_len % 16 == 0)
 /* Includes:                                                                 */
 /*****************************************************************************/
 
+#include <memory.h>
 #include "aes.h"
 
 
@@ -575,15 +576,15 @@ char * AES_128_ECB_PKCS5Padding_Decrypt(const char *in, const uint8_t* key)
     }
 
 
-    //去除结尾垃圾字符串 begin
-    int index = findPaddingIndex(out);
-    if(index==NULL)
-    {
-        return (char*)out;
-    }
-    if(index < strlen(out)){//  if (index>strlen)  will crash.
-        memset(out+index, '\0', strlen(out)-index);
-    }
+//    //去除结尾垃圾字符串 begin
+//    int index = findPaddingIndex(out);
+//    if(index==NULL)
+//    {
+//        return (char*)out;
+//    }
+//    if(index < strlen(out)){//  if (index>strlen)  will crash.
+//        memset(out+index, '\0', strlen(out)-index);
+//    }
     //去除结尾垃圾字符串 end
 
 

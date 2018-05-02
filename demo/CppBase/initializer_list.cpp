@@ -41,37 +41,37 @@ void print_list(std::initializer_list<T> il)
 
 int test_initializer_list_1()
 {
-{
-	std::initializer_list<int> mylist;
-	mylist = { 10, 20, 30 };
-	std::cout << "mylist contains:";
-	for (int x : mylist) std::cout << ' ' << x;
-	std::cout << '\n';
-}
+	{
+		std::initializer_list<int> mylist;
+		mylist = { 10, 20, 30 };
+		std::cout << "mylist contains:";
+		for (int x : mylist) std::cout << ' ' << x;
+		std::cout << '\n';
+	}
 
-{
-	myclass myobject{ 10, 20, 30 };
-	std::cout << "myobject contains:" << myobject.str << '\n';
-}
+	{
+		myclass myobject{ 10, 20, 30 };
+		std::cout << "myobject contains:" << myobject.str << '\n';
+	}
 
-{
-	simple_container<int> myobject{ 10, 20, 30 };
-	std::cout << "myobject contains:";
-	for (int x : myobject) std::cout << ' ' << x;
-	std::cout << '\n';
-}
+	{
+		simple_container<int> myobject{ 10, 20, 30 };
+		std::cout << "myobject contains:";
+		for (int x : myobject) std::cout << ' ' << x;
+		std::cout << '\n';
+	}
 
-{
-	print_list({ 10, 20, 30 });
-}
+	{
+		print_list({ 10, 20, 30 });
+	}
 
-{
-	// ±àÒëÆ÷´Ó»¨À¨ºÅ(brace)·â±ÕµÄ¡¢ÔªËØÓÉ¶ººÅ·Ö¸ô¿ªµÄ³õÊ¼»¯ÁĞ±í×Ô¶¯¹¹Ôìinitializer_listÄ£°åÀà
-	auto il = { 10, 20, 30 };
-	for (auto i : il)
-		std::cout << i << "    ";
-	std::cout << std::endl;
-}
+	{
+		// ç¼–è¯‘å™¨ä»èŠ±æ‹¬å·(brace)å°é—­çš„ã€å…ƒç´ ç”±é€—å·åˆ†éš”å¼€çš„åˆå§‹åŒ–åˆ—è¡¨è‡ªåŠ¨æ„é€ initializer_listæ¨¡æ¿ç±»
+		auto il = { 10, 20, 30 };
+		for (auto i : il)
+			std::cout << i << "    ";
+		std::cout << std::endl;
+	}
 
 	return 0;
 }
@@ -122,5 +122,12 @@ int test_initializer_list_2()
 	templated_fn<std::initializer_list<int>>({ 1, 2, 3 }); // OK
 	templated_fn<std::vector<int>>({ 1, 2, 3 });           // also OK
 
+	return 0;
+}
+
+
+int main()
+{
+    test_initializer_list_1();
 	return 0;
 }

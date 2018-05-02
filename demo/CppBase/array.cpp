@@ -15,18 +15,18 @@ int test_array_3()
 
 	Myarray c0 = { 0, 1, 2, 3 };
 
-	// display contents " 0 1 2 3"   
+	// display contents " 0 1 2 3"
 	for (Myarray::const_iterator it = c0.begin();
-		it != c0.end(); ++it)
+		 it != c0.end(); ++it)
 		std::cout << " " << *it;
 	std::cout << std::endl;
 
 	Myarray c1;
-	c1.assign(4);
+//	c1.assign(4);
 
-	// display contents " 4 4 4 4"   
+	// display contents " 4 4 4 4"
 	for (Myarray::const_iterator it = c1.begin();
-		it != c1.end(); ++it)
+		 it != c1.end(); ++it)
 		std::cout << " " << *it; // 4 4 4 4
 	std::cout << std::endl;
 
@@ -63,188 +63,197 @@ std::array<int, 3> global;               // zero-initialized: {0,0,0}
 
 int test_array_1()
 {
-{ // array::array: The array classes are aggregate types, and thus have no custom constructors.
-  // default initialization (local = automatic storage):
-	std::array<int, 3> first;              // uninitialized:    {?,?,?}
+	{ // array::array: The array classes are aggregate types, and thus have no custom constructors.
+		// default initialization (local = automatic storage):
+		std::array<int, 3> first;              // uninitialized:    {?,?,?}
 
-	// initializer-list initializations:
-	std::array<int, 3> second = { 10, 20 };   // initialized as:   {10,20,0}
-	std::array<int, 3> third = { 1, 2, 3 };    // initialized as:   {1,2,3}
+		// initializer-list initializations:
+		std::array<int, 3> second = { 10, 20 };   // initialized as:   {10,20,0}
+		std::array<int, 3> third = { 1, 2, 3 };    // initialized as:   {1,2,3}
 
-	// copy initialization:
-	std::array<int, 3> fourth = third;     // copy:             {1,2,3}
+		// copy initialization:
+		std::array<int, 3> fourth = third;     // copy:             {1,2,3}
 
-	std::cout << "The contents of fourth are:";
-	for (auto x : fourth) std::cout << ' ' << x;
-	std::cout << '\n';
-}
+		std::cout << fourth[2] << std::endl;
 
-{ // array::at: Returns a reference to the element at position n in the array
-	std::array<int, 10> myarray;
+		std::cout << "The contents of fourth are:";
+		for (auto x : fourth)
+			std::cout << ' ' << x;
+		std::cout << '\n';
+	}
 
-	// assign some values:
-	for (int i = 0; i < 10; i++) myarray.at(i) = i + 1;
+	{ // array::at: Returns a reference to the element at position n in the array
+		std::array<int, 10> myarray;
 
-	// print content:
-	std::cout << "myarray contains:";
-	for (int i = 0; i < 10; i++)
-		std::cout << ' ' << myarray.at(i);
-	std::cout << '\n';
-}
+		// assign some values:
+		for (int i = 0; i < 10; i++)
+			myarray.at(i) = i + 1;
 
-{ // array::back: Returns a reference to the last element in the array container.
-  // array::front: Returns a reference to the first element in the array container.
-	std::array<int, 3> myarray = { 5, 19, 77 };
+		// print content:
+		std::cout << "myarray contains:";
+		for (int i = 0; i < 10; i++)
+			std::cout << ' ' << myarray.at(i);
+		std::cout << '\n';
+	}
 
-	std::cout << "front is: " << myarray.front() << std::endl;   // 5
-	std::cout << "back is: " << myarray.back() << std::endl;     // 77
+	{ // array::back: Returns a reference to the last element in the array container.
+		// array::front: Returns a reference to the first element in the array container.
+		std::array<int, 3> myarray = { 5, 19, 77 };
 
-	myarray.back() = 50;
-	myarray.front() = 999;
+		std::cout << "front is: " << myarray.front() << std::endl;   // 5
+		std::cout << "back is: " << myarray.back() << std::endl;     // 77
 
-	std::cout << "myarray now contains:";
-	for (int& x : myarray) std::cout << ' ' << x; // 999 19 50
-	std::cout << '\n';
-}
+		myarray.back() = 50;
+		myarray.front() = 999;
 
-{ // array::begin: Returns an iterator pointing to the first element in the array container.
-  // array::end: Returns an iterator pointing to the past-the-end element in the array container.
-	std::array<int, 5> myarray = { 2, 16, 77, 34, 50 };
+		std::cout << "myarray now contains:";
+		for (int& x : myarray) std::cout << ' ' << x; // 999 19 50
+		std::cout << '\n';
+	}
 
-	std::cout << "myarray contains:";
-	for (auto it = myarray.begin(); it != myarray.end(); ++it)
-		std::cout << ' ' << *it;
-	std::cout << '\n';
-}
+	{ // array::begin: Returns an iterator pointing to the first element in the array container.
+		// array::end: Returns an iterator pointing to the past-the-end element in the array container.
+		std::array<int, 5> myarray = { 2, 16, 77, 34, 50 };
 
-{ // array::cbegin: Returns a const_iterator pointing to the first element in the array container.
-  // array::cend: Returns a const_iterator pointing to the past-the-end element in the array container.
-	std::array<int, 5> myarray = { 2, 16, 77, 34, 50 };
+		std::cout << "myarray contains:";
+		for (auto it = myarray.begin(); it != myarray.end(); ++it)
+			std::cout << ' ' << *it;
+		std::cout << '\n';
+	}
 
-	std::cout << "myarray contains:";
+	{ // array::cbegin: Returns a const_iterator pointing to the first element in the array container.
+		// array::cend: Returns a const_iterator pointing to the past-the-end element in the array container.
+		std::array<int, 5> myarray = { 2, 16, 77, 34, 50 };
 
-	for (auto it = myarray.cbegin(); it != myarray.cend(); ++it)
-		std::cout << ' ' << *it;   // cannot modify *it
+		std::cout << "myarray contains:";
 
-	std::cout << '\n';
-}
+		for (auto it = myarray.cbegin(); it != myarray.cend(); ++it)
+			std::cout << ' ' << *it;   // cannot modify *it
 
-{ // array::crbegin: Returns a const_reverse_iterator pointing to the last element in the array container.
-  // array::crend: Returns a const_reverse_iterator pointing to the theoretical element preceding
-  // the first element in the vector, which is considered its reverse end.
-	std::array<int, 6> myarray = { 10, 20, 30, 40, 50, 60 };
+		std::cout << '\n';
+	}
 
-	std::cout << "myarray backwards:";
-	for (auto rit = myarray.crbegin(); rit < myarray.crend(); ++rit)
-		std::cout << ' ' << *rit;   // cannot modify *rit
+	{ // array::crbegin: Returns a const_reverse_iterator pointing to the last element in the array container.
+		// array::crend: Returns a const_reverse_iterator pointing to the theoretical element preceding
+		// the first element in the vector, which is considered its reverse end.
+		std::array<int, 6> myarray = { 10, 20, 30, 40, 50, 60 };
 
-	std::cout << '\n';
-}
+		std::cout << "myarray backwards:";
+		for (auto rit = myarray.crbegin(); rit < myarray.crend(); ++rit)
+			std::cout << ' ' << *rit;   // cannot modify *rit
 
-{ // array::data: Returns a pointer to the first element in the array object.
-	const char* cstr = "Test string";
-	std::array<char, 12> charray;
+		std::cout << '\n';
+	}
 
-	std::memcpy(charray.data(), cstr, 12);
-	std::cout << charray.data() << '\n';
-}
+	{ // array::data: Returns a pointer to the first element in the array object.
+		const char* cstr = "Test string";
+		std::array<char, 12> charray;
 
-{ // array::empty: Returns a bool value indicating whether the array container is empty, i.e. whether its size is 0.
-	std::array<int, 0> first;
-	std::array<int, 5> second;
-	std::cout << "first " << (first.empty() ? "is empty" : "is not empty") << '\n';
-	std::cout << "second " << (second.empty() ? "is empty" : "is not empty") << '\n';
-}
+		std::memcpy(charray.data(), cstr, 12);
+		std::cout << charray.data() << '\n';
+	}
 
-{ // array::fill: Sets val as the value for all the elements in the array object.
-	std::array<int, 6> myarray;
+	{ // array::empty: Returns a bool value indicating whether the array container is empty, i.e. whether its size is 0.
+		std::array<int, 0> first;
+		std::array<int, 5> second;
+		std::cout << "first " << (first.empty() ? "is empty" : "is not empty") << '\n';
+		std::cout << "second " << (second.empty() ? "is empty" : "is not empty") << '\n';
+	}
 
-	myarray.fill(5);
+	{ // array::fill: Sets val as the value for all the elements in the array object.
+		std::array<int, 6> myarray;
 
-	std::cout << "myarray contains:";
-	for (int& x : myarray) { std::cout << ' ' << x; }
+		myarray.fill(5);
 
-	std::cout << '\n';
-}
+		std::cout << "myarray contains:";
+		for (int& x : myarray) { std::cout << ' ' << x; }
 
-{ // array::max_size: Returns the maximum number of elements that the array container can hold
-  // array::size: Returns the number of elements in the array container.
-	std::array<int, 10> myints;
-	std::cout << "size of myints: " << myints.size() << '\n';
-	std::cout << "max_size of myints: " << myints.max_size() << '\n';
-	std::cout << "sizeof(myints): " << sizeof(myints) << std::endl;
-}
+		std::cout << '\n';
+	}
 
-{ // array::operator[]: Returns a reference to the element at position n in the array container.
-	std::array<int, 10> myarray;
-	unsigned int i;
+	{ // array::max_size: Returns the maximum number of elements that the array container can hold
+		// array::size: Returns the number of elements in the array container.
+		std::array<int, 10> myints;
+		std::cout << "size of myints: " << myints.size() << '\n';
+		std::cout << "max_size of myints: " << myints.max_size() << '\n';
+		std::cout << "sizeof(myints): " << sizeof(myints) << std::endl;
+	}
 
-	// assign some values:
-	for (i = 0; i < 10; i++) myarray[i] = i;
+	{ // array::operator[]: Returns a reference to the element at position n in the array container.
+		std::array<int, 10> myarray;
+		unsigned int i;
 
-	// print content
-	std::cout << "myarray contains:";
-	for (i = 0; i < 10; i++)
-		std::cout << ' ' << myarray[i];
-	std::cout << '\n';
-}
+		// assign some values:
+		for (i = 0; i < 10; i++) myarray[i] = i;
 
-{ // array::rbegin: Returns a reverse iterator pointing to the last element in the array container.
-  // array::rend: Returns a reverse iterator pointing to the theoretical element preceding
-  // the first element in the array (which is considered its reverse end).
-	std::array<int, 4> myarray = { 4, 26, 80, 14 };
+		// print content
+		std::cout << "myarray contains:";
+		for (i = 0; i < 10; i++)
+			std::cout << ' ' << myarray[i];
+		std::cout << '\n';
+	}
 
-	std::cout << "myarray contains:";
-	for (auto rit = myarray.rbegin(); rit < myarray.rend(); ++rit)
-		std::cout << ' ' << *rit;
+	{ // array::rbegin: Returns a reverse iterator pointing to the last element in the array container.
+		// array::rend: Returns a reverse iterator pointing to the theoretical element preceding
+		// the first element in the array (which is considered its reverse end).
+		std::array<int, 4> myarray = { 4, 26, 80, 14 };
 
-	std::cout << '\n';
-}
+		std::cout << "myarray contains:";
+		for (auto rit = myarray.rbegin(); rit < myarray.rend(); ++rit)
+			std::cout << ' ' << *rit;
 
-{ // array::swap: Exchanges the content of the array by the content of x,
-  // which is another array object of the same type (including the same size).
-	std::array<int, 5> first = { 10, 20, 30, 40, 50 };
-	std::array<int, 5> second = { 11, 22, 33, 44, 55 };
+		std::cout << '\n';
+	}
 
-	first.swap(second);
+	{ // array::swap: Exchanges the content of the array by the content of x,
+		// which is another array object of the same type (including the same size).
+		std::array<int, 5> first = { 10, 20, 30, 40, 50 };
+		std::array<int, 5> second = { 11, 22, 33, 44, 55 };
 
-	std::cout << "first:";
-	for (int& x : first) std::cout << ' ' << x;
-	std::cout << '\n';
+		first.swap(second);
 
-	std::cout << "second:";
-	for (int& x : second) std::cout << ' ' << x;
-	std::cout << '\n';
-}
+		std::cout << "first:";
+		for (int& x : first) std::cout << ' ' << x;
+		std::cout << '\n';
 
-{ // std::get: Returns a reference to the Ith element of array arr
-  // std::tuple_element<array>: Accesses the static type of the elements in an array object as if it was a tuple.
-	std::array<int, 3> myarray = { 10, 20, 30 };
-	std::tuple<int, int, int> mytuple(10, 20, 30);
+		std::cout << "second:";
+		for (int& x : second) std::cout << ' ' << x;
+		std::cout << '\n';
+	}
 
-	std::tuple_element<0, decltype(myarray)>::type myelement;  // int myelement
+	{ // std::get: Returns a reference to the Ith element of array arr
+		// std::tuple_element<array>: Accesses the static type of the elements in an array object as if it was a tuple.
+		std::array<int, 3> myarray = { 10, 20, 30 };
+		std::tuple<int, int, int> mytuple(10, 20, 30);
 
-	myelement = std::get<2>(myarray);
-	std::get<2>(myarray) = std::get<0>(myarray);
-	std::get<0>(myarray) = myelement;
+		std::tuple_element<0, decltype(myarray)>::type myelement;  // int myelement
 
-	std::cout << "first element in myarray: " << std::get<0>(myarray) << "\n";
-	std::cout << "first element in mytuple: " << std::get<0>(mytuple) << "\n";
-}
+		myelement = std::get<2>(myarray);
+		std::get<2>(myarray) = std::get<0>(myarray);
+		std::get<0>(myarray) = myelement;
 
-{ // std::relational operators(array): Performs the appropriate comparison operation between the array containers lhs and rhs.
-	std::array<int, 5> a = { 10, 20, 30, 40, 50 };
-	std::array<int, 5> b = { 10, 20, 30, 40, 50 };
-	std::array<int, 5> c = { 50, 40, 30, 20, 10 };
+		std::cout << "first element in myarray: " << std::get<0>(myarray) << "\n";
+		std::cout << "first element in mytuple: " << std::get<0>(mytuple) << "\n";
+	}
 
-	if (a == b) std::cout << "a and b are equal\n";
-	if (b != c) std::cout << "b and c are not equal\n";
-	if (b<c) std::cout << "b is less than c\n";
-	if (c>b) std::cout << "c is greater than b\n";
-	if (a <= b) std::cout << "a is less than or equal to b\n";
-	if (a >= b) std::cout << "a is greater than or equal to b\n";
-}
+	{ // std::relational operators(array): Performs the appropriate comparison operation between the array containers lhs and rhs.
+		std::array<int, 5> a = { 10, 20, 30, 40, 50 };
+		std::array<int, 5> b = { 10, 20, 30, 40, 50 };
+		std::array<int, 5> c = { 50, 40, 30, 20, 10 };
+
+		if (a == b) std::cout << "a and b are equal\n";
+		if (b != c) std::cout << "b and c are not equal\n";
+		if (b<c) std::cout << "b is less than c\n";
+		if (c>b) std::cout << "c is greater than b\n";
+		if (a <= b) std::cout << "a is less than or equal to b\n";
+		if (a >= b) std::cout << "a is greater than or equal to b\n";
+	}
 
 	return 0;
 }
 
+int main()
+{
+    test_array_1();
+    return 0;
+}

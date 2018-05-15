@@ -13,9 +13,17 @@
 // reference: http://en.cppreference.com/w/cpp/memory/unique_ptr
 struct Foo
 {
-	Foo()      { std::cout << "Foo::Foo\n"; }
-	~Foo()     { std::cout << "Foo::~Foo\n"; }
-	void bar() { std::cout << "Foo::bar\n"; }
+	Foo() {
+		data = 5;
+		std::cout << "Foo::Foo\n";
+	}
+	~Foo() {
+		std::cout << "Foo::~Foo\n";
+	}
+	void bar() {
+		std::cout << "Foo::bar " << data << " \n";
+	}
+	int data;
 };
 
 void f(const Foo &)
@@ -26,7 +34,9 @@ void f(const Foo &)
 int test_unique_ptr1()
 {
 	std::unique_ptr<Foo> p1(new Foo);  // p1 owns Foo
-	if (p1) p1->bar();
+	if (p1)
+		p1->bar();
+	p1 = NULL;
 
 	{
 		std::unique_ptr<Foo> p2(std::move(p1));  // now p2 owns Foo
@@ -37,7 +47,9 @@ int test_unique_ptr1()
 		std::cout << "destroying p2...\n";
 	}
 
-	if (p1) p1->bar();
+	if (p1)
+		p1->bar();
+
 
 	// Foo instance is destroyed when p1 goes out of scope
 

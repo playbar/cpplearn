@@ -210,8 +210,8 @@ int test_vector()
     std::cout << "x size after resize: " << x.size() << std::endl; // 5
 
     std::vector<Vec5f> vdata;
-    int size = 100;
-    vdata.reserve(std::max(1024, size));
+    int size = 1  << 16;
+    vdata.reserve(1 << 24);
     std::cout << "data capacity reserver: " << vdata.capacity() << std::endl;
     vdata.push_back(Vec5f());
 

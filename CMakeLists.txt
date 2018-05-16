@@ -75,7 +75,7 @@ add_executable(thread_test ${thread_test_file})
 
 
 #template test
-set(template_test_file template/test/template_4.cpp)
+set(template_test_file template/test/template_9.cpp)
 add_executable(template_test ${template_test_file})
 
 

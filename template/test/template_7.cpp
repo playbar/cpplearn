@@ -13,5 +13,6 @@ public: static const int ret = 0;
 
 int main() {
     std::cout << sumt<5>::ret << '\n';
-    std::cin.get(); return 0;
+    std::cin.get();
+    return 0;
 }

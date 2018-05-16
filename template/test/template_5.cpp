@@ -17,6 +17,7 @@ public:
     enum { retValume = i + someComputing<T, i-1>::retValume }; // 数值计算，递归
     static void f() { std::cout << "someComputing: i=" << i << '\n'; }
 };
+
 template<typename T> // 模板特例，递归终止条件
 class someComputing<T, 0> {
 public:
@@ -26,6 +27,7 @@ public:
     ~someComputing(){
         std::cout<< "someComputing destruct end"<< std::endl;
     }
+    static void f() { std::cout << "someComputing: i=0" << '\n'; }
     enum { retValume = 0 };
 };
 
@@ -41,5 +43,6 @@ int main(){
     // VS2013 默认最大递归深度500，GCC4.8 默认最大递归深度900（-ftemplate-depth=n）
     std::cout << someComputing<int, 500>::retValume << '\n'; // 1+2+...+500
     codeComputing<someComputing<int, 99>>::f();
-    std::cin.get(); return 0;
+    codeComputing<someComputing<int,0>>::f();
+    return 0;
 }

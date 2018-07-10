@@ -32,9 +32,11 @@ set(SOURCE_PARSESO src/nth_element.cpp)
 add_executable(nth_element ${SOURCE_PARSESO})
 
 
-set(SOURCE_PARSESO demo/CppBase/vector.cpp)
+set(SOURCE_PARSESO demo/CppBase/array.cpp)
 add_executable(CppBase ${SOURCE_PARSESO})
 
+set(SOURCE_PARSESO demo/memtest/MemoryDetector.cpp)
+add_executable(memtest ${SOURCE_PARSESO})
 
 set(SOURCE_PARSESO  demo/DesignPatterns/Memento2.cpp)
 add_executable(DesignPatterns ${SOURCE_PARSESO})

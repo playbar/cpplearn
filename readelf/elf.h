@@ -2,7 +2,7 @@
 #define __ELF_H__
 /* Standard ELF types.  */
 
-#include <windows.h>
+//#include <windows.h>
 
 /* Type for a 16-bit quantity.  */
 typedef unsigned short Elf32_Half;

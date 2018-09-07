@@ -32,7 +32,7 @@ set(SOURCE_PARSESO src/nth_element.cpp)
 add_executable(nth_element ${SOURCE_PARSESO})
 
 
-set(SOURCE_PARSESO demo/CppBase/array.cpp)
+set(SOURCE_PARSESO demo/CppBase/regex.cpp)
 add_executable(CppBase ${SOURCE_PARSESO})
 
 set(SOURCE_PARSESO demo/memtest/MemoryDetector.cpp)

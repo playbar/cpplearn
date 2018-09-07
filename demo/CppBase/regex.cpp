@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+using namespace std;
 
 // Blog: http://blog.csdn.net/fengbingchun/article/details/54835571
 
@@ -14,8 +15,8 @@ int test_regex_match()
 	std::vector<std::string> str{ "010-12345678", "0319-9876543", "021-123456789"};
 
 	/* std::regex_match:
-		ÅĞ¶ÏÒ»¸öÕıÔò±í´ïÊ½(²ÎÊıre)ÊÇ·ñÆ¥ÅäÕû¸ö×Ö·ûĞòÁĞstr,ËüÖ÷ÒªÓÃÓÚÑéÖ¤ÎÄ±¾
-		×¢Òâ£¬Õâ¸öÕıÔò±í´ïÊ½±ØĞëÆ¥Åä±»·ÖÎö´®µÄÈ«²¿£¬·ñÔò·µ»Øfalse;Èç¹ûÕû¸öĞòÁĞ±»³É¹¦Æ¥Åä£¬·µ»Øtrue
+		åˆ¤æ–­ä¸€ä¸ªæ­£åˆ™è¡¨è¾¾å¼(å‚æ•°re)æ˜¯å¦åŒ¹é…æ•´ä¸ªå­—ç¬¦åºåˆ—str,å®ƒä¸»è¦ç”¨äºéªŒè¯æ–‡æœ¬
+		æ³¨æ„ï¼Œè¿™ä¸ªæ­£åˆ™è¡¨è¾¾å¼å¿…é¡»åŒ¹é…è¢«åˆ†æä¸²çš„å…¨éƒ¨ï¼Œå¦åˆ™è¿”å›false;å¦‚æœæ•´ä¸ªåºåˆ—è¢«æˆåŠŸåŒ¹é…ï¼Œè¿”å›true
 	*/
 
 	for (auto tmp : str) {
@@ -36,8 +37,8 @@ int test_regex_search()
 		"abcd://124.456", "abcd https://github.com/fengbingchun 123" };
 
 	/* std::regex_search:
-		ÀàËÆÓÚregex_match,µ«Ëü²»ÒªÇóÕû¸ö×Ö·ûĞòÁĞÍêÈ«Æ¥Åä
-		¿ÉÒÔÓÃregex_searchÀ´²éÕÒÊäÈëÖĞµÄÒ»¸ö×ÓĞòÁĞ£¬¸Ã×ÓĞòÁĞÆ¥ÅäÕıÔò±í´ïÊ½re
+		ç±»ä¼¼äºregex_match,ä½†å®ƒä¸è¦æ±‚æ•´ä¸ªå­—ç¬¦åºåˆ—å®Œå…¨åŒ¹é…
+		å¯ä»¥ç”¨regex_searchæ¥æŸ¥æ‰¾è¾“å…¥ä¸­çš„ä¸€ä¸ªå­åºåˆ—ï¼Œè¯¥å­åºåˆ—åŒ¹é…æ­£åˆ™è¡¨è¾¾å¼re
 	*/
 
 	for (auto tmp : str) {
@@ -76,8 +77,8 @@ int test_regex_replace()
 	std::string fmt{ "********" };
 
 	/* std::regex_replace:
-		ÔÚÕû¸ö×Ö·ûĞòÁĞÖĞ²éÕÒÕıÔò±í´ïÊ½reµÄËùÓĞÆ¥Åä
-		Õâ¸öËã·¨Ã¿´Î³É¹¦Æ¥Åäºó£¬¾Í¸ù¾İ²ÎÊıfmt¶ÔÆ¥Åä×Ö·û´®½øĞĞÌæ»»
+		åœ¨æ•´ä¸ªå­—ç¬¦åºåˆ—ä¸­æŸ¥æ‰¾æ­£åˆ™è¡¨è¾¾å¼reçš„æ‰€æœ‰åŒ¹é…
+		è¿™ä¸ªç®—æ³•æ¯æ¬¡æˆåŠŸåŒ¹é…åï¼Œå°±æ ¹æ®å‚æ•°fmtå¯¹åŒ¹é…å­—ç¬¦ä¸²è¿›è¡Œæ›¿æ¢
 	*/
 
 	for (auto tmp : str) {
@@ -106,5 +107,93 @@ int test_regex_replace2()
 	std::cout << std::regex_replace(s, e, "$1 and $2", std::regex_constants::format_no_copy);
 	std::cout << std::endl;
 
+	return 0;
+}
+
+int testRegex()
+{
+	//regex_matchåŒ¹é…æ•´ä¸ªå­—ç¬¦ä¸²
+	regex reg1("\\w+day");
+	string s1 = "saturday";
+	string s2 = "saturday and sunday";
+	smatch r1;
+	smatch r2;
+	cout << boolalpha << regex_match(s1, r1, reg1) << endl;
+	cout << boolalpha << regex_match(s2, r2, reg1) << endl;
+	cout << "s1åŒ¹é…ç»“æœï¼š" << r1.str() << endl;
+	cout << "s2åŒ¹é…ç»“æœï¼š" << r2.str() << endl;
+	cout << endl;
+
+	//regex_matchåªè¿”å›ç¬¬ä¸€ä¸ªåŒ¹é…ç»“æœ
+	smatch rr1;
+	smatch rr2;
+	cout << boolalpha << regex_search(s1, rr1, reg1) << endl;
+	cout << "s1åŒ¹é…ç»“æœï¼š" << rr1.str() << endl;
+	cout << boolalpha << regex_search(s2, rr2, reg1) << endl;
+	cout << "s1åŒ¹é…ç»“æœï¼š" << rr2.str() << endl;
+	cout << endl;
+
+
+	//ä½¿ç”¨iteratorè¿”å›å¤šä¸ªåŒ¹é…ç»“æœ
+	//ç»“æœè¦ç”¨->
+	cout << "iteratorç»“æœï¼š" << endl;
+	sregex_iterator it(s2.begin(), s2.end(), reg1);
+	sregex_iterator end;
+	for(; it != end; ++it)
+	{
+		cout << it->str() << endl;
+		//cout << *it << endl; é”™è¯¯
+	}
+
+	cout << "token_iteratorç»“æœï¼š" << endl;
+	sregex_token_iterator tit(s2.begin(), s2.end(), reg1);
+	sregex_token_iterator tend;
+	for(; tit != tend; ++tit)
+	{
+		cout << tit->str() << endl;
+		cout << *tit << endl;
+	}
+
+	//å­è¡¨è¾¾å¼åŒ¹é…
+	regex reg2("(\\d{1,3}):(\\d{1,3}):(\\d{1,3}):(\\d{1,3})");
+	string ip = "0:11:222:333";
+	smatch m;
+	regex_match(ip, m, reg2);
+	cout << "è¾“å‡ºï¼šstr()" << endl;
+	cout << m.str() << endl;
+	cout << m.str(1) << endl;
+	cout << m.str(2) << endl;
+	cout << m.str(3) << endl;
+	cout << m.str(4) << endl;
+
+	cout << "è¾“å‡ºï¼š[i]" << endl;
+	cout << m[0] << endl;
+	cout << m[1] << endl;
+	cout << m[2] << endl;
+	cout << m[3] << endl;
+	cout << m[4] << endl;
+
+	//è¾“å‡ºç»“æœåŒä¸Š
+	//regex_search(ip, m, str2);
+	cout << endl;
+	string ip2 = "0:11:222:333 4:55:66:7";
+	sregex_iterator ip_it(ip2.begin(), ip2.end(), reg2);
+	sregex_iterator ip_end;
+	for(; ip_it != ip_end; ++ip_it)
+	{
+		cout << ip_it->str() << endl;
+		cout << ip_it->str(1) << endl;
+		cout << ip_it->str(2) << endl;
+		cout << ip_it->str(3) << endl;
+		cout << ip_it->str(4) << endl;
+	}
+
+	return 0;
+
+}
+
+int main()
+{
+	testRegex();
 	return 0;
 }

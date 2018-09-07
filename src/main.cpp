@@ -41,7 +41,29 @@ void testStr()
     return;
 }
 
+struct Rect
+{
+    int left;
+    int top;
+    int right;
+    int bottom;
+};
+
+int rect_intersects_rect(Rect rect1, Rect rect2) {
+    return !(rect1.left > rect2.right || rect1.right < rect2.left || rect1.top > rect2.bottom || rect1.bottom < rect2.top);
+
+}
+
+
 int main() {
+
+    Rect rect1 = {361, 468, 393, 500};
+    Rect rect2 = {362, 469, 392, 499};
+    Rect rect3 = { 10, 10, 40, 40};
+    Rect rect4 = {350, 469, 392, 499};
+
+    int re = rect_intersects_rect(rect1, rect4);
+
     testmap();
     testStr();
     CTest a;

@@ -6,6 +6,7 @@
 #include <chrono>
 #include <functional>
 #include <iomanip>
+#include <cmath>
 
 // Blog: http://blog.csdn.net/fengbingchun/article/details/63268962
 
@@ -644,4 +645,24 @@ int test_set_cppreference()
 }
 
 	return 0;
+}
+
+#define LEN (8180 * 1024)
+
+int main()
+{
+	char a[LEN];
+	memset(&a, 0, LEN);
+	char *pa = new char[LEN * 10];
+	memset(pa, 0, LEN * 10);
+	return 0;
+//	std::set<TestA *> STA;
+//	for( int i = 0; i < 10; ++i ){
+//		TestA *aa = new TestA();
+//		STA.insert(aa);
+//	}
+//	std::set<TestA* >::iterator iter = STA.begin();
+//	if( ; iter != STA.end(); ++iter ){
+//
+//	}
 }

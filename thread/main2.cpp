@@ -1,5 +1,5 @@
 #include <iostream>
-#include "../src/CTest.h"
+//#include "../src/CTest.h"
 //#include "windows.h"
 #include <sys/types.h>
 #include <unistd.h>
@@ -51,6 +51,6 @@ void createThread()
 
 int main() {
     createThread();
-    depth_1();
+//    depth_1();
     return 0;
 }

@@ -1,6 +1,4 @@
-cmake_minimum_required(VERSION 2.6.2)
-
-project( googletest-distribution )
+cmake_minimum_required(VERSION 3.6)
 
 enable_testing()
 

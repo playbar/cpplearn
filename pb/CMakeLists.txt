@@ -86,6 +86,15 @@ target_link_libraries(protoc protobuflib libprotoc)
 target_include_directories(protoc PRIVATE
 		${CMAKE_CURRENT_SOURCE_DIR})
 
+###
+#set(wire_format_SRCS
+#		${CMAKE_CURRENT_SOURCE_DIR}/google/protobuf/wire_format_unittest.cc
+#		)
+#add_executable(wire_format ${wire_format_SRCS})
+#target_include_directories(wire_format  PUBLIC
+#		${CMAKE_CURRENT_SOURCE_DIR})
+#target_link_libraries(wire_format protobuflib)
+
 
 ########
 set(data_write_SRCS
@@ -104,3 +113,4 @@ add_executable(data_read ${data_read_SRCS})
 target_include_directories(data_read  PUBLIC
 		${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(data_read protobuflib)
+

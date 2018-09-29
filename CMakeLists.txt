@@ -5,6 +5,8 @@ SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -fpermissive -fvisibility=hidden -Wal
 
 set(CMAKE_CXX_STANDARD 14)
 
+add_subdirectory(pb)
+
 set(SOURCE_FILES src/main.cpp src/CTest.cpp )
 add_executable(CLionTest ${SOURCE_FILES})
 
@@ -32,7 +34,7 @@ set(SOURCE_PARSESO src/nth_element.cpp)
 add_executable(nth_element ${SOURCE_PARSESO})
 
 
-set(SOURCE_PARSESO demo/CppBase/regex.cpp)
+set(SOURCE_PARSESO demo/CppBase/map.cpp)
 add_executable(CppBase ${SOURCE_PARSESO})
 
 set(SOURCE_PARSESO demo/memtest/MemoryDetector.cpp)
@@ -95,5 +97,10 @@ add_executable(crypto_aes ${crypto_aes_src})
 set(crypto_aes_2_src crypto/aes_2/aes.c crypto/aes_2/base64.c crypto/aes_2/main.c)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/crypto/aes_2)
 add_executable(crypto_aes_2 ${crypto_aes_2_src})
+
+
+#thread test
+set(regex_file regex/regex.c regex/regex_test.cpp)
+add_executable(regex_test ${regex_file})
 
 #target_link_libraries()

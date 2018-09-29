@@ -112,6 +112,16 @@ int test_regex_replace2()
 
 int testRegex()
 {
+    regex regBegin(".*R\\\"\\w{4}\\(");
+	string strBegin = " R\"vksl(";
+//    string sval = " )vksl\"";
+
+	regex regEnd(".*\\)\\w{4}\\\"");
+	string strEnd = " )vksl\",";
+
+    smatch rval;
+    cout << regex_search(strBegin, rval, regEnd) << endl;
+
 	//regex_match匹配整个字符串
 	regex reg1("\\w+day");
 	string s1 = "saturday";
@@ -192,8 +202,67 @@ int testRegex()
 
 }
 
+void matchFun()
+{
+	// regex_match
+	string str = "Hello_2018";
+	smatch result;
+	regex pattern("(.{5})_(\\d{4})");   //匹配5个任意单字符 + 下划线 + 4个数字
+
+	if (regex_match(str, result, pattern))
+	{
+		cout << result[0] << endl;      //完整匹配结果，Hello_2018
+		cout << result[1] << endl;      //第一组匹配的数据，Hello
+		cout << result[2] << endl;      //第二组匹配的数据，2018
+		cout<<"结果显示形式2"<<endl;
+		cout<< result.str() << endl;    //完整结果，Hello_2018
+		cout<< result.str(1) << endl;   //第一组匹配的数据，Hello
+		cout << result.str(2) << endl;  //第二组匹配的数据，2018
+	}
+
+//遍历结果
+	for (int i = 0; i < result.size(); ++i)
+	{
+		cout << result[i] << endl;
+	}
+
+	//// regex_search
+	string str1 = "Hello 2018, Bye 2017";
+	smatch result1;
+	regex pattern1("\\d{4}");    //匹配四个数字
+
+//迭代器声明
+	string::const_iterator iterStart = str1.begin();
+	string::const_iterator iterEnd = str1.end();
+	string temp;
+	if (regex_search(iterStart, iterEnd, result1, pattern1))
+	{
+		temp = result[0];
+		cout << temp << " ";
+		iterStart = result[0].second;   //更新搜索起始位置,搜索剩下的字符串
+	}
+
+	///
+	string str2 = "Hello_2018!";
+	regex pattern2("Hello");
+	cout << regex_replace(str2, pattern2, "") << endl;    //输出：_2018，将Hello替换为""
+	cout << regex_replace(str2, pattern2, "233") << endl; //输出：_2018，将Hello替换为2333
+
+	//
+	string str3 = "Hello_2018!";
+	regex pattern3("(.{3})(.{2})_(\\d{4})");    //匹配3个任意字符+2个任意字符+下划线+4个数字
+	cout << regex_replace(str3, pattern3, "$1$3") << endl; //输出：Hel2018，将字符串替换为第一个和第三个表达式匹配的内容
+	cout << regex_replace(str3, pattern3, "$1$3$2") << endl;  //输出：Hel2018lo，交换位置顺序
+
+	///
+	cout << regex_match("aaaAAA", regex("a*", regex::icase)) << endl;   //结果为1
+	cout << regex_match("aaaAAA", regex("a*")) << endl;                 //结果为0
+	return;
+}
+
 int main()
 {
-	testRegex();
+	test_regex_match();
+    testRegex();
 	return 0;
 }

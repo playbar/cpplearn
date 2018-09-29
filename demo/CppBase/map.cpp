@@ -19,6 +19,7 @@ int test_map1()
 
 	std::map<const char*, int, ltstr> months;
 
+
 	months["january"] = 31;
 	months["february"] = 28;
 	months["march"] = 31;
@@ -242,6 +243,7 @@ int test_map5()
 	// Inserting data in std::map
 	mapOfWords.insert(std::make_pair("earth", 1));
 	mapOfWords.insert(std::make_pair("moon", 2));
+    mapOfWords.emplace("test", 2);
 	mapOfWords["sun"] = 3;
 	// Will replace the value of already added key i.e. earth
 	mapOfWords["earth"] = 4;
@@ -302,6 +304,7 @@ int test_map6()
 	}
 	return 0;
 }
+
 
 int main()
 {

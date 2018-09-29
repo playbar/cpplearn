@@ -409,7 +409,7 @@ static void output_compilation_unit_header(char *pInfo)
  ============= ============== ======================
  2004-5-31     Jack Zhao      New
 ----------------------------------------------------*/
-int get_abbr_entry( unsigned char abbr_code )
+unsigned long get_abbr_entry( unsigned char abbr_code )
 {
 	char *pt;
 
@@ -426,7 +426,7 @@ int get_abbr_entry( unsigned char abbr_code )
 
 		pt += 2;	// skip 0x0000
 
-		if( (int)pt >= (int)(gBaseAddr + gAbbrInfo.base + gAbbrInfo.size) )
+		if( (unsigned long)pt >= (int)(gBaseAddr + gAbbrInfo.base + gAbbrInfo.size) )
 		{
 			return INVALID_ADDR;
 		}
@@ -434,7 +434,7 @@ int get_abbr_entry( unsigned char abbr_code )
 
 	if(*(unsigned char *)pt == abbr_code)
 	{
-		return (int)(pt+1);		// skip abbr code
+		return (unsigned long)(pt+1);		// skip abbr code
 	}
 	
 	return INVALID_ADDR;
@@ -573,7 +573,7 @@ static void describe_one_compile_unit(Elf32_Shdr* shdr)
 
 	unsigned char abbr_code = *pInfo++;
 	pAbbrInfo = (char *)get_abbr_entry( abbr_code );
-	if((int)pAbbrInfo == INVALID_ADDR)
+	if((unsigned long)pAbbrInfo == INVALID_ADDR)
 		return;
 
 	tag = *(unsigned char *)pAbbrInfo++;

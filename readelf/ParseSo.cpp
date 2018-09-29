@@ -1,7 +1,7 @@
 #include<iostream>
 #include<string.h>
 #include<stdio.h>
-#include "elf.h"
+#include "elf2.h"
 
 /**
 	非常重要的一个宏，功能很简单：

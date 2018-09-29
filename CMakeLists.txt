@@ -5,10 +5,15 @@ SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -fpermissive -fvisibility=hidden -Wal
 
 set(CMAKE_CXX_STANDARD 14)
 
+add_subdirectory(cnn)
+add_subdirectory(crypto)
 add_subdirectory(json)
 add_subdirectory(pb)
 add_subdirectory(readelf)
+add_subdirectory(regex)
 add_subdirectory(sqlitetest)
+add_subdirectory(unity)
+add_subdirectory(variant)
 
 set(SOURCE_FILES src/main.cpp src/CTest.cpp )
 add_executable(CLionTest ${SOURCE_FILES})
@@ -40,13 +45,6 @@ add_executable(DesignPatterns ${SOURCE_PARSESO})
 set(SOURCE_PARSESO  dl/dnn.cpp)
 add_executable(dltest ${SOURCE_PARSESO})
 
-set(SOURCE_PARSESO  cnn/cnn.cpp cnn/mat.cpp cnn/minst.cpp cnn/main.cpp)
-add_executable(cnntest ${SOURCE_PARSESO})
-
-# UnityConfig
-set(UnityFile  unity/UnityConfigFile.cpp unity/UnityConfigFile.h unity/UnityConfig.cpp)
-add_executable(UnityConfig ${UnityFile})
-
 #unique_resource
 set(unique_resource_file unique_resource/test1.cpp)
 add_executable(unique_resourcetest ${unique_resource_file})
@@ -59,26 +57,5 @@ add_executable(thread_test ${thread_test_file})
 #template test
 set(template_test_file template/test/template_9.cpp)
 add_executable(template_test ${template_test_file})
-
-
-#variant test
-set(variant_test_file variant/test/our_variant_hello_world.cpp)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/variant/include)
-add_executable(variant_test ${variant_test_file})
-
-#crypto-aes
-set(crypto_aes_src crypto/aes/main.c crypto/aes/aes.c)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/crypto/aes)
-add_executable(crypto_aes ${crypto_aes_src})
-
-#crypto-aes_2
-set(crypto_aes_2_src crypto/aes_2/aes.c crypto/aes_2/base64.c crypto/aes_2/main.c)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/crypto/aes_2)
-add_executable(crypto_aes_2 ${crypto_aes_2_src})
-
-
-#thread test
-set(regex_file regex/regex.c regex/regex_test.cpp)
-add_executable(regex_test ${regex_file})
 
 #target_link_libraries()

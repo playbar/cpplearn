@@ -6,10 +6,25 @@
 // reference: https://msdn.microsoft.com/zh-cn/library/c36yw7x9.aspx
 class B1 {
 public:
+	B1() {std::cout<<"B1" << std::endl;};
+	virtual ~B1() {std::cout<<"~B1" << std::endl;};
 	virtual void Test(){}
 };
 
-class D1 : public B1 {};
+class C1 : public B1 {
+public:
+	C1(){std::cout << "C1" << std::endl; }
+	virtual ~C1(){std::cout << "~C1" << std::endl; }
+	virtual void Test(){ std::cout << "C1 test" << std::endl;}
+};
+
+
+class D1 : public B1 {
+public:
+	D1(){std::cout << "D1" << std::endl; }
+	virtual ~D1(){std::cout << "~D1" << std::endl; }
+	virtual void Test(){ std::cout << "D1 test" << std::endl;}
+};
 
 class CCTest {
 public:
@@ -42,5 +57,6 @@ void test_static_cast7();
 void test_static_cast8();
 void test_static_cast9();
 void test_static_cast10();
+void test_static_cast11();
 
 #endif // FBC_MESSY_TEST_STATIC_CAST_HPP_

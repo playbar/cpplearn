@@ -1,10 +1,16 @@
 # demo
-set(SOURCE_BASE CppBase/map.cpp)
-add_executable(CppBase ${SOURCE_BASE})
-target_include_directories(CppBase PRIVATE
+set(SOURCE_BASE CppBase/regex.cpp)
+add_executable(regex ${SOURCE_BASE})
+target_include_directories(regex PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}
         )
 
+
+set(SOURCE_BASE CppBase/static_cast.cpp)
+add_executable(static_cast ${SOURCE_BASE})
+target_include_directories(static_cast PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}
+        )
 
 
 set(SOURCE_MEM memtest/MemoryDetector.cpp)

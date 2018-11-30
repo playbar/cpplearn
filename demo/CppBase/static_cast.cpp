@@ -7,9 +7,9 @@ void CCTest::setNumber(int num) { number = num; }
 
 void CCTest::printNumber() const {
 	std::cout << "\nBefore: " << number;
-	//this Ö¸ÕëµÄÊı¾İÀàĞÍÎª const CCTest *¡£
-	//const_cast ÔËËã·û»á½« this Ö¸ÕëµÄÊı¾İÀàĞÍ¸ü¸ÄÎª CCTest *£¬ÒÔÔÊĞíĞŞ¸Ä³ÉÔ± number¡£
-	//Ç¿ÖÆ×ª»»½ö¶ÔÆäËùÔÚµÄÓï¾äÖĞµÄÆäÓà²¿·Ö³ÖĞø
+	//this æŒ‡é’ˆçš„æ•°æ®ç±»å‹ä¸º const CCTest *ã€‚
+	//const_cast è¿ç®—ç¬¦ä¼šå°† this æŒ‡é’ˆçš„æ•°æ®ç±»å‹æ›´æ”¹ä¸º CCTest *ï¼Œä»¥å…è®¸ä¿®æ”¹æˆå‘˜ numberã€‚
+	//å¼ºåˆ¶è½¬æ¢ä»…å¯¹å…¶æ‰€åœ¨çš„è¯­å¥ä¸­çš„å…¶ä½™éƒ¨åˆ†æŒç»­
 	const_cast< CCTest * >(this)->number--;
 	std::cout << "\nAfter: " << number;
 }
@@ -35,13 +35,13 @@ void D4::f()
 }
 
 unsigned short Hash(void *p) {
-	//reinterpret_cast ÔÊĞí½«Ö¸ÕëÊÓÎªÕûÊıÀàĞÍ¡£½á¹ûËæºó½«°´Î»ÒÆÎ»²¢Óë×ÔÉí½øĞĞ¡°Òì»ò¡±ÔËËãÒÔÉú³ÉÎ¨Ò»µÄË÷Òı£¨¾ßÓĞÎ¨Ò»ĞÔµÄ¸ÅÂÊ·Ç³£¸ß£©¡£
-	//¸ÃË÷ÒıËæºó±»±ê×¼ C ÑùÊ½Ç¿ÖÆ×ª»»½Ø¶ÏÎªº¯ÊıµÄ·µ»ØÀàĞÍ¡£
-	unsigned int val = reinterpret_cast<unsigned int>(p);
+	//reinterpret_cast å…è®¸å°†æŒ‡é’ˆè§†ä¸ºæ•´æ•°ç±»å‹ã€‚ç»“æœéšåå°†æŒ‰ä½ç§»ä½å¹¶ä¸è‡ªèº«è¿›è¡Œâ€œå¼‚æˆ–â€è¿ç®—ä»¥ç”Ÿæˆå”¯ä¸€çš„ç´¢å¼•ï¼ˆå…·æœ‰å”¯ä¸€æ€§çš„æ¦‚ç‡éå¸¸é«˜ï¼‰ã€‚
+	//è¯¥ç´¢å¼•éšåè¢«æ ‡å‡† C æ ·å¼å¼ºåˆ¶è½¬æ¢æˆªæ–­ä¸ºå‡½æ•°çš„è¿”å›ç±»å‹ã€‚
+	unsigned long val = reinterpret_cast<unsigned long>(p);
 	return (unsigned short)(val ^ (val >> 16));
 }
 
-// C·ç¸ñÇ¿ÖÆÀàĞÍ×ª»»
+// Cé£æ ¼å¼ºåˆ¶ç±»å‹è½¬æ¢
 void test_static_cast1()
 {
 	float a = 1.1, b = 1.9;
@@ -54,18 +54,18 @@ void test_static_cast1()
 
 void test_static_cast2(B1* pb, D1* pd)
 {
-	//Óë dynamic_cast ²»Í¬£¬pb µÄ static_cast ×ª»»²»Ö´ĞĞÔËĞĞÊ±¼ì²é¡£
-	//ÓÉ pb Ö¸ÏòµÄ¶ÔÏó¿ÉÄÜ²»ÊÇ D ÀàĞÍµÄ¶ÔÏó£¬ÔÚÕâÖÖÇé¿öÏÂÊ¹ÓÃ *pd2 »áÊÇÔÖÄÑĞÔµÄ¡£
-	//ÀıÈç£¬µ÷ÓÃ D Àà£¨¶ø·Ç B Àà£©µÄ³ÉÔ±º¯Êı¿ÉÄÜ»áµ¼ÖÂ·ÃÎÊ³åÍ»¡£
+	//ä¸ dynamic_cast ä¸åŒï¼Œpb çš„ static_cast è½¬æ¢ä¸æ‰§è¡Œè¿è¡Œæ—¶æ£€æŸ¥ã€‚
+	//ç”± pb æŒ‡å‘çš„å¯¹è±¡å¯èƒ½ä¸æ˜¯ D ç±»å‹çš„å¯¹è±¡ï¼Œåœ¨è¿™ç§æƒ…å†µä¸‹ä½¿ç”¨ *pd2 ä¼šæ˜¯ç¾éš¾æ€§çš„ã€‚
+	//ä¾‹å¦‚ï¼Œè°ƒç”¨ D ç±»ï¼ˆè€Œé B ç±»ï¼‰çš„æˆå‘˜å‡½æ•°å¯èƒ½ä¼šå¯¼è‡´è®¿é—®å†²çªã€‚
 	D1* pd2 = static_cast<D1*>(pb);   // Not safe, D can have fields and methods that are not in B.
 	B1* pb2 = static_cast<B1*>(pd);   // Safe conversion, D always contains all of B.
 }
 
 void test_static_cast3(B1* pb)
 {
-	//Èç¹û pb È·ÊµÖ¸Ïò D ÀàĞÍµÄ¶ÔÏó£¬Ôò pd1 ºÍ pd2 ½«»ñÈ¡ÏàÍ¬µÄÖµ¡£Èç¹û pb == 0£¬ËüÃÇÒ²½«»ñÈ¡ÏàÍ¬µÄÖµ¡£
-	//Èç¹û pb Ö¸Ïò B ÀàĞÍµÄ¶ÔÏó£¬¶ø·ÇÖ¸ÏòÍêÕûµÄ D Àà£¬Ôò dynamic_cast ×ãÒÔÅĞ¶Ï·µ»ØÁã¡£
-	//µ«ÊÇ£¬static_cast ÒÀÀµÓÚ³ÌĞòÔ±µÄ¶ÏÑÔ£¬¼´ pb Ö¸Ïò D ÀàĞÍµÄ¶ÔÏó£¬Òò¶øÖ»ÊÇ·µ»ØÖ¸ÏòÄÇ¸ö¼Ù¶¨µÄ D ¶ÔÏóµÄÖ¸Õë¡£
+	//å¦‚æœ pb ç¡®å®æŒ‡å‘ D ç±»å‹çš„å¯¹è±¡ï¼Œåˆ™ pd1 å’Œ pd2 å°†è·å–ç›¸åŒçš„å€¼ã€‚å¦‚æœ pb == 0ï¼Œå®ƒä»¬ä¹Ÿå°†è·å–ç›¸åŒçš„å€¼ã€‚
+	//å¦‚æœ pb æŒ‡å‘ B ç±»å‹çš„å¯¹è±¡ï¼Œè€ŒéæŒ‡å‘å®Œæ•´çš„ D ç±»ï¼Œåˆ™ dynamic_cast è¶³ä»¥åˆ¤æ–­è¿”å›é›¶ã€‚
+	//ä½†æ˜¯ï¼Œstatic_cast ä¾èµ–äºç¨‹åºå‘˜çš„æ–­è¨€ï¼Œå³ pb æŒ‡å‘ D ç±»å‹çš„å¯¹è±¡ï¼Œå› è€Œåªæ˜¯è¿”å›æŒ‡å‘é‚£ä¸ªå‡å®šçš„ D å¯¹è±¡çš„æŒ‡é’ˆã€‚
 	D1* pd1 = dynamic_cast<D1*>(pb);
 	D1* pd2 = static_cast<D1*>(pb);
 }
@@ -91,7 +91,7 @@ void test_static_cast5()
 
 void test_static_cast6(D2* pd)
 {
-	//´Ë×ª»»ÀàĞÍ³ÆÎª¡°ÏòÉÏ×ª»»¡±£¬ÒòÎªËü½«ÔÚÀà²ã´Î½á¹¹ÉÏµÄÖ¸Õë£¬´ÓÅÉÉúµÄÀàÒÆµ½¸ÃÀàÅÉÉúµÄÀà¡£ÏòÉÏ×ª»»ÊÇÒ»ÖÖÒşÊ½×ª»»¡£
+	//æ­¤è½¬æ¢ç±»å‹ç§°ä¸ºâ€œå‘ä¸Šè½¬æ¢â€ï¼Œå› ä¸ºå®ƒå°†åœ¨ç±»å±‚æ¬¡ç»“æ„ä¸Šçš„æŒ‡é’ˆï¼Œä»æ´¾ç”Ÿçš„ç±»ç§»åˆ°è¯¥ç±»æ´¾ç”Ÿçš„ç±»ã€‚å‘ä¸Šè½¬æ¢æ˜¯ä¸€ç§éšå¼è½¬æ¢ã€‚
 	C2* pc = dynamic_cast<C2*>(pd);   // ok: C is a direct base class pc points to C subobject of pd 
 	B2* pb = dynamic_cast<B2*>(pd);   // ok: B is an indirect base class pb points to B subobject of pd
 }
@@ -109,7 +109,7 @@ void test_static_cast8()
 	B4* pb = new D4;   // unclear but ok
 	B4* pb2 = new B4;
 
-	//´Ë×ª»»ÀàĞÍ³ÆÎª¡°ÏòÏÂ×ª»»¡±£¬ÒòÎªËü½«ÔÚÀà²ã´Î½á¹¹ÏÂµÄÖ¸Õë£¬´Ó¸ø¶¨µÄÀàÒÆµ½¸ÃÀàÅÉÉúµÄÀà¡£
+	//æ­¤è½¬æ¢ç±»å‹ç§°ä¸ºâ€œå‘ä¸‹è½¬æ¢â€ï¼Œå› ä¸ºå®ƒå°†åœ¨ç±»å±‚æ¬¡ç»“æ„ä¸‹çš„æŒ‡é’ˆï¼Œä»ç»™å®šçš„ç±»ç§»åˆ°è¯¥ç±»æ´¾ç”Ÿçš„ç±»ã€‚
 	D4* pd = dynamic_cast<D4*>(pb);   // ok: pb actually points to a D
 	D4* pd2 = dynamic_cast<D4*>(pb2);   // pb2 points to a B not a D
 }
@@ -128,3 +128,25 @@ void test_static_cast10()
 	}
 }
 
+void test_static_cast11()
+{
+	B1 *b1 = new B1();
+	B1 *c1 = new C1();
+	B1 *d1 = new D1();
+
+
+	D1 *d2 = dynamic_cast<D1*>(d1);
+	d2->Test();
+
+
+	delete d1;
+	delete c1;
+	delete b1;
+
+}
+
+int main()
+{
+	test_static_cast11();
+    return 0;
+}

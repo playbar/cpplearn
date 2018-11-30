@@ -21,8 +21,10 @@ int test_regex_match()
 
 	for (auto tmp : str) {
 		bool ret = std::regex_match(tmp, re);
-		if (ret) fprintf(stderr, "%s, can match\n", tmp.c_str());
-		else fprintf(stderr, "%s, can not match\n", tmp.c_str());
+		if (ret)
+			fprintf(stderr, "%s, can match\n", tmp.c_str());
+		else
+			fprintf(stderr, "%s, can not match\n", tmp.c_str());
 	}
 
 	return 0;
@@ -155,14 +157,27 @@ int testRegex()
 		//cout << *it << endl; 错误
 	}
 
+	std::string straa = "1,480,48,48,48";
+	std::regex regaa("\\,");
+	std::sregex_iterator itaa(straa.begin(), straa.end(), regaa);
+
+	int i = 0;
+	for( ; itaa != sregex_iterator(); ++itaa){
+		std::string tmp = itaa->str();
+		int idata = std::stoi(tmp);
+
+	}
+
 	cout << "token_iterator结果：" << endl;
 	sregex_token_iterator tit(s2.begin(), s2.end(), reg1);
 	sregex_token_iterator tend;
 	for(; tit != tend; ++tit)
 	{
-		cout << tit->str() << endl;
+		string str = tit->str();
+		cout <<str <<", " << tit->str() << endl;
 		cout << *tit << endl;
 	}
+
 
 	//子表达式匹配
 	regex reg2("(\\d{1,3}):(\\d{1,3}):(\\d{1,3}):(\\d{1,3})");
@@ -262,6 +277,7 @@ void matchFun()
 
 int main()
 {
+    double fval = std::numeric_limits<double>::max();
 	test_regex_match();
     testRegex();
 	return 0;

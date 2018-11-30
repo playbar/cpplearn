@@ -133,12 +133,17 @@ void test_static_cast11()
 	B1 *b1 = new B1();
 	B1 *c1 = new C1();
 	B1 *d1 = new D1();
+	B1 *dd1 = new DD1();
 
+    d1->Test();
+    D1 *pd1 = (D1*)c1;
+    pd1->Test();
 
 	D1 *d2 = dynamic_cast<D1*>(d1);
 	d2->Test();
 
 
+    delete dd1;
 	delete d1;
 	delete c1;
 	delete b1;

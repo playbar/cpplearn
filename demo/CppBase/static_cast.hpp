@@ -6,16 +6,18 @@
 // reference: https://msdn.microsoft.com/zh-cn/library/c36yw7x9.aspx
 class B1 {
 public:
-	B1() {std::cout<<"B1" << std::endl;};
+	B1() { std::cout<<"B1" << std::endl; };
 	virtual ~B1() {std::cout<<"~B1" << std::endl;};
-	virtual void Test(){}
+	virtual void Test(){std::cout<<"B1 test, "<<mB1<<std::endl;}
+    int mB1 = 1;
 };
 
 class C1 : public B1 {
 public:
 	C1(){std::cout << "C1" << std::endl; }
 	virtual ~C1(){std::cout << "~C1" << std::endl; }
-	virtual void Test(){ std::cout << "C1 test" << std::endl;}
+	virtual void Test(){ std::cout << "C1 test, "<< mC1 << std::endl;}
+    int mC1 = 2;
 };
 
 
@@ -23,7 +25,16 @@ class D1 : public B1 {
 public:
 	D1(){std::cout << "D1" << std::endl; }
 	virtual ~D1(){std::cout << "~D1" << std::endl; }
-	virtual void Test(){ std::cout << "D1 test" << std::endl;}
+	virtual void Test(){ std::cout << "D1 test, " << mD1<< std::endl;}
+    int mD1 = 3;
+};
+
+class DD1 : public D1 {
+public:
+	DD1(){std::cout << "DD1" << std::endl; }
+	virtual ~DD1(){std::cout << "~DD1" << std::endl; }
+	virtual void Test(){ std::cout << "DD1 test, " << mDD1 << std::endl;}
+    int mDD1 = 4;
 };
 
 class CCTest {

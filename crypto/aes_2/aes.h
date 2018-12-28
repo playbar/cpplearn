@@ -27,6 +27,9 @@ static const unsigned  char HEX[16]={0x10,0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x0
 //__attribute__((section (".mytext")))
 //static const uint8_t AES_KEY[]="1234567890abcdef";
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #if defined(ECB) && ECB
 
@@ -38,6 +41,12 @@ char* AES_128_ECB_PKCS5Padding_Decrypt(const char *in, const uint8_t* key);
 
 int findPaddingIndex(uint8_t * str);
 #endif // #if defined(ECB) && ECB
+
+
+
+#ifdef __cplusplus
+}
+#endif
 
 
 /*

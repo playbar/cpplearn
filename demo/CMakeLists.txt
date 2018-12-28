@@ -13,7 +13,7 @@ target_include_directories(static_cast PRIVATE
         )
 
 
-set(SOURCE_MEM memtest/MemoryDetector.cpp)
+set(SOURCE_MEM memtest/memtest.cpp)
 add_executable(memtest ${SOURCE_MEM})
 target_include_directories(memtest PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}

@@ -1,6 +1,51 @@
 #include "aes.h"
-#include <string.h>
+#include <string>
 #include <printf.h>
+
+
+struct Data
+{
+    int iA;
+    int iB;
+    int iC;
+    int iD;
+};
+
+void HexToStr(unsigned char *pbDest, unsigned char *pbSrc, int nLen)
+{
+    char ddl,ddh;
+    int i;
+
+    for (i=0; i<nLen; i++)
+    {
+        ddh = 48 + pbSrc[i] / 16;
+        ddl = 48 + pbSrc[i] % 16;
+        if (ddh > 57) ddh = ddh + 7;
+        if (ddl > 57) ddl = ddl + 7;
+        pbDest[i*2] = ddh;
+        pbDest[i*2+1] = ddl;
+    }
+
+    pbDest[nLen*2] = '\0';
+}
+
+void testStringData()
+{
+    Data data;
+    data.iA = 0x12345067;
+    data.iB = 2;
+    data.iC = 3;
+    data.iD = 4;
+    std::string strData((const char*)&data, sizeof(Data));
+    strData += "end";
+    printf("str=%s, len=%d\n", strData.c_str(), strData.size());
+
+    unsigned char szOut[128] = {0};
+    HexToStr(szOut,(unsigned char*)&data, sizeof(Data));
+    printf("pdata=%s\n", szOut);
+    printf("end\n");
+    return;
+}
 
 //__attribute__((section (".mytext")))//隐藏字符表 并没有什么卵用 只是针对初阶hacker的一个小方案而已
 char *getKey() {
@@ -31,7 +76,7 @@ char *getKey() {
     s[n++] = 'Z';
     s[n++] = 'g';
     char *encode_str = s + 1;
-    return b64_decode(encode_str, strlen(encode_str));
+    return (char*)b64_decode(encode_str, strlen(encode_str));
 
     //初版hidekey的方案
 }
@@ -106,6 +151,7 @@ void test_cryto_str()
 
 int main()
 {
+    testStringData();
     test_crypto_file();
     return 0;
 

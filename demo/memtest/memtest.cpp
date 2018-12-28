@@ -1,8 +1,21 @@
-#include "demo/CppBase/move.hpp"
 #include <iostream>
 #include <utility>
 #include <vector>
 #include <string>
+#include "memtest.h"
+
+void testStringData()
+{
+	Data data;
+	data.iA = 1;
+	data.iB = 2;
+	data.iC = 3;
+	data.iD = 4;
+	std::string strData((const char*)&data, sizeof(Data));
+	strData += "end";
+	printf("str=%s, len=%d\n", strData.c_str(), strData.size());
+	return;
+}
 
 void* MyMemMove(void *dest, const void *src, int nBytes)
 {
@@ -45,6 +58,7 @@ void testmemvoe()
 
 int main()
 {
+	testStringData();
 	testmemvoe();
 	int *pInt =  (int*)malloc(sizeof(int));
 	free(pInt);

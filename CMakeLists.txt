@@ -7,9 +7,9 @@ set(CMAKE_CXX_STANDARD 14)
 
 message(${CMAKE_CXX_COMPILER_ID})
 
-add_subdirectory(gtest)
+#add_subdirectory(gtest)
 #add_subdirectory(cnn)
-#add_subdirectory(crypto)
+add_subdirectory(crypto)
 add_subdirectory(demo)
 #add_subdirectory(dl)
 #add_subdirectory(json)

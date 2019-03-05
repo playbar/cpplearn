@@ -1,4 +1,12 @@
 # demo
+
+set(SOURCE_BASE CppBase/pthread_test.cpp)
+add_executable(pthread_test ${SOURCE_BASE})
+target_include_directories(pthread_test PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}
+        )
+
+
 set(SOURCE_BASE CppBase/regex.cpp)
 add_executable(regex ${SOURCE_BASE})
 target_include_directories(regex PRIVATE

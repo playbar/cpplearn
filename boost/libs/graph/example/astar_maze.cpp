@@ -22,14 +22,6 @@
 // The default maze size is 20x10, though different dimensions may be
 // specified on the command line.
 
-/*
-   IMPORTANT:
-   ~~~~~~~~~~
-
-   This example appears to be broken and crashes at runtime, see https://github.com/boostorg/graph/issues/148
-
-*/
-
 
 #include <boost/graph/astar_search.hpp>
 #include <boost/graph/filtered_graph.hpp>
@@ -54,9 +46,7 @@ typedef boost::graph_traits<grid>::vertex_descriptor vertex_descriptor;
 typedef boost::graph_traits<grid>::vertices_size_type vertices_size_type;
 
 // A hash function for vertices.
-struct vertex_hash {
-  typedef vertex_descriptor argument_type;
-  typedef std::size_t result_type;
+struct vertex_hash:std::unary_function<vertex_descriptor, std::size_t> {
   std::size_t operator()(vertex_descriptor const& u) const {
     std::size_t seed = 0;
     boost::hash_combine(seed, u[0]);
@@ -87,7 +77,7 @@ typedef boost::vertex_subset_complement_filter<grid, vertex_set>::type
 class maze {
 public:
   friend std::ostream& operator<<(std::ostream&, const maze&);
-  friend void random_maze(maze&);
+  friend maze random_maze(std::size_t, std::size_t);
 
   maze():m_grid(create_grid(0, 0)),m_barrier_grid(create_barrier_grid()) {};
   maze(std::size_t x, std::size_t y):m_grid(create_grid(x, y)),
@@ -127,10 +117,10 @@ private:
 
   // The grid underlying the maze
   grid m_grid;
-  // The barriers in the maze
-  vertex_set m_barriers;
   // The underlying maze grid with barrier vertices filtered out
   filtered_grid m_barrier_grid;
+  // The barriers in the maze
+  vertex_set m_barriers;
   // The vertices on a solution path through the maze
   vertex_set m_solution;
   // The length of the solution path
@@ -264,7 +254,8 @@ std::size_t random_int(std::size_t a, std::size_t b) {
 }
 
 // Generate a maze with a random assignment of barriers.
-void random_maze(maze& m) {
+maze random_maze(std::size_t x, std::size_t y) {
+  maze m(x, y);
   vertices_size_type n = num_vertices(m.m_grid);
   vertex_descriptor s = m.source();
   vertex_descriptor g = m.goal();
@@ -293,7 +284,9 @@ void random_maze(maze& m) {
       u = v;
     }
   }
+  return m;
 }
+
 
 int main (int argc, char const *argv[]) {
   // The default maze size is 20x10.  A different size may be specified on
@@ -307,8 +300,8 @@ int main (int argc, char const *argv[]) {
   }
 
   random_generator.seed(std::time(0));
-  maze m(x, y);
-  random_maze(m);
+  maze m = random_maze(x, y);
+
   if (m.solve())
     std::cout << "Solved the maze." << std::endl;
   else

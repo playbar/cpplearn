@@ -8,15 +8,13 @@
 #include <boost/mpi/collectives/all_to_all.hpp>
 #include <boost/mpi/communicator.hpp>
 #include <boost/mpi/environment.hpp>
+#include <boost/test/minimal.hpp>
 #include <algorithm>
 #include "gps_position.hpp"
 #include <boost/serialization/string.hpp>
 #include <boost/serialization/list.hpp>
 #include <boost/iterator/counting_iterator.hpp>
 #include <boost/lexical_cast.hpp>
-
-#define BOOST_TEST_MODULE mpi_all_to_all
-#include <boost/test/included/unit_test.hpp>
 
 using boost::mpi::communicator;
 
@@ -101,13 +99,15 @@ struct string_list_generator
   }
 };
 
-BOOST_AUTO_TEST_CASE(all_to_all)
+int test_main(int argc, char* argv[])
 {
-  boost::mpi::environment env;
-  communicator comm;
+  boost::mpi::environment env(argc, argv);
 
+  communicator comm;
   all_to_all_test(comm, int_generator(), "integers");
   all_to_all_test(comm, gps_generator(), "GPS positions");
   all_to_all_test(comm, string_generator(), "string");
   all_to_all_test(comm, string_list_generator(), "list of strings");
+
+  return 0;
 }

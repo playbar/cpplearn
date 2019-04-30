@@ -133,8 +133,7 @@ void test_isomorphism2()
   bool isomorphism_correct;
   clock_t start = clock();
   BOOST_CHECK(isomorphism_correct = boost::graph::isomorphism
-               (g1, g2, _vertex_index1_map = get(vertex_index, g1),
-                _isomorphism_map = make_assoc_property_map(mapping)));
+               (g1, g2, _isomorphism_map = make_assoc_property_map(mapping)));
   clock_t end = clock();
 
   std::cout << "Elapsed time (clock cycles): " << (end - start) << std::endl;

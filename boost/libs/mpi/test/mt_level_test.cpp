@@ -7,11 +7,9 @@
 // test threading::level operations
 
 #include <boost/mpi/environment.hpp>
+#include <boost/test/minimal.hpp>
 #include <iostream>
 #include <sstream>
-
-#define BOOST_TEST_MODULE mpi_level_test
-#include <boost/test/included/unit_test.hpp>
 
 namespace mpi = boost::mpi;
 
@@ -101,8 +99,9 @@ test_threading_level_cmp() {
   BOOST_CHECK(mt::multiple <= mt::multiple);
 }
     
-BOOST_AUTO_TEST_CASE(mt_level)
-{
+int
+test_main(int argc, char* argv[]) {
   test_threading_levels_io();
   test_threading_level_cmp();
+  return 0;
 }

@@ -10,14 +10,11 @@
 // types, serializable objects, etc.)
 #include <boost/mpi/communicator.hpp>
 #include <boost/mpi/environment.hpp>
+#include <boost/test/minimal.hpp>
 #include <algorithm>
 #include "gps_position.hpp"
 #include <boost/serialization/string.hpp>
 #include <boost/serialization/list.hpp>
-//#include "debugger.cpp"
-
-#define BOOST_TEST_MODULE mpi_reduce_ring
-#include <boost/test/included/unit_test.hpp>
 
 using boost::mpi::communicator;
 using boost::mpi::status;
@@ -87,12 +84,16 @@ ring_array_test(const communicator& comm, const T* pass_values,
 enum color_t {red, green, blue};
 BOOST_IS_MPI_DATATYPE(color_t)
 
-BOOST_AUTO_TEST_CASE(ring)
+int test_main(int argc, char* argv[])
 {
-  boost::mpi::environment env;
+  boost::mpi::environment env(argc, argv);
+
   communicator comm;
-  
-  BOOST_TEST_REQUIRE(comm.size() > 1);
+  if (comm.size() == 1) {
+    std::cerr << "ERROR: Must run the ring test with more than one process."
+              << std::endl;
+    MPI_Abort(comm, -1);
+  }
 
   // Check transfer of individual objects
   ring_test(comm, 17, "integers", 0);
@@ -121,4 +122,6 @@ BOOST_AUTO_TEST_CASE(ring)
   std::string string_array[3] = { "Hello", "MPI", "World" };
   ring_array_test(comm, string_array, 3, "string", 0);
   ring_array_test(comm, string_array, 3, "string", 1);
+
+  return 0;
 }

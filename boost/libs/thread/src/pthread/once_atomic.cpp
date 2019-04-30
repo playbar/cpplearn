@@ -7,7 +7,6 @@
 //#define __STDC_CONSTANT_MACROS
 #include <boost/thread/detail/config.hpp>
 #include <boost/thread/once.hpp>
-#include <boost/thread/pthread/pthread_helpers.hpp>
 #include <boost/thread/pthread/pthread_mutex_scoped_lock.hpp>
 #include <boost/assert.hpp>
 #include <boost/static_assert.hpp>
@@ -58,7 +57,7 @@ namespace boost
             {
               // Wait until the initialization is complete
               //pthread::pthread_mutex_scoped_lock lk(&once_mutex);
-              BOOST_VERIFY(!posix::pthread_cond_wait(&once_cv, &once_mutex));
+              BOOST_VERIFY(!pthread_cond_wait(&once_cv, &once_mutex));
             }
           }
         }
@@ -73,7 +72,7 @@ namespace boost
         pthread::pthread_mutex_scoped_lock lk(&once_mutex);
         f.store(initialized, memory_order_release);
       }
-      BOOST_VERIFY(!posix::pthread_cond_broadcast(&once_cv));
+      BOOST_VERIFY(!pthread_cond_broadcast(&once_cv));
     }
 
     BOOST_THREAD_DECL void rollback_once_region(once_flag& flag) BOOST_NOEXCEPT
@@ -83,7 +82,7 @@ namespace boost
         pthread::pthread_mutex_scoped_lock lk(&once_mutex);
         f.store(uninitialized, memory_order_release);
       }
-      BOOST_VERIFY(!posix::pthread_cond_broadcast(&once_cv));
+      BOOST_VERIFY(!pthread_cond_broadcast(&once_cv));
     }
 
   } // namespace thread_detail

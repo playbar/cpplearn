@@ -289,7 +289,7 @@ get_random()
 
 static
 void
-compare(std::pair<double, int const> pair)
+compare(std::pair<double, int> pair)
 {
     boost::cnv::strtol cnv1;
     boost::cnv::printf cnv2;

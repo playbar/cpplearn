@@ -8,15 +8,12 @@
 #include <boost/mpi/collectives/scan.hpp>
 #include <boost/mpi/communicator.hpp>
 #include <boost/mpi/environment.hpp>
+#include <boost/test/minimal.hpp>
 #include <algorithm>
 #include <boost/serialization/string.hpp>
 #include <boost/iterator/counting_iterator.hpp>
 #include <boost/lexical_cast.hpp>
 #include <numeric>
-
-#define BOOST_TEST_MODULE mpi_scan_test
-#include <boost/test/included/unit_test.hpp>
-
 
 using boost::mpi::communicator;
 
@@ -193,10 +190,11 @@ struct is_commutative<std::plus<wrapped_int>, wrapped_int>
 
 } } // end namespace boost::mpi
 
-BOOST_AUTO_TEST_CASE(scan)
+int test_main(int argc, char* argv[])
 {
   using namespace boost::mpi;
-  environment env;
+  environment env(argc, argv);
+
   communicator comm;
 
   // Built-in MPI datatypes with built-in MPI operations
@@ -224,4 +222,6 @@ BOOST_AUTO_TEST_CASE(scan)
   // Arbitrary types with (non-commutative) user-defined operations
   scan_test(comm, string_generator(), "strings",
             std::plus<std::string>(), "concatenation");
+
+  return 0;
 }

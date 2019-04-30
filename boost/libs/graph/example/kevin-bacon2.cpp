@@ -5,16 +5,6 @@
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 //=======================================================================
-
-
-/*
-   IMPORTANT:
-   ~~~~~~~~~~
-
-   This example appears to be broken and crashes at runtime, see https://github.com/boostorg/graph/issues/148
-
-*/
-
 #include <boost/config.hpp>
 #include <iostream>
 #include <fstream>
@@ -66,9 +56,9 @@ private:
   int* d;
 };
 
-int main(int argc, const char** argv)
+int main()
 {
-  std::ifstream ifs(argc >= 2 ? argv[1] : "./kevin-bacon2.dat");
+  std::ifstream ifs("./kevin-bacon2.dat");
   if (!ifs) {
     std::cerr << "No ./kevin-bacon2.dat file" << std::endl;
     return EXIT_FAILURE;

@@ -31,14 +31,19 @@ broadcast<const packed_oarchive>(const communicator& comm,
   int tag = environment::collectives_tag();
 
   // Broadcast data to all nodes
-  std::vector<request> requests(size-1);
-  std::vector<request>::iterator it = requests.begin();
+  std::vector<MPI_Request> requests(size * 2);
+  int num_requests = 0;
   for (int dest = 0; dest < size; ++dest) {
     if (dest != root) {
-      *it++ = detail::packed_archive_isend(comm, dest, tag, oa);
+      // Build up send requests for each child send.
+      num_requests += detail::packed_archive_isend(comm, dest, tag, oa,
+                                                   &requests[num_requests], 2);
     }
   }
-  wait_all(requests.begin(), requests.end());
+
+  // Complete all of the sends
+  BOOST_MPI_CHECK_RESULT(MPI_Waitall,
+                         (num_requests, &requests[0], MPI_STATUSES_IGNORE));
 }
 
 template<>
@@ -66,14 +71,20 @@ broadcast<packed_iarchive>(const communicator& comm, packed_iarchive& ia,
     detail::packed_archive_recv(comm, root, tag, ia, status);
   } else {
     // Broadcast data to all nodes
-    std::vector<request> requests(size-1);
-    std::vector<request>::iterator it = requests.begin();
+    std::vector<MPI_Request> requests(size * 2);
+    int num_requests = 0;
     for (int dest = 0; dest < size; ++dest) {
       if (dest != root) {
-        *it++ = detail::packed_archive_isend(comm, dest, tag, ia);
+        // Build up send requests for each child send.
+        num_requests += detail::packed_archive_isend(comm, dest, tag, ia,
+                                                     &requests[num_requests],
+                                                     2);
       }
     }
-    wait_all(requests.begin(), requests.end());
+
+    // Complete all of the sends
+    BOOST_MPI_CHECK_RESULT(MPI_Waitall,
+                           (num_requests, &requests[0], MPI_STATUSES_IGNORE));
   }
 }
 

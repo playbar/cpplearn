@@ -9,14 +9,12 @@
 #include <boost/mpi/collectives/gatherv.hpp>
 #include <boost/mpi/communicator.hpp>
 #include <boost/mpi/environment.hpp>
+#include <boost/test/minimal.hpp>
 #include "gps_position.hpp"
 #include <boost/serialization/string.hpp>
 #include <boost/serialization/list.hpp>
 #include <boost/iterator/counting_iterator.hpp>
 #include <boost/lexical_cast.hpp>
-
-#define BOOST_TEST_MODULE mpi_gather
-#include <boost/test/included/unit_test.hpp>
 
 using boost::mpi::communicator;
 
@@ -148,9 +146,10 @@ struct string_list_generator
   }
 };
 
-BOOST_AUTO_TEST_CASE(gather)
+int test_main(int argc, char* argv[])
 {
-  boost::mpi::environment env;
+  boost::mpi::environment env(argc, argv);
+
   communicator comm;
 
   gather_test(comm, int_generator(), "integers");
@@ -162,4 +161,6 @@ BOOST_AUTO_TEST_CASE(gather)
   gatherv_test(comm, gps_generator(), "GPS positions");
   gatherv_test(comm, string_generator(), "string");
   gatherv_test(comm, string_list_generator(), "list of strings");
+
+  return 0;
 }

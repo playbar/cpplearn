@@ -1,34 +1,3 @@
-Version 252:
-
-* More std::string_view fixes
-* CI copies to libs/beast
-
---------------------------------------------------------------------------------
-
-Version 251:
-
-* Clean up CI scripts
-* detect_ssl uses bool
-* launder pointers
-* Fix compilation on MSVC with std::string_view
-* Replace static_string in parser
-
---------------------------------------------------------------------------------
-
-Version 250:
-
-* Use SaxonHE in reference generation
-* Cleanup endianness conversions
-* Set parser status and flags even if body_limit_ has been reached 
-
---------------------------------------------------------------------------------
-
-Version 249:
-
-* Move friend function template definition
-
---------------------------------------------------------------------------------
-
 Version 248:
 
 * Don't use a moved-from handler

@@ -62,11 +62,9 @@ int main()
     test<int*>();
     test<X*>();
     test<void(*)()>();
-#if !defined(_MSC_VER) || !defined(__clang__)
 #if !defined(BOOST_MSVC)
     test<int X::*>();
     test<int(X::*)()>();
-#endif
 #endif
 
     return boost::report_errors();

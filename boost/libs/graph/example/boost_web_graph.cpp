@@ -70,11 +70,11 @@ private:
 };
 
 int
-main(int argc, const char** argv)
+main()
 {
   using namespace boost;
 
-  std::ifstream datafile(argc >= 2 ? argv[1] : "./boost_web.dat");
+  std::ifstream datafile("./boost_web.dat");
   if (!datafile) {
     std::cerr << "No ./boost_web.dat file" << std::endl;
     return -1;

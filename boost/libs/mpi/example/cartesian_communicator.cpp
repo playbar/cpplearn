@@ -13,6 +13,8 @@
 #include <boost/mpi/environment.hpp>
 #include <boost/mpi/cartesian_communicator.hpp>
 
+#include <boost/test/minimal.hpp>
+
 namespace mpi = boost::mpi;
 // Curly brace init make this useless, but
 //  - Need to support obsolete like g++ 4.3.x. for some reason
@@ -21,7 +23,7 @@ namespace mpi = boost::mpi;
 //  actually wan't to use bjam, which does not (make sense))
 typedef mpi::cartesian_dimension cd;
 
-int main(int argc, char* argv[])
+int test_main(int argc, char* argv[])
 {
   mpi::environment  env;
   mpi::communicator world;

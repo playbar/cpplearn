@@ -54,3 +54,15 @@ target_include_directories(gtest_test PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/../gtest/googletest/include
         )
 target_link_libraries(gtest_test gtest_main)
+
+##
+
+set(SOURCE_UTILS
+        utils/utils.cpp
+        utils/md5.cpp
+        utils/maintest.cpp)
+
+add_executable(UtilsTest ${SOURCE_UTILS})
+target_include_directories(UtilsTest PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/utils
+        )

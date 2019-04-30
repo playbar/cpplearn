@@ -65,6 +65,19 @@ target_include_directories(boost_all PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/libs/thread/include
         )
 
+
+###
+add_executable(accumulators_count
+        libs/accumulators/test/count.cpp
+        )
+target_include_directories(accumulators_count PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}
+        ${CMAKE_CURRENT_SOURCE_DIR}/libs/filesystem/include
+        )
+target_link_libraries(accumulators_count
+        boost_test
+        boost_all)
+
 ######
 add_executable(algorithm_all_test
         libs/algorithm/test/all_of_test.cpp
@@ -88,6 +101,19 @@ target_include_directories(filesystem_convenience_test PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/libs/filesystem/include
         )
 target_link_libraries(filesystem_convenience_test
+        boost_test
+        boost_all)
+
+#######
+
+######
+add_executable(boost_test1
+        tests/test1.cpp
+        )
+target_include_directories(boost_test1 PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}
+        )
+target_link_libraries(boost_test1
         boost_test
         boost_all)
 

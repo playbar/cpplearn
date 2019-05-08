@@ -1,6 +1,7 @@
 # src
 set(SOURCE_FILES
         tlsf.c
+        tlsf_help.cpp
         test.cpp
          )
 add_executable(tlsf_test ${SOURCE_FILES})

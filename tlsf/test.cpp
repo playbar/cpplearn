@@ -18,17 +18,28 @@ void test1()
     ::free(memory);
 }
 
-#define SIZE (6636)
+#define SIZE (1024 * 1024)
 void test2()
 {
     void *pdata = malloc(SIZE);
     tlsf_t the_tlsf = tlsf_create_with_pool( pdata, SIZE);
-    char *pd  = (char*)tlsf_malloc( the_tlsf, 20);
-    int size = tlsf_size();
-    memcpy(pd, "test", 4);
-    printf("%s, %d \n", pd, size);
-    tlsf_free( the_tlsf, pd);
 
+    for( int i = 0; i < SIZE; ++i ) {
+        char *pd = (char *) tlsf_malloc(the_tlsf, 20);
+        while( pd == NULL )
+        {
+            void *pdata1 = malloc(SIZE);
+            tlsf_add_pool(the_tlsf, pdata1, SIZE);
+            pd = (char *)tlsf_malloc(the_tlsf, 20);
+            printf("out of memory \n");
+        }
+        int size = tlsf_size();
+        memcpy(pd, "test", 4);
+        printf("pd = %0X, i = %d, %s, %d \n",pd, i, pd, size);
+        tlsf_free(the_tlsf, pd);
+    }
+    tlsf_destroy(the_tlsf);
+    printf("success \n");
     return;
 }
 

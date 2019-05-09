@@ -1,4 +1,8 @@
 # src
+
+add_subdirectory(stlsgi)
+add_subdirectory(stltiny)
+
 set(SOURCE_FILES
         vector_test.cpp
         )
@@ -10,4 +14,3 @@ target_include_directories(vector_test PRIVATE
         )
 
 
-add_subdirectory(stlsgi)

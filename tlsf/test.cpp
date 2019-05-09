@@ -19,8 +19,10 @@ void test1()
     ::free(memory);
 }
 
+
 #define SIZE (1024 * 10)
-#define MAL_SIZE (24)
+#define MAL_SIZE (4096)
+#define COUNT (20)
 void test2()
 {
 
@@ -30,7 +32,7 @@ void test2()
     tlsf_t the_tlsf = tlsf_create_with_pool( pdata, SIZE);
     printf("pdata = %p, tlsf = %p \n", pdata, the_tlsf);
 
-    for( int i = 0; i < SIZE; ++i ) {
+    for( int i = 0; i < COUNT; ++i ) {
         char *pd = (char *) tlsf_malloc(the_tlsf, MAL_SIZE);
         while( pd == NULL )
         {
@@ -39,8 +41,14 @@ void test2()
 
             tlsf_add_pool(the_tlsf, pdata1, SIZE);
             pd = (char *)tlsf_malloc(the_tlsf, MAL_SIZE);
-            printf("out of memory \n");
+            printf("out of memory, pdata1=%p \n", pdata1);
         }
+//        printf("%d\n", i);
+//        for( int i = 0; i < 3; ++i )
+//        {
+//            printf("sub %d\n", i);
+//        }
+
         memset(pd, 0, MAL_SIZE);
         int size = tlsf_size();
         memcpy(pd, "test", 4);

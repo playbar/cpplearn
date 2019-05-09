@@ -28,7 +28,7 @@ Node* search(Node* node, void* data);      //查询内容为data的链表的位�
 void insert(Node* pos, void* data, void* value); //插入
 void modify(Node* node, void* data, void* value);   //修改
 void deletel(Node* node, void* data);             //删除
-Node* destory(Node* node);                       //摧毁整个链表
+void destory(Node* node);                       //摧毁整个链表
 
 
 #ifdef __cplusplus

@@ -2,12 +2,11 @@
 // Created by hou guoli on 2019/1/8.
 //
 
-#include <iostream>
-#include <vector>
+#include "vector"
 
 void testVector()
 {
-    std::vector<int> idata;
+    vector<int> idata;
     for( int i = 0; i < 10; ++i)
     {
         idata.push_back(i);
@@ -15,7 +14,7 @@ void testVector()
 
     for( int j = idata.size()-1; j>= 0; --j)
     {
-        std::cout<<idata[j]<<std::endl;
+        printf("%d \n", idata[j]);
         idata.erase(idata.begin() + j);
 
     }

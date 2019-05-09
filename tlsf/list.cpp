@@ -122,12 +122,12 @@ void print_link(Node* node)
 {
     if( node != NULL )
     {
-        printf("%0X \n",node->data);
+        printf("%p \n",node->data);
     }
     while(node->next != NULL)
     {
         node = node->next;
-        printf("%0X \n",node->data);
+        printf("%p \n",node->data);
     }
     printf("\n");
 }
@@ -148,7 +148,7 @@ int is_empty(Node* node)
     return node->next == NULL;
 }
 
-Node* destory(Node* node)
+void destory(Node* node)
 {
     Node* tmp;
     while(node->next!=NULL)
@@ -156,7 +156,14 @@ Node* destory(Node* node)
         tmp = node->next;
         node->next = tmp->next;
         free(tmp->data);
+        tmp->data = NULL;
         free(tmp);
     }
-    return node;
+    if( node != NULL )
+    {
+        free(node->data);
+        free(node);
+        node->data = NULL;
+    }
+    return;
 }

@@ -1,59 +1,55 @@
-/*************************************************************************
-	> File Name: list.c
-	> Author: Manfred Zhao
-	> Mail: manfredzhaoshubo@foxmail.com
-	> Created Time: Sun 06 Dec 2015 01:08:45 AM PST
- ************************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
 #include "list.h"
-link make_head(link l)
+
+Node* make_head(void* data)
 {
-    l = (link)malloc(sizeof(NODE));
-    l->next = NULL;
-    return l;
+    Node *node = (Node*)malloc(sizeof(Node));
+    node->data = data;
+    node->next = NULL;
+    return node;
 }
-link search(link l,item data)
+Node* search(Node* node,void* data)
 {
-    while(l!=NULL)
+    while(node!=NULL)
     {
-        if(l->data==data)
+        if(node->data==data)
             break;
-        l = l->next;
+        node = node->next;
     }
-    if(l==NULL)
+    if(node==NULL)
     {
         printf("您要查找的内容在链表中不存在！\n请添加相应内容!\n");
         return NULL;
     }
     else
     {
-        printf("查询得到的数据为:%d\n",l->data);
-        return l;
+        printf("查询得到的数据为:%d\n",node->data);
+        return node;
     }
 }
-void deletel(link l,item data)
+void deletel(Node* node, void* data)
 {
-    link tmp;
-    item d_data;
-    if(!l)
+    Node* tmp;
+    void* d_data;
+    if(!node)
     {
         printf("当前链表为空\n");
         return;
     }
-    while(l!=NULL)
+    while(node!=NULL)
     {
-        if(l->next!=NULL && l->next->data==data)
+        if(node->next!=NULL && node->next->data==data)
         {
-            tmp = l->next;
-            l->next = tmp->next;
+            tmp = node->next;
+            node->next = tmp->next;
             d_data = tmp->data;
             free(tmp);
             break;
         }
-        l = l->next;
+        node = node->next;
     }
-    if(l==NULL)
+    if(node==NULL)
     {
         printf("当前链表中没有找到数值为%d的数据块!\n",data);
         printf("更新失败！\n");
@@ -65,23 +61,23 @@ void deletel(link l,item data)
     
 }
 
-void modify(link l,item data,item value)
+void modify(Node* node, void* data, void* value)
 {
-    if(!l)
+    if(!node)
     {
         printf("当前链表为空\n");
         return;
     }
-    while(l!=NULL)
+    while(node!=NULL)
     {
-        if(l->data==data)
+        if(node->data==data)
         {
-            l->data = value;
+            node->data = value;
             break;
         }
-        l = l->next;
+        node = node->next;
     }
-    if(l==NULL)
+    if(node==NULL)
     {
         printf("当前链表中没有找到数值为%d的数据块!\n",data);
         printf("更新失败！\n");
@@ -92,7 +88,7 @@ void modify(link l,item data,item value)
     }
     
 }
-void insert(link pos,item data,item value)
+void insert(Node* pos, void* data, void* value)
 {
     if(!pos)
     {
@@ -103,7 +99,7 @@ void insert(link pos,item data,item value)
     {
         if(pos->data==data)
         {
-            link temp = (link)malloc(sizeof(NODE));
+            Node* temp = (Node*)malloc(sizeof(Node));
             temp->data = value;
             temp->next = pos->next;
             pos->next = temp;
@@ -122,40 +118,45 @@ void insert(link pos,item data,item value)
     }
 
 }
-void print_link(link p)
+void print_link(Node* node)
 {
-    while(p->next != NULL)
+    if( node != NULL )
     {
-        p = p->next;
-        printf("%d ",p->data);
+        printf("%0X \n",node->data);
+    }
+    while(node->next != NULL)
+    {
+        node = node->next;
+        printf("%0X \n",node->data);
     }
     printf("\n");
 }
 
-void add_tail(link p,item data)
+void add_tail(Node* node, void* data)
 {
-    if(!p)
+    if(!node)
         return;
-    while(p->next != NULL)
-        p = p->next;
-    link temp = (link)malloc(sizeof(NODE));
+    while(node->next != NULL)
+        node = node->next;
+    Node* temp = (Node*)malloc(sizeof(Node));
     temp->data = data;
-    temp->next = p->next;
-    p->next = temp;
+    temp->next = node->next;
+    node->next = temp;
 }
-int is_empty(link l)
+int is_empty(Node* node)
 {
-    return l->next == NULL;
+    return node->next == NULL;
 }
 
-link destory(link l)
+Node* destory(Node* node)
 {
-    link tmp;
-    while(l->next!=NULL)
+    Node* tmp;
+    while(node->next!=NULL)
     {
-        tmp = l->next;
-        l->next = tmp->next;
+        tmp = node->next;
+        node->next = tmp->next;
+        free(tmp->data);
         free(tmp);
     }
-    return l;
+    return node;
 }

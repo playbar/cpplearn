@@ -12,9 +12,9 @@ int main()
     link my_list = NULL;
     link search_list = NULL;
     link destory_list = NULL;
-    link p = NULL;
+    item data = NULL;
     int i;
-    my_list = make_head(p);
+    my_list = make_head(data);
     printf("已生成链表my_list\n");
     if(is_empty(my_list))
         printf("经检验my_list是个空链表\n");
@@ -24,7 +24,7 @@ int main()
     }
     printf("创建一个整数链表: ");
     print_link(my_list);
-    search_list = search(my_list,6);
+    search_list = search(my_list, 6);
     add_tail(my_list,6);
     printf("执行插入后的整数链表: ");
     print_link(my_list);

@@ -1,6 +1,6 @@
 # src
 set(SOURCE_FILES
-        list.c
+        list.cpp
         tlsf.c
         tlsf_help.cpp
         test.cpp

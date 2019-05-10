@@ -171,6 +171,7 @@ void testVector5()
 
 int main()
 {
+    testVector4();
     testVector5();
 //    unsigned int ia = 0xFFFFFFFF;
 //    float fa = ia;

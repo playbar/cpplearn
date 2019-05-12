@@ -1,14 +1,17 @@
 # src
+add_executable(map_test
+        map_test.cpp)
+target_include_directories(map_test PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/llvm/include
+        ${CMAKE_CURRENT_SOURCE_DIR})
 
 
-set(SOURCE_FILES
-        vector_test.cpp
-        )
-
-add_executable(vector_test ${SOURCE_FILES})
+add_executable(vector_test
+        vector_test.cpp)
 target_include_directories(vector_test PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/llvm/include
         ${CMAKE_CURRENT_SOURCE_DIR}
         )
+
 
 

@@ -207,11 +207,14 @@ int main()
     testVector6(20 * 1024 * 1024);
     testVector4();
     testVector5();
+    malloc_state();
 //    unsigned int ia = 0xFFFFFFFF;
 //    float fa = ia;
 //    int flen = sizeof( float);
 //    testBlockItem();
 //    testVector();
 //    testVector1();
+
+
     return 0;
 }

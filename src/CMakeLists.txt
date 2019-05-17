@@ -12,3 +12,7 @@ set(SOURCE_NTH
 add_executable(nth_element ${SOURCE_NTH})
 target_include_directories(nth_element PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR})
+
+
+add_executable(meminfo
+        meminfo.cpp)

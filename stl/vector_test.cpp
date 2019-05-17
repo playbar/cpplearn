@@ -169,8 +169,42 @@ void testVector5()
     return;
 }
 
+void testVector6(int size)
+{
+//    float *pfdata = new float[size];
+
+    vector<float> vecf;
+    vecf.reserve(size);
+    for( int i = 0; i  < size; ++i )
+    {
+        char sz[20] = {0};
+        sprintf(sz, "%d", i);
+//        vecf[i] = i;
+//        vecf.emplace_back(i);
+        vecf.push_back(i);
+//        pfdata[i] = i;
+    }
+
+
+    cout<<"size : " << vecf.size()<< ", capacity :"<<vecf.capacity() <<endl;
+
+    vecf.clear();
+    {
+//        vector<float> vecfswap;
+//        vecfswap.swap(vecf);
+    }
+//    vecf.resize(1);
+    //vecf.shrink_to_fit();
+//
+//    delete pfdata;
+    cout<<"size : " << vecf.size()<< ", capacity :"<<vecf.capacity() <<endl;
+
+}
+
 int main()
 {
+    testVector6(20 * 1024 * 1024);
+    testVector6(20 * 1024 * 1024);
     testVector4();
     testVector5();
 //    unsigned int ia = 0xFFFFFFFF;

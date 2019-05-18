@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <time.h>
+#include "stdlib.h"
 #include "math.h"
 #include "md5.h"
 

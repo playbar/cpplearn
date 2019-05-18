@@ -4,6 +4,7 @@
 
 #include "vector"
 #include "iostream"
+#include "myalloc.h"
 
 using namespace std;
 
@@ -173,8 +174,8 @@ void testVector6(int size)
 {
 //    float *pfdata = new float[size];
 
-    vector<float> vecf;
-    vecf.reserve(size);
+    vector<float, cpl::allocator<float>> vecf;
+//    vecf.reserve(size);
     for( int i = 0; i  < size; ++i )
     {
         char sz[20] = {0};
@@ -188,26 +189,41 @@ void testVector6(int size)
 
     cout<<"size : " << vecf.size()<< ", capacity :"<<vecf.capacity() <<endl;
 
-    vecf.clear();
+//    vecf.clear();
     {
 //        vector<float> vecfswap;
 //        vecfswap.swap(vecf);
     }
 //    vecf.resize(1);
-    //vecf.shrink_to_fit();
+    vecf.shrink_to_fit();
 //
 //    delete pfdata;
     cout<<"size : " << vecf.size()<< ", capacity :"<<vecf.capacity() <<endl;
 
 }
 
+void myalloctest()
+{
+    int arr[5] = { 0, 1, 2, 3, 4 };
+    //unsigned int i;
+    cpl::allocator<int> test;
+    cpl::allocator<int> test1;
+
+    vector<int, cpl::allocator<int>>iv(arr, arr + 5);
+    for (int i = 0; i < iv.size(); i++){
+        cout << iv[i] << ' ';
+    }
+    cout << endl;
+}
+
 int main()
 {
-    testVector6(20 * 1024 * 1024);
+    testVector6(20 * 1024 * 1024 + 5);
+    myalloctest();
     testVector6(20 * 1024 * 1024);
     testVector4();
     testVector5();
-    malloc_state();
+
 //    unsigned int ia = 0xFFFFFFFF;
 //    float fa = ia;
 //    int flen = sizeof( float);

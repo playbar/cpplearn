@@ -18,6 +18,7 @@ namespace cpl
     inline T* _allocate(ptrdiff_t size, T*)
     {
         T* tmp = (T*)(::operator new((size_t)(size * sizeof(T)))); // size：待分配的元素量，sizeof(T)每个元素的大小
+//        T* tmp = (T*)malloc(size * sizeof(T));
         printf("alloc : %p, size = %d \n", tmp, size);
         if (tmp == 0)
         {
@@ -30,19 +31,22 @@ namespace cpl
     template<class T>
     inline void _deallocate(T* buffer)
     {
-        printf("dealloc : %p\n", buffer);
+        printf(" dealloc : %p\n", buffer);
+//        free(buffer);
         ::operator delete(buffer);
     }
 
     template<class T1, class  T2>
     inline void _construct(T1* p, const T2& value)
     {
+        printf("Fun:%s \n", __FUNCTION__);
         new(p)T1(value); // 调用placement new，在指定的内存位置p处初始化T1对象，初始化T1对象时调用T1的复制构造函数
     }
 
     template<class T>
     inline void _destroy(T* ptr)
     {
+        printf("Fun:%s \n", __FUNCTION__);
         ptr->~T();
     }
 

@@ -174,15 +174,16 @@ void testVector6(int size)
 {
 //    float *pfdata = new float[size];
 
-    vector<float, cpl::allocator<float>> vecf;
-//    vecf.reserve(size);
+    vector<string, cpl::allocator<string>> vecf;
+    vecf.reserve(size);
     for( int i = 0; i  < size; ++i )
     {
-        char sz[20] = {0};
-        sprintf(sz, "%d", i);
+        char sz[200] = {0};
+        sprintf(sz, "File:%s, %d", __FILE__,  i);
 //        vecf[i] = i;
 //        vecf.emplace_back(i);
-        vecf.push_back(i);
+        printf("Fun:%s, index = %d \n", __FUNCTION__, i);
+        vecf.push_back(sz);
 //        pfdata[i] = i;
     }
 
@@ -218,9 +219,9 @@ void myalloctest()
 
 int main()
 {
-    testVector6(20 * 1024 * 1024 + 5);
+    testVector6(1024);
     myalloctest();
-    testVector6(20 * 1024 * 1024);
+//    testVector6(20 * 1024 * 1024);
     testVector4();
     testVector5();
 

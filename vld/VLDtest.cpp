@@ -1,5 +1,5 @@
 #include <iostream>
-#include "../../src/VLD/vld.h"
+#include "vld.h"
 
 // Blog: http://blog.csdn.net/fengbingchun/article/details/44195959
 

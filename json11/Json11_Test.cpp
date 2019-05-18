@@ -20,6 +20,8 @@ static std::string utf8_to_gbk(const char* utf8) {
 	str.assign(gbk);
 	return str;
 }
+#else
+#define utf8_to_gbk(DATA) DATA
 #endif
 
 int test1();
@@ -29,7 +31,7 @@ int test4();
 
 int main()
 {
-	test4();
+	test1();
 
 	std::cout << "ok" << std::endl;
 	return 0;
@@ -39,7 +41,7 @@ int test4()
 {
 	//std::istringstream  
 	std::filebuf in;
-	if (!in.open("E:/GitCode/Messy_Test/testdata/json.data", std::ios::in)) {
+	if (!in.open("./json.data", std::ios::in)) {
 		std::cout << "fail to open file" << std::endl;
 		return -1;
 	}
@@ -155,12 +157,12 @@ int test4()
 int test1()
 {
 	json11::Json my_json = json11::Json::object{
-			{ "中国", "北京" },
+			{ "test", "test1" },
 			{ "key2", false },
 			{ "key3", json11::Json::array { 1, 2, 3 } },
 	};
 	std::string json_str = my_json.dump();
-	std::string key_1 = my_json["中国"].string_value();
+	std::string key_1 = my_json["test"].string_value();
 
 	std::cout << json_str << std::endl;
 	std::cout << key_1 << std::endl;

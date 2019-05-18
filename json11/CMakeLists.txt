@@ -9,9 +9,6 @@ target_compile_options(json11
   PRIVATE -fno-rtti -fno-exceptions -Wall -Wextra -Werror)
 configure_file("json11.pc.in" "json11.pc" @ONLY)
 
-add_executable(json11_test test.cpp)
+add_executable(json11_test Json11_Test.cpp)
 target_link_libraries(json11_test json11)
 
-install(TARGETS json11 DESTINATION lib)
-install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/json11.hpp" DESTINATION include)
-install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/json11.pc" DESTINATION lib/pkgconfig)

@@ -44,6 +44,16 @@ target_include_directories(gtest_sample1 PRIVATE
         )
 target_link_libraries(gtest_sample1 gtest_main)
 
+set(memleak_src
+        memleak/main.cpp
+        memleak/MemLeak.cpp
+        )
+add_executable(memleak ${memleak_src})
+
+set(MEMORYDETECTOR_SRC
+        memtest/MemoryDetector.cpp)
+add_executable(MemoryDetector ${MEMORYDETECTOR_SRC})
+
 #
 set(SOURCE_TTEST
         gtest/funset.cpp
@@ -83,5 +93,9 @@ target_include_directories(nth_element PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR})
 
 
-add_executable(meminfo
-        meminfo.cpp)
+add_executable(meminfolinux
+        meminfolinux.cpp)
+
+add_executable(meminfomac
+        meminfomac.cpp)
+

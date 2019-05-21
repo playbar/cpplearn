@@ -2,7 +2,6 @@
 cmake-build-debug
 cnn/temp
 .DS_Store
-*.o
 *.cmd
 gperftools/.libs
 gperftools/src/.deps

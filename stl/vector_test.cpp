@@ -217,9 +217,41 @@ void myalloctest()
     cout << endl;
 }
 
+void testVector7(int size)
+{
+    vector<string*> vecf;
+//    vecf.reserve(size);
+    for( int i = 0; i  < size; ++i )
+    {
+        char sz[200] = {0};
+        sprintf(sz, "File:%s, Fun:%s, index = %d \n", __FILE__,  __FUNCTION__, i);
+        printf(sz);
+        string *str = new string(sz);
+        vecf.push_back(str);
+    }
+
+
+    cout<<"size : " << vecf.size()<< ", capacity :"<<vecf.capacity() <<endl;
+
+    for( int i = 0; i < vecf.size(); ++i )
+    {
+        delete vecf[i];
+    }
+    vecf.clear();
+    {
+        vector<string*> vecfswap;
+        vecfswap.swap(vecf);
+    }
+//    vecf.resize(1);
+//    vecf.shrink_to_fit();
+    cout<<"size : " << vecf.size()<< ", capacity :"<<vecf.capacity() <<endl;
+
+}
+
 int main()
 {
-    testVector6(1024);
+
+    testVector7(1024 * 100);
     myalloctest();
 //    testVector6(20 * 1024 * 1024);
     testVector4();

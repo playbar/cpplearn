@@ -19,5 +19,11 @@ target_include_directories(vector_test PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}
         )
 
-
+add_executable(vector_test1
+        vector_test1.cpp
+        myalloc.h)
+target_include_directories(vector_test1 PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/stlsgi
+        ${CMAKE_CURRENT_SOURCE_DIR}
+        )
 

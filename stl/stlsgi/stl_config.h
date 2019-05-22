@@ -491,20 +491,20 @@
 // edit library headers.
 # if defined(__STL_HAS_NAMESPACES) && !defined(__STL_NO_NAMESPACES)
 #   define __STL_USE_NAMESPACES
-#   define __STD std
-#   define __STL_BEGIN_NAMESPACE namespace std {
+#   define __STD sgi
+#   define __STL_BEGIN_NAMESPACE namespace sgi {
 #   define __STL_END_NAMESPACE }
 #   if defined(__STL_FUNCTION_TMPL_PARTIAL_ORDER) && \
        !defined(__STL_NO_RELOPS_NAMESPACE)
 #     define __STL_USE_NAMESPACE_FOR_RELOPS
-#     define __STL_BEGIN_RELOPS_NAMESPACE namespace std { namespace rel_ops {
+#     define __STL_BEGIN_RELOPS_NAMESPACE namespace sgi { namespace rel_ops {
 #     define __STL_END_RELOPS_NAMESPACE } }
-#     define __STD_RELOPS std::rel_ops
+#     define __STD_RELOPS sgi::rel_ops
 #   else /* Use std::rel_ops namespace */
 #     define __STL_USE_NAMESPACE_FOR_RELOPS
-#     define __STL_BEGIN_RELOPS_NAMESPACE namespace std {
+#     define __STL_BEGIN_RELOPS_NAMESPACE namespace sgi {
 #     define __STL_END_RELOPS_NAMESPACE }
-#     define __STD_RELOPS std
+#     define __STD_RELOPS sgi
 #   endif /* Use std::rel_ops namespace */
 # else
 #   define __STD 

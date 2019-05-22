@@ -31,6 +31,8 @@
 #ifndef __SGI_STL_INTERNAL_ITERATOR_H
 #define __SGI_STL_INTERNAL_ITERATOR_H
 
+#include "char_traits.h"
+
 __STL_BEGIN_NAMESPACE
 
 
@@ -592,7 +594,7 @@ class istream_iterator {
 public:
   typedef _CharT                         char_type;
   typedef _Traits                        traits_type;
-  typedef basic_istream<_CharT, _Traits> istream_type;
+  typedef std::basic_istream<_CharT, _Traits> istream_type;
 
   typedef input_iterator_tag             iterator_category;
   typedef _Tp                            value_type;
@@ -657,7 +659,7 @@ class ostream_iterator {
 public:
   typedef _CharT                         char_type;
   typedef _Traits                        traits_type;
-  typedef basic_ostream<_CharT, _Traits> ostream_type;
+  typedef std::basic_ostream<_CharT, _Traits> ostream_type;
 
   typedef output_iterator_tag            iterator_category;
   typedef void                           value_type;
@@ -696,8 +698,8 @@ public:
   typedef _CharT                           char_type;
   typedef _Traits                          traits_type;
   typedef typename _Traits::int_type       int_type;
-  typedef basic_streambuf<_CharT, _Traits> streambuf_type;
-  typedef basic_istream<_CharT, _Traits>   istream_type;
+  typedef std::basic_streambuf<_CharT, _Traits> streambuf_type;
+  typedef std::basic_istream<_CharT, _Traits>   istream_type;
 
 public:
   istreambuf_iterator(streambuf_type* __p = 0) { this->_M_init(__p); }
@@ -822,8 +824,8 @@ public:
   typedef _CharT                           char_type;
   typedef _Traits                          traits_type;
   typedef typename _Traits::int_type       int_type;
-  typedef basic_streambuf<_CharT, _Traits> streambuf_type;
-  typedef basic_ostream<_CharT, _Traits>   ostream_type;
+  typedef std::basic_streambuf<_CharT, _Traits> streambuf_type;
+  typedef std::basic_ostream<_CharT, _Traits>   ostream_type;
 
 public:
   ostreambuf_iterator(streambuf_type* __buf) : _M_buf(__buf), _M_ok(__buf) {}

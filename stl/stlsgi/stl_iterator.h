@@ -728,9 +728,27 @@ private:
     _M_is_initialized = _M_eof;
   }
 
-  char_type _M_dereference_aux() const;
-  bool _M_equal_aux(const istreambuf_iterator&) const;
-  void _M_postincr_aux();
+  char_type _M_dereference_aux() const
+  {
+    this->_M_getc();
+    return _M_c;
+  }
+
+
+  bool _M_equal_aux(const istreambuf_iterator& __i) const
+  {
+    if (!this->_M_is_initialized)
+      this->_M_getc();
+    if (!__i._M_is_initialized)
+      __i._M_getc();
+
+    return this->_M_eof == __i._M_eof;
+  }
+
+  void _M_postincr_aux()
+  {
+    this->_M_getc();
+  }
 
   void _M_nextc() {
     int_type __c = _M_buf->snextc();
@@ -753,36 +771,37 @@ private:
   mutable bool _M_is_initialized : 1;
 };
 
-template<class _CharT, class _Traits>
-_CharT istreambuf_iterator<_CharT, _Traits>::_M_dereference_aux() const
-{
-  this->_M_getc();
-  return _M_c;
-}
+//template<class _CharT, class _Traits>
+//_CharT istreambuf_iterator<_CharT, _Traits>::_M_dereference_aux() const
+//{
+//  this->_M_getc();
+//  return _M_c;
+//}
 
-template<class _CharT, class _Traits>
-bool istreambuf_iterator<_CharT, _Traits>
-  ::_M_equal_aux(const istreambuf_iterator& __i) const
-{
-  if (!this->_M_is_initialized)
-    this->_M_getc();
-  if (!__i._M_is_initialized)
-    __i._M_getc();
+//template<class _CharT, class _Traits>
+//bool istreambuf_iterator<_CharT, _Traits>
+//  ::_M_equal_aux(const istreambuf_iterator& __i) const
+//{
+//  if (!this->_M_is_initialized)
+//    this->_M_getc();
+//  if (!__i._M_is_initialized)
+//    __i._M_getc();
+//
+//  return this->_M_eof == __i._M_eof;
+//}
 
-  return this->_M_eof == __i._M_eof;
-}
+//template<class _CharT, class _Traits>
+//void istreambuf_iterator<_CharT, _Traits>::_M_postincr_aux()
+//{
+//  this->_M_getc();
+//}
 
-template<class _CharT, class _Traits>
-void istreambuf_iterator<_CharT, _Traits>::_M_postincr_aux()
-{
-  this->_M_getc();
-}
-
-template<class _CharT, class _Traits>
-inline bool operator==(const istreambuf_iterator<_CharT, _Traits>& __x,
-                       const istreambuf_iterator<_CharT, _Traits>& __y) {
-  return __x.equal(__y);
-}
+//template<class _CharT, class _Traits>
+//inline bool operator==(const istreambuf_iterator<_CharT, _Traits>& __x,
+//                       const istreambuf_iterator<_CharT, _Traits>& __y)
+//{
+//  return __x.equal(__y);
+//}
 
 #ifdef __STL_FUNCTION_TMPL_PARTIAL_ORDER
 

@@ -1,8 +1,8 @@
 # src
-add_definitions(-D__STL_HAS_NAMESPACES)
-#add_definitions(-D__STL_USE_NEW_IOSTREAMS)
+#add_definitions(-D__STL_HAS_NAMESPACES)
+add_definitions(-D__STL_USE_NEW_IOSTREAMS)
 #add_definitions(-D__STL_CLASS_PARTIAL_SPECIALIZATION)
-add_definitions(-D__STL_NO_EXCEPTION_HEADER)
+#add_definitions(-D__STL_NO_EXCEPTION_HEADER)
 
 add_executable(map_test
         map_test.cpp

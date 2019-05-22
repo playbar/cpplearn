@@ -33,7 +33,7 @@
 
 #include <concept_checks.h>
 
-__STL_BEGIN_NAMESPACE 
+__STL_BEGIN_NAMESPACE
 
 #if defined(__sgi) && !defined(__GNUC__) && (_MIPS_SIM != _MIPS_SIM_ABI32)
 #pragma set woff 1174
@@ -57,9 +57,9 @@ public:
   allocator_type get_allocator() const { return _M_data_allocator; }
 
   _Vector_alloc_base(const allocator_type& __a)
-    : _M_data_allocator(__a), _M_start(0), _M_finish(0), _M_end_of_storage(0) 
+    : _M_data_allocator(__a), _M_start(0), _M_finish(0), _M_end_of_storage(0)
   {}
-  
+
 protected:
   allocator_type _M_data_allocator;
   _Tp* _M_start;
@@ -73,7 +73,7 @@ protected:
 };
 
 // Specialization for allocators that have the property that we don't
-// actually have to store an allocator object.  
+// actually have to store an allocator object.
 template <class _Tp, class _Allocator>
 class _Vector_alloc_base<_Tp, _Allocator, true> {
 public:
@@ -82,9 +82,9 @@ public:
   allocator_type get_allocator() const { return allocator_type(); }
 
   _Vector_alloc_base(const allocator_type&)
-    : _M_start(0), _M_finish(0), _M_end_of_storage(0) 
+    : _M_start(0), _M_finish(0), _M_end_of_storage(0)
   {}
-  
+
 protected:
   _Tp* _M_start;
   _Tp* _M_finish;
@@ -102,7 +102,7 @@ struct _Vector_base
   : public _Vector_alloc_base<_Tp, _Alloc,
                               _Alloc_traits<_Tp, _Alloc>::_S_instanceless>
 {
-  typedef _Vector_alloc_base<_Tp, _Alloc, 
+  typedef _Vector_alloc_base<_Tp, _Alloc,
                              _Alloc_traits<_Tp, _Alloc>::_S_instanceless>
           _Base;
   typedef typename _Base::allocator_type allocator_type;
@@ -115,11 +115,11 @@ struct _Vector_base
   }
 
   ~_Vector_base() { _M_deallocate(_M_start, _M_end_of_storage - _M_start); }
-};    
+};
 
 #else /* __STL_USE_STD_ALLOCATORS */
 
-template <class _Tp, class _Alloc> 
+template <class _Tp, class _Alloc>
 class _Vector_base {
 public:
   typedef _Alloc allocator_type;
@@ -128,7 +128,7 @@ public:
   _Vector_base(const _Alloc&)
     : _M_start(0), _M_finish(0), _M_end_of_storage(0) {}
   _Vector_base(size_t __n, const _Alloc&)
-    : _M_start(0), _M_finish(0), _M_end_of_storage(0) 
+    : _M_start(0), _M_finish(0), _M_end_of_storage(0)
   {
     _M_start = _M_allocate(__n);
     _M_finish = _M_start;
@@ -145,14 +145,14 @@ protected:
   typedef simple_alloc<_Tp, _Alloc> _M_data_allocator;
   _Tp* _M_allocate(size_t __n)
     { return _M_data_allocator::allocate(__n); }
-  void _M_deallocate(_Tp* __p, size_t __n) 
+  void _M_deallocate(_Tp* __p, size_t __n)
     { _M_data_allocator::deallocate(__p, __n); }
 };
 
 #endif /* __STL_USE_STD_ALLOCATORS */
 
 template <class _Tp, class _Alloc = __STL_DEFAULT_ALLOCATOR(_Tp) >
-class vector : protected _Vector_base<_Tp, _Alloc> 
+class vector : protected _Vector_base<_Tp, _Alloc>
 {
   // requirements:
 
@@ -178,7 +178,7 @@ public:
   typedef reverse_iterator<const_iterator> const_reverse_iterator;
   typedef reverse_iterator<iterator> reverse_iterator;
 #else /* __STL_CLASS_PARTIAL_SPECIALIZATION */
-  typedef reverse_iterator<const_iterator, value_type, const_reference, 
+  typedef reverse_iterator<const_iterator, value_type, const_reference,
                            difference_type>  const_reverse_iterator;
   typedef reverse_iterator<iterator, value_type, reference, difference_type>
           reverse_iterator;
@@ -240,7 +240,7 @@ public:
     : _Base(__a) {}
 
   vector(size_type __n, const _Tp& __value,
-         const allocator_type& __a = allocator_type()) 
+         const allocator_type& __a = allocator_type())
     : _Base(__n, __a)
     { _M_finish = uninitialized_fill_n(_M_start, __n, __value); }
 
@@ -248,7 +248,7 @@ public:
     : _Base(__n, allocator_type())
     { _M_finish = uninitialized_fill_n(_M_start, __n, _Tp()); }
 
-  vector(const vector<_Tp, _Alloc>& __x) 
+  vector(const vector<_Tp, _Alloc>& __x)
     : _Base(__x.size(), __x.get_allocator())
     { _M_finish = uninitialized_copy(__x.begin(), __x.end(), _M_start); }
 
@@ -264,7 +264,7 @@ public:
   template <class _Integer>
   void _M_initialize_aux(_Integer __n, _Integer __value, __true_type) {
     _M_start = _M_allocate(__n);
-    _M_end_of_storage = _M_start + __n; 
+    _M_end_of_storage = _M_start + __n;
     _M_finish = uninitialized_fill_n(_M_start, __n, __value);
   }
 
@@ -277,7 +277,7 @@ public:
 #else
   vector(const _Tp* __first, const _Tp* __last,
          const allocator_type& __a = allocator_type())
-    : _Base(__last - __first, __a) 
+    : _Base(__last - __first, __a)
     { _M_finish = uninitialized_copy(__first, __last, _M_start); }
 #endif /* __STL_MEMBER_TEMPLATES */
 
@@ -305,7 +305,7 @@ public:
   void _M_fill_assign(size_type __n, const _Tp& __val);
 
 #ifdef __STL_MEMBER_TEMPLATES
-  
+
   template <class _InputIterator>
   void assign(_InputIterator __first, _InputIterator __last) {
     typedef typename _Is_integer<_InputIterator>::_Integral _Integral;
@@ -326,7 +326,7 @@ public:
 
   template <class _ForwardIterator>
   void _M_assign_aux(_ForwardIterator __first, _ForwardIterator __last,
-                     forward_iterator_tag); 
+                     forward_iterator_tag);
 
 #endif /* __STL_MEMBER_TEMPLATES */
 
@@ -425,7 +425,7 @@ public:
   }
 
   void resize(size_type __new_size, const _Tp& __x) {
-    if (__new_size < size()) 
+    if (__new_size < size())
       erase(begin() + __new_size, end());
     else
       insert(end(), __new_size - size(), __x);
@@ -437,7 +437,7 @@ protected:
 
 #ifdef __STL_MEMBER_TEMPLATES
   template <class _ForwardIterator>
-  iterator _M_allocate_and_copy(size_type __n, _ForwardIterator __first, 
+  iterator _M_allocate_and_copy(size_type __n, _ForwardIterator __first,
                                                _ForwardIterator __last)
 {
     iterator __result = _M_allocate(__n);
@@ -448,7 +448,7 @@ protected:
     __STL_UNWIND(_M_deallocate(__result, __n));
   }
 #else /* __STL_MEMBER_TEMPLATES */
-  iterator _M_allocate_and_copy(size_type __n, const_iterator __first, 
+  iterator _M_allocate_and_copy(size_type __n, const_iterator __first,
                                                const_iterator __last)
   {
     iterator __result = _M_allocate(__n);
@@ -463,14 +463,14 @@ protected:
 
 #ifdef __STL_MEMBER_TEMPLATES
   template <class _InputIterator>
-  void _M_range_initialize(_InputIterator __first,  
+  void _M_range_initialize(_InputIterator __first,
                            _InputIterator __last, input_iterator_tag)
   {
     for ( ; __first != __last; ++__first)
       push_back(*__first);
   }
 
-  // This function is only called by the constructor. 
+  // This function is only called by the constructor.
   template <class _ForwardIterator>
   void _M_range_initialize(_ForwardIterator __first,
                            _ForwardIterator __last, forward_iterator_tag)
@@ -496,7 +496,7 @@ protected:
 };
 
 template <class _Tp, class _Alloc>
-inline bool 
+inline bool
 operator==(const vector<_Tp, _Alloc>& __x, const vector<_Tp, _Alloc>& __y)
 {
   return __x.size() == __y.size() &&
@@ -504,10 +504,10 @@ operator==(const vector<_Tp, _Alloc>& __x, const vector<_Tp, _Alloc>& __y)
 }
 
 template <class _Tp, class _Alloc>
-inline bool 
+inline bool
 operator<(const vector<_Tp, _Alloc>& __x, const vector<_Tp, _Alloc>& __y)
 {
-  return lexicographical_compare(__x.begin(), __x.end(), 
+  return lexicographical_compare(__x.begin(), __x.end(),
                                  __y.begin(), __y.end());
 }
 
@@ -546,7 +546,7 @@ operator>=(const vector<_Tp, _Alloc>& __x, const vector<_Tp, _Alloc>& __y) {
 #endif /* __STL_FUNCTION_TMPL_PARTIAL_ORDER */
 
 template <class _Tp, class _Alloc>
-vector<_Tp,_Alloc>& 
+vector<_Tp,_Alloc>&
 vector<_Tp,_Alloc>::operator=(const vector<_Tp, _Alloc>& __x)
 {
   if (&__x != this) {
@@ -572,7 +572,7 @@ vector<_Tp,_Alloc>::operator=(const vector<_Tp, _Alloc>& __x)
 }
 
 template <class _Tp, class _Alloc>
-void vector<_Tp, _Alloc>::_M_fill_assign(size_t __n, const value_type& __val) 
+void vector<_Tp, _Alloc>::_M_fill_assign(size_t __n, const value_type& __val)
 {
   if (__n > capacity()) {
     vector<_Tp, _Alloc> __tmp(__n, __val, get_allocator());
@@ -630,8 +630,7 @@ vector<_Tp, _Alloc>::_M_assign_aux(_ForwardIter __first, _ForwardIter __last,
 #endif /* __STL_MEMBER_TEMPLATES */
 
 template <class _Tp, class _Alloc>
-void 
-vector<_Tp, _Alloc>::_M_insert_aux(iterator __position, const _Tp& __x)
+void vector<_Tp, _Alloc>::_M_insert_aux(iterator __position, const _Tp& __x)
 {
   if (_M_finish != _M_end_of_storage) {
     construct(_M_finish, *(_M_finish - 1));
@@ -651,7 +650,7 @@ vector<_Tp, _Alloc>::_M_insert_aux(iterator __position, const _Tp& __x)
       ++__new_finish;
       __new_finish = uninitialized_copy(__position, _M_finish, __new_finish);
     }
-    __STL_UNWIND((destroy(__new_start,__new_finish), 
+    __STL_UNWIND((destroy(__new_start,__new_finish),
                   _M_deallocate(__new_start,__len)));
     destroy(begin(), end());
     _M_deallocate(_M_start, _M_end_of_storage - _M_start);
@@ -662,8 +661,7 @@ vector<_Tp, _Alloc>::_M_insert_aux(iterator __position, const _Tp& __x)
 }
 
 template <class _Tp, class _Alloc>
-void 
-vector<_Tp, _Alloc>::_M_insert_aux(iterator __position)
+void vector<_Tp, _Alloc>::_M_insert_aux(iterator __position)
 {
   if (_M_finish != _M_end_of_storage) {
     construct(_M_finish, *(_M_finish - 1));
@@ -682,7 +680,7 @@ vector<_Tp, _Alloc>::_M_insert_aux(iterator __position)
       ++__new_finish;
       __new_finish = uninitialized_copy(__position, _M_finish, __new_finish);
     }
-    __STL_UNWIND((destroy(__new_start,__new_finish), 
+    __STL_UNWIND((destroy(__new_start,__new_finish),
                   _M_deallocate(__new_start,__len)));
     destroy(begin(), end());
     _M_deallocate(_M_start, _M_end_of_storage - _M_start);
@@ -693,7 +691,7 @@ vector<_Tp, _Alloc>::_M_insert_aux(iterator __position)
 }
 
 template <class _Tp, class _Alloc>
-void vector<_Tp, _Alloc>::_M_fill_insert(iterator __position, size_type __n, 
+void vector<_Tp, _Alloc>::_M_fill_insert(iterator __position, size_type __n,
                                          const _Tp& __x)
 {
   if (__n != 0) {
@@ -716,7 +714,7 @@ void vector<_Tp, _Alloc>::_M_fill_insert(iterator __position, size_type __n,
       }
     }
     else {
-      const size_type __old_size = size();        
+      const size_type __old_size = size();
       const size_type __len = __old_size + max(__old_size, __n);
       iterator __new_start = _M_allocate(__len);
       iterator __new_finish = __new_start;
@@ -726,7 +724,7 @@ void vector<_Tp, _Alloc>::_M_fill_insert(iterator __position, size_type __n,
         __new_finish
           = uninitialized_copy(__position, _M_finish, __new_finish);
       }
-      __STL_UNWIND((destroy(__new_start,__new_finish), 
+      __STL_UNWIND((destroy(__new_start,__new_finish),
                     _M_deallocate(__new_start,__len)));
       destroy(_M_start, _M_finish);
       _M_deallocate(_M_start, _M_end_of_storage - _M_start);
@@ -740,9 +738,9 @@ void vector<_Tp, _Alloc>::_M_fill_insert(iterator __position, size_type __n,
 #ifdef __STL_MEMBER_TEMPLATES
 
 template <class _Tp, class _Alloc> template <class _InputIterator>
-void 
-vector<_Tp, _Alloc>::_M_range_insert(iterator __pos, 
-                                     _InputIterator __first, 
+void
+vector<_Tp, _Alloc>::_M_range_insert(iterator __pos,
+                                     _InputIterator __first,
                                      _InputIterator __last,
                                      input_iterator_tag)
 {
@@ -753,7 +751,7 @@ vector<_Tp, _Alloc>::_M_range_insert(iterator __pos,
 }
 
 template <class _Tp, class _Alloc> template <class _ForwardIterator>
-void 
+void
 vector<_Tp, _Alloc>::_M_range_insert(iterator __position,
                                      _ForwardIterator __first,
                                      _ForwardIterator __last,
@@ -792,7 +790,7 @@ vector<_Tp, _Alloc>::_M_range_insert(iterator __position,
         __new_finish
           = uninitialized_copy(__position, _M_finish, __new_finish);
       }
-      __STL_UNWIND((destroy(__new_start,__new_finish), 
+      __STL_UNWIND((destroy(__new_start,__new_finish),
                     _M_deallocate(__new_start,__len)));
       destroy(_M_start, _M_finish);
       _M_deallocate(_M_start, _M_end_of_storage - _M_start);
@@ -806,9 +804,9 @@ vector<_Tp, _Alloc>::_M_range_insert(iterator __position,
 #else /* __STL_MEMBER_TEMPLATES */
 
 template <class _Tp, class _Alloc>
-void 
-vector<_Tp, _Alloc>::insert(iterator __position, 
-                            const_iterator __first, 
+void
+vector<_Tp, _Alloc>::insert(iterator __position,
+                            const_iterator __first,
                             const_iterator __last)
 {
   if (__first != __last) {
@@ -860,7 +858,7 @@ vector<_Tp, _Alloc>::insert(iterator __position,
 #pragma reset woff 1375
 #endif
 
-__STL_END_NAMESPACE 
+__STL_END_NAMESPACE
 
 #endif /* __SGI_STL_INTERNAL_VECTOR_H */
 

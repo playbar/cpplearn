@@ -123,7 +123,8 @@ public:
     template<typename C, typename D> friend void show2(C & c, D & d);
 };
 
-template <typename C, typename D> void show2(C & c, D & d)
+template <typename C, typename D>
+void show2(C & c, D & d)
 {
     cout << c.item << " , " << d.item << endl;
 }

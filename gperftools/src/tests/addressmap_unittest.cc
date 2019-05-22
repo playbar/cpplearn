@@ -32,10 +32,14 @@
 // Author: Sanjay Ghemawat
 
 #include <stdlib.h>   // for rand()
+#include "iostream"
 #include <vector>
 #include <set>
 #include <algorithm>
 #include <utility>
+#include "gperftools/tcmalloc.h"
+#include <gperftools/malloc_extension.h>
+#include <gperftools/heap-checker.h>
 #include "addressmap-inl.h"
 #include "base/logging.h"
 #include "base/commandlineflags.h"
@@ -48,6 +52,7 @@ using std::make_pair;
 using std::vector;
 using std::set;
 using std::random_shuffle;
+using std::string;
 
 struct UniformRandomNumberGenerator {
   size_t Uniform(size_t max_size) {
@@ -75,7 +80,58 @@ static void SetCheckCallback(const void* ptr, ValueT* val,
   check_set->insert(make_pair(ptr, val->first));
 }
 
-int main(int argc, char** argv) {
+
+void testVector6(int size)
+{
+//  std::string str;
+//  MallocExtension::instance()->GetHeapGrowthStacks(&str);
+
+  vector<string> vecf;
+  for( int i = 0; i  < size; ++i )
+  {
+    char sz[200] = {0};
+    sprintf(sz, "File:%s, %d", __FILE__,  i);
+    printf("Fun:%s, index = %d \n", __FUNCTION__, i);
+    vecf.push_back(sz);
+  }
+  std::cout<<"size : " << vecf.size()<< ", capacity :"<<vecf.capacity() <<std::endl;
+//  vecf.shrink_to_fit();
+  std::cout<<"size : " << vecf.size()<< ", capacity :"<<vecf.capacity() <<std::endl;
+
+
+}
+
+int *fun(int n)
+{
+  int *p2;
+    HeapLeakChecker heap_checker("fun");
+  std::string str;
+  MallocExtension::instance()->GetHeapGrowthStacks(&str);
+//  MallocExtension::instance()->ReleaseFreeMemory();
+
+  void *p = malloc(50);
+
+  free(p);
+
+  {
+    int *p1 = new int[n];
+    p2 = new int[n];
+    delete []p1;
+
+  }
+//    assert(!heap_checker.NoLeaks());
+  return p2;
+}
+
+int main(int argc, char** argv)
+{
+  testVector6(1024 * 1024);
+  MallocExtension::instance()->ReleaseToSystem(1);
+  int *p=fun(5);
+  delete []p;
+
+
+
   // Get a bunch of pointers
   const int N = FLAGS_N;
   static const int kMaxRealSize = 49;

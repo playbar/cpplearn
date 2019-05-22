@@ -145,7 +145,8 @@ void Static::InitLateMaybeRecursive() {
 #ifndef NDEBUG
   // pthread_atfork above may malloc sometimes. Lets ensure we test
   // that malloc works from here.
-  free(malloc(1));
+  void *p = malloc(1);
+  free(p);
 #endif
 }
 

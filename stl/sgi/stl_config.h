@@ -455,8 +455,7 @@
 #   define __STL_NULL_TMPL_ARGS
 # endif
 
-# if defined(__STL_CLASS_PARTIAL_SPECIALIZATION) \
-     || defined (__STL_PARTIAL_SPECIALIZATION_SYNTAX)
+# if defined(__STL_CLASS_PARTIAL_SPECIALIZATION) || defined (__STL_PARTIAL_SPECIALIZATION_SYNTAX)
 #   define __STL_TEMPLATE_NULL template<>
 # else
 #   define __STL_TEMPLATE_NULL

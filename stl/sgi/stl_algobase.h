@@ -49,7 +49,7 @@
 #include <limits.h>
 #include <stdlib.h>
 #include <stddef.h>
-#include <new.h>
+//#include <new.h>
 
 #ifdef __STL_USE_NEW_IOSTREAMS 
 #include <iosfwd>

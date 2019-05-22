@@ -162,6 +162,11 @@ using tcmalloc::StackTrace;
 using tcmalloc::Static;
 using tcmalloc::ThreadCache;
 
+namespace std {
+    enum class align_val_t : std::size_t {
+    };
+}
+
 DECLARE_double(tcmalloc_release_rate);
 
 // Those common architectures are known to be safe w.r.t. aliasing function

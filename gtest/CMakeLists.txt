@@ -31,3 +31,26 @@ if(BUILD_GMOCK)
 elseif(BUILD_GTEST)
   add_subdirectory( googletest )
 endif()
+
+###
+
+set(SOURCE_GTEST
+        gtest/sample1_unittest.cc
+        gtest/sample1.cc)
+add_executable(gtest_sample1 ${SOURCE_GTEST})
+target_include_directories(gtest_sample1 PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}
+        ${CMAKE_CURRENT_SOURCE_DIR}/../gtest/googletest/include
+        )
+target_link_libraries(gtest_sample1 gtest_main)
+
+#
+set(SOURCE_TTEST
+        gtest/funset.cpp
+        gtest/test_TEST.cpp)
+add_executable(gtest_test ${SOURCE_TTEST})
+target_include_directories(gtest_test PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}
+        ${CMAKE_CURRENT_SOURCE_DIR}/../gtest/googletest/include
+        )
+target_link_libraries(gtest_test gtest_main)

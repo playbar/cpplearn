@@ -9,5 +9,10 @@ int main()
 	cout << "Array size = " << arr.size() << endl;
 	cout << "Element 2 = " << arr[1] << endl;
 
+	array<char, 2> charry;
+	char * pdata = charry.data();
+	memcpy(pdata, "test", charry.size());
+
+
 	return 0;
 }

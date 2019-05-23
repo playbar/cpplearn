@@ -7,7 +7,8 @@ void func(int i) {cout << "int version" << endl;}
 
 int main()
 {
-	func(NULL);
+//	func(NULL);
+	func(0);
 	func(nullptr);
 
 	return 0;

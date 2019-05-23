@@ -28,3 +28,28 @@ target_include_directories(vector_test1 PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}
         )
 
+######
+set(SOURCE_BASE stltest/pthread_test.cpp)
+add_executable(pthread_test ${SOURCE_BASE})
+target_include_directories(pthread_test PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/llvm/include
+        ${CMAKE_CURRENT_SOURCE_DIR}
+        )
+
+
+set(SOURCE_BASE stltest/regex.cpp)
+add_executable(regex_test ${SOURCE_BASE})
+target_include_directories(regex_test PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/llvm/include
+        ${CMAKE_CURRENT_SOURCE_DIR}/stltest
+
+        )
+
+
+set(SOURCE_BASE stltest/static_cast.cpp)
+add_executable(static_cast ${SOURCE_BASE})
+target_include_directories(static_cast PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/llvm/include
+        ${CMAKE_CURRENT_SOURCE_DIR}
+        )
+

@@ -1,6 +1,6 @@
 #thread test
 file(GLOB professional_cpp_src
-        c01_code/05_StronglyTypedEnums/*.cpp
+        c01_code/09_NullPointerConstant/*.cpp
         )
 add_executable(professional_cpp ${professional_cpp_src})
 target_include_directories(professional_cpp PRIVATE

@@ -121,7 +121,7 @@ template <class _Tp, size_t _Size>
 struct _LIBCPP_TYPE_VIS_ONLY array
 {
     // types:
-    typedef array __self;
+    typedef array                                 __self;
     typedef _Tp                                   value_type;
     typedef value_type&                           reference;
     typedef const value_type&                     const_reference;

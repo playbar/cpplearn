@@ -1,3 +1,10 @@
+enum Enum
+{
+	EnumValue1,
+	EnumValue2 = 10,
+	EnumValue3
+};
+
 enum class MyEnum
 {
 	EnumValue1,
@@ -15,5 +22,6 @@ enum class MyEnumLong : unsigned long
 int main()
 {
 	MyEnum value1 = MyEnum::EnumValue1;
+	int val = Enum ::EnumValue2;
 	return 0;
 }

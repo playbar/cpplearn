@@ -53,3 +53,10 @@ target_include_directories(static_cast PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}
         )
 
+set(STLTEST_DECLTYPE_SRC
+        stltest/decltype.cpp)
+add_executable(stltest_decltype ${STLTEST_DECLTYPE_SRC})
+target_include_directories(stltest_decltype PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/llvm/include
+        ${CMAKE_CURRENT_SOURCE_DIR}
+        )

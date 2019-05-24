@@ -29,10 +29,10 @@ target_include_directories(vector_test1 PRIVATE
         )
 
 ######
-set(SOURCE_BASE stltest/pthread_test.cpp)
-add_executable(pthread_test ${SOURCE_BASE})
-target_include_directories(pthread_test PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}/llvm/include
+set(STLTEST_SRC stltest/random.cpp)
+add_executable(stltest ${STLTEST_SRC})
+target_include_directories(stltest PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}
         ${CMAKE_CURRENT_SOURCE_DIR}
         )
 

@@ -7,12 +7,162 @@
 #include <ctime>
 #include <cstdlib>
 #include <string>
-#include <random>
+//#include <random>
 #include <chrono>
 
 // Blog: http://blog.csdn.net/fengbingchun/article/details/78034969
 
 // reference: http://www.cplusplus.com/reference/algorithm/
+
+/*
+std::adjacent_find：在序列中查找第一对相邻且值相等的元素；
+std::find: 对一个输入序列，查找第一个等于给定值的元素；
+std::find_end: 查找有B定义的序列在A序列中最后一次出现的位置(B可能是A的子序列)；
+std::find_first_of:查找A序列中第一个与序列B中任一元素值相等的元素位置；
+std::find_if: 在序列中返回满足谓词(给定的条件)的第一个元素；
+std::find_if_not:在序列中返回不满足谓词的第一个元素；
+std::all_of: 如果序列中所有元素均满足给定的条件，则返回true；
+std::any_of: 如果序列中存在元素满足给定的条件，则返回true；
+std::none_of: 如果序列中所有元素均不满足给定的条件，则返回true；
+std::binary_search:对一个升序序列做二分搜索，判断序列中是否有与给定值相等的元素；
+std::search: 在序列A中，搜索B首次出现的位置(B可能是A的子序列)；
+std::search_n: 在给定序列中，搜索给定值连续出现n次的位置；
+std::copy: 将一个序列中的元素拷贝到新的位置；
+std::copy_backward:把一个序列复制到另一个序列，按照由尾到头顺序依次复制元素；
+std::copy_if: 将一个序列中满足给定条件的元素拷贝到新的位置；
+std::copy_n: 将一个序列中的前n个元素拷贝到新的位置；
+std::count: 返回序列中等于给定值元素的个数；
+std::count_if: 返回序列中满足给定条件的元素的个数；
+std::equal: 比较两个序列的对应元素是否相等；
+std::equal_range:在已排序的序列中，查找元素等于给定值组成的子范围；
+std::lower_bound:在升序的序列中，查找第一个不小于给定值的元素；
+std::upper_bound:在已排序的序列中，查找第一个大于给定值的元素；
+std::fill: 用给定值填充序列中的每个元素；
+
+std::fill_n: 用给定值填充序列中的n个元素；
+
+std::for_each: 将指定函数应用于范围内的每一个元素；
+
+std::generate: 对序列中的每个元素，用依次调用函数gen的返回值赋值；
+
+std::generate_n:对序列中的n个元素，用依次调用指定函数gen的返回值赋值；
+
+std::includes: 判断第二个已排序的序列是否全部都出现在第一个已排序的序列中；
+
+std::inplace_merge:对两个升序的序列执行原地合并，合并后的序列仍保持升序；
+
+std::merge: 对两个升序的序列合并，结果序列保持升序；
+
+std::is_heap: 判断序列是否为二叉堆；
+
+std::is_heap_until:查找第一个不是堆顺序的元素；
+
+std::make_heap: 对于一个序列，构造一个二叉堆；
+
+std::pop_heap: 堆的根节点被移除，堆的元素数目减1并保持堆性质；
+
+std::push_heap: 向堆中增加一个新元素，新元素最初保存在last-1位置；
+
+std::sort_heap: 对一个堆，执行原地堆排序，得到一个升序结果；
+
+std::is_partitioned：判断序列是否按指定谓词划分过；
+
+std::partition: 对序列重排，使得满足谓词的元素位于最前；
+
+std::partition_copy:输入序列中，满足谓词的元素复制到result_true，其它元素复制到result_false；
+
+std::partition_point:输入序列已经是partition，折半查找到分界点；
+
+std::stable_partiton:对序列重排，使得满足谓词的元素在前，不满足谓词的元素在后，且两组元素内部的相对顺序不变；
+
+std::is_permutation:判断两个序列是否为同一元素的两个排列；
+
+std::next_permutation:n个元素有n!中排列。这些排列中，规定升序序列为最小排列，降序序列为最大的排列，任意两个排列按照字典序分出大小。该函数返回当前序列作为一个排列按字典序的下一个排列；
+
+std::prev_permutation:返回当前序列作为一个排列按字典序的上一个排列；
+
+std::is_sorted: 判断序列是否为升序；
+
+std::is_sorted_until:查找序列中第一个未排序的元素；
+
+std::nth_element:对序列重排，使得指定的位置出现的元素就是有序情况下应该在该位置出现的那个元素，且在指定位置之前的元素都小于指定位置元素，在指定位置之后的元素都大于指定位置元素；
+
+std::partial_sort:对序列进行部分排序；
+
+std::partial_sort_copy:拷贝部分排序的序列；
+
+std::sort: 对序列进行排序；
+
+std::stable_sort:对序列进行稳定排序；
+
+std::iter_swap: 交换两个迭代器指向的元素；
+
+std::swap: 交换两个对象，优先使用移动语义；
+
+std::swap_ranges:交换两个序列中对应元素；
+
+std::lexicographical_compare：对两个序列做字典比较，如果第一个序列在字典序下小于第二个序列，则返回true；
+
+std::min: 返回两个值中的最小值；
+
+std::min_element：返回序列中的最小值；
+
+std::max: 返回两个值中的最大值；
+
+std::max_element:返回序列中的最大值；
+
+std::minmax: 返回由最小值与最大值构成的std::pair；
+
+std::minmax_element:返回由序列中最小元素与最大元素构成的std::pair；
+
+std::mismatch: 比较两个序列的对应元素，返回用std::pair表示的第一处不匹配在两个序列的位置；
+
+std::move: 把输入序列中的逐个元素移动到结果序列；注意与   http://blog.csdn.net/fengbingchun/article/details/52558914 中的不同；
+
+std::move_backward:把输入序列中的逐个元素自尾到头移动到结果序列；
+
+std::shuffle: 使用均匀随机数生成器，随机打乱指定范围中的元素的位置；
+
+std::random_shuffle:n个元素有!n个排列，该函数给出随机选择的一个排列；
+
+std::remove: 删除序列中等于给定值的所有元素；
+
+std::remove_if: 删除序列中满足给定谓词的元素；
+
+std::remove_copy:把一个序列中不等于给定值的元素复制到另一个序列中；
+
+std::remove_copy_if:把一个序列中不满足给定谓词的元素复制到另一个序列中；
+
+std::replace: 把序列中等于给定值的元素替换为新值；
+
+std::replace_if:把序列中满足给定谓词的元素替换为新值；
+
+std::replace_copy:拷贝序列，对于等于老值的元素复制时使用新值；
+
+std::replace_copy_if:拷贝序列，对于满足给定谓词的元素复制时使用新值；
+
+std::reverse: 把序列中的元素逆序；
+
+std::reverse_copy:拷贝序列的逆序到另一个序列中；
+
+std::rotate: 等效于循环左移序列，使得迭代器middle所指的元素成为首元素；
+
+std::rotate_copy:等效于循环左移序列并拷贝到新的序列中，使得迭代器middle所指的元素成为首元素；
+
+std::set_difference:两个升序序列之差；
+
+std::set_intersection:两个升序序列的交；
+
+std::set_symmetric_difference:两个升序序列的对称差；
+
+std::set_union: 两个升序序列的并；
+
+std::transform: 对序列中的每一个元素，执行一元操作，结果写入另一序列中；或对两个序列中对应的每一对元素，执行二元操作，结果写入另一序列中；
+
+std::unique: 对序列中一群连续的相等的元素，仅保留第一个元素；
+
+std::unique_copy:把一个序列中的元素拷贝到另一个序列，对于一群连续的相等的元素，仅拷贝第一个元素。
+ */
 
 namespace algorithm_ {
 
@@ -1142,7 +1292,8 @@ int test_algorithm_shuffle()
 	// obtain a time-based seed:
 	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 
-	shuffle(foo.begin(), foo.end(), std::default_random_engine(seed));
+	//todo
+//	shuffle(foo.begin(), foo.end(), default_random_engine(seed));
 
 	std::cout << "shuffled elements:";
 	for (int& x : foo) std::cout << ' ' << x;
@@ -1538,3 +1689,9 @@ int test_algorithm_unique()
 }
 
 } // namespace algorithm_
+
+int main(int argc, char** argv)
+{
+    algorithm_::test_algorithm_find();
+}
+

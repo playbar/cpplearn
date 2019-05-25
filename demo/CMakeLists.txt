@@ -1,4 +1,12 @@
 # demo
+
+set(INHERIT_SRC inherit/test3.cpp)
+add_executable(inherit_test
+        ${INHERIT_SRC})
+target_include_directories(inherit_test PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/inherit
+        )
+
 set(SOURCE_MEM memtest/memtest.cpp)
 add_executable(memtest ${SOURCE_MEM})
 target_include_directories(memtest PRIVATE

@@ -238,11 +238,11 @@ float getValue()
 void testVector7(int size)
 {
     vector<string*> vecf;
-//    vecf.reserve(size);
+    vecf.reserve(size);
     for( int i = 0; i  < size; ++i )
     {
         char sz[200] = {0};
-        sprintf(sz, "File:%s, Fun:%s, index = %d \n", __FILE__,  __FUNCTION__, i);
+//        sprintf(sz, "File:%s, Fun:%s, index = %d \n", __FILE__,  __FUNCTION__, i);
         printf(sz);
         string *str = new string(sz);
         vecf.push_back(str);
@@ -263,19 +263,20 @@ void testVector7(int size)
 //    vecf.resize(1);
 //    vecf.shrink_to_fit();
     cout<<"size : " << vecf.size()<< ", capacity :"<<vecf.capacity() <<endl;
+    printf("meminfo:%f M\n", getValue());
 
 }
 
 int main()
 {
-    printf("meminfo:%f \n", getValue());
+    printf("meminfo:%f M\n", getValue());
     testVector7(1024 * 100);
-    printf("meminfo:%f \n", getValue());
+    printf("meminfo:%f M\n", getValue());
     myalloctest();
 //    testVector6(20 * 1024 * 1024);
     testVector4();
     testVector5();
-
+    printf("meminfo:%f M \n", getValue());
 //    unsigned int ia = 0xFFFFFFFF;
 //    float fa = ia;
 //    int flen = sizeof( float);

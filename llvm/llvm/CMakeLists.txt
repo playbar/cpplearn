@@ -761,6 +761,7 @@ add_version_info_from_vcs(DUMMY_VAR)
 if ( SVN_REVISION )
   set(LLVM_RPM_SPEC_REVISION "r${SVN_REVISION}")
 elseif ( GIT_COMMIT )
+
   set (LLVM_RPM_SPEC_REVISION "g${GIT_COMMIT}")
 endif()
 

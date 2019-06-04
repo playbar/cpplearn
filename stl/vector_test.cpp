@@ -2,6 +2,10 @@
 // Created by hou guoli on 2019/1/8.
 //
 
+#include <mach/task_info.h>
+#include <mach/mach_init.h>
+#include <mach/task.h>
+#import  <mach/mach.h>
 #include "vector"
 #include "iostream"
 #include "myalloc.h"
@@ -217,6 +221,20 @@ void myalloctest()
     cout << endl;
 }
 
+float getValue()
+{
+    int64_t memoryUsageInByte = 0;
+    task_vm_info_data_t vmInfo;
+    mach_msg_type_number_t count = TASK_VM_INFO_COUNT;
+    kern_return_t kernReturn = task_info(mach_task_self(), TASK_VM_INFO, (task_info_t) &vmInfo, &count);
+    if (kernReturn != KERN_SUCCESS)
+    {
+        return 0.0f;
+    }
+    memoryUsageInByte = (int64_t) vmInfo.phys_footprint;
+    return memoryUsageInByte/1024.0/1024.0;
+}
+
 void testVector7(int size)
 {
     vector<string*> vecf;
@@ -250,8 +268,9 @@ void testVector7(int size)
 
 int main()
 {
-
+    printf("meminfo:%f \n", getValue());
     testVector7(1024 * 100);
+    printf("meminfo:%f \n", getValue());
     myalloctest();
 //    testVector6(20 * 1024 * 1024);
     testVector4();

@@ -7,28 +7,19 @@
 #include <mach/task.h>
 #import  <mach/mach.h>
 #include "vector"
-#include "iostream"
 #include "myalloc.h"
+#include "vector_test.h"
 
 using namespace std;
 
-struct TrafficBlockItem
-{
-    int	tileX;
-    int	tileY;
-    int	level;
-    char etag[33];
-} ;
-
 void testBlockItem(){
-    int len = sizeof(TrafficBlockItem);
-    TrafficBlockItem a[2];
-    a[0].level = 1;
+    int len = sizeof(DataItem);
+    DataItem a[2];
     a[0].tileX = 1;
     a[0].tileY = 1;
-    memcpy(a[0].etag, "TrafficBlockItem", sizeof(a[0].etag));
+    memcpy(a[0].etag, "DataItem", sizeof(a[0].etag));
 
-    TrafficBlockItem b = a[0];
+    DataItem b = a[0];
     std::cout<<a[0].etag<<&a[0].etag<<std::endl;
     std::cout<<b.etag<<&b.etag<<std::endl;
 
@@ -267,21 +258,29 @@ void testVector7(int size)
 
 }
 
-std::vector<int> testvector()
+
+
+std::vector<DataItem> testvector()
 {
-    std::vector<int> ivecs;
-    for( int i = 0; i < 10; ++i )
+    int i = 45;
+    int&& iii = std::move(i);
+    std::vector<DataItem> ivecs;
+    for( int i = 0; i < 2; ++i )
     {
-        ivecs.push_back(i);
+        DataItem item;
+        item.tileX = i + 1;
+//        ivecs.push_back(item);
+        ivecs.emplace_back(item);
+//        ivecs.emplace_back({1, 1,""});
     }
-    std::vector<int> ivecs2;
+    std::vector<DataItem> ivecs2;
     ivecs2 = std::move(ivecs);
     return ivecs2;
 }
 
 int main()
 {
-    std::vector<int> re = testvector();
+    std::vector<DataItem> re = testvector();
     printf("meminfo:%f M\n", getValue());
     testVector7(1024 * 100);
     printf("meminfo:%f M\n", getValue());

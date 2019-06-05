@@ -14,6 +14,7 @@ target_include_directories(map_test PRIVATE
 
 add_executable(vector_test
         vector_test.cpp
+        vector_test.h
         myalloc.h)
 target_include_directories(vector_test PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/llvm/include

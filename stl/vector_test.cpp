@@ -267,8 +267,21 @@ void testVector7(int size)
 
 }
 
+std::vector<int> testvector()
+{
+    std::vector<int> ivecs;
+    for( int i = 0; i < 10; ++i )
+    {
+        ivecs.push_back(i);
+    }
+    std::vector<int> ivecs2;
+    ivecs2 = std::move(ivecs);
+    return ivecs2;
+}
+
 int main()
 {
+    std::vector<int> re = testvector();
     printf("meminfo:%f M\n", getValue());
     testVector7(1024 * 100);
     printf("meminfo:%f M\n", getValue());

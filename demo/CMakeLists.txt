@@ -39,6 +39,12 @@ add_executable(MemoryDetector ${MEMORYDETECTOR_SRC})
 
 ##
 
+add_executable(Utf8_test
+        utf8/TestUtf8.cpp)
+target_include_directories(Utf8_test PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/utf8
+)
+
 set(SOURCE_UTILS
         utils/utils.cpp
         utils/md5.cpp

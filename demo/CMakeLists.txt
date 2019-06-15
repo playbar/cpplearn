@@ -1,13 +1,5 @@
 # demo
 
-add_executable(lrbteetest
-        algorithm/lrbtree.c
-        algorithm/lrbtreetest.c)
-
-add_executable(RBTreeTest
-        algorithm/RBTree.cpp
-        algorithm/RBTreeTest.cpp)
-
 set(INHERIT_SRC inherit/test3.cpp)
 add_executable(inherit_test
         ${INHERIT_SRC})

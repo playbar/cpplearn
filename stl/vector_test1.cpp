@@ -37,7 +37,12 @@ void testVector6(int size)
 
 int main()
 {
-    testVector6(1 * 1024 * 1024);
+    const int len = 10080934;
+    char *pdata = new char[len + 1];
+    memset(pdata, 0, len + 1);
+    pdata[len] = '\o';
+
+//    testVector6(1 * 1024 * 1024);
     sgi::vector<int> v1;
     for(int j = 0; j < 10; ++j)
     {

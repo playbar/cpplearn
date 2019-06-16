@@ -7,28 +7,19 @@
 #include <mach/task.h>
 #import  <mach/mach.h>
 #include "vector"
-#include "iostream"
 #include "myalloc.h"
+#include "vector_test.h"
 
 using namespace std;
 
-struct TrafficBlockItem
-{
-    int	tileX;
-    int	tileY;
-    int	level;
-    char etag[33];
-} ;
-
 void testBlockItem(){
-    int len = sizeof(TrafficBlockItem);
-    TrafficBlockItem a[2];
-    a[0].level = 1;
+    int len = sizeof(DataItem);
+    DataItem a[2];
     a[0].tileX = 1;
     a[0].tileY = 1;
-    memcpy(a[0].etag, "TrafficBlockItem", sizeof(a[0].etag));
+    memcpy(a[0].etag, "DataItem", sizeof(a[0].etag));
 
-    TrafficBlockItem b = a[0];
+    DataItem b = a[0];
     std::cout<<a[0].etag<<&a[0].etag<<std::endl;
     std::cout<<b.etag<<&b.etag<<std::endl;
 
@@ -235,6 +226,20 @@ float getValue()
     return memoryUsageInByte/1024.0/1024.0;
 }
 
+int64_t getMemInfo()
+{
+    int64_t memoryUsageInByte = 0;
+    task_vm_info_data_t vmInfo;
+    mach_msg_type_number_t count = TASK_VM_INFO_COUNT;
+    kern_return_t kernReturn = task_info(mach_task_self(), TASK_VM_INFO, (task_info_t) &vmInfo, &count);
+    if (kernReturn != KERN_SUCCESS)
+    {
+        return 0.0f;
+    }
+    memoryUsageInByte = (int64_t) vmInfo.phys_footprint;
+    return memoryUsageInByte;
+}
+
 void testVector7(int size)
 {
     vector<string*> vecf;
@@ -246,6 +251,7 @@ void testVector7(int size)
         printf(sz);
         string *str = new string(sz);
         vecf.push_back(str);
+
     }
 
 
@@ -267,8 +273,48 @@ void testVector7(int size)
 
 }
 
+
+std::vector<DataItem> testvector()
+{
+    int i = 45;
+    int&& iii = std::move(i);
+    std::vector<DataItem> ivecs;
+    for( int i = 0; i < 1000; ++i )
+    {
+        DataItem item;
+        item.tileX = i + 1;
+//        ivecs.push_back(item);
+        int64_t memInfo0 = getMemInfo();
+        ivecs.emplace_back(item);
+        int64_t memInfo1 = getMemInfo();
+        printf("memInfo = %d\n", (int)(memInfo1 - memInfo0));
+//        ivecs.emplace_back({1, 1,""});
+    }
+    std::vector<DataItem> ivecs2;
+    ivecs2 = std::move(ivecs);
+    return ivecs2;
+}
+
+void testMemInfo()
+{
+    std::vector<int *> ivecs;
+    for( int i = 0; i < 1000; ++i )
+    {
+        int64_t mem1 =  getMemInfo();
+        int *idata = new int(i+1);
+        ivecs.push_back(idata);
+        int64_t mem2 = getMemInfo();
+        printf("mem : %d, toatl mem = %f \n", (int)(mem2 - mem1), getValue());
+    }
+
+
+
+}
+
 int main()
 {
+    testMemInfo();
+    std::vector<DataItem> re = testvector();
     printf("meminfo:%f M\n", getValue());
     testVector7(1024 * 100);
     printf("meminfo:%f M\n", getValue());

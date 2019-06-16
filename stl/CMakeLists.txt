@@ -14,6 +14,7 @@ target_include_directories(map_test PRIVATE
 
 add_executable(vector_test
         vector_test.cpp
+        vector_test.h
         myalloc.h)
 target_include_directories(vector_test PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/llvm/include
@@ -60,3 +61,7 @@ target_include_directories(stltest_decltype PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/llvm/include
         ${CMAKE_CURRENT_SOURCE_DIR}
         )
+
+file(GLOB std_move_src stltest/std_move5.cpp)
+add_executable(std_move_test
+        ${std_move_src})

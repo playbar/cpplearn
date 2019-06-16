@@ -25,7 +25,7 @@
 # (For Linux, we also need 2.6.4+ for cmake bug #8639 (asm support broken).)
 cmake_minimum_required(VERSION 2.8.10.1)
 
-include(make/policies.cmake NO_POLICY_SCOPE)
+#include(make/policies.cmake NO_POLICY_SCOPE)
 
 # like DR, we collapse VS generator into one config since
 # we don't have enough control over output dirs

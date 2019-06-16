@@ -7,10 +7,10 @@ set(CMAKE_CXX_STANDARD 14)
 
 message(${CMAKE_CXX_COMPILER_ID})
 
+#add_subdirectory(gtest)
 add_subdirectory(drmemory)
 add_subdirectory(algorithm)
 #add_subdirectory(boost)
-#add_subdirectory(gtest)
 add_subdirectory(demo)
 add_subdirectory(gperftools)
 #add_subdirectory(dl)

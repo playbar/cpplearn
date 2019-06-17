@@ -1,0 +1,7 @@
+PROJECT(math_sdk) 
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+MESSAGE("start build")
+
+ADD_SUBDIRECTORY(add_sub)
+ADD_SUBDIRECTORY(mul_div)
+

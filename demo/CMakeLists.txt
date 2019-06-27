@@ -48,11 +48,11 @@ target_include_directories(UtilsTest PRIVATE
         )
 
 # src
-set(SOURCE_FILES
+set(CTEST_FILES
         main.cpp
         CTest.cpp )
-add_executable(CLionTest ${SOURCE_FILES})
-target_include_directories(CLionTest PRIVATE
+add_executable(demo_test ${CTEST_FILES})
+target_include_directories(demo_test PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR})
 
 ###

@@ -5,10 +5,14 @@ SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -fpermissive -fvisibility=hidden -Wal
 
 set(CMAKE_CXX_STANDARD 14)
 
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+
 message(${CMAKE_CXX_COMPILER_ID})
 
 #add_subdirectory(gtest)
-add_subdirectory(drmemory)
+#add_subdirectory(drmemory)
 add_subdirectory(algorithm)
 #add_subdirectory(boost)
 add_subdirectory(demo)

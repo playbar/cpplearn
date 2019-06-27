@@ -3,6 +3,37 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <map>
+#include <fcntl.h>
+
+/*
+ * open函数用来打开一个设备，他返回的是一个整型变量，如果这个值等于-1，说明打开文件出现错误，如果为大于0的值
+ 参考格式 if(fd=open("/dev/ttys0",O_RDWR | O_NOCTTY | O_NDELAY))<0 {printf("cannot open"};
+ int open(const char *pathname, int oflag, …/*, mode_t mode * / ) ;
+ 打开的操作类型有如下几种
+   1) O_RDONLY 只读打开
+   2) O_WRONLY 只写打开
+   3) O_RDWR 读、写打开
+   4) O_APPEND 每次写时都加到文件的尾端
+   5) O_CREAT 若此文件不存在则创建它。使用此选择项时，需同时说明第三个参数mode，用其说明该新文件的存取许可权位。
+   6) O_EXCL 如果同时指定了O_CREAT，而文件已经存在，则出错。这可测试一个文件是否存在，如果不存在则创建此文件成为一个原子操作。
+   7) O_TRUNC 如果此文件存在，而且为只读或只写成功打开，则将其长度截短为0。
+   8) O_NOCTTY 如果p a t h n a m e指的是终端设备，则不将此设备分配作为此进程的控制终端。
+   9) O_NONBLOCK 如果p a t h n a m e指的是一个F I F O、一个块特殊文件或一个字符特殊文件，则此选择项为此文件的本次打开操作和后续的I / O操作设置非阻塞方式。
+   10)O_SYNC 使每次w r i t e都等到物理I / O操作完成。
+   这些控制字都是通过“或”符号分开（|）
+ */
+void testopenfile()
+{
+    int fd1 = open("test.txt", O_RDONLY);
+    int fd = open("/dev/ttys0",O_RDWR | O_NOCTTY | O_NDELAY);
+    if( fd < 0 )
+    {
+        printf("cannot open");
+    } else{
+        printf("fd : %d \n", fd);
+    }
+    return;
+}
 
 void testmap()
 {
@@ -80,7 +111,7 @@ size_t SysStrlcpy(char *dst, const char *src, size_t siz)
 }
 
 int main() {
-
+    testopenfile();
     char *pdata = "abcdefg";
     char temp[30];
     SysStrlcpy(temp, pdata, 30);

@@ -13,4 +13,14 @@ target_include_directories(lmdb PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}
         )
 
+add_executable(lmdb_test
+        lmdb_test.cpp)
+
+target_include_directories(lmdb_test PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}
+        )
+
+target_link_libraries(lmdb_test
+        lmdb)
+
 #####

@@ -24,8 +24,9 @@
  */
 void testopenfile()
 {
-    int fd1 = open("test.txt", O_RDONLY);
+    const std::string param_file = "version.txt";
     int fd = open("/dev/ttys0",O_RDWR | O_NOCTTY | O_NDELAY);
+    int fd1 = open(param_file.c_str(), O_RDONLY);
     if( fd < 0 )
     {
         printf("cannot open");

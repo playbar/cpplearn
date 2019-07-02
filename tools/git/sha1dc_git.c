@@ -1,4 +1,5 @@
 #include "cache.h"
+#include "sha1dc_git.h"
 
 #ifdef DC_SHA1_EXTERNAL
 /*

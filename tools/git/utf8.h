@@ -25,18 +25,18 @@ void strbuf_add_wrapped_bytes(struct strbuf *buf, const char *data, int len,
 void strbuf_utf8_replace(struct strbuf *sb, int pos, int width,
 			 const char *subst);
 
-#ifndef NO_ICONV
+//#ifndef NO_ICONV
 char *reencode_string_iconv(const char *in, size_t insz,
 			    iconv_t conv, size_t bom_len, size_t *outsz);
 char *reencode_string_len(const char *in, size_t insz,
 			  const char *out_encoding,
 			  const char *in_encoding,
 			  size_t *outsz);
-#else
-static inline char *reencode_string_len(const char *a, size_t b,
-					const char *c, const char *d, size_t *e)
-{ if (e) *e = 0; return NULL; }
-#endif
+//#else
+//static inline char *reencode_string_len(const char *a, size_t b,
+//					const char *c, const char *d, size_t *e)
+//{ if (e) *e = 0; return NULL; }
+//#endif
 
 static inline char *reencode_string(const char *in,
 				    const char *out_encoding,

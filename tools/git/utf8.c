@@ -469,7 +469,7 @@ int utf8_fprintf(FILE *stream, const char *format, ...)
  * Given a buffer and its encoding, return it re-encoded
  * with iconv.  If the conversion fails, returns NULL.
  */
-#ifndef NO_ICONV
+//#ifndef NO_ICONV
 #if defined(OLD_ICONV) || (defined(__sun__) && !defined(_XPG6))
 	typedef const char * iconv_ibp;
 #else
@@ -599,7 +599,7 @@ char *reencode_string_len(const char *in, size_t insz,
 		memcpy(out, bom_str, bom_len);
 	return out;
 }
-#endif
+//#endif
 
 static int has_bom_prefix(const char *data, size_t len,
 			  const char *bom, size_t bom_len)

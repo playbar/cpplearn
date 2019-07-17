@@ -750,8 +750,7 @@ configure_file(
   ${LLVM_INCLUDE_DIR}/llvm/Config/abi-breaking.h)
 
 # Add target for generating source rpm package.
-set(LLVM_SRPM_USER_BINARY_SPECFILE ${CMAKE_CURRENT_SOURCE_DIR}/llvm.spec.in
-    CACHE FILEPATH ".spec file to use for srpm generation")
+set(LLVM_SRPM_USER_BINARY_SPECFILE ${CMAKE_CURRENT_SOURCE_DIR}/llvm.spec.in)
 set(LLVM_SRPM_BINARY_SPECFILE ${CMAKE_CURRENT_BINARY_DIR}/llvm.spec)
 set(LLVM_SRPM_DIR "${CMAKE_CURRENT_BINARY_DIR}/srpm")
 
@@ -764,6 +763,8 @@ elseif ( GIT_COMMIT )
 
   set (LLVM_RPM_SPEC_REVISION "g${GIT_COMMIT}")
 endif()
+
+message(STATUS  ${LLVM_SRPM_USER_BINARY_SPECFILE})
 
 configure_file(
   ${LLVM_SRPM_USER_BINARY_SPECFILE}

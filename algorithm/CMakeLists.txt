@@ -16,3 +16,6 @@ add_executable(RBTreeTest
 add_executable(algorithm_test
         test1.cpp
 )
+
+add_executable(quick_sort
+        quick_sort.cpp)

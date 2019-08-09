@@ -6,7 +6,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 message(${CMAKE_CXX_COMPILER_ID})
 
-add_subdirectory(llvm)
+#add_subdirectory(llvm)
 #add_subdirectory(gtest)
 #add_subdirectory(drmemory)
 add_subdirectory(algorithm)

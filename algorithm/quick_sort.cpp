@@ -14,13 +14,19 @@ void QuickSort(int a[], int left, int right)
 
   while(l<=r)
   { // 若l>r，表示一趟排完了
-    if (a[l]>key) { // 找到后就停下来
-      if (a[r]<key) { // 找到后就停下来
+    if (a[l]>key)
+    { // 找到后就停下来
+      if (a[r]<key)
+      { // 找到后就停下来
         swap(a[l], a[r]); // 交换
-      } else {
+      }
+      else
+      {
         r--; // 没找到r就继续往前找
       }
-    } else {
+    }
+    else
+    {
       l++; // 没找到l就继续往后找
     }
   }

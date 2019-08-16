@@ -37,8 +37,14 @@ void QuickSort(int a[], int left, int right)
   QuickSort(a, r+1, right);
 }
 
+bool test()
+{
+    printf("test %d", __LINE__ );
+}
+
 int main()
 {
+    test();
   int n = 1005;
   int a[1005]; // 假设最多1005个元素
 

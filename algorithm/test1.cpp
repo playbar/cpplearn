@@ -9,7 +9,7 @@ double calScale(int minl, int maxl, double maxScale)
 
 int main()
 {
-    int  sl = 16;
+    int  sl = 23;
     double maxs = 1 << 5;
     double mins = calScale(4, 25, maxs);
     double scale = mins * (1 << (sl - 4));

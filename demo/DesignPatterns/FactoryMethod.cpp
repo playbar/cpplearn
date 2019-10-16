@@ -4,6 +4,54 @@
 
 // Blog: http://blog.csdn.net/fengbingchun/article/details/21876069
 
+
+
+Product::Product()
+{
+
+}
+
+Product::~Product()
+{
+
+}
+
+ConcreteProduct::ConcreteProduct()
+{
+	cout<<"ConcreteProduct ..."<<endl;
+}
+
+ConcreteProduct::~ConcreteProduct()
+{
+
+}
+
+Factory::Factory()
+{
+
+}
+
+Factory::~Factory()
+{
+
+}
+
+ConcreteFactory::ConcreteFactory()
+{
+	cout<<"ConcreteFactory ..."<<endl;
+}
+
+ConcreteFactory::~ConcreteFactory()
+{
+
+}
+
+Product* ConcreteFactory::CreateProduct()
+{
+	return new ConcreteProduct();
+}
+
+
 int test_FactoryMethod1()
 {
 	LeiFangFactory* sf = new LeiFangFactory();
@@ -14,7 +62,7 @@ int test_FactoryMethod1()
 	delete sf;
 
 	/*result:
-	À×·æÉ¨µØ
+	ï¿½×·ï¿½É¨ï¿½ï¿½
 	*/
 
 	return 0;

@@ -14,7 +14,10 @@ int main()
     double mins = calScale(4, 25, maxs);
     double scale = mins * (1 << (sl - 4));
 
-    printf("scale = %lf\n", scale);
+    char *pdata = "\0x89\0x54";
+
+
+    printf("scale = %lf, pdata = %s\n", scale, pdata);
     return 0;
 
 }

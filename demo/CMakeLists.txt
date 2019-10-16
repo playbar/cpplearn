@@ -13,7 +13,7 @@ target_include_directories(memtest PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}
         )
 
-set(SOURCE_DESIGNPATTERN  DesignPatterns/Memento2.cpp)
+set(SOURCE_DESIGNPATTERN  DesignPatterns/Prototype.cpp)
 add_executable(DesignPatterns ${SOURCE_DESIGNPATTERN})
 target_include_directories(DesignPatterns PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}

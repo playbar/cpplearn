@@ -39,16 +39,11 @@ Prototype_1* ConcretePrototype_1::Clone() const
 
 int test_Prototype1()
 {
-	ConcretePrototype1* test1 = new ConcretePrototype1("小王");
+	ConcretePrototype1* test1 = new ConcretePrototype1("ProtoType");
 	ConcretePrototype2* test2 = (ConcretePrototype2*)test1->Clone();
 
 	test1->Show();
 	test2->Show();
-	/* result:
-		小王
-		小王
-	*/
-
 	return 0;
 }
 
@@ -61,4 +56,9 @@ int test_Prototype2()
 		ConcretePrototype copy ...
 	*/
 	return 0;
+}
+
+int main()
+{
+	test_Prototype2();
 }

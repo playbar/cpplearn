@@ -1,5 +1,7 @@
 # demo
 
+add_subdirectory(DesignPatterns)
+
 set(INHERIT_SRC inherit/test3.cpp)
 add_executable(inherit_test
         ${INHERIT_SRC})
@@ -13,11 +15,6 @@ target_include_directories(memtest PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}
         )
 
-set(SOURCE_DESIGNPATTERN  DesignPatterns/Prototype.cpp)
-add_executable(DesignPatterns ${SOURCE_DESIGNPATTERN})
-target_include_directories(DesignPatterns PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}
-        )
 #
 set(memleak_src
         memleak/main.cpp

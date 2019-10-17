@@ -26,7 +26,7 @@
 
 int main()
 {
-	test_Visitor2();
+	test_FactoryMethod1();
 
 	std::cout << "ok" << std::endl;
 	return 0;

@@ -50,7 +50,7 @@ add_executable(AbstractFactory
         AbstractFactory/product.cpp)
 add_executable(Builder          Builder/main.cpp Builder/Builder.cpp Builder/director.cpp)
 add_executable(Singleton        Singleton/main.cpp)
-add_executable(Prototype        Prototype/main.cpp)
+add_executable(Prototype        Prototype/main.cpp Prototype/Prototype.cpp)
 
 add_executable(Adapter          Adapter/main.cpp)
 add_executable(Bridge           Bridge/main.cpp)

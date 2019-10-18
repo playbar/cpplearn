@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "Prototype.hpp"
 
 class resume
 {
@@ -64,7 +65,7 @@ public:
     }
 };
 
-int main()
+void testProtoType()
 {
     resume* r1 = new resume_a("A");
     resume* r2 = r1->clone();
@@ -72,6 +73,12 @@ int main()
     delete r1;
     r2->show();
     delete r2;
+}
+
+int main()
+{
+    testProtoType();
+    test_Prototype1();
     return 0;
 }
 

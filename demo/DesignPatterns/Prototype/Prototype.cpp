@@ -57,8 +57,3 @@ int test_Prototype2()
 	*/
 	return 0;
 }
-
-int main()
-{
-	test_Prototype2();
-}

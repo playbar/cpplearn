@@ -1,4 +1,5 @@
 #include <iostream>
+#include "Visitor.hpp"
 
 class visitor;
 
@@ -40,7 +41,7 @@ public:
     }
 };
 
-int main()
+void testVisitor()
 {
     element* e = new element_a();
     visitor* v = new visitor_a();
@@ -48,6 +49,11 @@ int main()
 
     delete e;
     delete v;
+}
 
+int main()
+{
+    testVisitor();
+    test_Visitor1();
     return 0;
 }

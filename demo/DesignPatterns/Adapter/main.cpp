@@ -1,4 +1,5 @@
 #include <iostream>
+#include "Adapter.hpp"
 
 class target
 {
@@ -38,10 +39,16 @@ private:
     adaptee* _adaptee;
 };
 
-int main()
+void testAdapter()
 {
     target* t = new adapter();
     t->request();
     delete t;
+}
+
+int main()
+{
+    testAdapter();
+    test_Adapter1();
     return 0;
 }

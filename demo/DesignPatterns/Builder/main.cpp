@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "Builder.hpp"
 
 // 产品.
 class product
@@ -84,7 +85,7 @@ public:
     }
 };
 
-int main()
+void testBuild()
 {
     director* d = new director();
     builder* b = new builder_a();
@@ -94,6 +95,13 @@ int main()
 
     delete b;
     delete d;
+}
+
+int main()
+{
+    testBuild();
+
+    test_Builder1();
 
     return 0;
 }

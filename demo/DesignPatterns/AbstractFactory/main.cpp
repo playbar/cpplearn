@@ -1,4 +1,5 @@
 #include <iostream>
+#include "AbstractFactory.hpp"
 
 // 食草动物.
 class herbivore
@@ -106,7 +107,7 @@ private:
     carnivore* _carnivore;
 };
 
-int main()
+void testFactory()
 {
     factory* factory1 = new africa_factory();
     animal_world* world1 = new animal_world(factory1);
@@ -120,7 +121,15 @@ int main()
     delete world1;
     delete factory2;
     delete world2;
+}
 
+int main()
+{
+    testFactory();
+    std::cout << "other AbstractFactor - 1" << std::endl << std::endl;
+    test_AbstractFactory1();
+    std::cout << "other AbstractFactor - 2" << std::endl << std::endl;
+    test_AbstractFactory2();
     return 0;
 }
 

@@ -45,8 +45,11 @@ target_include_directories(DesignPatterns PRIVATE
         )
 
 ##########
-add_executable(FactoryMethod    FactoryMethod/main.cpp)
-add_executable(AbstractFactory  AbstractFactory/main.cpp)
+add_executable(FactoryMethod    FactoryMethod/main.cpp )
+add_executable(AbstractFactory
+        AbstractFactory/main.cpp
+        AbstractFactory/AbstractFactory.cpp
+        AbstractFactory/product.cpp)
 add_executable(Builder          Builder/main.cpp)
 add_executable(Singleton        Singleton/main.cpp)
 add_executable(Prototype        Prototype/main.cpp)

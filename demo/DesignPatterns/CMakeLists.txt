@@ -72,4 +72,4 @@ add_executable(Strategy         Strategy/main.cpp)
 add_executable(TemplateMethod   TemplateMethod/main.cpp)
 add_executable(Visitor          Visitor/main.cpp)
 
-add_executable(Simplefactory    Simplefactory/main.cpp)
+add_executable(Simplefactory    Simplefactory/main.cpp Simplefactory/SimplyFactory.cpp)

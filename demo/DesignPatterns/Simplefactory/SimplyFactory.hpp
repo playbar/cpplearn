@@ -1,18 +1,19 @@
-#ifndef FBC_MESSY_TEST_SIMPLY_FACTORY_HPP_
-#define FBC_MESSY_TEST_SIMPLY_FACTORY_HPP_
+#ifndef __SIMPLYFACTORY_HPP__
+#define __SIMPLYFACTORY_HPP__
 
 #include <string>
 #include <iostream>
 
 typedef enum ProductTypeTag
 {
+	NONE = 0,
 	ADD = 1,
 	SUB = 2,
 	MUL = 3,
 	DIV = 4
-}PRODUCTTYPE;
+}EnProductType;
 
-//ª˘¿‡
+//Âü∫Á±ª
 class COperation
 {
 public:
@@ -33,7 +34,7 @@ protected:
 	double m_numB;
 };
 
-//º”∑®
+//Âä†Ê≥ï
 class CAddOperation : public COperation
 {
 public:
@@ -55,7 +56,7 @@ public:
 	}
 };
 
-//ºı∑®
+//ÂáèÊ≥ï
 class CSubOperation : public COperation
 {
 public:
@@ -77,7 +78,7 @@ public:
 	}
 };
 
-//≥À∑®
+//‰πòÊ≥ï
 class CMulOperation : public COperation
 {
 public:
@@ -99,7 +100,7 @@ public:
 	}
 };
 
-//≥˝∑®
+//Èô§Ê≥ï
 class CDivOperation : public COperation
 {
 public:
@@ -121,11 +122,11 @@ public:
 	}
 };
 
-//π§≥ß¿‡
+//Â∑•ÂéÇÁ±ª
 class CCalculatorFactory
 {
 public:
-	static COperation* CreateOperation(PRODUCTTYPE type, double a, double b)
+	static COperation* CreateOperation(EnProductType type, double a, double b)
 	{
 		switch (type)
 		{

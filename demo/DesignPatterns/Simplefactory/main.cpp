@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include "SimplyFactory.hpp"
 
 class product
 {
@@ -45,12 +46,19 @@ public:
     }
 };
 
-int main()
+void testProduct()
 {
     product* product1 = simple_factory::create("phone");
     product* product2 = simple_factory::create("tv");
     delete product1;
     delete product2;
+}
+
+int main()
+{
+//    testProduct();
+    test_SimplyFactory1();
+
     return 0;
 }
 

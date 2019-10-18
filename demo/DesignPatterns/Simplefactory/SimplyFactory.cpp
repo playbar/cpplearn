@@ -1,44 +1,43 @@
 #include "SimplyFactory.hpp"
-#include "Factory_1.hpp"
 
 // Blog: http://blog.csdn.net/fengbingchun/article/details/24872725
 
 int test_SimplyFactory1()
 {
 	//CCalculatorFactory* calFactory = new CCalculatorFactory();
-	int type = 0;
+	EnProductType type = NONE;
 	double a = 10, b = 2;
 
-	type = 1;
-	//COperation* operation = calFactory->CreateOperation((PRODUCTTYPE)type, a, b);
-	COperation* operation = CCalculatorFactory::CreateOperation((PRODUCTTYPE)type, a, b);
+	type = ADD;
+	//COperation* operation = calFactory->CreateOperation(type, a, b);
+	COperation* operation = CCalculatorFactory::CreateOperation(type, a, b);
 	if (operation) {
 		std::cout << operation->GetResult() << std::endl;
 		delete operation;
 		operation = NULL;
 	}
 
-	type = 2;
-	//operation = calFactory->CreateOperation((PRODUCTTYPE)type, a, b);
-	operation = CCalculatorFactory::CreateOperation((PRODUCTTYPE)type, a, b);
+	type = SUB;
+	//operation = calFactory->CreateOperation(type, a, b);
+	operation = CCalculatorFactory::CreateOperation(type, a, b);
 	if (operation) {
 		std::cout << operation->GetResult() << std::endl;
 		delete operation;
 		operation = NULL;
 	}
 
-	type = 3;
-	//operation = calFactory->CreateOperation((PRODUCTTYPE)type, a, b);
-	operation = CCalculatorFactory::CreateOperation((PRODUCTTYPE)type, a, b);
+	type = MUL;
+	//operation = calFactory->CreateOperation(type, a, b);
+	operation = CCalculatorFactory::CreateOperation(type, a, b);
 	if (operation) {
 		std::cout << operation->GetResult() << std::endl;
 		delete operation;
 		operation = NULL;
 	}
 
-	type = 4;
-	//operation = calFactory->CreateOperation((PRODUCTTYPE)type, a, b);
-	operation = CCalculatorFactory::CreateOperation((PRODUCTTYPE)type, a, b);
+	type = DIV;
+	//operation = calFactory->CreateOperation(type, a, b);
+	operation = CCalculatorFactory::CreateOperation(type, a, b);
 	if (operation) {
 		std::cout << operation->GetResult() << std::endl;
 		delete operation;
@@ -78,36 +77,36 @@ int test_SimplyFactory1()
 
 int test_SimplyFactory2()
 {
-	CCalculatorFactory_1* calFactory = new CCalculatorFactory_1();
-	int type = 0;
+	CCalculatorFactory* calFactory = new CCalculatorFactory();
+	EnProductType type = NONE;
 	double a = 10, b = 2;
 
-	type = 1;
-	COperation_1* operation = calFactory->CreateOperation((PRODUCTTYPE_1)type, a, b);
+	type = ADD;
+	COperation* operation = calFactory->CreateOperation(type, a, b);
 	if (operation) {
 		std::cout << operation->GetResult() << std::endl;
 		delete operation;
 		operation = NULL;
 	}
 
-	type = 2;
-	operation = calFactory->CreateOperation((PRODUCTTYPE_1)type, a, b);
+	type = SUB;
+	operation = calFactory->CreateOperation(type, a, b);
 	if (operation) {
 		std::cout << operation->GetResult() << std::endl;
 		delete operation;
 		operation = NULL;
 	}
 
-	type = 3;
-	operation = calFactory->CreateOperation((PRODUCTTYPE_1)type, a, b);
+	type = MUL;
+	operation = calFactory->CreateOperation(type, a, b);
 	if (operation) {
 		std::cout << operation->GetResult() << std::endl;
 		delete operation;
 		operation = NULL;
 	}
 
-	type = 4;
-	operation = calFactory->CreateOperation((PRODUCTTYPE_1)type, a, b);
+	type = DIV;
+	operation = calFactory->CreateOperation(type, a, b);
 	if (operation) {
 		std::cout << operation->GetResult() << std::endl;
 		delete operation;

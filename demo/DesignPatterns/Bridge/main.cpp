@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include "Bridge.hpp"
 
 class tool
 {
@@ -58,7 +59,7 @@ public:
     }
 };
 
-int main()
+void testBridge()
 {
     shape* s = new rectangle();
     s->_tool = new pdf();
@@ -72,5 +73,11 @@ int main()
     delete s;
     delete s2->_tool;
     delete s2;
+}
+
+int main()
+{
+    testBridge();
+    test_Bridge1();
     return 0;
 }

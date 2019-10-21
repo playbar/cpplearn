@@ -55,7 +55,7 @@ add_executable(Prototype        Prototype/main.cpp Prototype/Prototype.cpp)
 
 ## Struct
 add_executable(Adapter          Adapter/main.cpp Adapter/Adapter.cpp)
-add_executable(Bridge           Bridge/main.cpp)
+add_executable(Bridge           Bridge/main.cpp Bridge/abstractionImp.cpp Bridge/Bridge.cpp)
 add_executable(Composite        Composite/main.cpp)
 add_executable(Decorator        Decorator/main.cpp)
 add_executable(Facade           Facade/main.cpp)

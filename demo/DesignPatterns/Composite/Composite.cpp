@@ -1,8 +1,46 @@
 #include "Composite.hpp"
-#include "Component.hpp"
-#include "Leaf.hpp"
 
 // Blog: http://blog.csdn.net/fengbingchun/article/details/29401213
+
+Component_1::Component_1()
+{
+
+}
+
+Component_1::~Component_1()
+{
+
+}
+
+void Component_1::Add(const Component_1&)
+{
+
+}
+
+Component_1* Component_1::GetChild(int index)
+{
+	return 0;
+}
+
+void Component_1::Remove(const Component_1& com)
+{
+
+}
+
+Leaf_1::Leaf_1()
+{
+
+}
+
+Leaf_1::~Leaf_1()
+{
+
+}
+
+void Leaf_1::Operation()
+{
+	std::cout<<"Leaf Operation ..."<<std::endl;
+}
 
 Composite_1::Composite_1()
 {
@@ -39,22 +77,22 @@ Component_1* Composite_1::GetChild(int index)
 
 int test_Composite1()
 {
-	Composite* p = new Composite("Ğ¡Íõ");
-	p->Add(new Leaf("Ğ¡Àî"));
-	p->Add(new Leaf("Ğ¡ÕÔ"));
+	Composite* p = new Composite("å°ç‹");
+	p->Add(new Leaf("å°æ"));
+	p->Add(new Leaf("å°èµµ"));
 
-	Composite* p1 = new Composite("Ğ¡Ğ¡Îå");
-	p1->Add(new Leaf("´óÈı"));
+	Composite* p1 = new Composite("å°å°äº”");
+	p1->Add(new Leaf("å¤§ä¸‰"));
 
 	p->Add(p1);
 	p->Display(1);
 
 	/*result
-		-Ğ¡Íõ
-		---Ğ¡Àî
-		---Ğ¡ÕÔ
-		---Ğ¡Ğ¡Îå
-		-----´óÈı
+		-å°ç‹
+		---å°æ
+		---å°èµµ
+		---å°å°äº”
+		-----å¤§ä¸‰
 	*/
 
 	return 0;
@@ -62,14 +100,14 @@ int test_Composite1()
 
 int test_Composite2()
 {
-	ConcreteCompany* p = new ConcreteCompany("Çå»ª´óÑ§");
-	p->Add(new HrDepartment("Çå»ª´óÑ§ÈË²Å²¿"));
+	ConcreteCompany* p = new ConcreteCompany("æ¸…åå¤§å­¦");
+	p->Add(new HrDepartment("æ¸…åå¤§å­¦äººæ‰éƒ¨"));
 
-	ConcreteCompany* p1 = new ConcreteCompany("ÊıÑ§Ïµ");;
-	p1->Add(new HrDepartment("ÊıÑ§ÏµÈË²Å²¿"));
+	ConcreteCompany* p1 = new ConcreteCompany("æ•°å­¦ç³»");;
+	p1->Add(new HrDepartment("æ•°å­¦ç³»äººæ‰éƒ¨"));
 
-	ConcreteCompany* p2 = new ConcreteCompany("ÎïÀíÏµ");
-	p2->Add(new HrDepartment("ÎïÀíÏµÈË²Å²¿"));
+	ConcreteCompany* p2 = new ConcreteCompany("ç‰©ç†ç³»");
+	p2->Add(new HrDepartment("ç‰©ç†ç³»äººæ‰éƒ¨"));
 
 	p->Add(p1);
 	p->Add(p2);
@@ -78,15 +116,15 @@ int test_Composite2()
 	p->LineOfDuty();
 
 	/*result
-		-Çå»ª´óÑ§
-		--Çå»ª´óÑ§ÈË²Å²¿
-		--ÊıÑ§Ïµ
-		---ÊıÑ§ÏµÈË²Å²¿
-		--ÎïÀíÏµ
-		---ÎïÀíÏµÈË²Å²¿
-		Çå»ª´óÑ§ÈË²Å²¿£ºÕĞÆ¸ÈË²Å
-		ÊıÑ§ÏµÈË²Å²¿£ºÕĞÆ¸ÈË²Å
-		ÎïÀíÏµÈË²Å²¿£ºÕĞÆ¸ÈË²Å
+		-æ¸…åå¤§å­¦
+		--æ¸…åå¤§å­¦äººæ‰éƒ¨
+		--æ•°å­¦ç³»
+		---æ•°å­¦ç³»äººæ‰éƒ¨
+		--ç‰©ç†ç³»
+		---ç‰©ç†ç³»äººæ‰éƒ¨
+		æ¸…åå¤§å­¦äººæ‰éƒ¨ï¼šæ‹›è˜äººæ‰
+		æ•°å­¦ç³»äººæ‰éƒ¨ï¼šæ‹›è˜äººæ‰
+		ç‰©ç†ç³»äººæ‰éƒ¨ï¼šæ‹›è˜äººæ‰
 	*/
 
 	return 0;

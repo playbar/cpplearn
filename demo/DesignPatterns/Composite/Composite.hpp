@@ -5,8 +5,6 @@
 #include <vector>
 #include <iostream>
 
-#include "Component.hpp"
-
 class Component
 {
 public:
@@ -151,11 +149,36 @@ public:
 
 	virtual void LineOfDuty()
 	{
-		std::cout << m_strName << ":��Ƹ�˲�" << std::endl;
+		std::cout << m_strName << ":ÕÐÆ¸ÈË²Å" << std::endl;
 	}
 };
 
 // =========================================================
+
+class Component_1
+{
+public:
+	Component_1();
+	virtual ~Component_1();
+public:
+	virtual void Operation() = 0;
+	virtual void Add(const Component_1&);
+	virtual void Remove(const Component_1&);
+	virtual Component_1* GetChild(int);
+protected:
+private:
+};
+
+class Leaf_1 : public Component_1
+{
+public:
+	Leaf_1();
+	~Leaf_1();
+	void Operation();
+protected:
+private:
+};
+
 class Composite_1 : public Component_1
 {
 public:

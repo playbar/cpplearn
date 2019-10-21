@@ -1,4 +1,5 @@
 #include <iostream>
+#include "Facade.hpp"
 
 class scanner
 {
@@ -55,9 +56,15 @@ public:
     }
 };
 
-int main()
+void testFacade()
 {
     compiler c;
     c.run();
+}
+
+int main()
+{
+    testFacade();
+    test_Facade1();
     return 0;
 }

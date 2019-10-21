@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "Composite.hpp"
 
 class menu
 {
@@ -66,7 +67,7 @@ private:
     std::vector<menu*> _menu_vec;
 };
 
-int main()
+void testComposite()
 {
     menu* m1 = new composit_menu("国内新闻");
     m1->add(new sub_menu("时事新闻"));
@@ -80,6 +81,14 @@ int main()
 
     delete m1;
     delete m2;
+}
+
+int main()
+{
+    testComposite();
+
+    test_Composite1();
+
     return 0;
 }
 

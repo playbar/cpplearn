@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include "Decorator.hpp"
 
 class tank
 {
@@ -118,7 +119,7 @@ private:
     std::string _amphibian;
 };
 
-int main()
+void testDecorator()
 {
     tank* t1 = new t50();
     tank* t2 = new infrared_decorator(t1);
@@ -127,6 +128,13 @@ int main()
 
     delete t1;
     delete t2;
+}
+
+int main()
+{
+    testDecorator();
+
+    test_Decorator1();
 
     return 0;
 }

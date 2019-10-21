@@ -70,7 +70,7 @@ void ConcreteDecorator::Operation()
 
 int test_Decorator1()
 {
-	Person_1* p = new Person_1("Ð¡Àî");
+	Person_1* p = new Person_1("Person_1");
 	BigTrouser* bt = new BigTrouser();
 	TShirts* ts = new TShirts();
 
@@ -81,7 +81,7 @@ int test_Decorator1()
 	/*result:
 		T Shirts
 		Big Trouser
-		×°°çµÄÊÇ£ºÐ¡Àî
+		×°ï¿½ï¿½ï¿½ï¿½Ç£ï¿½Ð¡ï¿½ï¿½
 	*/
 
 	return 0;

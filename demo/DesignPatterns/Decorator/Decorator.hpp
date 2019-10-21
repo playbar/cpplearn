@@ -5,7 +5,7 @@
 #include <vector>
 #include <iostream>
 
-//ÈË
+//ï¿½ï¿½
 class Person_1
 {
 private:
@@ -20,11 +20,11 @@ public:
 
 	virtual void Show()
 	{
-		std::cout << "×°°çµÄÊÇ£º" << m_strName << std::endl;
+		std::cout << "Person_1" << m_strName << std::endl;
 	}
 };
 
-//×°ÊÎÀà
+//×°ï¿½ï¿½ï¿½ï¿½
 class Finery : public Person_1
 {
 protected:
@@ -41,7 +41,7 @@ public:
 	}
 };
 
-//TÐô
+//Tï¿½ï¿½
 class TShirts : public Finery
 {
 public:
@@ -52,7 +52,7 @@ public:
 	}
 };
 
-//¿ã×Ó
+//ï¿½ï¿½ï¿½ï¿½
 class BigTrouser : public Finery
 {
 public:

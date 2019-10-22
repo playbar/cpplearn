@@ -59,7 +59,7 @@ add_executable(Bridge           Bridge/main.cpp Bridge/abstractionImp.cpp Bridge
 add_executable(Composite        Composite/main.cpp Composite/Composite.cpp)
 add_executable(Decorator        Decorator/main.cpp Decorator/Decorator.cpp)
 add_executable(Facade           Facade/main.cpp Facade/Facade.cpp)
-add_executable(Flyweight        Flyweight/main.cpp)
+add_executable(Flyweight        Flyweight/main.cpp Flyweight/Flyweight.cpp)
 add_executable(Proxy            Proxy/main.cpp)
 
 

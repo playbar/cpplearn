@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <map>
+#include "Flyweight.hpp"
 
 class character
 {
@@ -90,7 +91,7 @@ private:
     std::map<std::string, character*> _character_map;
 };
 
-int main()
+void testFlyWeight()
 {
     character_factory* f1 = new character_factory();
     character* c1 = f1->get_character("A");
@@ -101,6 +102,13 @@ int main()
     c2->display();
 
     delete f1;
+}
+
+int main()
+{
+    testFlyWeight();
+
+    test_Flyweight2();
 
     return 0;
 }

@@ -1,6 +1,6 @@
 #include "State.hpp"
 #include "State_1.hpp"
-#include "Context_1.hpp"
+#include "StateContext.hpp"
 
 // Blog: http://blog.csdn.net/fengbingchun/article/details/33385599
 
@@ -18,9 +18,9 @@ int test_State1()
 	mywork->Writeprogram();
 
 	/*result
-		ÏÖÔÚµÄ¾«ÉñÎÞµÐºÃ
+		çŽ°åœ¨çš„ç²¾ç¥žæ— æ•Œå¥½
 		execute
-		²»ÐÐÁË£¬»¹ÊÇË¯¾õ°É
+		ä¸è¡Œäº†ï¼Œè¿˜æ˜¯ç¡è§‰å§
 	*/
 
 	return 0;
@@ -29,7 +29,7 @@ int test_State1()
 int test_State2()
 {
 	State_3* st = new ConcreteStateA_3();
-	Context_3* con = new Context_3(st);
+	StateContext* con = new StateContext(st);
 	con->OperationChangeState();
 	con->OperationChangeState();
 	con->OperationChangeState();

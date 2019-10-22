@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include "State.hpp"
 
 class war;
 
@@ -85,7 +86,7 @@ public:
     }
 };
 
-int main()
+void testState()
 {
     war* w = new war(new prophase_state());
     for (int i = 1; i < 40; ++i)
@@ -95,5 +96,12 @@ int main()
     }
 
     delete w;
+}
+
+int main()
+{
+    testState();
+
+    test_State1();
     return 0;
 }

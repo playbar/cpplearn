@@ -3,12 +3,12 @@
 
 class State_3;
 
-class Context_3
+class StateContext
 {
 public:
-	Context_3();
-	Context_3(State_3* state);
-	~Context_3();
+	StateContext();
+	StateContext(State_3* state);
+	~StateContext();
 	void OperationInterface();
 	void OperationChangeState();
 protected:

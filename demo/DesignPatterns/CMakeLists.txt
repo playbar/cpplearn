@@ -75,7 +75,7 @@ add_executable(Iterator         Iterator/main.cpp Iterator/Iterator.cpp Iterator
 add_executable(Mediator         Mediator/main.cpp Mediator/Mediator.cpp Mediator/Colleague.cpp)
 add_executable(Memento          Memento/main.cpp Memento/Memento.cpp Memento/Memento3.cpp Memento/Memento4.cpp)
 add_executable(Observer         Observer/main.cpp Observer/Observer.cpp Observer/Subject.cpp)
-add_executable(State            State/main.cpp)
+add_executable(State            State/main.cpp State/State.cpp State/StateContext.cpp State/State_1.cpp)
 add_executable(Strategy         Strategy/main.cpp)
 add_executable(TemplateMethod   TemplateMethod/main.cpp)
 add_executable(Visitor          Visitor/main.cpp Visitor/Visitor.cpp Visitor/Element.cpp)

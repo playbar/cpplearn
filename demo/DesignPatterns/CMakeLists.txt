@@ -1,44 +1,3 @@
-# demo
-
-
-
-set(SOURCE_DESIGNPATTERN
-        DesignPatternsTest.cpp
-        common/product_2.cpp
-        Visitor/Visitor.cpp
-
-        )
-
-add_executable(DesignPatterns ${SOURCE_DESIGNPATTERN})
-
-target_include_directories(DesignPatterns PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}
-        ${CMAKE_CURRENT_SOURCE_DIR}/Builder
-        ${CMAKE_CURRENT_SOURCE_DIR}/AbstractFactory
-        ${CMAKE_CURRENT_SOURCE_DIR}/Adapter
-        ${CMAKE_CURRENT_SOURCE_DIR}/Bridge
-        ${CMAKE_CURRENT_SOURCE_DIR}/common
-        ${CMAKE_CURRENT_SOURCE_DIR}/ChainofResposibility
-        ${CMAKE_CURRENT_SOURCE_DIR}/Command
-        ${CMAKE_CURRENT_SOURCE_DIR}/Composite
-        ${CMAKE_CURRENT_SOURCE_DIR}/Decorator
-        ${CMAKE_CURRENT_SOURCE_DIR}/Facade
-        ${CMAKE_CURRENT_SOURCE_DIR}/FactoryMethod
-        ${CMAKE_CURRENT_SOURCE_DIR}/Flyweight
-        ${CMAKE_CURRENT_SOURCE_DIR}/Interpreter
-        ${CMAKE_CURRENT_SOURCE_DIR}/Iterator
-        ${CMAKE_CURRENT_SOURCE_DIR}/Mediator
-        ${CMAKE_CURRENT_SOURCE_DIR}/Memento
-        ${CMAKE_CURRENT_SOURCE_DIR}/Observer
-        ${CMAKE_CURRENT_SOURCE_DIR}/Prototype
-        ${CMAKE_CURRENT_SOURCE_DIR}/Proxy
-        ${CMAKE_CURRENT_SOURCE_DIR}/Singleton
-        ${CMAKE_CURRENT_SOURCE_DIR}/State
-        ${CMAKE_CURRENT_SOURCE_DIR}/Strategy
-        ${CMAKE_CURRENT_SOURCE_DIR}/TemplateMethod
-        ${CMAKE_CURRENT_SOURCE_DIR}/Visitor
-        )
-
 ##########
 ## Create
 add_executable(FactoryMethod
@@ -87,3 +46,5 @@ add_executable(Visitor1          Visitor/Visitor1.cpp)
 
 ## other
 add_executable(Simplefactory    Simplefactory/main.cpp Simplefactory/SimplyFactory.cpp)
+add_executable(TemplatePattern  TemplatePattern/main.cpp )
+

@@ -82,7 +82,7 @@ int main()
 {
     testStrategy();
 
-    test_Strategy1();
+    test_Strategy3();
 
     return 0;
 }

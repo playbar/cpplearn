@@ -77,7 +77,11 @@ add_executable(Memento          Memento/main.cpp Memento/Memento.cpp Memento/Mem
 add_executable(Observer         Observer/main.cpp Observer/Observer.cpp Observer/Subject.cpp)
 add_executable(State            State/main.cpp State/State.cpp State/StateContext.cpp State/State_1.cpp)
 add_executable(Strategy         Strategy/main.cpp Strategy/Strategy.cpp Strategy/StrategyContext.cpp)
-add_executable(TemplateMethod   TemplateMethod/main.cpp)
+add_executable(TemplateMethod   TemplateMethod/main.cpp
+        TemplateMethod/TemplateMethod.cpp
+        TemplateMethod/TemplateMethod1.cpp
+        TemplateMethod/TemplateMethod2.cpp
+        )
 add_executable(Visitor          Visitor/main.cpp Visitor/Visitor.cpp Visitor/Element.cpp)
 add_executable(Visitor1          Visitor/Visitor1.cpp)
 

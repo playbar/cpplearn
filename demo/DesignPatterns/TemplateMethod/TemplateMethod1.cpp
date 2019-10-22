@@ -1,6 +1,27 @@
-#include "template1_lib.cpp"
+#include <iostream>
 
-//应用程序开发人员
+using namespace std;
+
+class Library
+{
+
+public:
+	void Step1()
+	{
+		cout << "Step1" << endl;
+	}
+
+	void Step3()
+	{
+		cout << "Step3" << endl;
+	}
+
+	void Step5()
+	{
+		cout << "Step5" << endl;
+	}
+};
+
 class Application
 {
   public:
@@ -16,7 +37,7 @@ class Application
 	}
 };
 
-int main()
+int test_TemplateMethod3()
 {
 	Library lib;
 	Application app;
@@ -34,4 +55,5 @@ int main()
 	}
 
 	lib.Step5();
+	return 0;
 }

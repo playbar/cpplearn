@@ -1,4 +1,5 @@
 #include <iostream>
+#include "TemplateMethod.hpp"
 
 template<typename T>
 class caffeine_beverage
@@ -63,7 +64,7 @@ public:
     }
 };
 
-int main()
+void testTemplateMethod()
 {
     std::cout << "冲杯咖啡" << std::endl;
     coffee c;
@@ -72,6 +73,15 @@ int main()
     std::cout << "冲杯茶" << std::endl;
     tea t;
     t.prepare_recipe();
+}
+
+int main()
+{
+    testTemplateMethod();
+
+    test_TemplateMethod1();
+
+    test_TemplateMethod3();
 
     return 0;
 }

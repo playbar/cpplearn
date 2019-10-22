@@ -74,7 +74,8 @@ public:
 
 
 
-Expression*  analyse(string expStr) {
+Expression*  analyse(string expStr)
+{
     
     stack<Expression*> expStack;
     Expression* left = nullptr;
@@ -106,14 +107,14 @@ Expression*  analyse(string expStr) {
     return expression;
 }
 
-void release(Expression* expression){
+void release(Expression* expression)
+{
     
     //释放表达式树的节点内存...
 }
 
-int main(int argc, const char * argv[]) {
-    
-    
+int test_Interpreter3()
+{
     string expStr = "a+b-c+d-e";
     map<char, int> var;
     var.insert(make_pair('a',5));

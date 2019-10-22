@@ -70,7 +70,7 @@ add_executable(ChainofResposibility
         ChainofResposibility/ChainofResposibility1.cpp
         ChainofResposibility/Handle.cpp)
 add_executable(Command          Command/main.cpp Command/Command.cpp)
-add_executable(Interpreter      Interpreter/main.cpp)
+add_executable(Interpreter      Interpreter/main.cpp Interpreter/Interpreter.cpp Interpreter/Interpreter1.cpp)
 add_executable(Iterator         Iterator/main.cpp)
 add_executable(Mediator         Mediator/main.cpp)
 add_executable(Memento          Memento/main.cpp)

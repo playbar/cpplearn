@@ -2,6 +2,8 @@
 #include <string>
 #include <map>
 
+#include "Interpreter.hpp"
+
 class context
 {
 public:
@@ -72,7 +74,7 @@ private:
     int _i;
 };
 
-int main()
+void testInterpreter()
 {
     context c;
     c.add_value("a", 7);
@@ -91,7 +93,15 @@ int main()
     delete t1;
     delete t2;
     delete t3;
+}
 
+int main()
+{
+    testInterpreter();
+
+    test_Interpreter1();
+
+    test_Interpreter3();
     return 0;
 }
 

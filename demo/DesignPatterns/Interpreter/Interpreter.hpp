@@ -4,31 +4,36 @@
 #include <iostream>
 #include <string>
 
-#include "Context.hpp"
-
-class Context;
+class Context_1
+{
+public:
+	Context_1();
+	~Context_1();
+protected:
+private:
+};
 
 class AbstractExpression
 {
 public:
-	virtual void Interpret(Context* context) = 0;
+	virtual void Interpret(Context_1* context) = 0;
 };
 
 class Expression : public AbstractExpression
 {
 public:
-	virtual void Interpret(Context* context)
+	virtual void Interpret(Context_1* context)
 	{
-		std::cout << "ÖÕ¶Ë½âÊÍÆ÷" << std::endl;
+		std::cout << "ç»ˆç«¯è§£é‡Šå™¨" << std::endl;
 	}
 };
 
 class NonterminalExpression : public AbstractExpression
 {
 public:
-	virtual void Interpret(Context* context)
+	virtual void Interpret(Context_1* context)
 	{
-		std::cout << "·ÇÖÕ¶Ë½âÊÍÆ÷" << std::endl;
+		std::cout << "éžç»ˆç«¯è§£é‡Šå™¨" << std::endl;
 	}
 };
 
@@ -75,5 +80,6 @@ private:
 
 int test_Interpreter1();
 int test_Interpreter2();
+int test_Interpreter3();
 
 #endif // FBC_MESSY_TEST_INTERPRETER_HPP_

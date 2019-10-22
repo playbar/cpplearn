@@ -3,6 +3,16 @@
 
 // Blog: http://blog.csdn.net/fengbingchun/article/details/37325051
 
+Context_1::Context_1()
+{
+
+}
+
+Context_1::~Context_1()
+{
+
+}
+
 AbstractExpression_1::AbstractExpression_1()
 {
 
@@ -53,7 +63,7 @@ void NonterminalExpression_1::Interpret(const Context_1& c)
 
 int test_Interpreter1()
 {
-	Context* context = new Context();
+	Context_1* context = new Context_1();
 	std::vector<AbstractExpression*> express;
 	express.push_back(new Expression());
 	express.push_back(new NonterminalExpression());
@@ -66,9 +76,9 @@ int test_Interpreter1()
 	}
 
 	/*result
-		ÖÕ¶Ë½âÊÍÆ÷
-		·ÇÖÕ¶Ë½âÊÍÆ÷
-		·ÇÖÕ¶Ë½âÊÍÆ÷
+		ç»ˆç«¯è§£é‡Šå™¨
+		éç»ˆç«¯è§£é‡Šå™¨
+		éç»ˆç«¯è§£é‡Šå™¨
 	*/
 
 	return 0;

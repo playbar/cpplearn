@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include "Command.hpp"
 
 // 烤肉师傅.
 class roast_cook
@@ -72,7 +73,7 @@ private:
     std::vector<command*> _command_vec;
 };
 
-int main()
+void testCommand()
 {
     roast_cook* cook = new roast_cook();
     command* cmd1 = new make_mutton_command(cook);
@@ -90,6 +91,12 @@ int main()
     delete cmd1;
     delete cmd2;
     delete cook;
+}
+
+int main()
+{
+    testCommand();
+
 
     return 0;
 }

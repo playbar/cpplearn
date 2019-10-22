@@ -69,7 +69,7 @@ add_executable(ChainofResposibility
         ChainofResposibility/ChainOfResposibility.cpp
         ChainofResposibility/ChainofResposibility1.cpp
         ChainofResposibility/Handle.cpp)
-add_executable(Command          Command/main.cpp)
+add_executable(Command          Command/main.cpp Command/Command.cpp)
 add_executable(Interpreter      Interpreter/main.cpp)
 add_executable(Iterator         Iterator/main.cpp)
 add_executable(Mediator         Mediator/main.cpp)

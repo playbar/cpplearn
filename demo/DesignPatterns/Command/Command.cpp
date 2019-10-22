@@ -1,8 +1,22 @@
 #include "Command.hpp"
-#include "Receiver.hpp"
-#include "Invoker.hpp"
 
 // Blog: http://blog.csdn.net/fengbingchun/article/details/36221901
+
+Receiver::Receiver()
+{
+
+}
+
+Receiver::~Receiver()
+{
+
+}
+
+void Receiver::Action()
+{
+	std::cout<<"Receiver action ..."<<std::endl;
+}
+
 
 Command_1::Command_1()
 {
@@ -35,26 +49,41 @@ void ConcreteCommand::Excute()
 	std::cout << "ConcreteCommand ..." << std::endl;
 }
 
+Invoker::Invoker(Command_1* cmd)
+{
+	_cmd = cmd;
+}
+
+Invoker::~Invoker()
+{
+	delete _cmd;
+}
+
+void Invoker::Invoke()
+{
+	_cmd->Excute();
+}
+
 int test_Command1()
 {
-	//µêÀïÌí¼Ó¿¾ÈâÊ¦¸µ¡¢²Ëµ¥¡¢·şÎñÔ±µÈ¹Ë¿Í
+	//åº—é‡Œæ·»åŠ çƒ¤è‚‰å¸ˆå‚…ã€èœå•ã€æœåŠ¡å‘˜ç­‰é¡¾å®¢
 	Barbucer* barbucer = new Barbucer();
 	Command* cmd = new BakeMuttonCmd(barbucer);
 	Command* cmd2 = new ChickenWingCmd(barbucer);
 	Waiter* girl = new Waiter();
 
-	//µã²Ë
+	//ç‚¹èœ
 	girl->SetCmd(cmd);
 	girl->SetCmd(cmd2);
 
-	//·şÎñÔ±Í¨Öª
+	//æœåŠ¡å‘˜é€šçŸ¥
 	girl->Notify();
 
 	/*result
-		Ôö¼Ó¶¨µ¥
-		Ôö¼Ó¶¨µ¥
-		¿¾ÑòÈâ
-		¿¾¼¦³á°ò
+		å¢åŠ å®šå•
+		å¢åŠ å®šå•
+		çƒ¤ç¾Šè‚‰
+		çƒ¤é¸¡ç¿…è†€
 	*/
 
 	return 0;

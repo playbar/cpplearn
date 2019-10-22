@@ -4,22 +4,22 @@
 #include <iostream>
 #include <vector>
 
-//¿¾ÈâÊ¦¸µ
+//Â¿Â¾ÃˆÃ¢ÃŠÂ¦Â¸Âµ
 class Barbucer
 {
 public:
 	void MakeMutton()
 	{
-		std::cout << "¿¾ÑòÈâ" << std::endl;
+		std::cout << "çƒ¤ç¾Šè‚‰" << std::endl;
 	}
 
 	void MakeChickenWing()
 	{
-		std::cout << "¿¾¼¦³á°ò" << std::endl;
+		std::cout << "çƒ¤é¸¡ç¿…è†€" << std::endl;
 	}
 };
 
-//³éÏóÃüÁîÀà
+//Â³Ã©ÃÃ³ÃƒÃ¼ÃÃ®Ã€Ã 
 class Command {
 protected:
 	Barbucer* receiver;
@@ -32,7 +32,7 @@ public:
 	virtual void ExecuteCmd() = 0;
 };
 
-//¿¾ÑòÈâÃüÁî
+//Â¿Â¾Ã‘Ã²ÃˆÃ¢ÃƒÃ¼ÃÃ®
 class BakeMuttonCmd : public Command
 {
 public:
@@ -43,7 +43,7 @@ public:
 	}
 };
 
-//¿¾¼¦³á
+//Â¿Â¾Â¼Â¦Â³Ã¡
 class ChickenWingCmd : public Command
 {
 public:
@@ -55,7 +55,7 @@ public:
 	}
 };
 
-//·þÎñÔ±Àà
+//Â·Ã¾ÃŽÃ±Ã”Â±Ã€Ã 
 class Waiter
 {
 protected:
@@ -64,10 +64,10 @@ public:
 	void SetCmd(Command* temp)
 	{
 		m_commandList.push_back(temp);
-		std::cout << "Ôö¼Ó¶¨µ¥" << std::endl;
+		std::cout << "set command" << std::endl;
 	}
 
-	//Í¨ÖªÖ´ÐÐ
+	//ÃÂ¨Ã–ÂªÃ–Â´ÃÃ
 	void Notify()
 	{
 		std::vector<Command*>::iterator p = m_commandList.begin();
@@ -80,7 +80,16 @@ public:
 };
 
 // =================================================
-class Receiver;
+
+class Receiver
+{
+public:
+	Receiver();
+	~Receiver();
+	void Action();
+protected:
+private:
+};
 
 class Command_1
 {
@@ -103,7 +112,20 @@ private:
 	Receiver* _rev;
 };
 
+class Invoker
+{
+public:
+	Invoker(Command_1* cmd);
+	~Invoker();
+	void Invoke();
+protected:
+private:
+	Command_1* _cmd;
+};
+
+
 int test_Command1();
 int test_Command2();
+
 
 #endif // FBC_MESSY_TEST_COMMAND_HPP_

@@ -126,9 +126,3 @@ int test_Memento2()
 
 	return 0;
 }
-
-int main()
-{
-	test_Memento2();
-	return 0;
-}

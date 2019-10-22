@@ -2,6 +2,8 @@
 #include <string>
 #include <list>
 
+#include "Observer.hpp"
+
 class observer
 {
 public:
@@ -76,7 +78,7 @@ private:
     blog* _blog;
 };
 
-int main()
+void testObserver()
 {
     blog* b = new blog_csdn("chxuan");
     observer* o = new observer_blog("cx", b);
@@ -85,6 +87,13 @@ int main()
     b->notify();
     delete b;
     delete o;
+}
+
+int main()
+{
+    testObserver();
+
+    test_Observer1();
     return 0;
 }
 

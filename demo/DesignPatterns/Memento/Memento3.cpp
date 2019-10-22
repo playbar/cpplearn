@@ -1,3 +1,7 @@
+#include "string"
+
+using namespace std;
+
 
 class Memento
 {
@@ -28,7 +32,7 @@ public:
 
 
 
-int main()
+int test_Memento3()
 {
     Originator orginator;
     
@@ -36,10 +40,11 @@ int main()
     Memento mem = orginator.createMomento();
     
     //... 改变orginator状态
-    
+    Memento memento("test");
     //从备忘录中恢复
     orginator.setMomento(memento);
 
+    return 0;
    
     
 }

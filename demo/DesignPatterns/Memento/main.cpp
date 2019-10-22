@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include "Memento.hpp"
 
 struct memento
 {
@@ -56,7 +57,7 @@ private:
     std::vector<memento> _memento_vec;
 };
 
-int main()
+void testMemento()
 {
     caretake c;
     game_role role;
@@ -66,6 +67,13 @@ int main()
     role.show();
     role.load(c.load(0));
     role.show();
+}
+
+int main()
+{
+    testMemento();
+
+    test_Memento4();
 
     return 0;
 }

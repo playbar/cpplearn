@@ -91,7 +91,7 @@ private:
     Caretaker* mCaretaker;
 };
 
-int main()
+int test_Memento4()
 {
     srand((unsigned int) time(NULL));
 

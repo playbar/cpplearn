@@ -78,5 +78,7 @@ private:
 
 int test_Memento1();
 int test_Memento2();
+int test_Memento3();
+int test_Memento4();
 
 #endif // FBC_MESSY_TEST_MEMENTO_HPP_

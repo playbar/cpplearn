@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include "Iterator.hpp"
 
 template<typename Item>
 class iterator_base
@@ -84,7 +85,7 @@ private:
     std::vector<Item> _item_vec {1, 2, 3};
 };
 
-int main()
+void testIterator()
 {
     aggergate<int>* aggr = new concrete_aggregate<int>();
     iterator_base<int>* iter = aggr->create_iterator();
@@ -95,6 +96,13 @@ int main()
 
     delete iter;
     delete aggr;
+}
+
+int main()
+{
+    testIterator();
+
+    test_Iterator1();
 
     return 0;
 }

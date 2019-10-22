@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "Mediator.hpp"
 
 class colleage
 {
@@ -89,7 +90,7 @@ public:
     }
 };
 
-int main()
+void testMediator()
 {
     qq_mediator qq;
     monitor* m = new monitor("Jack");
@@ -109,6 +110,13 @@ int main()
     delete s;
     delete a;
     delete b;
+}
+
+int main()
+{
+    testMediator();
+
+    test_Mediator1();
 
     return 0;
 }

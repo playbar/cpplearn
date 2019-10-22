@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include "Proxy.hpp"
 
 class image
 {
@@ -42,10 +43,17 @@ private:
     big_image* _big_image;
 };
 
-int main()
+void testProxy()
 {
     image* img = new big_image_proxy("proxy.jpg");
     img->show();
     delete img;
+}
+
+int main()
+{
+    testProxy();
+
+    test_Proxy1();
     return 0;
 }

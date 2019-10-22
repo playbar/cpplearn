@@ -60,11 +60,15 @@ add_executable(Composite        Composite/main.cpp Composite/Composite.cpp)
 add_executable(Decorator        Decorator/main.cpp Decorator/Decorator.cpp)
 add_executable(Facade           Facade/main.cpp Facade/Facade.cpp)
 add_executable(Flyweight        Flyweight/main.cpp Flyweight/Flyweight.cpp)
-add_executable(Proxy            Proxy/main.cpp)
+add_executable(Proxy            Proxy/main.cpp Proxy/Proxy.cpp)
 
 
 ### Behavior
-add_executable(ChainofResposibility ChainofResposibility/main.cpp)
+add_executable(ChainofResposibility
+        ChainofResposibility/main.cpp
+        ChainofResposibility/ChainOfResposibility.cpp
+        ChainofResposibility/ChainofResposibility1.cpp
+        ChainofResposibility/Handle.cpp)
 add_executable(Command          Command/main.cpp)
 add_executable(Interpreter      Interpreter/main.cpp)
 add_executable(Iterator         Iterator/main.cpp)

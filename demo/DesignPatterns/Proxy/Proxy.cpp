@@ -54,7 +54,6 @@ int test_Proxy1()
 	test->Request();
 
 	/*result
-		真实的请求
 	*/
 
 	return 0;

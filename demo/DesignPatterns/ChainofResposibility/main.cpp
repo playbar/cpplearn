@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 
+#include "ChainOfResposibility.hpp"
+
 struct request
 {
     int num;
@@ -71,14 +73,14 @@ public:
     }
 };
 
-int main()
+void testChainOfResposibility()
 {
     manager* common = new common_manager("张经理");
     manager* major = new majordomo("李总监");
     general_manager* general = new general_manager("赵总");
     common->set_successor(major);
     major->set_successor(general);
-    
+
     request req {999};
     common->get_request(req);
 
@@ -91,6 +93,14 @@ int main()
     delete general;
     delete major;
     delete common;
+}
 
+int main()
+{
+    testChainOfResposibility();
+
+    test_ChainOfResponsibility1();
+
+    test_ChainOfResponsibility3();
     return 0;
 }

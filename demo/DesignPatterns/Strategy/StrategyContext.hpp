@@ -8,11 +8,11 @@ Strategy通过"组合"(委托)方式实现算法(实现)的异构，而Template�
 这两个模式的区别也是继承和组合两种实现接口重用的方式的区别
 */
 
-class Context_4
+class StrategyContext
 {
 public:
-	Context_4(Strategy_4* stg);
-	~Context_4();
+	StrategyContext(Strategy_4* stg);
+	~StrategyContext();
 	void DoAction();
 protected:
 private:

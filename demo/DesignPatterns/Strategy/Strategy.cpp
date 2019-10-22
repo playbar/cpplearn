@@ -1,6 +1,6 @@
 #include <iostream>
 #include "Strategy.hpp"
-#include "Context_2.hpp"
+#include "StrategyContext.hpp"
 
 // Blog: http://blog.csdn.net/fengbingchun/article/details/32179281
 
@@ -54,7 +54,7 @@ int test_Strategy1()
 	int a, b;
 	char c;
 	std::cin >> a >> b;
-	std::cout << "ÇëÊäÈëÔËËã·û£º";
+	std::cout << "è¯·è¾“å…¥è¿ç®—ç¬¦ï¼š";
 	std::cin >> c;
 
 	switch (c)
@@ -72,7 +72,7 @@ int test_Strategy1()
 	/*result
 		5
 		8
-		ÇëÊäÈëÔËËã·û£º+
+		è¯·è¾“å…¥è¿ç®—ç¬¦ï¼š+
 		13
 	*/
 
@@ -98,7 +98,7 @@ int test_Strategy2()
 int test_Strategy3()
 {
 	Strategy_4* ps = new ConcreteStrategyA_4();
-	Context_4* pc = new Context_4(ps);
+	StrategyContext* pc = new StrategyContext(ps);
 	pc->DoAction();
 
 	if (NULL != pc)

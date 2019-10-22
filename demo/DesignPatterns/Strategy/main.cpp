@@ -1,4 +1,5 @@
 #include <iostream>
+#include "Strategy.hpp"
 
 class weapon_behavior
 {
@@ -58,7 +59,7 @@ public:
     }
 };
 
-int main()
+void testStrategy()
 {
     weapon_behavior* a = new ak47();
     weapon_behavior* k = new knife();
@@ -75,6 +76,13 @@ int main()
     delete a;
     delete k;
     delete c;
+}
+
+int main()
+{
+    testStrategy();
+
+    test_Strategy1();
 
     return 0;
 }

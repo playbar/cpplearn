@@ -9,7 +9,7 @@ add_executable(AbstractFactory
         AbstractFactory/AbstractFactory.cpp
         AbstractFactory/product.cpp)
 add_executable(Builder          Builder/main.cpp Builder/Builder.cpp Builder/director.cpp)
-add_executable(Singleton        Singleton/main.cpp)
+add_executable(Singleton        Singleton/main.cpp Singleton/Singleton.cpp)
 add_executable(Prototype        Prototype/main.cpp Prototype/Prototype.cpp)
 
 ## Struct

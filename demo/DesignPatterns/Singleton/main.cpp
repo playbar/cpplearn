@@ -1,4 +1,5 @@
 #include <iostream>
+#include "Singleton.hpp"
 
 class single
 {
@@ -19,10 +20,16 @@ public:
     }
 };
 
-int main()
+void testSingleton()
 {
     single::get_instance().print();
     single::get_instance().print();
+}
+
+int main()
+{
+    testSingleton();
+    test_Singleton3();
     return 0;
 }
 

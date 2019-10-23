@@ -24,12 +24,12 @@ class Singleton_1
 public:
 	static Singleton_1* Instance();
 protected:
-	Singleton_1();//Singleton不可以被实例化，因此将其构造函数声明为protected或者直接声明为private
-private:
-	static Singleton_1* _instance;
+	Singleton_1();//Singleton涓嶅彲浠ヨ瀹炰緥鍖栵紝鍥犳灏嗗叾鏋勯�犲嚱鏁板０鏄庝负protected鎴栬�呯洿鎺ュ０鏄庝负private
+
 };
 
 int test_Singleton1();
 int test_Singleton2();
+int test_Singleton3();
 
 #endif // FBC_MESSY_TEST_SINGLETON_HPP_

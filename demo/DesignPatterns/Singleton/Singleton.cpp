@@ -1,6 +1,6 @@
 #include <iostream>
 #include "Singleton.hpp"
-#include "singleton3.hpp"
+#include "singleton4.hpp"
 
 // Blog: http://blog.csdn.net/fengbingchun/article/details/22584107
 

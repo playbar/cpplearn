@@ -33,10 +33,12 @@ private:
 private:
     // 唯一单实例对象指针
     static SingleInstance *g_pSingleInstance;
+    static SingleInstance mSingle;
 };
 
 // 代码一运行就初始化创建实例 ，本身就线程安全
 SingleInstance* SingleInstance::g_pSingleInstance = new (std::nothrow) SingleInstance;
+SingleInstance SingleInstance::mSingle;
 
 SingleInstance* SingleInstance::GetInstance()
 {

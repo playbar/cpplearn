@@ -13,11 +13,6 @@ int test_FactoryMethod1()
 
 	delete s;
 	delete sf;
-
-	/*result:
-	�׷�ɨ��
-	*/
-
 	return 0;
 }
 

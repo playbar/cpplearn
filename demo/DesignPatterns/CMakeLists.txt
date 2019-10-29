@@ -3,7 +3,8 @@
 add_executable(FactoryMethod
         FactoryMethod/main.cpp
         FactoryMethod/FactoryMethod.cpp
-        FactoryMethod/factory.cpp)
+        FactoryMethod/factory.cpp
+        FactoryMethod/product_2.cpp)
 add_executable(AbstractFactory
         AbstractFactory/main.cpp
         AbstractFactory/AbstractFactory.cpp

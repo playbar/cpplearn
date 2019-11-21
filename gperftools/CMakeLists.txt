@@ -9,16 +9,28 @@ file(GLOB TCMALLOC_BASE_SRC
 file(GLOB TCMALLOC_SRC
         src/*.cc)
 
+
+
+set(HEAP_CHECKER_SRCS
+        src/heap-checker.cc
+        src/heap-checker-bcad.cc
+        )
+
+set(HEAP_PROFILE_SRCS
+        src/heap-profile-table.cc
+        src/heap-profiler.cc
+        )
+
+set(CPU_PROFILE_SRCS
+
+        )
+
 set(TCMALLOC_SRCS
         src/central_freelist.cc
         src/common.cc
         src/emergency_malloc.cc
         src/emergency_malloc_for_stacktrace.cc
         src/fake_stacktrace_scope.cc
-        src/heap-checker.cc
-        src/heap-checker-bcad.cc
-        src/heap-profile-table.cc
-        src/heap-profiler.cc
         src/internal_logging.cc
         src/malloc_extension.cc
         src/malloc_hook.cc
@@ -106,6 +118,8 @@ add_executable(realloc_unittest
         src/tests/testutil.cc
         ${TCMALLOC_BASE_SRC}
         ${TCMALLOC_SRCS}
+        ${HEAP_CHECKER_SRCS}
+        ${HEAP_PROFILE_SRCS}
         )
 
 target_include_directories(realloc_unittest PRIVATE

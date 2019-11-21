@@ -39,6 +39,7 @@
 #include <stddef.h>                     // for size_t, NULL
 #include <stdlib.h>                     // for free, malloc, realloc
 #include <algorithm>                    // for min
+#include <sys/time.h>
 #include "base/logging.h"
 
 //#include <gperftools/tcmalloc.h>
@@ -99,8 +100,75 @@ static int NextSize(int size) {
   }
 }
 
+void testtime()
+{
+  time_t tmpcal_ptr;
+  struct tm *tmp_ptr = NULL;
+
+  time(&tmpcal_ptr);
+  //tmpcal_ptr = time(NULL);   两种取值方法均可以
+  printf("tmpcal_ptr=%d\n", tmpcal_ptr);
+
+  tmp_ptr = gmtime(&tmpcal_ptr);
+  printf("after gmtime, the time is:%d:%d:%d\n", tmp_ptr->tm_hour, tmp_ptr->tm_min, tmp_ptr->tm_sec);
+
+  tmp_ptr = localtime(&tmpcal_ptr);
+  printf ("after localtime, the time is:%d.%d.%d ", (1900+tmp_ptr->tm_year), (1+tmp_ptr->tm_mon), tmp_ptr->tm_mday);
+  printf("%d:%d:%d\n", tmp_ptr->tm_hour, tmp_ptr->tm_min, tmp_ptr->tm_sec);
+}
+
+void getmicrosetime()
+{
+  struct timeval tv;
+  struct tm *time_ptr;
+  gettimeofday(&tv,NULL);
+
+  time_ptr = localtime(&tv.tv_sec);
+  printf("%d-%02d-%02d %02d:%02d:%02d.%.04d\n",
+         time_ptr->tm_year + 1900,
+         time_ptr->tm_mon + 1,
+         time_ptr->tm_mday,
+         time_ptr->tm_hour,
+         time_ptr->tm_min,
+         time_ptr->tm_sec,
+         tv.tv_usec);
+
+  printf("second:%ld\n",tv.tv_sec);  //秒
+  printf("millisecond:%ld\n",tv.tv_sec*1000 + tv.tv_usec/1000);  //毫秒
+  printf("microsecond:%ld\n",tv.tv_sec*1000000 + tv.tv_usec);  //微秒
+
+  sleep(3); // 为方便观看，让程序睡三秒后对比
+  printf("3s later: \n");
+
+  gettimeofday(&tv,NULL);
+  printf("second:%ld\n",tv.tv_sec);  //秒
+  printf("millisecond:%ld\n",tv.tv_sec*1000 + tv.tv_usec/1000);  //毫秒
+  printf("microsecond:%ld\n",tv.tv_sec*1000000 + tv.tv_usec);  //微秒
+
+}
+
+void printftime()
+{
+  struct timeval tv;
+  struct tm *tmp_ptr = NULL;
+  gettimeofday(&tv,NULL);
+  tmp_ptr = localtime(&tv.tv_sec);
+
+  printf("%d-%02d-%02d %02d:%02d:%02d.%.04d\n",
+         tmp_ptr->tm_year + 1900,
+         tmp_ptr->tm_mon + 1,
+         tmp_ptr->tm_mday,
+         tmp_ptr->tm_hour,
+         tmp_ptr->tm_min,
+         tmp_ptr->tm_sec,
+         tv.tv_usec);
+  return;
+}
+
 int main(int argc, char** argv)
 {
+  printftime();
+
   for (int src_size = 0; src_size >= 0; src_size = NextSize(src_size))
   {
     for (int dst_size = 0; dst_size >= 0; dst_size = NextSize(dst_size))
@@ -149,5 +217,7 @@ int main(int argc, char** argv)
   free(p);
 
   printf("PASS\n");
+  printftime();
+
   return 0;
 }

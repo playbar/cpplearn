@@ -684,10 +684,8 @@ extern "C" int MallocHook_GetCallerStackTrace(void** result, int max_depth,
 
 #if defined(__linux)
 # include "malloc_hook_mmap_linux.h"
-
 #elif defined(__FreeBSD__)
 # include "malloc_hook_mmap_freebsd.h"
-
 #else
 
 /*static*/void* MallocHook::UnhookedMMap(void *start, size_t length, int prot,

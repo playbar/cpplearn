@@ -1,11 +1,11 @@
 // -*- Mode: C++; c-basic-offset: 2; indent-tabs-mode: nil -*-
 // Copyright (c) 2004, Google Inc.
 // All rights reserved.
-// 
+//
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
-// 
+//
 //     * Redistributions of source code must retain the above copyright
 // notice, this list of conditions and the following disclaimer.
 //     * Redistributions in binary form must reproduce the above
@@ -15,7 +15,7 @@
 //     * Neither the name of Google Inc. nor the names of its
 // contributors may be used to endorse or promote products derived from
 // this software without specific prior written permission.
-// 
+//
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 // "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 // LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -40,6 +40,18 @@
 #include <stdlib.h>                     // for free, malloc, realloc
 #include <algorithm>                    // for min
 #include "base/logging.h"
+
+//#include <gperftools/tcmalloc.h>
+//#include "tcmalloc.h"
+
+//#ifdef malloc
+//#undef malloc
+//#undef realloc
+//#undef free
+//#define malloc  tc_malloc
+//#define realloc tc_realloc
+//#define free    tc_free
+//#endif
 
 using std::min;
 
@@ -87,16 +99,29 @@ static int NextSize(int size) {
   }
 }
 
-int main(int argc, char** argv) {
-  for (int src_size = 0; src_size >= 0; src_size = NextSize(src_size)) {
-    for (int dst_size = 0; dst_size >= 0; dst_size = NextSize(dst_size)) {
+int main(int argc, char** argv)
+{
+  for (int src_size = 0; src_size >= 0; src_size = NextSize(src_size))
+  {
+    for (int dst_size = 0; dst_size >= 0; dst_size = NextSize(dst_size))
+    {
+      if( src_size == 9 && dst_size == 1 )
+        printf("src_size = %d, dst_size = %d \n", src_size, dst_size );
+
       unsigned char* src = (unsigned char*) malloc(src_size);
       Fill(src, src_size);
       unsigned char* dst = (unsigned char*) realloc(src, dst_size);
       CHECK(Valid(dst, min(src_size, dst_size)));
       Fill(dst, dst_size);
+
+      unsigned char *pdata = new unsigned char(src_size);
+      Fill(pdata, src_size );
+      delete pdata;
+
+
       CHECK(Valid(dst, dst_size));
-      if (dst != NULL) free(dst);
+      if (dst != NULL)
+        free(dst);
     }
   }
 

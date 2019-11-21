@@ -97,3 +97,18 @@ target_include_directories(tcmalloc_large_unittest PRIVATE
 #target_link_libraries(tcmalloc_large_unittest
 #        tcmalloc
 #        )
+
+
+########
+
+add_executable(realloc_unittest
+        src/tests/realloc_unittest.cc
+        src/tests/testutil.cc
+        ${TCMALLOC_BASE_SRC}
+        ${TCMALLOC_SRCS}
+        )
+
+target_include_directories(realloc_unittest PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/src
+        )
+

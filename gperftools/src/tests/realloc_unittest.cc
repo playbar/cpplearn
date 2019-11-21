@@ -105,8 +105,9 @@ int main(int argc, char** argv)
   {
     for (int dst_size = 0; dst_size >= 0; dst_size = NextSize(dst_size))
     {
-      if( src_size == 9 && dst_size == 1 )
-        printf("src_size = %d, dst_size = %d \n", src_size, dst_size );
+      if( src_size == 9 && dst_size == 1 ) {
+          printf("src_size = %d, dst_size = %d \n", src_size, dst_size);
+      }
 
       unsigned char* src = (unsigned char*) malloc(src_size);
       Fill(src, src_size);
@@ -114,7 +115,9 @@ int main(int argc, char** argv)
       CHECK(Valid(dst, min(src_size, dst_size)));
       Fill(dst, dst_size);
 
-      unsigned char *pdata = new unsigned char(src_size);
+//    new char(10) ; //char 申请一个char空间，被初始化为10
+//    new char[10] ; //char数组，申请10个char的空间
+      unsigned char *pdata = new unsigned char[src_size];
       Fill(pdata, src_size );
       delete pdata;
 

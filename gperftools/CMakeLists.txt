@@ -12,7 +12,6 @@ file(GLOB TCMALLOC_SRC
 set(TCMALLOC_SRCS
         src/central_freelist.cc
         src/common.cc
-        src/debugallocation.cc
         src/emergency_malloc.cc
         src/emergency_malloc_for_stacktrace.cc
         src/fake_stacktrace_scope.cc
@@ -38,12 +37,13 @@ set(TCMALLOC_SRCS
         src/static_vars.cc
         src/symbolize.cc
         src/system-alloc.cc
+        src/tcmalloc.cc
         src/thread_cache.cc
         )
 
 add_library(tcmalloc STATIC
         ${TCMALLOC_BASE_SRC}
-        ${TCMALLOC_SRC})
+        ${TCMALLOC_SRCS})
 target_include_directories(tcmalloc PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
@@ -61,7 +61,39 @@ target_include_directories(addressmap_unittest PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/src
         )
 
-#target_link_libraries(addressmap_unittest
+target_link_libraries(addressmap_unittest
+        tcmalloc
+        )
+
+#######
+
+add_executable(tcmalloc_unittest
+        src/tests/tcmalloc_unittest.cc
+        src/tests/testutil.cc
+        )
+
+target_include_directories(tcmalloc_unittest PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/src
+        )
+
+target_link_libraries(tcmalloc_unittest
+        tcmalloc
+        )
+
+#######
+
+
+add_executable(tcmalloc_large_unittest
+        src/tests/tcmalloc_large_unittest.cc
+        src/tests/testutil.cc
+        ${TCMALLOC_BASE_SRC}
+        ${TCMALLOC_SRCS}
+        )
+
+target_include_directories(tcmalloc_large_unittest PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/src
+        )
+
+#target_link_libraries(tcmalloc_large_unittest
+#        tcmalloc
 #        )
-
-

@@ -41,23 +41,29 @@
 #include <stdio.h>
 #include <set>                          // for set, etc
 
+//#include "gperftools/malloc_extension.h"
 #include "base/logging.h"               // for operator<<, CHECK, etc
+#include <gperftools/tcmalloc.h>
+#include "tcmalloc.h"
+//#include <gperftools/malloc_extension.h>
+//#include "libc_override.h"
+
 
 using std::set;
 
 // Alloc a size that should always fail.
 
 void TryAllocExpectFail(size_t size) {
-  void* p1 = malloc(size);
+  void* p1 = tc_malloc(size);
   CHECK(p1 == NULL);
 
-  void* p2 = malloc(1);
+  void* p2 = tc_malloc(1);
   CHECK(p2 != NULL);
 
-  void* p3 = realloc(p2, size);
+  void* p3 = tc_realloc(p2, size);
   CHECK(p3 == NULL);
 
-  free(p2);
+  tc_free(p2);
 }
 
 // Alloc a size that might work and might fail.
@@ -103,7 +109,7 @@ int main (int argc, char** argv) {
 
   // Grab some memory so that some later allocations are guaranteed to fail.
   printf("Test small malloc\n");
-  void* p_small = malloc(4*1048576);
+  void* p_small = tc_malloc(4*1048576);
   CHECK(p_small != NULL);
 
   // Test sizes up near the maximum size_t.

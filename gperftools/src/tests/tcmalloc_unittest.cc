@@ -372,7 +372,7 @@ class AllocatorState : public TestHarness {
         }
       }
     }
-    return malloc(size);
+    return tc_malloc(size);
   }
 
  private:
@@ -1250,8 +1250,8 @@ static int RunAllTests(int argc, char** argv) {
     void* p2 = rnd.alloc(0);
     CHECK(p2 != NULL);
     CHECK(p1 != p2);
-    free(p1);
-    free(p2);
+    tc_free(p1);
+    tc_free(p2);
   }
 
   // This code stresses some of the memory allocation via STL.
@@ -1421,18 +1421,18 @@ static int RunAllTests(int argc, char** argv) {
     VerifyDeleteHookWasCalled();
 
     // Another way of calling operator new
-    p2 = static_cast<char*>(::operator new(100, std::align_val_t(OVERALIGNMENT)));
+    p2 = static_cast<char*>(::operator new(100));
     CHECK(p2 != NULL);
     CHECK((((size_t)p2) % OVERALIGNMENT) == 0u);
     VerifyNewHookWasCalled();
-    ::operator delete(p2, std::align_val_t(OVERALIGNMENT));
+    ::operator delete(p2);
     VerifyDeleteHookWasCalled();
 
-    p2 = static_cast<char*>(::operator new(100, std::align_val_t(OVERALIGNMENT), std::nothrow));
+    p2 = static_cast<char*>(::operator new(100, std::nothrow));
     CHECK(p2 != NULL);
     CHECK((((size_t)p2) % OVERALIGNMENT) == 0u);
     VerifyNewHookWasCalled();
-    ::operator delete(p2, std::align_val_t(OVERALIGNMENT), std::nothrow);
+    ::operator delete(p2, std::nothrow);
     VerifyDeleteHookWasCalled();
 
 #ifdef ENABLE_SIZED_DELETE

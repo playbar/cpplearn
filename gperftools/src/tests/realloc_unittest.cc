@@ -199,7 +199,7 @@ int main(int argc, char** argv)
   // Now make sure realloc works correctly even when we overflow the
   // packed cache, so some entries are evicted from the cache.
   // The cache has 2^12 entries, keyed by page number.
-  const int kNumEntries = 1 << 14;
+  const int kNumEntries = 1 << 16;
   int** p = (int**)malloc(sizeof(*p) * kNumEntries);
   int sum = 0;
   for (int i = 0; i < kNumEntries; i++) {

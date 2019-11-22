@@ -1,5 +1,6 @@
 /* Simple timer, for use in benchmark reporting. */
 
+
 typedef struct {
 	nstime_t t0;
 	nstime_t t1;

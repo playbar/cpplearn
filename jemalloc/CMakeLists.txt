@@ -1,6 +1,4 @@
-
 set(install_suffix _1.0)
-
 
 set(C_SRCS
         src/arena.c
@@ -112,7 +110,8 @@ foreach(sourcefile ${TESTS_STRESS})
   target_compile_definitions(${exename} PRIVATE
           JEMALLOC_STRESS_TEST)
 
-  target_link_libraries(${exename} ${C_JETLIB} ${C_TESTLIB_STRESS}
+  target_link_libraries(${exename}
+          ${C_TESTLIB_STRESS}
           ${LIBJEMALLOCLIB})
 endforeach(sourcefile ${TESTS_UNIT})
 
@@ -151,7 +150,6 @@ set(TESTS_UNIT
         test/unit/smoothstep.c
         test/unit/stats.c
         test/unit/ticker.c
-        test/unit/nstime.c
         test/unit/tsd.c
         test/unit/witness.c
         test/unit/zero.c
@@ -178,7 +176,7 @@ foreach(sourcefile ${TESTS_UNIT})
           "${C_UNITETEST_DEFS}"
           )
 
-  target_link_libraries(${exename} ${C_JETLIB} ${C_TESTLIB_UNIT})
+  target_link_libraries(${exename} ${C_TESTLIB_UNIT})
 
 endforeach(sourcefile ${TESTS_UNIT})
 
@@ -219,6 +217,15 @@ foreach(sourcefile ${TESTS_INTEGRATION})
 endforeach(sourcefile ${TESTS_UNIT})
 
 
+########
 
+add_executable(jemalloctest test/jemalloctest.c)
+
+target_include_directories(jemalloctest PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/test/include
+        ${CMAKE_CURRENT_SOURCE_DIR}/include)
+
+target_link_libraries(jemalloctest
+        ${LIBJEMALLOCLIB})
 
 

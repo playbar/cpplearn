@@ -109,7 +109,7 @@ static void malloc_sallocx_free(void)
 {
 	void *p;
 
-	p = malloc(1);
+	p = malloc(1000);
 	if (p == NULL)
 	{
 		return;
@@ -124,7 +124,7 @@ static void malloc_nallocx_free(void)
 {
 	void *p;
 
-	p = malloc(1);
+	p = malloc(2000);
 	if (p == NULL)
 	{
 		return;
@@ -143,17 +143,17 @@ int main(void)
 	compare_funcs(10*1000*1000, 100*1000*1000, "sallocx",
 				  malloc_sallocx_free, "nallocx", malloc_nallocx_free);
 
-	compare_funcs(10*1000*1000, 100*1000*1000, "malloc_usable_size",
-				  malloc_mus_free, "sallocx", malloc_sallocx_free);
-
-	compare_funcs(10*1000*1000, 100*1000*1000, "dallocx", malloc_dallocx,
-				  "sdallocx", malloc_sdallocx);
-
-	compare_funcs(10*1000*1000, 100*1000*1000, "free", malloc_free,
-				  "dallocx", malloc_dallocx);
-
-	compare_funcs(10*1000*1000, 100*1000*1000, "malloc",
-				  malloc_free, "mallocx", mallocx_free);
+//	compare_funcs(10*1000*1000, 100*1000*1000, "malloc_usable_size",
+//				  malloc_mus_free, "sallocx", malloc_sallocx_free);
+//
+//	compare_funcs(10*1000*1000, 100*1000*1000, "dallocx", malloc_dallocx,
+//				  "sdallocx", malloc_sdallocx);
+//
+//	compare_funcs(10*1000*1000, 100*1000*1000, "free", malloc_free,
+//				  "dallocx", malloc_dallocx);
+//
+//	compare_funcs(10*1000*1000, 100*1000*1000, "malloc",
+//				  malloc_free, "mallocx", mallocx_free);
 
 
 }

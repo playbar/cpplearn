@@ -10,6 +10,14 @@
 #include "myalloc.h"
 #include "vector_test.h"
 
+#import <sys/types.h>
+#import <sys/sysctl.h>
+#import <mach/host_info.h>
+#import <mach/mach_host.h>
+#import <mach/task_info.h>
+#import <mach/task.h>
+
+
 using namespace std;
 
 void testBlockItem(){
@@ -226,6 +234,7 @@ float getValue()
     return memoryUsageInByte/1024.0/1024.0;
 }
 
+
 int64_t getMemInfo()
 {
     int64_t memoryUsageInByte = 0;
@@ -234,11 +243,98 @@ int64_t getMemInfo()
     kern_return_t kernReturn = task_info(mach_task_self(), TASK_VM_INFO, (task_info_t) &vmInfo, &count);
     if (kernReturn != KERN_SUCCESS)
     {
-        return 0.0f;
+        return 0;
     }
     memoryUsageInByte = (int64_t) vmInfo.phys_footprint;
     return memoryUsageInByte;
 }
+
+
+int logMemoryInfo()
+{
+    int mib[6];
+    mib[0] = CTL_HW;
+    mib[1] = HW_PAGESIZE;
+
+    int pagesize;
+    size_t length;
+    length = sizeof (pagesize);
+    if (sysctl (mib, 2, &pagesize, &length, NULL, 0) < 0)
+    {
+        fprintf (stderr, "getting page size");
+    }
+
+    mach_msg_type_number_t count = HOST_VM_INFO_COUNT;
+
+    vm_statistics_data_t vmstat;
+    if (host_statistics (mach_host_self (), HOST_VM_INFO, (host_info_t) &vmstat, &count) != KERN_SUCCESS)
+    {
+        fprintf (stderr, "Failed to get VM statistics.");
+    }
+    task_basic_info_64_data_t info;
+    unsigned size = sizeof (info);
+    task_info (mach_task_self (), TASK_BASIC_INFO_64, (task_info_t) &info, &size);
+
+    double unit = 1024 * 1024;
+    double total = (vmstat.wire_count + vmstat.active_count + vmstat.inactive_count + vmstat.free_count) * pagesize / unit;
+    double wired = vmstat.wire_count * pagesize / unit;
+    double active = vmstat.active_count * pagesize / unit;
+    double inactive = vmstat.inactive_count * pagesize / unit;
+    double free = vmstat.free_count * pagesize / unit;
+    double resident = info.resident_size / unit;
+    printf("===================================================");
+    printf("Total:%.2lfMb \n", total);
+    printf("Wired:%.2lfMb \n", wired);
+    printf("Active:%.2lfMb \n", active);
+    printf("Inactive:%.2lfMb \n", inactive);
+    printf("Free:%.2lfMb \n", free);
+    printf("Resident:%.2lfMb \n", resident);
+}
+
+
+
+int64_t getFreeMemInfo()
+{
+    int64_t memoryUsageInByte = 0;
+    task_kernelmemory_info_data_t vmInfo;
+    mach_msg_type_number_t count = TASK_KERNELMEMORY_INFO_COUNT;
+    kern_return_t kernReturn = task_info(mach_task_self(), TASK_KERNELMEMORY_INFO, (task_info_t) &vmInfo, &count);
+    if (kernReturn != KERN_SUCCESS)
+    {
+        return 0.0f;
+    }
+    memoryUsageInByte = (int64_t) vmInfo.total_sfree;
+    return memoryUsageInByte;
+}
+
+// 获取当前任务所占用的内存（单位：MB）
+
+double getUsedMemory()
+{
+    task_basic_info_data_t info;
+    mach_msg_type_number_t size = sizeof(info);
+    kern_return_t kerr = task_info(mach_task_self(), TASK_BASIC_INFO, (task_info_t)&info, &size);
+
+    if (kerr == KERN_SUCCESS) {
+        return info.resident_size / 1000.0 / 1000.0;
+    } else {
+        return 0;
+    }
+}
+
+double getFreeMemory()
+{
+    mach_port_t host = mach_host_self();
+    mach_msg_type_number_t size = sizeof(vm_statistics_data_t) / sizeof(integer_t);
+    vm_size_t pagesize;
+    vm_statistics_data_t vmstat;
+
+    host_page_size(host, &pagesize);
+    host_statistics(host, HOST_VM_INFO, (host_info_t) &vmstat, &size);
+
+    return (vmstat.free_count * pagesize) / 1000.0 / 1000.0;
+}
+
 
 void testVector7(int size)
 {
@@ -304,7 +400,7 @@ void testMemInfo()
         int *idata = new int(i+1);
         ivecs.push_back(idata);
         int64_t mem2 = getMemInfo();
-        printf("mem : %d, toatl mem = %f \n", (int)(mem2 - mem1), getValue());
+        printf("mem : %d, toatl mem = %f M \n", (int)(mem2 - mem1), getValue());
     }
 
 
@@ -318,6 +414,14 @@ int main()
     printf("meminfo:%f M\n", getValue());
     testVector7(1024 * 100);
     printf("meminfo:%f M\n", getValue());
+
+    logMemoryInfo();
+
+    double mem = getMemInfo();
+    double usedMem = getUsedMemory();
+    double avaMem = getFreeMemInfo();
+    printf("meminfo = %lf M, useMem = %lf M, avaMem = %lf M\n", mem, usedMem, avaMem );
+
     myalloctest();
 //    testVector6(20 * 1024 * 1024);
     testVector4();

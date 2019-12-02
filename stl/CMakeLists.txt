@@ -11,6 +11,15 @@ target_include_directories(map_test PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/llvm/include
         ${CMAKE_CURRENT_SOURCE_DIR})
 
+add_executable(smartptr_test
+        smartptr_test.cpp
+        smartptr_test.h
+        myalloc.h)
+target_include_directories(smartptr_test PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/llvm/include
+        ${CMAKE_CURRENT_SOURCE_DIR}
+        )
+
 
 add_executable(vector_test
         vector_test.cpp

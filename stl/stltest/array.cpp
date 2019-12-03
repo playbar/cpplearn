@@ -13,7 +13,9 @@ int test_array_3()
 	// array::assign: Replaces all elements
 	typedef std::array<int, 4> Myarray;
 
-	Myarray c0 = { 0, 1, 2, 3 };
+	Myarray c0 = { 0, 1, 2 };
+
+//	c0[5] = 5;
 
 	// display contents " 0 1 2 3"
 	for (Myarray::const_iterator it = c0.begin();
@@ -254,6 +256,6 @@ int test_array_1()
 
 int main()
 {
-    test_array_1();
+    test_array_3();
     return 0;
 }

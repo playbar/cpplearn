@@ -13,7 +13,7 @@ pthread_t g_tWorkerID[WORKER_COUNT];
 int g_iSum = 0;
 
 void * thr_worker(void *arg) {
-    printf ("WORKER THREAD %08X STARTUP\n", (unsigned int)pthread_self());
+    printf ("WORKER THREAD %08X STARTUP\n", (unsigned long)pthread_self());
     int i=0;
     for (i=0; i<WORK_SIZE; ++i) {
         if (g_iFlagAtom) {
@@ -26,7 +26,7 @@ void * thr_worker(void *arg) {
 }
 
 void * thr_management (void *arg) {
-    printf ("MANAGEMENT THREAD %08X STARTUP\n", (unsigned int)pthread_self());
+    printf ("MANAGEMENT THREAD %08X STARTUP\n", (unsigned long)pthread_self());
     int i;
     for (i=0;i<WORKER_COUNT;++i) {
         pthread_join(g_tWorkerID[i], NULL);

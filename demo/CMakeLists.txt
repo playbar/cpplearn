@@ -66,3 +66,6 @@ add_executable(meminfolinux
 add_executable(meminfomac
         meminfomac.cpp)
 
+add_executable(sync_test
+        sync_test.cpp)
+

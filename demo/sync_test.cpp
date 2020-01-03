@@ -30,6 +30,7 @@ void * thr_management (void *arg) {
     int i;
     for (i=0;i<WORKER_COUNT;++i) {
         pthread_join(g_tWorkerID[i], NULL);
+        printf ("g_tWorkerID %08X\n", g_tWorkerID[i]);
     }
     printf ("ALL WORKER THREADS FINISHED.\n");
     return NULL;

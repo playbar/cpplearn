@@ -48,6 +48,7 @@ int main()
     {
         v1.push_back(j);
     }
+//    int val = v1[20];
     for( int i = 0; i < v1.size(); ++i )
     {
         printf("%d \n", v1[i]);

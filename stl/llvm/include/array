@@ -180,7 +180,15 @@ struct _LIBCPP_TYPE_VIS_ONLY array
     _LIBCPP_CONSTEXPR bool empty() const _NOEXCEPT {return _Size == 0;}
 
     // element access:
-    _LIBCPP_INLINE_VISIBILITY reference operator[](size_type __n)             {return __elems_[__n];}
+    _LIBCPP_INLINE_VISIBILITY reference operator[](size_type __n)             {
+        if (__n >= _Size)
+#ifndef _LIBCPP_NO_EXCEPTIONS
+            throw out_of_range("array::at");
+#else
+        assert(!"array::at out_of_range");
+#endif
+        return __elems_[__n];
+    }
     _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_AFTER_CXX11 const_reference operator[](size_type __n) const {return __elems_[__n];}
     reference at(size_type __n);
     _LIBCPP_CONSTEXPR_AFTER_CXX11 const_reference at(size_type __n) const;

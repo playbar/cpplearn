@@ -77,3 +77,7 @@ add_executable(std_move_test
 
 add_executable(std_array
         stltest/array.cpp)
+target_include_directories(std_array PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/llvm/include
+        ${CMAKE_CURRENT_SOURCE_DIR}
+        )

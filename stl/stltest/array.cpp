@@ -1,6 +1,6 @@
 #include "array.hpp"
 #include <iostream>
-#include <array>
+#include "array"
 #include <tuple>
 #include <string>
 
@@ -15,7 +15,7 @@ int test_array_3()
 
 	Myarray c0 = { 0, 1, 2 };
 
-//	c0[5] = 5;
+	c0[5] = 5;
 
 	// display contents " 0 1 2 3"
 	for (Myarray::const_iterator it = c0.begin();

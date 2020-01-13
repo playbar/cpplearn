@@ -17,6 +17,10 @@ int test_array_3()
 
 	c0[5] = 5;
 
+	std::array<char, 34> pdata;
+	memcpy(pdata, "test", 4);
+	
+	
 	// display contents " 0 1 2 3"
 	for (Myarray::const_iterator it = c0.begin();
 		 it != c0.end(); ++it)

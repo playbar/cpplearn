@@ -189,6 +189,12 @@ struct _LIBCPP_TYPE_VIS_ONLY array
 #endif
         return __elems_[__n];
     }
+
+    // element access:
+    _LIBCPP_INLINE_VISIBILITY value_type* operator . () {
+        return __elems_;
+    }
+
     _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_AFTER_CXX11 const_reference operator[](size_type __n) const {return __elems_[__n];}
     reference at(size_type __n);
     _LIBCPP_CONSTEXPR_AFTER_CXX11 const_reference at(size_type __n) const;

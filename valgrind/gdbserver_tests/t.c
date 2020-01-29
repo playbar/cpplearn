@@ -16,7 +16,7 @@ static int loopmain, loopt1, loopt2;
 
 static double pi = 3.14159265358979323846264338327950288;
 
-static pid_t gettid_sys()
+static pid_t gettid()
 {
 #ifdef __NT_gettid
    return syscall(__NR_gettid);
@@ -26,7 +26,7 @@ static pid_t gettid_sys()
 }
 static void whoami(char *msg)
 {
-   printf("pid %ld Thread %ld %s\n", (long) getpid(), (long) gettid_sys(), msg);
+   printf("pid %ld Thread %ld %s\n", (long) getpid(), (long) gettid(), msg);
    fflush(stdout);
 }
 

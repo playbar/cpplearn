@@ -101,12 +101,11 @@ export CC=$NDKROOT/toolchains/aarch64-linux-android-4.9/prebuilt/linux-x86_64/bi
 ./autogen.sh
 
 # for ARM
-CPPFLAGS="--sysroot=$NDKROOT/platforms/android-21/arch-arm" \
-   CFLAGS="--sysroot=$NDKROOT/platforms/android-21/arch-arm" \
+CPPFLAGS="--sysroot=$NDKROOT/platforms/android-3/arch-arm" \
+   CFLAGS="--sysroot=$NDKROOT/platforms/android-3/arch-arm" \
    ./configure --prefix=/data/local/Inst \
    --host=armv7-unknown-linux --target=armv7-unknown-linux \
    --with-tmpdir=/sdcard
-
 # note: on android emulator, android-14 platform was also tested and works.
 # It is not clear what this platform nr really is.
 

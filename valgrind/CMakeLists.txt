@@ -1,4 +1,15 @@
 # valgrind
+# make 编译命令
+#./autogen.sh
+#./configure --enable-only64bit
+#sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer
+# config.h 添加  #define __private_extern__ extern
+#
+## 修改coregrind/Makefile
+#make -j8
+#make -j8 install DESTDIR=`pwd`/install_valgrind
+
+
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fvisibility=hidden -std=c++14 -Ipriv  -m64 -O2 -g -Wall -Wmissing-prototypes -Wshadow -Wpointer-arith -Wstrict-prototypes -Wmissing-declarations -Wcast-align -Wcast-qual -Wwrite-strings -Wempty-body -Wformat -Wformat-security -Wignored-qualifiers -Wmissing-parameter-type -Wlogical-op -Wold-style-declaration -finline-functions -fno-stack-protector -fno-strict-aliasing -fno-builtin  -fomit-frame-pointer  -Wbad-function-cast -fstrict-aliasing")
 set(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS}   -fvisibility=hidden -Ipriv  -m64 -O2 -g -Wall -Wmissing-prototypes -Wshadow -Wpointer-arith -Wstrict-prototypes -Wmissing-declarations -Wcast-align -Wcast-qual -Wwrite-strings -Wempty-body -Wformat -Wformat-security -Wignored-qualifiers -Wmissing-parameter-type -Wlogical-op -Wold-style-declaration -finline-functions -fno-stack-protector -fno-strict-aliasing -fno-builtin  -fomit-frame-pointer  -Wbad-function-cast -fstrict-aliasing")

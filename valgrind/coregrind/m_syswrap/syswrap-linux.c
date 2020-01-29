@@ -898,8 +898,8 @@ PRE(sys_clone)
       break;
 
    case VKI_CLONE_VFORK | VKI_CLONE_VM: /* vfork */
-      cloneflags &= ~VKI_CLONE_VM;
       // FALLTHROUGH - assume vfork (somewhat) == fork, see ML_(do_fork_clone).
+      cloneflags &= ~VKI_CLONE_VM;
 
    case 0: /* plain fork */
       SET_STATUS_from_SysRes(
@@ -3673,7 +3673,7 @@ PRE(sys_statx)
 {
    FUSE_COMPATIBLE_MAY_BLOCK();
    PRINT("sys_statx ( %ld, %#" FMT_REGWORD "x(%s), %ld, %ld, %#" FMT_REGWORD "x )",
-         (Word)ARG1,ARG2,(char*)(Addr)ARG2,(Word)ARG3,(Word)ARG4,ARG5);
+         ARG1,ARG2,(char*)(Addr)ARG2,ARG3,ARG4,ARG5);
    PRE_REG_READ5(long, "statx",
                  int, dirfd, char *, file_name, int, flags,
                  unsigned int, mask, struct statx *, buf);
@@ -11669,7 +11669,7 @@ PRE(sys_bpf)
    UInt res, key_size, value_size;
 
    PRINT("sys_bpf ( %ld, %#" FMT_REGWORD "x, %" FMT_REGWORD "u )",
-         (Word)ARG1, ARG2, ARG3);
+         ARG1, ARG2, ARG3);
    PRE_REG_READ3(long, "bpf",
                  int, cmd, union vki_bpf_attr *, attr, unsigned int, size);
    switch (ARG1) {
@@ -11960,7 +11960,6 @@ PRE(sys_bpf)
                PRE_MEM_WRITE("bpf(attr->btf_log_buf)",
                              attr->btf_log_buf, attr->btf_log_size);
          }
-         break;
       case VKI_BPF_TASK_FD_QUERY:
          /* Get info about the task. Write collected info. */
          PRE_MEM_READ("bpf(attr->task_fd_query.pid)", (Addr)&attr->task_fd_query.pid, sizeof(attr->task_fd_query.pid));
@@ -12092,36 +12091,6 @@ POST(sys_bpf)
          break;
    }
 }
-
-PRE(sys_copy_file_range)
-{
-  PRINT("sys_copy_file_range (%lu, %lu, %lu, %lu, %lu, %lu)", ARG1, ARG2, ARG3,
-        ARG4, ARG5, ARG6);
-
-  PRE_REG_READ6(vki_size_t, "copy_file_range",
-                int, "fd_in",
-                vki_loff_t *, "off_in",
-                int, "fd_out",
-                vki_loff_t *, "off_out",
-                vki_size_t, "len",
-                unsigned int, "flags");
-
-  /* File descriptors are "specially" tracked by valgrind.
-     valgrind itself uses some, so make sure someone didn't
-     put in one of our own...  */
-  if (!ML_(fd_allowed)(ARG1, "copy_file_range(fd_in)", tid, False) ||
-      !ML_(fd_allowed)(ARG3, "copy_file_range(fd_in)", tid, False)) {
-     SET_STATUS_Failure( VKI_EBADF );
-  } else {
-     /* Now see if the offsets are defined. PRE_MEM_READ will
-        double check it can dereference them. */
-     if (ARG2 != 0)
-        PRE_MEM_READ( "copy_file_range(off_in)", ARG2, sizeof(vki_loff_t));
-     if (ARG4 != 0)
-        PRE_MEM_READ( "copy_file_range(off_out)", ARG4, sizeof(vki_loff_t));
-  }
-}
-
 
 #undef PRE
 #undef POST

@@ -511,8 +511,6 @@ libcoregrind_@VGCONF_ARCH_PRI@_@VGCONF_OS@_a_CFLAGS += \
 endif
 libcoregrind_@VGCONF_ARCH_PRI@_@VGCONF_OS@_a_LIBADD = \
     $(libnolto_coregrind_@VGCONF_ARCH_PRI@_@VGCONF_OS@_a_OBJECTS)
-libcoregrind_@VGCONF_ARCH_PRI@_@VGCONF_OS@_a_DEPENDENCIES = \
-    libnolto_coregrind-@VGCONF_ARCH_PRI@-@VGCONF_OS@.a
 
 if VGCONF_HAVE_PLATFORM_SEC
 libcoregrind_@VGCONF_ARCH_SEC@_@VGCONF_OS@_a_SOURCES = \
@@ -533,8 +531,6 @@ libcoregrind_@VGCONF_ARCH_SEC@_@VGCONF_OS@_a_CFLAGS += \
 endif
 libcoregrind_@VGCONF_ARCH_SEC@_@VGCONF_OS@_a_LIBADD = \
     $(libnolto_coregrind_@VGCONF_ARCH_SEC@_@VGCONF_OS@_a_OBJECTS)
-libcoregrind_@VGCONF_ARCH_SEC@_@VGCONF_OS@_a_DEPENDENCIES = \
-    libnolto_coregrind-@VGCONF_ARCH_SEC@-@VGCONF_OS@.a
 endif
 
 #----------------------------------------------------------------------------
@@ -685,11 +681,6 @@ GDBSERVER_XML_FILES = \
 	m_gdbserver/s390x-linux64-valgrind-s1.xml \
 	m_gdbserver/s390x-linux64-valgrind-s2.xml \
 	m_gdbserver/s390x-linux64.xml \
-	m_gdbserver/s390-vx-valgrind-s1.xml \
-	m_gdbserver/s390-vx-valgrind-s2.xml \
-	m_gdbserver/s390-vx.xml \
-	m_gdbserver/s390x-vx-linux-valgrind.xml \
-	m_gdbserver/s390x-vx-linux.xml \
 	m_gdbserver/mips-cp0-valgrind-s1.xml \
 	m_gdbserver/mips-cp0-valgrind-s2.xml \
 	m_gdbserver/mips-cp0.xml \

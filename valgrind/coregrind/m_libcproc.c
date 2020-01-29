@@ -64,8 +64,7 @@
 HChar** VG_(client_envp) = NULL;
 
 /* Path to library directory */
-//const HChar *VG_(libdir) = VG_LIBDIR;
-const HChar *VG_(libdir) = "./";
+const HChar *VG_(libdir) = VG_LIBDIR;
 
 const HChar *VG_(LD_PRELOAD_var_name) =
 #if defined(VGO_linux) || defined(VGO_solaris)

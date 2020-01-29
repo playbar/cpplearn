@@ -466,8 +466,7 @@ PRE(sys_rt_sigreturn)
 // space, and we should therefore not check anything it points to.
 PRE(sys_ptrace)
 {
-   PRINT("sys_ptrace ( %ld, %ld, %#lx, %#lx )",
-         (Word)ARG1,(Word)ARG2,ARG3,ARG4);
+   PRINT("sys_ptrace ( %ld, %ld, %#lx, %#lx )", ARG1,ARG2,ARG3,ARG4);
    PRE_REG_READ4(int, "ptrace",
                  long, request, long, pid, long, addr, long, data);
    switch (ARG1) {
@@ -500,9 +499,6 @@ PRE(sys_ptrace)
 POST(sys_ptrace)
 {
    switch (ARG1) {
-   case VKI_PTRACE_TRACEME:
-         ML_(linux_POST_traceme)(tid);
-         break;
    case VKI_PTRACE_PEEKTEXT:
    case VKI_PTRACE_PEEKDATA:
    case VKI_PTRACE_PEEKUSR:
@@ -819,7 +815,7 @@ static SyscallTableEntry syscall_main_table[] = {
    //   (__NR_userfaultfd,       sys_ni_syscall),        // 282
    LINX_(__NR_membarrier,        sys_membarrier),        // 283
    //   (__NR_mlock2,            sys_ni_syscall),        // 284
-   LINX_(__NR_copy_file_range,   sys_copy_file_range),   // 285
+   //   (__NR_copy_file_range,   sys_ni_syscall),        // 285
    //   (__NR_preadv2,           sys_ni_syscall),        // 286
    //   (__NR_pwritev2,          sys_ni_syscall),        // 287
    //   (__NR_pkey_mprotect,     sys_ni_syscall),        // 288

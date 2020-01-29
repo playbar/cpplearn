@@ -317,7 +317,7 @@ PRE(sys_cacheflush)
 
 PRE(sys_reboot)
 {
-   PRINT("sys_reboot ( %ld, %" FMT_REGWORD "u, %" FMT_REGWORD "u, %#"
+   PRINT("sys_reboot ( %ld, %" FMT_REGWORD "d, %" FMT_REGWORD "u, %#"
          FMT_REGWORD "x )", SARG1, ARG2, ARG3, ARG4);
    // An approximation. ARG4 is only read conditionally by the kernel
    PRE_REG_READ4(int, "reboot",
@@ -831,7 +831,6 @@ static SyscallTableEntry syscall_main_table[] = {
    LINXY(__NR_getrandom, sys_getrandom),
    LINXY(__NR_memfd_create, sys_memfd_create),
    LINX_(__NR_membarrier, sys_membarrier),
-   LINX_(__NR_copy_file_range, sys_copy_file_range),
    LINX_(__NR_syncfs, sys_syncfs),
    LINXY(__NR_statx, sys_statx),
 };

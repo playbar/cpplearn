@@ -911,8 +911,7 @@ void VG_(invoke_gdbserver) ( int check )
          interrupts_non_interruptible++;
          VG_(force_vgdb_poll) ();
          give_control_back_to_vgdb();
-         /* If give_control_back_to_vgdb returns in an non interruptable
-	    state something went horribly wrong, fallthrough to vg_assert. */
+
       default:             vg_assert(0);
       }
    }
@@ -1045,7 +1044,7 @@ static Bool catch_this_syscall (Int sysno)
 
 void VG_(gdbserver_report_syscall) (Bool before, UWord sysno, ThreadId tid)
 {
-   dlog(4, "VG_(gdbserver_report_syscall) before %d sysno %lu tid %u\n",
+   dlog(4, "VG_(gdbserver_report_syscall) before %d sysno %lu tid %d\n",
         before, sysno, tid);
 
    if (UNLIKELY(catching_syscalls)) {

@@ -167,9 +167,8 @@ static elem_t* multiply_matrices(const elem_t* const a1,
  *  submatrix p->a[0..p->rows-1,0..p->rows-1] is the identity matrix.
  * @see http://en.wikipedia.org/wiki/Gauss-Jordan_elimination
  */
-static void *gj_threadfunc(void *arg)
+static void gj_threadfunc(struct gj_threadinfo* p)
 {
-  struct gj_threadinfo* p = arg;
   int i, j, k;
   elem_t* const a = p->a;
   const int rows = p->rows;
@@ -218,7 +217,6 @@ static void *gj_threadfunc(void *arg)
       }
     }
   }
-  return NULL;
 }
 
 /** Multithreaded Gauss-Jordan algorithm. */
@@ -248,7 +246,7 @@ static void gj(elem_t* const a, const int rows, const int cols)
     t[i].cols = cols;
     t[i].r0 = i * rows / s_nthread;
     t[i].r1 = (i+1) * rows / s_nthread;
-    pthread_create(&t[i].tid, &attr, gj_threadfunc, &t[i]);
+    pthread_create(&t[i].tid, &attr, (void*(*)(void*))gj_threadfunc, &t[i]);
   }
 
   pthread_attr_destroy(&attr);

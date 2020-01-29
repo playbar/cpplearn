@@ -137,14 +137,6 @@ static inline UChar index8x8 ( ULong w64, UChar ix ) {
    return toUChar((w64 >> (8*ix)) & 0xFF);
 }
 
-static inline UChar indexOrZero8x8 ( ULong w64, UChar ix ) {
-   Char zeroingMask = (Char)ix;
-   zeroingMask ^= 0x80;
-   zeroingMask >>= 7;
-   ix &= 7;
-   return toUChar( ((w64 >> (8*ix)) & zeroingMask) & 0xFF );
-}
-
 
 /* Scalar helpers. */
 
@@ -982,8 +974,7 @@ ULong h_generic_calc_CatEvenLanes16x4 ( ULong aa, ULong bb )
           );
 }
 
-/* ------------ Permutation ------------ */
-
+/* misc hack looking for a proper home */
 ULong h_generic_calc_Perm8x8 ( ULong aa, ULong bb )
 {
    return mk8x8(
@@ -995,20 +986,6 @@ ULong h_generic_calc_Perm8x8 ( ULong aa, ULong bb )
              index8x8(aa, sel8x8_2(bb)),
              index8x8(aa, sel8x8_1(bb)),
              index8x8(aa, sel8x8_0(bb))
-          );
-}
-
-ULong h_generic_calc_PermOrZero8x8 ( ULong aa, ULong bb )
-{
-   return mk8x8(
-             indexOrZero8x8(aa, sel8x8_7(bb)),
-             indexOrZero8x8(aa, sel8x8_6(bb)),
-             indexOrZero8x8(aa, sel8x8_5(bb)),
-             indexOrZero8x8(aa, sel8x8_4(bb)),
-             indexOrZero8x8(aa, sel8x8_3(bb)),
-             indexOrZero8x8(aa, sel8x8_2(bb)),
-             indexOrZero8x8(aa, sel8x8_1(bb)),
-             indexOrZero8x8(aa, sel8x8_0(bb))
           );
 }
 

@@ -261,8 +261,7 @@ sub process_command_line()
       if ((not defined $outer_args)  || ($outer_args =~ /^\+/)) {
           $run_outer_args = 
                 " --command-line-only=yes"
-              . " --sim-hints=enable-outer"
-              . " --run-libc-freeres=no --run-cxx-freeres=no"
+              . " --run-libc-freeres=no --sim-hints=enable-outer"
               . " --smc-check=all-non-file"
               . " --vgdb=no --trace-children=yes --read-var-info=no"
               . " --read-inline-info=yes"

@@ -67,6 +67,20 @@ void test3()
 
 int main()
 {
+    float f1 = 0.57007032632827759 / 2;
+    int t = static_cast<int>(0.57007032632827759 / 2);
+
+    int a1 = 0xFF99FF;
+    int b1 = 0xEEffaa;
+
+    double c1 = a1 * b1;
+
+    double d1 = c1 / 25 * 3;
+
+    int d2 = (a1 * b1) / 25 * 3;
+
+    printf("f1 : %f, t : %d, c1 = %lf, d1 = %lf, d2 = %d \n", f1, t, c1, d1, d2 );
+
     printf("begin ckeck \n");
     test1();
 //    test2();

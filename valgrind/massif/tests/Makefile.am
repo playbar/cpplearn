@@ -20,7 +20,6 @@ EXTRA_DIST = \
 	custom_alloc.post.exp custom_alloc.stderr.exp custom_alloc.vgtest \
 	ignored.post.exp ignored.stderr.exp ignored.vgtest \
 	ignoring.post.exp ignoring.stderr.exp ignoring.vgtest \
-	inlinfomalloc.post.exp inlinfomalloc.stderr.exp inlinfomalloc.vgtest \
 	insig.post.exp insig.stderr.exp insig.vgtest \
 	long-names.post.exp long-names.stderr.exp long-names.vgtest \
 	long-time.post.exp long-time.stderr.exp long-time.vgtest \
@@ -61,7 +60,6 @@ check_PROGRAMS = \
 	deep \
 	ignored \
 	ignoring \
-	inlinfomalloc \
 	insig \
 	long-names \
 	long-time \
@@ -76,8 +74,6 @@ check_PROGRAMS = \
 	realloc \
 	thresholds \
 	zero
-
-inlinfomalloc_CFLAGS = $(AM_CFLAGS) -w
 
 AM_CFLAGS   += $(AM_FLAG_M3264_PRI)
 AM_CXXFLAGS += $(AM_FLAG_M3264_PRI)

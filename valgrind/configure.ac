@@ -8,10 +8,10 @@
 ##------------------------------------------------------------##
 
 # Process this file with autoconf to produce a configure script.
-AC_INIT([Valgrind],[3.16.0.GIT],[valgrind-users@lists.sourceforge.net])
+AC_INIT([Valgrind],[3.14.0],[valgrind-users@lists.sourceforge.net])
 AC_CONFIG_SRCDIR(coregrind/m_main.c)
 AC_CONFIG_HEADERS([config.h])
-AM_INIT_AUTOMAKE([foreign dist-bzip2 subdir-objects])
+AM_INIT_AUTOMAKE([foreign subdir-objects])
 
 AM_MAINTAINER_MODE
 
@@ -1748,47 +1748,44 @@ AM_CONDITIONAL(HAVE_NR_MEMBARRIER, [test x$ac_have_nr_membarrier = xyes])
 
 case "${host_cpu}" in
     mips*)
-        ARCH=$(echo "$CFLAGS" | grep -E -e '-march=@<:@^ @:>@+' -e '-mips@<:@^ +@:>@')
-        if test -z "$ARCH"; then
-          # does this compiler support -march=mips32 (mips32 default) ?
-          AC_MSG_CHECKING([if gcc accepts -march=mips32 -mabi=32])
+        # does this compiler support -march=mips32 (mips32 default) ?
+        AC_MSG_CHECKING([if gcc accepts -march=mips32 -mabi=32])
 
-          safe_CFLAGS=$CFLAGS
-          CFLAGS="$CFLAGS -mips32 -mabi=32 -Werror"
+        safe_CFLAGS=$CFLAGS
+        CFLAGS="$CFLAGS -mips32 -mabi=32 -Werror"
 
-          AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[]], [[
-            return 0;
-          ]])], [
-          FLAG_M32="-mips32 -mabi=32"
-          AC_MSG_RESULT([yes])
-          ], [
-          FLAG_M32=""
-          AC_MSG_RESULT([no])
-          ])
-          CFLAGS=$safe_CFLAGS
+        AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[]], [[
+          return 0;
+        ]])], [
+        FLAG_M32="-mips32 -mabi=32"
+        AC_MSG_RESULT([yes])
+        ], [
+        FLAG_M32=""
+        AC_MSG_RESULT([no])
+        ])
+        CFLAGS=$safe_CFLAGS
 
-          AC_SUBST(FLAG_M32)
+        AC_SUBST(FLAG_M32)
 
 
-          # does this compiler support -march=mips64r2 (mips64r2 default) ?
-          AC_MSG_CHECKING([if gcc accepts -march=mips64r2 -mabi=64])
+        # does this compiler support -march=mips64r2 (mips64r2 default) ?
+        AC_MSG_CHECKING([if gcc accepts -march=mips64r2 -mabi=64])
 
-          safe_CFLAGS=$CFLAGS
-          CFLAGS="$CFLAGS -march=mips64r2 -mabi=64 -Werror"
+        safe_CFLAGS=$CFLAGS
+        CFLAGS="$CFLAGS -march=mips64r2 -mabi=64 -Werror"
 
-          AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[]], [[
-            return 0;
-          ]])], [
-          FLAG_M64="-march=mips64r2 -mabi=64"
-          AC_MSG_RESULT([yes])
-          ], [
-          FLAG_M64=""
-          AC_MSG_RESULT([no])
-          ])
-          CFLAGS=$safe_CFLAGS
+        AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[]], [[
+          return 0;
+        ]])], [
+        FLAG_M64="-march=mips64r2 -mabi=64"
+        AC_MSG_RESULT([yes])
+        ], [
+        FLAG_M64=""
+        AC_MSG_RESULT([no])
+        ])
+        CFLAGS=$safe_CFLAGS
 
-          AC_SUBST(FLAG_M64)
-        fi
+        AC_SUBST(FLAG_M64)
         ;;
     *)
         # does this compiler support -m32 ?
@@ -1832,48 +1829,44 @@ case "${host_cpu}" in
         ;;
 esac
 
+# does this compiler support -march=octeon (Cavium OCTEON I Specific) ?
+AC_MSG_CHECKING([if gcc accepts -march=octeon])
 
-ARCH=$(echo "$CFLAGS" | grep -E -e '-march=@<:@^ @:>@+' -e '-mips@<:@^ +@:>@')
-if test -z "$ARCH"; then
-  # does this compiler support -march=octeon (Cavium OCTEON I Specific) ?
-  AC_MSG_CHECKING([if gcc accepts -march=octeon])
+safe_CFLAGS=$CFLAGS
+CFLAGS="$CFLAGS $FLAG_M64 -march=octeon -Werror"
 
-  safe_CFLAGS=$CFLAGS
-  CFLAGS="$CFLAGS $FLAG_M64 -march=octeon -Werror"
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[]], [[
+  return 0;
+]])], [
+FLAG_OCTEON="-march=octeon"
+AC_MSG_RESULT([yes])
+], [
+FLAG_OCTEON=""
+AC_MSG_RESULT([no])
+])
+CFLAGS=$safe_CFLAGS
 
-  AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[]], [[
-    return 0;
-  ]])], [
-  FLAG_OCTEON="-march=octeon"
-  AC_MSG_RESULT([yes])
-  ], [
-  FLAG_OCTEON=""
-  AC_MSG_RESULT([no])
-  ])
-  CFLAGS=$safe_CFLAGS
-
-  AC_SUBST(FLAG_OCTEON)
+AC_SUBST(FLAG_OCTEON)
 
 
-  # does this compiler support -march=octeon2 (Cavium OCTEON II Specific) ?
-  AC_MSG_CHECKING([if gcc accepts -march=octeon2])
+# does this compiler support -march=octeon2 (Cavium OCTEON II Specific) ?
+AC_MSG_CHECKING([if gcc accepts -march=octeon2])
 
-  safe_CFLAGS=$CFLAGS
-  CFLAGS="$CFLAGS $FLAG_M64 -march=octeon2 -Werror"
+safe_CFLAGS=$CFLAGS
+CFLAGS="$CFLAGS $FLAG_M64 -march=octeon2 -Werror"
 
-  AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[]], [[
-    return 0;
-  ]])], [
-  FLAG_OCTEON2="-march=octeon2"
-  AC_MSG_RESULT([yes])
-  ], [
-  FLAG_OCTEON2=""
-  AC_MSG_RESULT([no])
-  ])
-  CFLAGS=$safe_CFLAGS
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[]], [[
+  return 0;
+]])], [
+FLAG_OCTEON2="-march=octeon2"
+AC_MSG_RESULT([yes])
+], [
+FLAG_OCTEON2=""
+AC_MSG_RESULT([no])
+])
+CFLAGS=$safe_CFLAGS
 
-  AC_SUBST(FLAG_OCTEON2)
-fi
+AC_SUBST(FLAG_OCTEON2)
 
 
 # does this compiler support -mmsa (MIPS MSA ASE) ?
@@ -2102,18 +2095,23 @@ AC_GCC_WARNING_SUBST_NO([unused-function], [FLAG_W_NO_UNUSED_FUNCTION])
 AC_GCC_WARNING_SUBST_NO([static-local-in-inline], [FLAG_W_NO_STATIC_LOCAL_IN_INLINE])
 AC_GCC_WARNING_SUBST_NO([mismatched-new-delete], [FLAG_W_NO_MISMATCHED_NEW_DELETE])
 AC_GCC_WARNING_SUBST_NO([infinite-recursion], [FLAG_W_NO_INFINITE_RECURSION])
-
 AC_GCC_WARNING_SUBST([write-strings], [FLAG_W_WRITE_STRINGS])
 AC_GCC_WARNING_SUBST([empty-body], [FLAG_W_EMPTY_BODY])
 AC_GCC_WARNING_SUBST([format], [FLAG_W_FORMAT])
-AC_GCC_WARNING_SUBST([format-signedness], [FLAG_W_FORMAT_SIGNEDNESS])
+# Disabled for now until all platforms are clean
+format_checking_enabled=no
+#format_checking_enabled=yes
+if test "$format_checking_enabled" = "yes"; then
+   AC_GCC_WARNING_SUBST([format-signedness], [FLAG_W_FORMAT_SIGNEDNESS])
+else
+   dumy_assignment_to_avoid_syntax_errors=1
+   AC_SUBST([FLAG_W_FORMAT_SIGNEDNESS], [])
+fi
 AC_GCC_WARNING_SUBST([cast-qual], [FLAG_W_CAST_QUAL])
 AC_GCC_WARNING_SUBST([old-style-declaration], [FLAG_W_OLD_STYLE_DECLARATION])
 AC_GCC_WARNING_SUBST([ignored-qualifiers], [FLAG_W_IGNORED_QUALIFIERS])
 AC_GCC_WARNING_SUBST([missing-parameter-type], [FLAG_W_MISSING_PARAMETER_TYPE])
 AC_GCC_WARNING_SUBST([logical-op], [FLAG_W_LOGICAL_OP])
-AC_GCC_WARNING_SUBST([enum-conversion], [FLAG_W_ENUM_CONVERSION])
-AC_GCC_WARNING_SUBST([implicit-fallthrough=2], [FLAG_W_IMPLICIT_FALLTHROUGH])
 
 # Does this compiler support -Wformat-security ?
 # Special handling is needed, because certain GCC versions require -Wformat
@@ -2207,27 +2205,6 @@ AC_MSG_RESULT([no])
 CFLAGS=$safe_CFLAGS
 
 AC_SUBST(FLAG_FNO_STACK_PROTECTOR)
-
-# does this compiler support -finline-functions ?
-AC_MSG_CHECKING([if gcc accepts -finline-functions])
-
-safe_CFLAGS=$CFLAGS
-CFLAGS="-finline-functions -Werror"
-
-AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[]], [[
-  return 0;
-]])], [
-inline_functions=yes
-FLAG_FINLINE_FUNCTIONS="-finline-functions"
-AC_MSG_RESULT([yes])
-], [
-inline_functions=no
-FLAG_FINLINE_FUNCTIONS=""
-AC_MSG_RESULT([no])
-])
-CFLAGS=$safe_CFLAGS
-
-AC_SUBST(FLAG_FINLINE_FUNCTIONS)
 
 # Does GCC support disabling Identical Code Folding?
 # We want to disabled Identical Code Folding for the
@@ -2933,52 +2910,9 @@ AC_MSG_RESULT([no])
 AM_CONDITIONAL(BUILD_ADX_TESTS, test x$ac_have_as_adx = xyes)
 
 
-# does the amd64 assembler understand the RDRAND instruction?
+# Does the C compiler support the "ifunc" attribute
 # Note, this doesn't generate a C-level symbol.  It generates a
-# automake-level symbol (BUILD_RDRAND_TESTS), used in test Makefile.am's
-AC_MSG_CHECKING([if amd64 assembler knows the RDRAND instruction])
-
-AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[]], [[
-  do {
-    asm ("rdrand %r14");
-    asm ("rdrand %r14d");
-    asm ("rdrand %r14w");
-  } while (0)
-]])], [
-ac_have_as_rdrand=yes
-AC_MSG_RESULT([yes])
-], [
-ac_have_as_rdrand=no
-AC_MSG_RESULT([no])
-])
-
-AM_CONDITIONAL(BUILD_RDRAND_TESTS, test x$ac_have_as_rdrand = xyes)
-
-
-# does the amd64 assembler understand the F16C instructions (VCVTPH2PS and
-# VCVTPS2PH) ?
-# Note, this doesn't generate a C-level symbol.  It generates a
-# automake-level symbol (BUILD_F16C_TESTS), used in test Makefile.am's
-AC_MSG_CHECKING([if amd64 assembler knows the F16C instructions])
-
-AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[]], [[
-  do {
-    asm ("vcvtph2ps %xmm5, %ymm10");
-    // If we put the dollar sign and zero together, the shell processing
-    // this configure.ac script substitutes the command name in.  Sigh.
-    asm ("vcvtps2ph $" "0, %ymm10, %xmm5");
-  } while (0)
-]])], [
-ac_have_as_f16c=yes
-AC_MSG_RESULT([yes])
-], [
-ac_have_as_f16c=no
-AC_MSG_RESULT([no])
-])
-
-AM_CONDITIONAL(BUILD_F16C_TESTS, test x$ac_have_as_f16c = xyes)
-
-
+# automake-level symbol (BUILD_IFUNC_TESTS), used in test Makefile.am's
 # does the x86/amd64 assembler understand MOVBE?
 # Note, this doesn't generate a C-level symbol.  It generates a
 # automake-level symbol (BUILD_MOVBE_TESTS), used in test Makefile.am's
@@ -4083,6 +4017,7 @@ fi # test "$VGCONF_OS" = "solaris"
 # Checks for C header files.
 #----------------------------------------------------------------------------
 
+AC_HEADER_STDC
 AC_CHECK_HEADERS([       \
         asm/unistd.h     \
         endian.h         \
@@ -4172,7 +4107,6 @@ AC_CHECK_FUNCS([     \
         utimensat    \
         process_vm_readv  \
         process_vm_writev \
-        copy_file_range \
         ])
 
 # AC_CHECK_LIB adds any library found to the variable LIBS, and links these
@@ -4188,8 +4122,6 @@ AM_CONDITIONAL([HAVE_PTHREAD_SPINLOCK],
                [test x$ac_cv_func_pthread_spin_lock = xyes])
 AM_CONDITIONAL([HAVE_PTHREAD_SETNAME_NP],
                [test x$ac_cv_func_pthread_setname_np = xyes])
-AM_CONDITIONAL([HAVE_COPY_FILE_RANGE],
-               [test x$ac_cv_func_copy_file_range = xyes])
 
 if test x$VGCONF_PLATFORM_PRI_CAPS = xMIPS32_LINUX \
      -o x$VGCONF_PLATFORM_PRI_CAPS = xMIPS64_LINUX ; then
@@ -4703,14 +4635,9 @@ AC_CONFIG_FILES([
    callgrind/tests/Makefile
    helgrind/Makefile
    helgrind/tests/Makefile
-   drd/Makefile
-   drd/scripts/download-and-build-splash2
-   drd/tests/Makefile
    massif/Makefile
    massif/tests/Makefile
    massif/ms_print
-   dhat/Makefile
-   dhat/tests/Makefile
    lackey/Makefile
    lackey/tests/Makefile
    none/Makefile
@@ -4736,6 +4663,9 @@ AC_CONFIG_FILES([
    none/tests/x86-solaris/Makefile
    exp-sgcheck/Makefile
    exp-sgcheck/tests/Makefile
+   drd/Makefile
+   drd/scripts/download-and-build-splash2
+   drd/tests/Makefile
    exp-bbv/Makefile
    exp-bbv/tests/Makefile
    exp-bbv/tests/x86/Makefile
@@ -4743,6 +4673,8 @@ AC_CONFIG_FILES([
    exp-bbv/tests/amd64-linux/Makefile
    exp-bbv/tests/ppc32-linux/Makefile
    exp-bbv/tests/arm-linux/Makefile
+   exp-dhat/Makefile
+   exp-dhat/tests/Makefile
    shared/Makefile
    solaris/Makefile
 ])

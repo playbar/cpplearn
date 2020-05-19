@@ -10,6 +10,14 @@
 #make -j8 install DESTDIR=`pwd`/install_valgrind
 
 
+cmake_minimum_required(VERSION 3.6)
+
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wno-narrowing -fexceptions")
+
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fvisibility=hidden -std=c++14 -Ipriv  -m64 -O2 -g -Wall -Wmissing-prototypes -Wshadow -Wpointer-arith -Wstrict-prototypes -Wmissing-declarations -Wcast-align -Wcast-qual -Wwrite-strings -Wempty-body -Wformat -Wformat-security -Wignored-qualifiers -Wmissing-parameter-type -Wlogical-op -Wold-style-declaration -finline-functions -fno-stack-protector -fno-strict-aliasing -fno-builtin  -fomit-frame-pointer  -Wbad-function-cast -fstrict-aliasing")
 set(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS}   -fvisibility=hidden -Ipriv  -m64 -O2 -g -Wall -Wmissing-prototypes -Wshadow -Wpointer-arith -Wstrict-prototypes -Wmissing-declarations -Wcast-align -Wcast-qual -Wwrite-strings -Wempty-body -Wformat -Wformat-security -Wignored-qualifiers -Wmissing-parameter-type -Wlogical-op -Wold-style-declaration -finline-functions -fno-stack-protector -fno-strict-aliasing -fno-builtin  -fomit-frame-pointer  -Wbad-function-cast -fstrict-aliasing")
@@ -23,6 +31,11 @@ add_definitions(-DVGPV_amd64_linux_vanilla=1)
 
 file(GLOB COREGRIND_DEBUGINFO_SRC
         coregrind/m_debuginfo/*.c)
+
+file(GLOB CALLGRIND_SRC
+        callgrind/*.c)
+
+
 
 #file(GLOB TCMALLOC_SRC
 #        src/*.cc)
@@ -103,21 +116,21 @@ set(COREGRIND_SRCS
 
 #######
 
-#add_executable(memcheck
-#        memcheck/mc_errors.c
-#        memcheck/mc_leakcheck.c
-#        memcheck/mc_machine.c
-#        memcheck/mc_main.c
-#        memcheck/mc_malloc_wrappers.c
-#        memcheck/mc_translate.c
-#)
-#
-#target_include_directories(memcheck PRIVATE
-#        ${CMAKE_CURRENT_SOURCE_DIR}
-#        ${CMAKE_CURRENT_SOURCE_DIR}/include
-#        ${CMAKE_CURRENT_SOURCE_DIR}/memcheck
-#        ${CMAKE_CURRENT_SOURCE_DIR}/VEX/pub
-#        )
+add_executable(memcheck
+        memcheck/mc_errors.c
+        memcheck/mc_leakcheck.c
+        memcheck/mc_machine.c
+        memcheck/mc_main.c
+        memcheck/mc_malloc_wrappers.c
+        memcheck/mc_translate.c
+)
+
+target_include_directories(memcheck PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}
+        ${CMAKE_CURRENT_SOURCE_DIR}/include
+        ${CMAKE_CURRENT_SOURCE_DIR}/memcheck
+        ${CMAKE_CURRENT_SOURCE_DIR}/VEX/pub
+        )
 #
 #target_link_libraries(memcheck
 #        coregrind

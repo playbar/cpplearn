@@ -208,6 +208,8 @@ static Int do_exec_shell_followup(Int ret, const HChar* exe_name, ExeInfo* info)
    const HChar*  default_interp_name = "/bin/sh";
 #  endif
 
+//   printf("Fun : %s, Line : %d", __FUNCTION__, __LINE__ );
+
    SysRes res;
    struct vg_stat st;
 

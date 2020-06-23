@@ -51,7 +51,7 @@ public:
 
     void set_status(const std::string& status) override
     {
-        _status = "CSDN通知：" + _title + status;
+        _status = "CSDN: " + _title + status;
     }
 
     std::string get_status() const override
@@ -70,7 +70,7 @@ public:
 
     void update() override
     {
-        std::cout << _name << "------------" << _blog->get_status() << std::endl;
+        std::cout << _name << "----------" << _blog->get_status() << std::endl;
     }
 
 private:
@@ -93,7 +93,7 @@ int main()
 {
     testObserver();
 
-    test_Observer1();
+    // test_Observer1();
     return 0;
 }
 

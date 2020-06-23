@@ -67,8 +67,10 @@ void testStr()
         FILE* fp_selinux = fopen(selinux_path, "w");
         char* buf = "0"; // set selinux to permissive
         printf("fp_selinux:%0x", fp_selinux);
-        fwrite(buf, strlen(buf), 1, fp_selinux);
-        fclose(fp_selinux);
+        if( fp_selinux != NULL ) {
+            fwrite(buf, strlen(buf), 1, fp_selinux);
+            fclose(fp_selinux);
+        }
     }
     return;
 }

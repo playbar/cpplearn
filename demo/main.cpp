@@ -113,7 +113,42 @@ size_t SysStrlcpy(char *dst, const char *src, size_t siz)
     return(s - src - 1);	/* count does not include NUL */
 }
 
+void test_strncpy(){
+    char dest1[20];
+    char src1[] = "abc";
+    int n1 = 3;
+    char dest2[20]="*******************";
+    char src2[] = "abcxyz";
+    int n2 = strlen(src2)+1;
+    char dest3[100] = "http://see.xidian.edu.cn/cpp/shell/";
+    char src3[6] = "abcxy";  // 没有'\0'
+    int n3 = 20;
+    char dest4[100] = "http://see.xidian.edu.cn/cpp/u/yuanma/";
+    char src4[] = "abc\0defghigk";
+    int n4 = strlen(src3);
+    strncpy(dest1, src1, n1);  // n1小于strlen(str1)+1，不会追加'\0'
+    strncpy(dest2, src2, n2);  // n2等于strlen(str2)+1，恰好可以把src2末尾的'\0'拷贝到dest2
+    strncpy(dest3, src3, n3);  // n3大于strlen(str3)+1，循环拷贝str3
+    strncpy(dest4, src4, n4);  // src4中间出现'\0'
+    printf("dest1=%s\n", dest1);
+    printf("dest2=%s, dest2[15]=%c\n", dest2, dest2[10]);
+    printf("dest3=%s\n", dest3);
+    printf("dest4=%s, dest4[6]=%d, dest4[20]=%d, dest4[90]=%d\n", dest4, dest4[6], dest4[20], dest4[90]);
+
+}
+
+void test_snprintf()
+{
+    char str[5] = {};
+    printf("%s \n", str);
+    int ret = snprintf(str, 5, "%s", "abcdefg");
+    printf("%d\n",ret);
+    printf("%s \n",str);
+}
+
 int main() {
+    test_snprintf();
+    test_strncpy();
     testopenfile();
     char *pdata = "abcdefg";
     char temp[30];

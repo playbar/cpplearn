@@ -1,12 +1,12 @@
 
 /****************************************************************************
-* MODULE:       R-Tree library 
-*              
+* MODULE:       R-Tree library
+*
 * AUTHOR(S):    Antonin Guttman - original code
 *               Daniel Green (green@superliminal.com) - major clean-up
 *                               and implementation of bounding spheres
 *               Markus Metz - file-based and memory-based R*-tree
-*               
+*
 * PURPOSE:      Multidimensional index
 *
 * COPYRIGHT:    (C) 2010 by the GRASS Development Team
@@ -114,7 +114,7 @@ void RTreeInitRect(struct RTree_Rect *r, struct RTree *t)
     register int i;
 
     for (i = 0; i < t->ndims_alloc; i++)
-	r->boundary[i] = r->boundary[i + t->ndims_alloc] = (RectReal) 0;
+        r->boundary[i] = r->boundary[i + t->ndims_alloc] = (RectReal) 0;
 }
 
 /*!
@@ -129,7 +129,7 @@ void RTreeInitRect(struct RTree_Rect *r, struct RTree *t)
  \param x_max The higher x coordinate
 */
 void RTreeSetRect1D(struct RTree_Rect *r, struct RTree *t, double x_min,
-                   double x_max)
+                    double x_max)
 {
     RTreeInitRect(r, t);
     r->boundary[0] = (RectReal)x_min;
@@ -150,7 +150,7 @@ void RTreeSetRect1D(struct RTree_Rect *r, struct RTree *t, double x_min,
  \param y_max The higher y coordinate
 */
 void RTreeSetRect2D(struct RTree_Rect *r, struct RTree *t, double x_min,
-                   double x_max, double y_min, double y_max)
+                    double x_max, double y_min, double y_max)
 {
     RTreeInitRect(r, t);
     r->boundary[0] = (RectReal)x_min;
@@ -175,8 +175,8 @@ void RTreeSetRect2D(struct RTree_Rect *r, struct RTree *t, double x_min,
  \param z_max The higher z coordinate
 */
 void RTreeSetRect3D(struct RTree_Rect *r, struct RTree *t, double x_min,
-                   double x_max, double y_min, double y_max, double z_min,
-                   double z_max)
+                    double x_max, double y_min, double y_max, double z_min,
+                    double z_max)
 {
     RTreeInitRect(r, t);
     r->boundary[0] = (RectReal)x_min;
@@ -205,8 +205,8 @@ void RTreeSetRect3D(struct RTree_Rect *r, struct RTree *t, double x_min,
  \param t_max The higher t coordinate
 */
 void RTreeSetRect4D(struct RTree_Rect *r, struct RTree *t, double x_min,
-                   double x_max, double y_min, double y_max, double z_min,
-                   double z_max, double t_min, double t_max)
+                    double x_max, double y_min, double y_max, double z_min,
+                    double z_max, double t_min, double t_max)
 {
     assert(t->ndims >= 4);
 
@@ -233,7 +233,7 @@ void RTreeNullRect(struct RTree_Rect *r, struct RTree *t)
     r->boundary[0] = (RectReal) 1;
     r->boundary[t->nsides_alloc - 1] = (RectReal) - 1;
     for (i = 1; i < t->ndims_alloc; i++)
-	r->boundary[i] = r->boundary[i + t->ndims_alloc] = (RectReal) 0;
+        r->boundary[i] = r->boundary[i + t->ndims_alloc] = (RectReal) 0;
 
     return;
 }
@@ -314,8 +314,8 @@ void RTreePrintRect(struct RTree_Rect *R, int depth, struct RTree *t)
     RTreeTabIn(depth);
     fprintf(stdout, "rect:\n");
     for (i = 0; i < t->ndims_alloc; i++) {
-	RTreeTabIn(depth + 1);
-	fprintf(stdout, "%f\t%f\n", r->boundary[i], r->boundary[i + t->ndims_alloc]);
+        RTreeTabIn(depth + 1);
+        fprintf(stdout, "%f\t%f\n", r->boundary[i], r->boundary[i + t->ndims_alloc]);
     }
 }
 
@@ -331,10 +331,10 @@ RectReal RTreeRectVolume(struct RTree_Rect *R, struct RTree *t)
     /* assert(r); */
 
     if (Undefined(r, t))
-	return (RectReal) 0;
+        return (RectReal) 0;
 
     for (i = 0; i < t->ndims; i++)
-	volume *= r->boundary[i + t->ndims_alloc] - r->boundary[i];
+        volume *= r->boundary[i + t->ndims_alloc] - r->boundary[i];
     assert(volume >= 0.0);
 
     return volume;
@@ -368,27 +368,27 @@ static const double UnitSphereVolume = sphere_volume(20);
 
 /* Precomputed volumes of the unit spheres for the first few dimensions */
 const double UnitSphereVolumes[] = {
-    0.000000,			/* dimension   0 */
-    2.000000,			/* dimension   1 */
-    3.141593,			/* dimension   2 */
-    4.188790,			/* dimension   3 */
-    4.934802,			/* dimension   4 */
-    5.263789,			/* dimension   5 */
-    5.167713,			/* dimension   6 */
-    4.724766,			/* dimension   7 */
-    4.058712,			/* dimension   8 */
-    3.298509,			/* dimension   9 */
-    2.550164,			/* dimension  10 */
-    1.884104,			/* dimension  11 */
-    1.335263,			/* dimension  12 */
-    0.910629,			/* dimension  13 */
-    0.599265,			/* dimension  14 */
-    0.381443,			/* dimension  15 */
-    0.235331,			/* dimension  16 */
-    0.140981,			/* dimension  17 */
-    0.082146,			/* dimension  18 */
-    0.046622,			/* dimension  19 */
-    0.025807,			/* dimension  20 */
+        0.000000,			/* dimension   0 */
+        2.000000,			/* dimension   1 */
+        3.141593,			/* dimension   2 */
+        4.188790,			/* dimension   3 */
+        4.934802,			/* dimension   4 */
+        5.263789,			/* dimension   5 */
+        5.167713,			/* dimension   6 */
+        4.724766,			/* dimension   7 */
+        4.058712,			/* dimension   8 */
+        3.298509,			/* dimension   9 */
+        2.550164,			/* dimension  10 */
+        1.884104,			/* dimension  11 */
+        1.335263,			/* dimension  12 */
+        0.910629,			/* dimension  13 */
+        0.599265,			/* dimension  14 */
+        0.381443,			/* dimension  15 */
+        0.235331,			/* dimension  16 */
+        0.140981,			/* dimension  17 */
+        0.082146,			/* dimension  18 */
+        0.046622,			/* dimension  19 */
+        0.025807,			/* dimension  20 */
 };
 
 #if NUMDIMS > 20
@@ -440,13 +440,13 @@ RectReal RTreeRectSphericalVolume(struct RTree_Rect *r, struct RTree *t)
     /* assert(r); */
 
     if (Undefined(r, t))
-	return (RectReal) 0;
+        return (RectReal) 0;
 
     for (i = 0; i < t->ndims; i++) {
-	extent = (r->boundary[i + t->ndims_alloc] - r->boundary[i]);
+        extent = (r->boundary[i + t->ndims_alloc] - r->boundary[i]);
 
-	/* extent should be half extent : /4 */
-	sum_of_squares += extent * extent / 4.;
+        /* extent should be half extent : /4 */
+        sum_of_squares += extent * extent / 4.;
     }
 
     return (RectReal) (pow(sqrt(sum_of_squares), t->ndims) * UnitSphereVolumes[t->ndims]);
@@ -464,17 +464,17 @@ RectReal RTreeRectSurfaceArea(struct RTree_Rect *r, struct RTree *t)
     /*assert(r); */
 
     if (Undefined(r, t))
-	return (RectReal) 0;
+        return (RectReal) 0;
 
     for (i = 0; i < t->ndims; i++) {
-	face_area = (RectReal) 1;
+        face_area = (RectReal) 1;
 
-	for (j = 0; j < t->ndims; j++)
-	    /* exclude i extent from product in this dimension */
-	    if (i != j) {
-		face_area *= (r->boundary[j + t->ndims_alloc] - r->boundary[j]);
-	    }
-	sum += face_area;
+        for (j = 0; j < t->ndims; j++)
+            /* exclude i extent from product in this dimension */
+            if (i != j) {
+                face_area *= (r->boundary[j + t->ndims_alloc] - r->boundary[j]);
+            }
+        sum += face_area;
     }
     return 2 * sum;
 }
@@ -492,7 +492,7 @@ RectReal RTreeRectMargin(struct RTree_Rect *r, struct RTree *t)
     /* assert(r); */
 
     for (i = 0; i < t->ndims; i++) {
-	margin += r->boundary[i + t->ndims_alloc] - r->boundary[i];
+        margin += r->boundary[i + t->ndims_alloc] - r->boundary[i];
     }
 
     return margin;
@@ -503,35 +503,35 @@ RectReal RTreeRectMargin(struct RTree_Rect *r, struct RTree *t)
  Combine two rectangles, make one that includes both.
 */
 void RTreeCombineRect(struct RTree_Rect *r1, struct RTree_Rect *r2,
-		      struct RTree_Rect *r3, struct RTree *t)
+                      struct RTree_Rect *r3, struct RTree *t)
 {
     int i, j;
 
     /* assert(r1 && r2 && r3); */
 
     if (Undefined(r1, t)) {
-	for (i = 0; i < t->nsides_alloc; i++)
-	    r3->boundary[i] = r2->boundary[i];
+        for (i = 0; i < t->nsides_alloc; i++)
+            r3->boundary[i] = r2->boundary[i];
 
-	return;
+        return;
     }
 
     if (Undefined(r2, t)) {
-	for (i = 0; i < t->nsides_alloc; i++)
-	    r3->boundary[i] = r1->boundary[i];
+        for (i = 0; i < t->nsides_alloc; i++)
+            r3->boundary[i] = r1->boundary[i];
 
-	return;
+        return;
     }
 
     for (i = 0; i < t->ndims; i++) {
-	r3->boundary[i] = MIN(r1->boundary[i], r2->boundary[i]);
-	j = i + t->ndims_alloc;
-	r3->boundary[j] = MAX(r1->boundary[j], r2->boundary[j]);
+        r3->boundary[i] = MIN(r1->boundary[i], r2->boundary[i]);
+        j = i + t->ndims_alloc;
+        r3->boundary[j] = MAX(r1->boundary[j], r2->boundary[j]);
     }
     for (i = t->ndims; i < t->ndims_alloc; i++) {
-	r3->boundary[i] = 0;
-	j = i + t->ndims_alloc;
-	r3->boundary[j] = 0;
+        r3->boundary[i] = 0;
+        j = i + t->ndims_alloc;
+        r3->boundary[j] = 0;
     }
 }
 
@@ -540,33 +540,33 @@ void RTreeCombineRect(struct RTree_Rect *r1, struct RTree_Rect *r2,
  Expand first rectangle to cover second rectangle.
 */
 int RTreeExpandRect(struct RTree_Rect *r1, struct RTree_Rect *r2,
-		     struct RTree *t)
+                    struct RTree *t)
 {
     int i, j, ret = 0;
 
     /* assert(r1 && r2); */
 
     if (Undefined(r2, t))
-	return ret;
+        return ret;
 
     for (i = 0; i < t->ndims; i++) {
-	if (r1->boundary[i] > r2->boundary[i]) {
-	    r1->boundary[i] = r2->boundary[i];
-	    ret = 1;
-	}
-	j = i + t->ndims_alloc;
-	if (r1->boundary[j] < r2->boundary[j]) {
-	    r1->boundary[j] = r2->boundary[j];
-	    ret = 1;
-	}
+        if (r1->boundary[i] > r2->boundary[i]) {
+            r1->boundary[i] = r2->boundary[i];
+            ret = 1;
+        }
+        j = i + t->ndims_alloc;
+        if (r1->boundary[j] < r2->boundary[j]) {
+            r1->boundary[j] = r2->boundary[j];
+            ret = 1;
+        }
     }
 
     for (i = t->ndims; i < t->ndims_alloc; i++) {
-	r1->boundary[i] = 0;
-	j = i + t->ndims_alloc;
-	r1->boundary[j] = 0;
+        r1->boundary[i] = 0;
+        j = i + t->ndims_alloc;
+        r1->boundary[j] = 0;
     }
-    
+
     return ret;
 }
 
@@ -581,11 +581,11 @@ int RTreeCompareRect(struct RTree_Rect *r, struct RTree_Rect *s, struct RTree *t
     /* assert(r && s); */
 
     for (i = 0; i < t->ndims; i++) {
-	j = i + t->ndims_alloc;	/* index for high sides */
-	if (r->boundary[i] != s->boundary[i] ||
-	    r->boundary[j] != s->boundary[j]) {
-	    return 0;
-	}
+        j = i + t->ndims_alloc;	/* index for high sides */
+        if (r->boundary[i] != s->boundary[i] ||
+            r->boundary[j] != s->boundary[j]) {
+            return 0;
+        }
     }
     return 1;
 }
@@ -601,11 +601,11 @@ int RTreeOverlap(struct RTree_Rect *r, struct RTree_Rect *s, struct RTree *t)
     /* assert(r && s); */
 
     for (i = 0; i < t->ndims; i++) {
-	j = i + t->ndims_alloc;	/* index for high sides */
-	if (r->boundary[i] > s->boundary[j] ||
-	    s->boundary[i] > r->boundary[j]) {
-	    return FALSE;
-	}
+        j = i + t->ndims_alloc;	/* index for high sides */
+        if (r->boundary[i] > s->boundary[j] ||
+            s->boundary[i] > r->boundary[j]) {
+            return FALSE;
+        }
     }
     return TRUE;
 }
@@ -622,17 +622,17 @@ int RTreeContained(struct RTree_Rect *r, struct RTree_Rect *s, struct RTree *t)
 
     /* undefined rect is contained in any other */
     if (Undefined(r, t))
-	return TRUE;
+        return TRUE;
 
     /* no rect (except an undefined one) is contained in an undef rect */
     if (Undefined(s, t))
-	return FALSE;
+        return FALSE;
 
     for (i = 0; i < t->ndims; i++) {
-	j = i + t->ndims_alloc;	/* index for high sides */
-	if (s->boundary[i] < r->boundary[i] ||
-	    s->boundary[j] > r->boundary[j])
-	    return FALSE;
+        j = i + t->ndims_alloc;	/* index for high sides */
+        if (s->boundary[i] < r->boundary[i] ||
+            s->boundary[j] > r->boundary[j])
+            return FALSE;
     }
     return TRUE;
 }
@@ -649,17 +649,17 @@ int RTreeContains(struct RTree_Rect *r, struct RTree_Rect *s, struct RTree *t)
 
     /* undefined rect is contained in any other */
     if (Undefined(r, t))
-	return TRUE;
+        return TRUE;
 
     /* no rect (except an undefined one) is contained in an undef rect */
     if (Undefined(s, t))
-	return FALSE;
+        return FALSE;
 
     for (i = 0; i < t->ndims; i++) {
-	j = i + t->ndims_alloc;	/* index for high sides */
-	if (s->boundary[i] > r->boundary[i] ||
-	    s->boundary[j] < r->boundary[j])
-	    return FALSE;
+        j = i + t->ndims_alloc;	/* index for high sides */
+        if (s->boundary[i] > r->boundary[i] ||
+            s->boundary[j] < r->boundary[j])
+            return FALSE;
     }
     return TRUE;
 }

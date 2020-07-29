@@ -7,6 +7,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_definitions(-Werror=return-type)
 
+add_subdirectory(grass_rtree)
 add_subdirectory(rtree)
 
 add_executable(lrbteetest

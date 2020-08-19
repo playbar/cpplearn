@@ -69,3 +69,7 @@ add_executable(meminfomac
 add_executable(sync_test
         sync_test.cpp)
 
+add_executable(url_parser
+        url_parser.c
+        urlmain.c)
+

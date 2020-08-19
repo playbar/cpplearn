@@ -3,6 +3,7 @@
 //#include "string"
 //#include "myalloc.h"
 //#include "iostream"
+#include "typeinfo"
 
 void testVector6(int size)
 {
@@ -13,6 +14,7 @@ void testVector6(int size)
     for( int i = 0; i  < size; ++i )
     {
         char sz[200] = {0};
+//        printf("%s \n", typeid(sz));
         sprintf(sz, "File:%s, %d", __FILE__,  i);
 //        vecf[i] = i;
 //        vecf.emplace_back(i);
@@ -41,6 +43,7 @@ int main()
     char *pdata = new char[len + 1];
     memset(pdata, 0, len + 1);
     pdata[len] = '\o';
+    typeid(len);
 
 //    testVector6(1 * 1024 * 1024);
     sgi::vector<int> v1;

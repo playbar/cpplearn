@@ -597,7 +597,7 @@ typedef double DCELL;
 typedef float FCELL;
 
 /* 64 bit signed integer */
-#if HAVE_INT64_T
+#if 1
 #include <sys/types.h>
 typedef int64_t grass_int64;
 #elif defined(__MINGW32__)

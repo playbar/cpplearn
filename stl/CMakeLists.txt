@@ -1,12 +1,12 @@
 # src
+add_subdirectory(llvm)
+
 add_definitions(-D__STL_HAS_NAMESPACES)
 add_definitions(-D__STL_USE_NEW_IOSTREAMS)
 #add_definitions(-D__STL_CLASS_PARTIAL_SPECIALIZATION)
 add_definitions(-D__STL_NO_EXCEPTION_HEADER)
 
-add_executable(map_test
-        map_test.cpp
-        )
+add_executable(map_test map_test.cpp)
 target_include_directories(map_test PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/llvm/include
         ${CMAKE_CURRENT_SOURCE_DIR})
@@ -38,10 +38,18 @@ target_include_directories(vector_test1 PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}
         )
 
+
+add_executable(list_test
+        stltest/list.cpp
+        myalloc.h)
+target_include_directories(list_test PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/stlsgi
+        ${CMAKE_CURRENT_SOURCE_DIR}
+        )
 ######
 set(STLTEST_SRC stltest/random.cpp)
-add_executable(stltest ${STLTEST_SRC})
-target_include_directories(stltest PRIVATE
+add_executable(stl_random ${STLTEST_SRC})
+target_include_directories(stl_random PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}
         ${CMAKE_CURRENT_SOURCE_DIR}
         )
@@ -81,3 +89,17 @@ target_include_directories(std_array PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/llvm/include
         ${CMAKE_CURRENT_SOURCE_DIR}
         )
+
+
+add_executable(std_set stltest/set.cpp)
+target_include_directories(std_set PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/llvm/include
+        ${CMAKE_CURRENT_SOURCE_DIR}
+        )
+
+add_executable(std_math stltest/cmath.cpp)
+target_include_directories(std_math PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/llvm/include
+        ${CMAKE_CURRENT_SOURCE_DIR}
+        )
+

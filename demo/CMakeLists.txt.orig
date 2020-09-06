@@ -69,6 +69,7 @@ add_executable(meminfomac
 add_executable(sync_test
         sync_test.cpp)
 
+<<<<<<< HEAD
 
 add_executable(PI_ratio
         PI_ratio.cpp)
@@ -79,8 +80,9 @@ add_executable(FibonacciNumber
 
 add_executable(PrintWarning
         PrintWarning.c)
-
+=======
 add_executable(url_parser
         url_parser.c
         urlmain.c)
 
+>>>>>>> eddc1b4b786084e6937b1de06def31a6419ce95f

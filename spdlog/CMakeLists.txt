@@ -46,7 +46,7 @@ add_library(spdlog INTERFACE)
 add_library(spdlog::spdlog ALIAS spdlog)
 
 # Check if spdlog is being used directly or via add_subdirectory
-set(SPDLOG_MASTER_PROJECT OFF)
+set(SPDLOG_MASTER_PROJECT ON)
 if (CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
   set(SPDLOG_MASTER_PROJECT ON)
 endif()

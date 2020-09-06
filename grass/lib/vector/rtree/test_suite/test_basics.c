@@ -19,7 +19,7 @@
 #include <string.h>
 #include <grass/glocale.h>
 #include <grass/gis.h>
-#include <grass/rtree.h>
+#include <rtree.h>
 #include <grass/vector.h>
 #include "test_rtree_lib.h"
 

@@ -69,3 +69,13 @@ add_executable(meminfomac
 add_executable(sync_test
         sync_test.cpp)
 
+
+add_executable(PI_ratio
+        PI_ratio.cpp)
+
+add_executable(FibonacciNumber
+        FibonacciNumber.c)
+
+
+add_executable(PrintWarning
+        PrintWarning.c)

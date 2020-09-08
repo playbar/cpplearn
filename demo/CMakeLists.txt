@@ -84,3 +84,6 @@ add_executable(url_parser
         url_parser.c
         urlmain.c)
 
+add_executable(safearay
+        safearay.cpp)
+

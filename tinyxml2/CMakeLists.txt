@@ -95,6 +95,10 @@ if(BUILD_TESTING AND BUILD_TESTS)
   add_dependencies(xmltest tinyxml2)
   target_link_libraries(xmltest tinyxml2)
 
+  add_executable(xmltest1 xmltest1.cpp)
+  add_dependencies(xmltest1 tinyxml2)
+  target_link_libraries(xmltest1 tinyxml2)
+
   # Copy test resources and create test output directory
   add_custom_command(TARGET xmltest POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/resources $<TARGET_FILE_DIR:xmltest>/resources

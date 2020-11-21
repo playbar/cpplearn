@@ -28,6 +28,8 @@ int main( int argc, const char ** argv )
     //		<element>
 
     XMLDocument* doc = new XMLDocument();
+    doc->InsertFirstChild(doc->NewDeclaration());
+
     XMLElement* element = doc->NewElement( "layer" );
     element->SetAttribute("name", "testaa");
     doc->InsertEndChild(element);

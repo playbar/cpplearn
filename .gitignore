@@ -5,3 +5,4 @@ cnn/temp
 *.cmd
 gperftools/.libs
 gperftools/src/.deps
+bin

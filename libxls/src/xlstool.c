@@ -676,6 +676,9 @@ char *xls_getfcell(xlsWorkBook* pWB, struct st_cell_data* cell, BYTE *label)
         }
         break;
     case XLS_RECORD_RK:
+//        ret = malloc(retlen);
+//        snprintf(ret, retlen, "%ld", cell->d);
+//        break;
     case XLS_RECORD_NUMBER:
         ret = malloc(retlen);
         snprintf(ret, retlen, "%lf", cell->d);

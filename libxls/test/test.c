@@ -53,7 +53,7 @@ int main(int argc, char *argv[])
     WORD t,tt;
     char *srcdir = getenv("srcdir");
     char path[2048];
-    snprintf(path, sizeof(path), "%s/test/files/test2.xls", srcdir ? srcdir : ".");
+    snprintf(path, sizeof(path), "%s/test2.xls", srcdir ? srcdir : ".");
     pWB=xls_open_file(path, "UTF-8", &code);
 
     if (pWB == NULL) {
@@ -84,18 +84,33 @@ int main(int argc, char *argv[])
             if (!row->cells.cell[tt].isHidden)
             {
                 fprintf(f,"<td");
-                if (row->cells.cell[tt].colspan)
-                    fprintf(f," colspan=%i",row->cells.cell[tt].colspan);
+                if (row->cells.cell[tt].colspan) {
+                    fprintf(f, " colspan=%i", row->cells.cell[tt].colspan);
+                    printf(" colspan=%i", row->cells.cell[tt].colspan);
+                }
                 //				if (t==0) fprintf(f," width=%i",row->cells.cell[tt].width/35);
-                if (row->cells.cell[tt].rowspan)
-                    fprintf(f," rowspan=%i",row->cells.cell[tt].rowspan);
+                if (row->cells.cell[tt].rowspan) {
+                    fprintf(f, " rowspan=%i", row->cells.cell[tt].rowspan);
+                    printf(" rowspan=%i", row->cells.cell[tt].rowspan);
+                }
                 fprintf(f," class=xf%i",row->cells.cell[tt].xf);
                 fprintf(f,">");
-                if (row->cells.cell[tt].str!=NULL && row->cells.cell[tt].str[0]!='\0')
-                    fprintf(f,"%s",row->cells.cell[tt].str);
-                else
-                    fprintf(f,"%s","&nbsp;");
+                if (row->cells.cell[tt].str!=NULL && row->cells.cell[tt].str[0]!='\0') {
+                    char *pos = strchr(row->cells.cell[tt].str, '.');
+                    if( pos != NULL ){
+                        pos[0] = '\0';
+                    }
+
+
+                    fprintf(f, "%s", row->cells.cell[tt].str);
+                    printf("%s\n", row->cells.cell[tt].str);
+                }
+                else {
+                    fprintf(f, "%s", "&nbsp;");
+                    printf("%s", "&nbsp;");
+                }
                 fprintf(f,"</td>");
+                printf("\n");
             }
         }
         fprintf(f,"</tr>\n");

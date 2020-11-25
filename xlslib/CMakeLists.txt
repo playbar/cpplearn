@@ -50,6 +50,8 @@ target_link_libraries(mainCPP xlslib)
 
 
 add_executable(writexls
-        writexls.cpp)
+        writexls.cpp
+        targets/md5.c
+        targets/md5cpp.cpp)
 target_link_libraries(writexls xlslib)
 

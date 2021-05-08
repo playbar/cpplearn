@@ -1,6 +1,17 @@
 #include <iostream>
 using namespace std;
 
+unsigned int bit_reverse(unsigned int n)
+{
+    n = ((n >> 1) & 0x55555555) | ((n << 1) & 0xaaaaaaaa);
+    n = ((n >> 2) & 0x33333333) | ((n << 2) & 0xcccccccc);
+    n = ((n >> 4) & 0x0f0f0f0f) | ((n << 4) & 0xf0f0f0f0);
+    n = ((n >> 8) & 0x00ff00ff) | ((n << 8) & 0xff00ff00);
+    n = ((n >> 16) & 0x0000ffff) | ((n << 16) & 0xffff0000);
+    return n;
+}
+
+
 void QuickSort(int a[], int left, int right)
 {
   // 停止条件：当a只剩下1个元素就返回（不用继续排了）
@@ -40,10 +51,13 @@ void QuickSort(int a[], int left, int right)
 bool test()
 {
     printf("test %d", __LINE__ );
+    return true;
 }
 
 int main()
 {
+    unsigned int redata = bit_reverse(0xAAAA);
+    printf("%d\n", redata);
     test();
   int n = 1005;
   int a[1005]; // 假设最多1005个元素

@@ -24,3 +24,7 @@ add_executable(algorithm_test
 
 add_executable(quick_sort
         quick_sort.cpp)
+
+add_executable(QuadTreeTest
+        quadtree/quadtree.cpp
+        quadtree/main.cpp)

@@ -1,5 +1,7 @@
 #include <iostream>
+#include "array"
 using namespace std;
+
 const int SIZE = 10;
 
 class safearay
@@ -31,6 +33,7 @@ int main()
 {
     safearay A;
 
+    std::array<char*> vec;
     cout << "A[2] 的值为 : " << A[2] <<endl;
     cout << "A[5] 的值为 : " << A[5]<<endl;
     cout << "A[12] 的值为 : " << A[12]<<endl;

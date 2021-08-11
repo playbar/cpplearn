@@ -72,9 +72,9 @@ void writeXls(){
     //6行
     for (int i = 0; i < 6; ++i) {
         //6列
-        for (int j = 0; j <6 ; ++j) {
+        for (int j = 0; j <8 ; ++j) {
             char buf[20]={0};
-            sprintf(buf,"%d",i*j);
+            sprintf(buf,"%d * %d",i, j);
             label=buf;
             // 写入
             cell_t * cell= ws->label(i,j,label,xf);
@@ -90,6 +90,7 @@ void writeXls(){
             ws->rowheight(i,20*15);
         }
     }
+    ws->merge(0, 2, 3, 4);
     range *ran=ws->rangegroup(1,1,1,1);
     ran->cellcolor(CLR_GREEN);
     //保存到excel文件
@@ -1754,5 +1755,6 @@ const char *FormulaFunctionsTest(const char *md5_checksum)
 }
 
 int main() {
+    writeXls();
     return 0;
 }

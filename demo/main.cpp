@@ -146,6 +146,128 @@ void test_snprintf()
     printf("%s \n",str);
 }
 
+/// <summary>
+/// 获取图片空白处坐标
+/// </summary>
+/// <param name="imagePdf">图片的路径</param>
+///  <param name="isize">二维码的宽度尺寸</param>
+/// <returns>//[0]是x坐标，[1]是y坐标</returns>
+public int[] GetSize(string strImagePdfUrl, int isize)
+{
+   // isize++;
+    int iret[2];
+    System.Drawing.Bitmap bmp = new System.Drawing.Bitmap(strImagePdfUrl);
+
+    //1.判断高度是否满足
+    int iboolheith = 0;//判断是否跳出 width 遍历
+    int boolweigh = 0; //该列高度是否满足条件
+    int icountWeigh = 0; //统计宽度白色区域
+    int boolblack = 0;  //判断宽度是否满足时，有黑点
+    int boolok = 0; //全部满足条件
+    for (int a = 0; a < bmp.Width; a++)
+    {//图片的坐标原点在左上角
+        int icountHeigh = 0; //统计高度白色区域
+        if (boolweigh == 0)  //该列高度是不满足条件
+        {
+            for (int j = 0; j < bmp.Height; j++)
+            {
+                //获取该点的像素的RGB的颜色
+                System.Drawing.Color color = bmp.GetPixel(a, j);
+                bmp.GetPixel(a, j);
+
+                //测试用例
+                if (a == 78 && j == 167)
+                {
+                  //  MessageBox.Show("R:" + color.B + " G:" + color.G + " B:" + color.B);
+                }
+
+                if (color.B == 255 && color.R == 255 && color.G == 255)
+                {//该点像素是白色
+                    icountHeigh++;
+                    if (icountHeigh > isize)
+                    { //二维码图片高度和宽度相等
+                        iret[0] = a; //宽
+                        iret[1] = j; //高
+                        iboolheith = 1; //该列高度满足条件
+                        break;  //跳出循环 height
+                    }
+                } //end if value > average
+                else
+                {
+                    icountHeigh = 0; //不是连续的白色区域，清空计数
+                }
+            }//enf for j
+        }
+
+
+        if (iboolheith == 1) //该列高度满足条件
+        {  ////2.判断宽度是否满足
+            for (int t = iret[0]+1; t < bmp.Width - iret[0]; t++)
+            {//宽度往右遍历
+                int icImgheight = 0;
+                icountHeigh = 0;
+                for (int m = iret[1]; m>0; m--)
+                {// 高度往上遍历（图片的坐标原点在左上角，）
+
+                    if (icImgheight > isize)
+                    {
+                        icountHeigh = 0;
+                        break; //超出高度范围
+                    }
+                    icImgheight++;
+                    //获取该点的像素的RGB的颜色
+                    System.Drawing.Color color = bmp.GetPixel(t, m);
+                    if (color.B == 255 && color.R == 255 && color.G == 255)
+                    {//改点像素为白色
+                        icountHeigh++;
+                        if (icountHeigh > isize)
+                        { //该列的高度满足条件
+                            boolweigh = 1;
+                            icountHeigh = 0;
+                            boolblack = 0;
+                            break;  //跳出循环 m = iret[1]
+                        }
+                    }
+                    else
+                    {
+                        boolweigh = 0;
+                        icountWeigh = 0;
+                        icountHeigh = 0;
+                        boolblack = 1; //有黑点
+                        break;  //跳出循环for m = iret[1]
+                    }
+                }//end for m = iret[1]
+                if (boolweigh == 1)
+                {//该列的高度满足条件，列的计算++
+                    icountWeigh++;
+                    boolweigh = 0;
+                }
+                if (icountWeigh > isize)
+                {//宽度满足条件
+                    iret[0] = t;
+                    boolok = 1;
+                    break;  //跳出循环 wdith
+                }
+                if (boolblack == 1)
+                {//有黑点
+                    boolblack = 0;
+                    break; //跳出循环wdith  for  t = iret[0]
+                }
+            }//end for t = iret[0]
+
+        }//end if iboolheith =1
+
+        if (boolok == 1)
+        {//宽和高的条件都满足
+            boolok = 0;
+            break;
+        }
+
+    }//end for a 最外层的宽度遍历
+
+    return iret;
+}
+
 int main() {
     test_snprintf();
     test_strncpy();

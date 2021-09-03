@@ -29,3 +29,16 @@ add_executable(QuadTreeTest
         quadtree/quadtree.cpp
         quadtree/main.cpp)
 
+
+add_executable(DijkstraTest
+        dijkstra/Dijkstra.cpp
+        dijkstra/main.cpp)
+
+add_executable(FloydTest
+        Floyd/Floyd.cpp
+        Floyd/main.cpp)
+
+add_executable(SPFATest
+        Spfa/SPFA.cpp
+        Spfa/main.cpp)
+

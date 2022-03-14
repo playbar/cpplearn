@@ -1,7 +1,7 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 // Unit Test
 
-// Copyright (c) 2015-2018, Oracle and/or its affiliates.
+// Copyright (c) 2015-2020, Oracle and/or its affiliates.
 
 // Contributed and/or modified by Vissarion Fysikopoulos, on behalf of Oracle
 // Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
@@ -46,6 +46,10 @@
 #include <boost/geometry/index/detail/algorithms/is_valid.hpp>
 
 #include "test_envelope_expand_on_spheroid.hpp"
+
+//TEMP
+#include <boost/geometry/strategies/envelope/geographic.hpp>
+#include <boost/geometry/strategies/envelope/spherical.hpp>
 
 
 template <typename FormulaPolicy, typename CS_Tag>
@@ -2308,11 +2312,11 @@ BOOST_AUTO_TEST_CASE( envelope_sphere_multilinestring )
                   from_wkt<G>("MULTILINESTRING((10 15))"),
                   10, 15, 10, 15);
 
-#ifdef BOOST_GEOMETRY_INCLUDE_FAILING_TESTS
+#ifdef BOOST_GEOMETRY_TEST_FAILURES
     tester::apply("ml01a",
                   from_wkt<G>("MULTILINESTRING((),(),(10 15),())"),
                   10, 15, 10, 15);
-#endif // BOOST_GEOMETRY_INCLUDE_FAILING_TESTS
+#endif
 
     tester::apply("ml02",
                   from_wkt<G>("MULTILINESTRING((-170 40,-100 80,10 40),(-10 25,10 35,100 45),(50 30,150 45,-160 30))"),
@@ -2372,11 +2376,11 @@ BOOST_AUTO_TEST_CASE( envelope_spheroid_multilinestring )
                   from_wkt<G>("MULTILINESTRING((10 15))"),
                   10, 15, 10, 15);
 
-#ifdef BOOST_GEOMETRY_INCLUDE_FAILING_TESTS
+#ifdef BOOST_GEOMETRY_TEST_FAILURES
     tester::apply("ml01a",
                   from_wkt<G>("MULTILINESTRING((),(),(10 15),())"),
                   10, 15, 10, 15);
-#endif // BOOST_GEOMETRY_INCLUDE_FAILING_TESTS
+#endif
 
     tester::apply("ml02",
                   from_wkt<G>("MULTILINESTRING((-170 40,-100 80,10 40),(-10 25,10 35,100 45),(50 30,150 45,-160 30))"),
@@ -2416,11 +2420,11 @@ BOOST_AUTO_TEST_CASE( envelope_multilinestring_sphere_with_height )
                   from_wkt<G>("MULTILINESTRING((10 15 1000))"),
                   10, 15, 1000, 10, 15, 1000);
 
-#ifdef BOOST_GEOMETRY_INCLUDE_FAILING_TESTS
+#ifdef BOOST_GEOMETRY_TEST_FAILURES
     tester::apply("mlh01a",
                   from_wkt<G>("MULTILINESTRING((),(),(10 15 1000),())"),
                   10, 15, 1000, 10, 15, 1000);
-#endif // BOOST_GEOMETRY_INCLUDE_FAILING_TESTS
+#endif
 
     tester::apply("mlh02",
                   from_wkt<G>("MULTILINESTRING((-170 40 400,-100 80 300),(-10 25 600,10 35 700,120 45 450))"),
@@ -2439,11 +2443,11 @@ BOOST_AUTO_TEST_CASE( envelope_multilinestring_spheroid_with_height )
                   from_wkt<G>("MULTILINESTRING((10 15 1000))"),
                   10, 15, 1000, 10, 15, 1000);
 
-#ifdef BOOST_GEOMETRY_INCLUDE_FAILING_TESTS
+#ifdef BOOST_GEOMETRY_TEST_FAILURES
     tester::apply("mlh01a",
                   from_wkt<G>("MULTILINESTRING((),(),(10 15 1000),())"),
                   10, 15, 1000, 10, 15, 1000);
-#endif // BOOST_GEOMETRY_INCLUDE_FAILING_TESTS
+#endif
 
     tester::apply("mlh02",
                   from_wkt<G>("MULTILINESTRING((-170 40 400,-100 80 300),(-10 25 600,10 35 700,120 45 450))"),

@@ -34,7 +34,7 @@
     ( #caseid, caseid[0], caseid[1], clips, holes, points, area)
 
 #define TEST_UNION_IGNORE(caseid, clips, holes, points, area) \
-   { ut_settings ignore_validity; ignore_validity.test_validity = false; \
+   { ut_settings ignore_validity; ignore_validity.set_test_validity(false); \
      test_one<Polygon, MultiPolygon, MultiPolygon> \
      (#caseid, caseid[0], caseid[1], \
      clips, holes, points, area, ignore_validity); }
@@ -43,6 +43,8 @@
 template <typename Ring, typename Polygon, typename MultiPolygon>
 void test_areal()
 {
+    using ct = typename bg::coordinate_type<Ring>::type;
+
     test_one<Polygon, MultiPolygon, MultiPolygon>("simplex_multi",
         case_multi_simplex[0], case_multi_simplex[1],
         1, 0, 20, 14.58);
@@ -364,7 +366,7 @@ void test_areal()
     TEST_UNION(case_recursive_boxes_79, 1, 2, -1, 14.75);
 
     // No hole should be generated (but rescaling generates one hole)
-    TEST_UNION(case_recursive_boxes_80, 2, BG_IF_RESCALED(1, 0), -1, 1.5);
+    TEST_UNION(case_recursive_boxes_80, 2, BG_IF_RESCALED(bg_if_mp<ct>(0, 1), 0), -1, 1.5);
 
     TEST_UNION(case_recursive_boxes_81, 5, 0, -1, 15.5);
     TEST_UNION(case_recursive_boxes_82, 2, 2, -1, 20.25);
@@ -384,16 +386,16 @@ void test_areal()
 
     test_one<Polygon, MultiPolygon, MultiPolygon>("ggl_list_20140212_sybren",
          ggl_list_20140212_sybren[0], ggl_list_20140212_sybren[1],
-         2, 0, 16, 0.002471626);
+         2, bg_if_mp<ct>(1, 0), -1, 0.002471626);
 
     {
         // Generates either 4 or 3 output polygons
         // With rescaling the result is invalid.
         ut_settings settings;
-        settings.test_validity = BG_IF_RESCALED(false, true);
+        settings.set_test_validity(BG_IF_RESCALED(false, true));
         test_one<Polygon, MultiPolygon, MultiPolygon>("ticket_9081",
             ticket_9081[0], ticket_9081[1],
-            BG_IF_RESCALED(4, 3), 0, 31, 0.2187385,
+            BG_IF_RESCALED(bg_if_mp<ct>(3, 4), 3), 0, -1, 0.2187385,
             settings);
     }
 
@@ -403,12 +405,11 @@ void test_areal()
     test_one<Polygon, MultiPolygon, MultiPolygon>("ticket_11984",
         ticket_11984[0], ticket_11984[1],
         1, 2, 134, 60071.08077);
-
     test_one<Polygon, MultiPolygon, MultiPolygon>("ticket_12118",
         ticket_12118[0], ticket_12118[1],
-        1, 1, 27, 2221.38713);
+        1, -1, 27, 2221.38713);
 
-#if defined(BOOST_GEOMETRY_TEST_ENABLE_FAILING) || ! defined(BOOST_GEOMETRY_USE_RESCALING)
+#if defined(BOOST_GEOMETRY_TEST_FAILURES) || ! defined(BOOST_GEOMETRY_USE_RESCALING)
     // No output if rescaling is done
     test_one<Polygon, MultiPolygon, MultiPolygon>("ticket_12125",
         ticket_12125[0], ticket_12125[1],
@@ -417,8 +418,28 @@ void test_areal()
 
     TEST_UNION(ticket_12503, 42, 1, -1, 945.625);
 
-    // Generates two polygons, which should (without rescaling) be merged into one
+#if ! defined(BOOST_GEOMETRY_USE_RESCALING) || defined(BOOST_GEOMETRY_TEST_FAILURES)
+    // Failure with rescaling
+    TEST_UNION(issue_630_a, 1, 0, -1, 2.200326);
+#endif
+    TEST_UNION(issue_630_b, 1, 0, -1, 1.675976);
+#if ! defined(BOOST_GEOMETRY_USE_KRAMER_RULE) || defined(BOOST_GEOMETRY_TEST_FAILURES)
+    // Failure with Kramer rule, it doesn't generate any output
+    TEST_UNION(issue_630_c, 1, 0, -1, 1.670367);
+#endif
+
+#if ! defined(BOOST_GEOMETRY_USE_RESCALING) || defined(BOOST_GEOMETRY_TEST_FAILURES)
+    // With rescaling the small polygon is added on top of the outer polygon
+    TEST_UNION(issue_643, 1, 0, -1, 80.0);
+#endif
+
+#if defined(BOOST_GEOMETRY_USE_KRAMER_RULE)
+    // Two polygons, should ideally be merged
     TEST_UNION(mail_2019_01_21_johan, 2, 0, -1, 0.00058896);
+#else
+    // Correct: one polygon
+    TEST_UNION(mail_2019_01_21_johan, 1, 0, -1, 0.00058896);
+#endif
 
     TEST_UNION(mysql_23023665_7, 1, 1, -1, 99.19494);
     TEST_UNION(mysql_23023665_8, 1, 2, -1, 1400.0);
@@ -448,30 +469,27 @@ void test_specific()
     typedef bg::model::polygon<Point, ClockWise, Closed> polygon;
     typedef bg::model::multi_polygon<polygon> multi_polygon;
 
-    ut_settings settings;
-    settings.test_validity = true;
-
     test_one<polygon, multi_polygon, multi_polygon>("ticket_10803",
         ticket_10803[0], ticket_10803[1],
-        1, 0, 9, 2664270, settings);
+        1, 0, 9, 2664270);
 }
 
 
 int test_main(int, char* [])
 {
-    test_all<bg::model::d2::point_xy<double>, true, true>();
+    BoostGeometryWriteTestConfiguration();
+    test_all<bg::model::d2::point_xy<default_test_type>, true, true>();
+
 #if ! defined(BOOST_GEOMETRY_TEST_ONLY_ONE_TYPE)
     test_all<bg::model::d2::point_xy<double>, false, false>();
+    test_all<bg::model::d2::point_xy<float>, true, true>();
+    test_all<bg::model::d2::point_xy<mp_test_type>, true, true>();
 
     test_specific<bg::model::d2::point_xy<int>, false, false>();
-
-    test_all<bg::model::d2::point_xy<float>, true, true>();
-
-#if defined(HAVE_TTMATH)
-    std::cout << "Testing TTMATH" << std::endl;
-    test_all<bg::model::d2::point_xy<ttmath_big> >();
 #endif
 
+#if defined(BOOST_GEOMETRY_TEST_FAILURES)
+    BoostGeometryWriteExpectedFailures(9, 2, 1, 0);
 #endif
 
     return 0;

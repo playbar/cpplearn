@@ -55,6 +55,7 @@ set( run_test_list
   test_subtract_native
   test_xor_automatic
   test_xor_native
+  test_custom_exception
   test_z
 )
 
@@ -78,6 +79,7 @@ endforeach(test_name)
 set(safe_constexpr_test_list
   test_add_automatic_constexpr
   test_add_native_constexpr
+  test_cast_constexpr
   test_divide_automatic_constexpr
   test_divide_native_constexpr
   test_equal_automatic_constexpr

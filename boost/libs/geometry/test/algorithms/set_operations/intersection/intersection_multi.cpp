@@ -37,7 +37,7 @@
     ( #caseid "_rev", caseid[1], caseid[0], clips, points, area)
 
 #define TEST_INTERSECTION_IGNORE(caseid, clips, points, area) \
-    { ut_settings ignore_validity; ignore_validity.test_validity = false; \
+    { ut_settings ignore_validity; ignore_validity.set_test_validity(false); \
     (test_one<Polygon, MultiPolygon, MultiPolygon>) \
     ( #caseid, caseid[0], caseid[1], clips, points, area, ignore_validity); }
 
@@ -135,15 +135,12 @@ void test_areal()
         case_107_multi[1], case_107_multi[2],
         3, 13, 3.0);
 
-#if defined(BOOST_GEOMETRY_TEST_ENABLE_FAILING)
+#if ! defined(BOOST_GEOMETRY_USE_RESCALING) || defined(BOOST_GEOMETRY_TEST_FAILURES)
     {
-        ut_settings ignore_validity; ignore_validity.test_validity = false;
-
-        // One intersection is missing (by rescaling)
+        // Rescaling misses one intersection
         test_one<Polygon, MultiPolygon, MultiPolygon>("case_108_multi",
             case_108_multi[0], case_108_multi[1],
-            5, 33, 7.5,
-            ignore_validity);
+            7, -1, 7.5);
     }
 #endif
 
@@ -326,15 +323,23 @@ void test_areal()
     TEST_INTERSECTION(case_recursive_boxes_82, 5, -1, 8.5);
     TEST_INTERSECTION(case_recursive_boxes_83, 5, -1, 10.25);
     TEST_INTERSECTION(case_recursive_boxes_84, 1, -1, 0.5);
+#if ! defined(BOOST_GEOMETRY_USE_RESCALING) || defined(BOOST_GEOMETRY_TEST_FAILURES)
     TEST_INTERSECTION(case_recursive_boxes_85, 1, -1, 0.25);
+#endif
     TEST_INTERSECTION(case_recursive_boxes_86, 0, -1, 0.0);
     TEST_INTERSECTION(case_recursive_boxes_87, 0, -1, 0.0);
     TEST_INTERSECTION(case_recursive_boxes_88, 4, -1, 3.5);
 
+#if ! defined(BOOST_GEOMETRY_USE_RESCALING)
     TEST_INTERSECTION(case_precision_m1, 1, -1, 14.0);
     TEST_INTERSECTION(case_precision_m2, 2, -1, 15.25);
     TEST_INTERSECTION_REV(case_precision_m1, 1, -1, 14.0);
     TEST_INTERSECTION_REV(case_precision_m2, 2, -1, 15.25);
+#else
+    // Validity: false positives (very small triangles looking like a line)
+    TEST_INTERSECTION_IGNORE(case_precision_m1, 1, -1, 14.0);
+    TEST_INTERSECTION_IGNORE(case_precision_m2, 2, -1, 15.25);
+#endif
 
     test_one<Polygon, MultiPolygon, MultiPolygon>("ggl_list_20120915_h2_a",
         ggl_list_20120915_h2[0], ggl_list_20120915_h2[1],
@@ -345,22 +350,33 @@ void test_areal()
 
     test_one<Polygon, MultiPolygon, MultiPolygon>("ticket_9081",
         ticket_9081[0], ticket_9081[1],
-        2, 10, 0.0019812556);
+        count_set(2, 4), 10, 0.0019812556);
 
     // Should generate output, even for <float>
+    // For long double two small extra slivers are generated
     test_one<Polygon, MultiPolygon, MultiPolygon>("mail_2019_01_21_johan",
         mail_2019_01_21_johan[2], mail_2019_01_21_johan[3],
-        2, -1, 0.0005889587);
+        count_set(2, 4), -1, 0.0005889587);
 
-    // Very small slice is generated.
-    // qcc-arm reports 1.7791215549400884e-14
-    test_one<Polygon, MultiPolygon, MultiPolygon>("ticket_11018",
-        ticket_11018[0], ticket_11018[1],
-        1, 4, BG_IF_RESCALED(1.7791170511070893e-14, 9.896437631745599e-09),
-        ut_settings(0.001)
-    );
+    // Might generate a very small triangle, which is acceptable
+    TEST_INTERSECTION(ticket_11018, count_set(0, 1), 0, expectation_limits(0.0, 4.0e-7));
 
     TEST_INTERSECTION(ticket_12503, 2, 13, 17.375);
+
+#if ! defined(BOOST_GEOMETRY_USE_RESCALING) || defined(BOOST_GEOMETRY_TEST_FAILURES)
+    // Result is wrong with rescaling
+    TEST_INTERSECTION(issue_630_a, 1, -1, 0.1770);
+#endif
+#if ! defined(BOOST_GEOMETRY_USE_KRAMER_RULE) || defined(BOOST_GEOMETRY_TEST_FAILURES)
+    // Two cases produce either too large, or no output if Kramer rule is used
+    TEST_INTERSECTION(issue_630_b, 1, -1, expectation_limits(0.1713911, 0.1714));
+    TEST_INTERSECTION(issue_630_c, 1, -1, 0.1770);
+#endif
+
+#if ! defined(BOOST_GEOMETRY_USE_RESCALING) || defined(BOOST_GEOMETRY_TEST_FAILURES)
+    // Result is missing with rescaling
+    TEST_INTERSECTION(issue_643, 1, -1, 3.4615);
+#endif
 
     test_one<Polygon, MultiPolygon, MultiPolygon>("mysql_23023665_7",
         mysql_23023665_7[0], mysql_23023665_7[1],
@@ -470,23 +486,20 @@ void test_all()
 #endif
 
     test_point_output<P>();
-    // linear
-
 }
 
 
 int test_main(int, char* [])
 {
-    test_all<bg::model::d2::point_xy<double> >();
+    BoostGeometryWriteTestConfiguration();
+    test_all<bg::model::d2::point_xy<default_test_type> >();
 
 #if ! defined(BOOST_GEOMETRY_TEST_ONLY_ONE_TYPE)
     test_all<bg::model::d2::point_xy<float> >();
-
-#if defined(HAVE_TTMATH)
-    std::cout << "Testing TTMATH" << std::endl;
-    test_all<bg::model::d2::point_xy<ttmath_big> >();
 #endif
 
+#if defined(BOOST_GEOMETRY_TEST_FAILURES)
+    BoostGeometryWriteExpectedFailures(9, 3, 2, 1);
 #endif
 
     return 0;

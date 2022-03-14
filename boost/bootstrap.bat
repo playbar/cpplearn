@@ -2,31 +2,23 @@
 
 SETLOCAL
 
+REM Copyright 2019-2020 Rene Rivera
 REM Copyright (C) 2009 Vladimir Prus
 REM
 REM Distributed under the Boost Software License, Version 1.0.
 REM (See accompanying file LICENSE_1_0.txt or http://www.boost.org/LICENSE_1_0.txt)
 
 ECHO Building Boost.Build engine
-if exist ".\tools\build\src\engine\bin.ntx86\b2.exe" del tools\build\src\engine\bin.ntx86\b2.exe
-if exist ".\tools\build\src\engine\bin.ntx86\bjam.exe" del tools\build\src\engine\bin.ntx86\bjam.exe
-if exist ".\tools\build\src\engine\bin.ntx86_64\b2.exe" del tools\build\src\engine\bin.ntx86_64\b2.exe
-if exist ".\tools\build\src\engine\bin.ntx86_64\bjam.exe" del tools\build\src\engine\bin.ntx86_64\bjam.exe
+if exist ".\tools\build\src\engine\b2.exe" del tools\build\src\engine\b2.exe
 pushd tools\build\src\engine
 
-call .\build.bat %* > ..\..\..\..\bootstrap.log
+call .\build.bat
 @ECHO OFF
 
 popd
 
-if exist ".\tools\build\src\engine\bin.ntx86\bjam.exe" (
-   copy .\tools\build\src\engine\bin.ntx86\b2.exe . > nul
-   copy .\tools\build\src\engine\bin.ntx86\bjam.exe . > nul
-   goto :bjam_built)
-
-if exist ".\tools\build\src\engine\bin.ntx86_64\bjam.exe" (
-   copy .\tools\build\src\engine\bin.ntx86_64\b2.exe . > nul
-   copy .\tools\build\src\engine\bin.ntx86_64\bjam.exe . > nul
+if exist ".\tools\build\src\engine\b2.exe" (
+   copy .\tools\build\src\engine\b2.exe . > nul
    goto :bjam_built)
 
 goto :bjam_failure
@@ -41,6 +33,7 @@ REM properly. Default to msvc if not specified.
 SET TOOLSET=msvc
 
 IF "%1"=="gcc" SET TOOLSET=gcc
+IF "%1"=="clang" SET TOOLSET=clang
 
 IF "%1"=="vc71" SET TOOLSET=msvc : 7.1
 IF "%1"=="vc8" SET TOOLSET=msvc : 8.0
@@ -50,6 +43,7 @@ IF "%1"=="vc11" SET TOOLSET=msvc : 11.0
 IF "%1"=="vc12" SET TOOLSET=msvc : 12.0
 IF "%1"=="vc14" SET TOOLSET=msvc : 14.0
 IF "%1"=="vc141" SET TOOLSET=msvc : 14.1
+IF "%1"=="vc142" SET TOOLSET=msvc : 14.2
 
 ECHO.
 ECHO Generating Boost.Build configuration in project-config.jam for %TOOLSET%...
@@ -95,7 +89,6 @@ goto :end
 
 ECHO.
 ECHO Failed to build Boost.Build engine.
-ECHO Please consult bootstrap.log for further diagnostics.
 ECHO.
 
 REM Set an error code to allow `bootstrap && b2`

@@ -7,7 +7,6 @@
 // See http://www.boost.org/libs/container for documentation.
 //
 //////////////////////////////////////////////////////////////////////////////
-#include <boost/container/detail/config_begin.hpp>
 #include <boost/container/slist.hpp>
 #include <boost/container/node_allocator.hpp>
 
@@ -31,6 +30,10 @@ public:
 
    recursive_slist &operator=(const recursive_slist &o)
    { slist_ = o.slist_;  return *this; }
+
+   recursive_slist (const recursive_slist &o)
+      : slist_(o.slist_)
+   {}
 };
 
 void recursive_slist_test()//Test for recursive types
@@ -255,8 +258,31 @@ int main ()
    }
 #endif
 
+   ////////////////////////////////////
+   //    has_trivial_destructor_after_move testing
+   ////////////////////////////////////
+   // default allocator
+   {
+      typedef boost::container::slist<int> cont;
+      typedef cont::allocator_type allocator_type;
+      typedef boost::container::allocator_traits<allocator_type>::pointer pointer;
+      BOOST_STATIC_ASSERT_MSG(
+        !(boost::has_trivial_destructor_after_move<cont>::value !=
+          boost::has_trivial_destructor_after_move<allocator_type>::value &&
+          boost::has_trivial_destructor_after_move<pointer>::value)
+         ,  "has_trivial_destructor_after_move(default allocator) test failed");
+   }
+   // std::allocator
+   {
+      typedef boost::container::slist<int, std::allocator<int> > cont;
+      typedef cont::allocator_type allocator_type;
+      typedef boost::container::allocator_traits<allocator_type>::pointer pointer;
+      BOOST_STATIC_ASSERT_MSG(
+        !(boost::has_trivial_destructor_after_move<cont>::value !=
+          boost::has_trivial_destructor_after_move<allocator_type>::value &&
+          boost::has_trivial_destructor_after_move<pointer>::value)
+         , "has_trivial_destructor_after_move(std::allocator) test failed");
+   }
+
    return 0;
 }
-
-#include <boost/container/detail/config_end.hpp>
-

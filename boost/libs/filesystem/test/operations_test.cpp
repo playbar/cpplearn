@@ -18,6 +18,9 @@
 #endif
 
 #include <boost/filesystem/operations.hpp>
+#include <boost/filesystem/directory.hpp>
+#include <boost/filesystem/exception.hpp>
+#include <boost/filesystem/file_status.hpp>
 
 #include <boost/config.hpp>
 # if defined( BOOST_NO_STD_WSTRING )
@@ -25,7 +28,8 @@
 # endif
 
 #include <boost/cerrno.hpp>
-#include <boost/detail/lightweight_test.hpp>
+#include <boost/system/error_code.hpp>
+#include <boost/core/lightweight_test.hpp>
 #include <boost/detail/lightweight_main.hpp>
 
 namespace fs = boost::filesystem;
@@ -79,6 +83,7 @@ inline void unsetenv_(const char* name)
 
 #else
 
+#include <unistd.h>  // sleep
 #include <stdlib.h>  // allow unqualifed calls to env funcs on SunOS
 
 inline void setenv_(const char* name, const char* val, int ovw)
@@ -151,7 +156,7 @@ namespace
   }
 
   template< typename F >
-    bool throws_fs_error(F func, errno_t en, int line)
+  bool throws_fs_error(F func, errno_t en, int line)
   {
     try { func(); }
 
@@ -236,6 +241,11 @@ namespace
     fs::remove(bad_remove_dir);
   }
 
+  void bad_space()
+  {
+    fs::space("no-such-path");
+  }
+
   class renamer
   {
   public:
@@ -272,7 +282,7 @@ namespace
   //void dump_tree(const fs::path & root)
   //{
   //  cout << "dumping tree rooted at " << root << endl;
-  //  for (fs::recursive_directory_iterator it (root, fs::symlink_option::recurse);
+  //  for (fs::recursive_directory_iterator it (root, fs::directory_options::follow_directory_symlink);
   //       it != fs::recursive_directory_iterator();
   //       ++it)
   //  {
@@ -642,18 +652,19 @@ namespace
 
   int walk_tree(bool recursive)
   {
-//    cout << "    walk_tree" << endl;
+    //cout << "    walk_tree" << endl;
     error_code ec;
     int d1f1_count = 0;
     for (fs::recursive_directory_iterator it (dir,
-      recursive ? fs::symlink_option::recurse : fs::symlink_option::no_recurse);
+      recursive ? (fs::directory_options::follow_directory_symlink | fs::directory_options::skip_dangling_symlinks) : fs::directory_options::none);
          it != fs::recursive_directory_iterator();
          it.increment(ec))
     {
-//      cout << "      " << it->path() << endl;
+      //cout << "      " << it->path() << " : " << ec << endl;
       if (it->path().filename() == "d1f1")
         ++d1f1_count;
     }
+    //cout << "      last error : " << ec << endl;
     return d1f1_count;
   }
 
@@ -668,7 +679,7 @@ namespace
     cout << "  with error_code argument" << endl;
     boost::system::error_code ec;
     int d1f1_count = 0;
-    fs::recursive_directory_iterator it(dir, fs::symlink_option::no_recurse);
+    fs::recursive_directory_iterator it(dir, fs::directory_options::none);
     fs::recursive_directory_iterator it2(it);  // test single pass shallow copy semantics
     for (;
          it != fs::recursive_directory_iterator();
@@ -728,6 +739,7 @@ namespace
       {
         BOOST_TEST(fs::is_regular_file(it->status()));
         BOOST_TEST(fs::is_symlink(it->symlink_status()));
+        BOOST_TEST(fs::is_symlink(*it));
       }
       else if (it->path().filename() == "dangling_symlink")
       {
@@ -1367,7 +1379,7 @@ namespace
     cout << "remove_symlink_tests..." << endl;
 
     // remove() dangling symbolic link
-    fs::path link("dangling_link");
+    fs::path link = dir / "dangling_link";
     fs::remove(link);  // remove any residue from past tests
     BOOST_TEST(!fs::is_symlink(link));
     BOOST_TEST(!fs::exists(link));
@@ -1378,7 +1390,7 @@ namespace
     BOOST_TEST(!fs::is_symlink(link));
 
     // remove() self-refering symbolic link
-    link = "link_to_self";
+    link = dir / "link_to_self";
     fs::remove(link);  // remove any residue from past tests
     BOOST_TEST(!fs::is_symlink(link));
     BOOST_TEST(!fs::exists(link));
@@ -1388,8 +1400,8 @@ namespace
     BOOST_TEST(!fs::is_symlink(link));
 
     // remove() cyclic symbolic link
-    link = "link_to_a";
-    fs::path link2("link_to_b");
+    link = dir / "link_to_a";
+    fs::path link2 = dir / "link_to_b";
     fs::remove(link);   // remove any residue from past tests
     fs::remove(link2);  // remove any residue from past tests
     BOOST_TEST(!fs::is_symlink(link));
@@ -1403,14 +1415,14 @@ namespace
     BOOST_TEST(!fs::is_symlink(link));
 
     // remove() symbolic link to file
-    fs::path f1x = "link_target";
+    fs::path f1x = dir / "link_target";
     fs::remove(f1x);  // remove any residue from past tests
     BOOST_TEST(!fs::exists(f1x));
     create_file(f1x, "");
     BOOST_TEST(fs::exists(f1x));
     BOOST_TEST(!fs::is_directory(f1x));
     BOOST_TEST(fs::is_regular_file(f1x));
-    link = "non_dangling_link";
+    link = dir / "non_dangling_link";
     fs::create_symlink(f1x, link);
     BOOST_TEST(fs::exists(link));
     BOOST_TEST(!fs::is_directory(link));
@@ -1587,29 +1599,87 @@ namespace
     BOOST_TEST(fs::exists(d1x));
     BOOST_TEST(!fs::exists(d1x / "f2"));
     cout << " copy " << f1x << " to " << d1x / "f2" << endl;
-    fs::copy_file(f1x, d1x / "f2");
+    bool file_copied = fs::copy_file(f1x, d1x / "f2");
     cout << " copy complete" << endl;
+    BOOST_TEST(file_copied);
     BOOST_TEST(fs::exists(f1x));
     BOOST_TEST(fs::exists(d1x / "f2"));
     BOOST_TEST(!fs::is_directory(d1x / "f2"));
     verify_file(d1x / "f2", "file-f1");
 
     bool copy_ex_ok = false;
-    try { fs::copy_file(f1x, d1x / "f2"); }
+    file_copied = false;
+    try { file_copied = fs::copy_file(f1x, d1x / "f2"); }
     catch (const fs::filesystem_error &) { copy_ex_ok = true; }
     BOOST_TEST(copy_ex_ok);
+    BOOST_TEST(!file_copied);
 
+    file_copied = false;
     copy_ex_ok = false;
-    try { fs::copy_file(f1x, d1x / "f2", fs::copy_option::fail_if_exists); }
+    try { file_copied = fs::copy_file(f1x, d1x / "f2", fs::copy_options::none); }
     catch (const fs::filesystem_error &) { copy_ex_ok = true; }
     BOOST_TEST(copy_ex_ok);
+    BOOST_TEST(!file_copied);
 
+    fs::remove(d1x / "f2");
     create_file(d1x / "f2", "1234567890");
     BOOST_TEST_EQ(fs::file_size(d1x / "f2"), 10U);
+    file_copied = false;
     copy_ex_ok = true;
-    try { fs::copy_file(f1x, d1x / "f2", fs::copy_option::overwrite_if_exists); }
+    try { file_copied = fs::copy_file(f1x, d1x / "f2", fs::copy_options::skip_existing); }
     catch (const fs::filesystem_error &) { copy_ex_ok = false; }
     BOOST_TEST(copy_ex_ok);
+    BOOST_TEST(!file_copied);
+    BOOST_TEST_EQ(fs::file_size(d1x / "f2"), 10U);
+    verify_file(d1x / "f2", "1234567890");
+
+    file_copied = false;
+    copy_ex_ok = true;
+    try { file_copied = fs::copy_file(f1x, d1x / "f2-non-existing", fs::copy_options::skip_existing); }
+    catch (const fs::filesystem_error &) { copy_ex_ok = false; }
+    BOOST_TEST(copy_ex_ok);
+    BOOST_TEST(file_copied);
+    BOOST_TEST_EQ(fs::file_size(d1x / "f2-non-existing"), 7U);
+    verify_file(d1x / "f2-non-existing", "file-f1");
+    fs::remove(d1x / "f2-non-existing");
+
+    file_copied = false;
+    copy_ex_ok = true;
+    try { file_copied = fs::copy_file(f1x, d1x / "f2", fs::copy_options::update_existing); }
+    catch (const fs::filesystem_error &) { copy_ex_ok = false; }
+    BOOST_TEST(copy_ex_ok);
+    BOOST_TEST(!file_copied);
+    BOOST_TEST_EQ(fs::file_size(d1x / "f2"), 10U);
+    verify_file(d1x / "f2", "1234567890");
+
+    // Sleep for a while so that the last modify time is more recent for new files
+#if defined(BOOST_POSIX_API)
+    sleep(2);
+#else
+    Sleep(2000);
+#endif
+
+    create_file(d1x / "f2-more-recent", "x");
+    BOOST_TEST_EQ(fs::file_size(d1x / "f2-more-recent"), 1U);
+    file_copied = false;
+    copy_ex_ok = true;
+    try { file_copied = fs::copy_file(d1x / "f2-more-recent", d1x / "f2", fs::copy_options::update_existing); }
+    catch (const fs::filesystem_error &) { copy_ex_ok = false; }
+    BOOST_TEST(copy_ex_ok);
+    BOOST_TEST(file_copied);
+    BOOST_TEST_EQ(fs::file_size(d1x / "f2"), 1U);
+    verify_file(d1x / "f2", "x");
+    fs::remove(d1x / "f2-more-recent");
+
+    fs::remove(d1x / "f2");
+    create_file(d1x / "f2", "1234567890");
+    BOOST_TEST_EQ(fs::file_size(d1x / "f2"), 10U);
+    file_copied = false;
+    copy_ex_ok = true;
+    try { file_copied = fs::copy_file(f1x, d1x / "f2", fs::copy_options::overwrite_existing); }
+    catch (const fs::filesystem_error &) { copy_ex_ok = false; }
+    BOOST_TEST(copy_ex_ok);
+    BOOST_TEST(file_copied);
     BOOST_TEST_EQ(fs::file_size(d1x / "f2"), 7U);
     verify_file(d1x / "f2", "file-f1");
   }
@@ -1709,6 +1779,40 @@ namespace
     BOOST_TEST(copy_ex_ok);
   }
 
+  //  creation_time_tests  -------------------------------------------------------------//
+
+  void creation_time_tests(const fs::path& dirx)
+  {
+    cout << "creation_time_tests..." << endl;
+
+    fs::path f1x = dirx / "creation_time_file";
+
+    std::time_t start = std::time(NULL);
+    create_file(f1x, "creation_time_file");
+    BOOST_TEST(fs::is_regular_file(f1x));
+    try
+    {
+      std::time_t ft = fs::creation_time(f1x);
+      std::time_t finish = std::time(NULL);
+
+      BOOST_TEST(ft >= start && ft <= finish);
+    }
+    catch (fs::filesystem_error& e)
+    {
+      if (e.code() == make_error_condition(boost::system::errc::function_not_supported))
+      {
+        cout << "creation_time is not supported by the current system" << endl;
+      }
+      else
+      {
+        cout << "creation_time failed: " << e.what() << endl;
+        BOOST_TEST(false);
+      }
+    }
+
+    fs::remove(f1x);
+  }
+
   //  write_time_tests  ----------------------------------------------------------------//
 
   void write_time_tests(const fs::path& dirx)
@@ -1795,6 +1899,7 @@ namespace
       BOOST_TEST(fs::system_complete(fs::path("//share")).generic_string()
         ==  "//share");
 
+#if defined(BOOST_FILESYSTEM_HAS_MKLINK)
       // Issue 9016 asked that NTFS directory junctions be recognized as directories.
       // That is equivalent to recognizing them as symlinks, and then the normal symlink
       // mechanism takes care of recognizing them as directories.
@@ -1803,7 +1908,6 @@ namespace
       // and other advantages over symlinks. They can be created from the command line
       // with "mklink /j junction-name target-path".
 
-      if (create_symlink_ok)  // only if symlinks supported
       {
         cout << "  directory junction tests..." << endl;
         BOOST_TEST(fs::exists(dir));
@@ -1836,8 +1940,7 @@ namespace
         BOOST_TEST(fs::is_regular_file(junc / "d1f1"));
 
         int count = 0;
-        for (fs::directory_iterator itr(junc);
-          itr != fs::directory_iterator(); ++itr)
+        for (fs::directory_iterator itr(junc); itr != fs::directory_iterator(); ++itr)
         {
           //cout << itr->path() << endl;
           ++count;
@@ -1860,7 +1963,7 @@ namespace
         BOOST_TEST(fs::exists(dir));
         BOOST_TEST(fs::exists(dir / "d1/d1f1"));
       }
-
+#endif // defined(BOOST_FILESYSTEM_HAS_MKLINK)
     } // Windows
 
     else if (platform == "POSIX")
@@ -1911,6 +2014,18 @@ namespace
       cout << "       free = " << spi.free << '\n';
       cout << "  available = " << spi.available << '\n';
 #   endif
+
+    // Test that we can specify path to file
+    fs::path file = dir / "file";
+    create_file(file);
+
+    fs::space_info spi_file(fs::space(file));
+    BOOST_TEST_EQ(spi_file.capacity, spi.capacity);
+
+    fs::remove(file);
+
+    // Test that an error is indicated if a path to a non-existing file is passed
+    BOOST_TEST(CHECK_EXCEPTION(bad_space, ENOENT));
   }
 
   //  equivalent_tests  ----------------------------------------------------------------//
@@ -2210,11 +2325,7 @@ int cpp_main(int argc, char* argv[])
     platform = "POSIX";
 # elif defined(BOOST_WINDOWS_API)
     platform = "Windows";
-#   if !defined(__MINGW32__) && !defined(__CYGWIN__)
-      language_id = ::GetUserDefaultUILanguage();
-#   else
-      language_id = 0x0409; // Assume US English
-#   endif
+    language_id = ::GetUserDefaultUILanguage();
 # else
 #   error neither BOOST_POSIX_API nor BOOST_WINDOWS_API is defined. See boost/system/api_config.hpp
 # endif
@@ -2299,6 +2410,7 @@ int cpp_main(int argc, char* argv[])
   remove_tests(dir);
   if (create_symlink_ok)  // only if symlinks supported
     remove_symlink_tests();
+  creation_time_tests(dir);
   write_time_tests(dir);
   temp_directory_path_tests();
 

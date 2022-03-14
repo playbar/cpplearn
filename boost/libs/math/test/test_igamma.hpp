@@ -10,7 +10,7 @@
 #include <boost/math/special_functions/math_fwd.hpp>
 #define BOOST_TEST_MAIN
 #include <boost/test/unit_test.hpp>
-#include <boost/test/floating_point_comparison.hpp>
+#include <boost/test/tools/floating_point_comparison.hpp>
 #include <boost/math/tools/stats.hpp>
 #include <boost/math/tools/test.hpp>
 #include <boost/math/constants/constants.hpp>
@@ -249,5 +249,10 @@ void test_spots(T)
       BOOST_CHECK_EQUAL(::boost::math::gamma_q(static_cast<T>(22.25), std::numeric_limits<T>::infinity()), 0);
       BOOST_CHECK_EQUAL(::boost::math::gamma_p(static_cast<T>(22.25), std::numeric_limits<T>::infinity()), 1);
    }
+   //
+   // Large arguments and small parameters, see https://github.com/boostorg/math/issues/451:
+   //
+   BOOST_CHECK_EQUAL(::boost::math::gamma_q(static_cast<T>(1770), static_cast<T>(1e-12)), 1);
+   BOOST_CHECK_EQUAL(::boost::math::gamma_p(static_cast<T>(1770), static_cast<T>(1e-12)), 0);
 }
 

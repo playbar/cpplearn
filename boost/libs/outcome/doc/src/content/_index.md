@@ -6,6 +6,16 @@ title = "Home"
 
 {{% boost-copyright %}}
 
+{{% notice note %}}
+The final release of Outcome v2.1 will be in Boost 1.75 (end of 2020). From Boost 1.76
+(start of 2021) onwards Outcome v2.2 shall become the default. Please consider upgrading
+your code now to v2.2 using [the v2.1 => v2.2 upgrade guide]({{% relref "/changelog/upgrade_v21_v22" %}}).
+The v2.2 branch has a number of major breaking changes to Outcome v2.1, see
+[the list of v2.2 major changes]({{% relref "/changelog/v22" %}}).
+<br><br>
+This library's tutorial remains v2.1 based. It shall be ported to v2.2 in early 2021.
+{{% /notice %}}
+
 Outcome is a set of tools for reporting and handling function failures in contexts where *directly* using C++ exception handling is unsuitable. Such contexts include:
 
   - there are programs, or parts thereof, that are compiled with exceptions disabled;
